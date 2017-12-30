@@ -18,6 +18,7 @@
                         <div class="grid-content bg-purple">
                             <span><i>|</i>酒店星级:</span>
                             <el-select v-model="searchList.hotelStar" placeholder="请选择">
+                                <el-option label="全部" value="0"></el-option>
                                 <el-option label="客栈／公寓" value="1"></el-option>
                                 <el-option label="二星级／经济型" value="2"></el-option>
                                 <el-option label="三星级／舒适型" value="3"></el-option>
@@ -51,7 +52,7 @@
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
                         <el-button>重置条件</el-button>
-                        <el-button type="primary">导出</el-button>
+                        <!--<el-button type="primary">导出</el-button>-->
                     </el-col>
 
                 </el-row>
@@ -68,11 +69,7 @@
             </ul>
         </div>
         <div class="table">
-            <el-table
-                :data="tableData"
-                border
-                stripe
-                style="width: 100%">
+            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
                 <el-table-column
                     prop="hotelId"
                     label="编号"
@@ -104,11 +101,6 @@
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelSupplierId"
-                    label="供应商UID"
-                    align="center">
-                </el-table-column>
-                <el-table-column
                     prop="minimumHotelHousePrice"
                     label="最小价格"
                     align="center">
@@ -138,35 +130,33 @@
 
             </el-table>
             <el-pagination
-                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-sizes="pageSizes"
-                :page-size="searchList.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="searchList.totalList">
+                :page-size="searchList.limit"
+                layout="prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import {hotelList} from '@/api/article'
+    import { hotelList } from '@/api/hotel'
     export default {
-        name: 'dragTable',
+        name: 'hotel',
         data() {
             return {
+                total: 0,
                 searchList: {
-                    scenicName: undefined,
-                    ticketType: undefined,
-                    ticketName: undefined,
+                    hotelName: '',
+                    hotelStar: '',
+                    hotelStatus: '',
                     currentPage: 1,
-                    pageSize: 10,
-                    totalList: 100
+                    limit: 20,
+                    page: 1
                 },
                 beginTime: "",
                 endTime: "",
-                pageSizes: [10, 20, 50, 100],
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
@@ -198,13 +188,9 @@
                     this.listLoading = false
                 })
             },
-            handleSizeChange(val) {
-                this.searchList.pageSize = val
-                this.tableData()
-            },
             handleCurrentChange(val) {
-                this.searchList.currentPage = val
-                this.tableData()
+              this.searchList.page = val;
+                this.getList();
             },
             handleItemChange(val) {
                 console.log('active item:', val)
