@@ -1,5 +1,14 @@
 <template>
 	<div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
+        <div style="width: 100%; height: 70px; background: rgba(88,94,107,1);">
+            <div class="logo">
+                <img src="./logo.png" alt="">
+            </div>
+            <div class="title">
+
+            </div>
+            <div class="login"></div>
+        </div>
 		<sidebar class="sidebar-container"></sidebar>
 		<div class="main-container">
 			<navbar></navbar>
@@ -59,5 +68,26 @@
 			transition: margin-left 0.28s ease-out;
 			margin-left: 180px;
 		}
+        .logo{
+            width: 180px;
+            padding-top: 10px;
+            float: left;
+            img{
+                width: 100%;
+            }
+        }
+        .title{
+            width: 200px;
+            height: 70px;
+            background: #818590;
+            float: left;
+        }
+        .login{
+            float: right;
+            width: 200px;
+            height: 70px;
+            background: #818590;
+            margin-right: 20px;
+        }
 	}
 </style>

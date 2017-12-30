@@ -21,9 +21,6 @@
 	.app-main{
 		min-width: 750px;
 		min-height: 500px;
-		margin:10px;
-		padding: 15px;
-		background-color: #fff;
 		box-shadow: 0 0 1px 0 rgba(0,0,0,0.2);
 		/*display: grid;*/
 	}

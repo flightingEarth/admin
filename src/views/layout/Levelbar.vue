@@ -25,6 +25,7 @@
 //          matched = [{ name: '首页', path: '/' }].concat(matched)
 //        }
         this.levelList = matched;
+        console.log(this.$route.matched)
       }
     },
     watch: {
