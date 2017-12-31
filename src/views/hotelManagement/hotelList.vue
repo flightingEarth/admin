@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <i class="iconfont icon-sousuo1"></i>
+                <svg-icon icon-class="search"/>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -60,7 +60,7 @@
         </div>
 
         <div class="list-title">
-            <i class="iconfont icon-cf-c57"></i>
+            <svg-icon icon-class="list"/>
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
@@ -243,8 +243,8 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                i{
-                    color: #2C7ADE;
+                span {
+                    margin-left: 10px;
                 }
             }
             .input {
@@ -298,14 +298,11 @@
         .list-title {
             width: 100%;
             height: 60px;
-            padding: 0 20px;
+            padding: 0 40px;
             background: #fff;
             margin-top: 20px;
             line-height: 60px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-            i{
-                color: #2C7ADE;
-            }
             ul {
                 list-style: none;
                 float: right;

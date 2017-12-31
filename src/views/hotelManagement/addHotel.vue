@@ -350,10 +350,11 @@
         </div>
 
 
-  </div>
+    </div>
 </template>
 
 <script>
+<<<<<<< Temporary merge branch 1
   import {addHotel, addressList} from '@/api/article'
   //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
   export default {
@@ -380,6 +381,53 @@
           network: []
         },
         rules: {
+=======
+    import {addHotel, addressList} from '@/api/article'
+    //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
+    export default {
+        name:'addHotel',
+        data() {
+            return {
+                dialogImageUrl: '',
+                dialogVisible: false,
+                activeName: 'second',
+                city: "",
+                options: [{
+                    value: 'zhinan',
+                    label: '指南',
+                    children: [{
+                        value: 'shejiyuanze',
+                        label: '设计原则',
+                        children: [{
+                            value: 'yizhi',
+                            label: '一致'
+                        }]
+                    }]
+                }],
+                checkAll: false,
+                networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
+                isIndeterminate: true,
+                options2: [{
+                    id: 'zhinan',
+                    name: '指南',
+                    children: [{
+                        id: 'shejiyuanze',
+                        name: '设计原则',
+                        children: [{
+                            id: 'yizhi',
+                            name: '一致'
+                        }]
+                    }]
+                }],
+                props: {
+                    label: "name",
+                    value: "id"
+                },
+                ruleForm: {
+                    network: []
+                },
+                rules: {
+>>>>>>> Temporary merge branch 2
 //          hotelName: [
 //            {required: true, message: '此处不能为空', trigger: 'blur'}
 //          ],
@@ -612,7 +660,7 @@
             margin-top: 5px;
         }
 
-  }
+    }
 
 
 </style>
