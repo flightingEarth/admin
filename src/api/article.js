@@ -1,25 +1,33 @@
 import request from '@/utils/request'
 
-export function hotelList(query) {
-  return request({
-    url: 'admin/hotel',
-    method: 'get',
-    params: query
-  })
-}
-export function addHotel(query) {
-  return request({
-    url: 'admin/hotel',
-    method: 'post',
-    params: query
-  })
-}
-export function addressList() {
-  return request({
-    url: 'admin/region?parent_id=1',
-    method: 'get'
-  })
-}
+// export function hotelList(query) {
+//   return request({
+//     url: 'admin/hotel',
+//     method: 'get',
+//     params: query
+//   })
+// }
+// export function addHotel(query) {
+//   return request({
+//     url: 'admin/hotel',
+//     method: 'post',
+//     params: query
+//   })
+// }
+// export function addressList() {
+//   return request({
+//     url: 'admin/region?parent_id=1',
+//     method: 'get'
+//   })
+// }
+//
+// export function addHotel(query) {
+//     return request({
+//         url: 'admin/hotel',
+//         method: 'post',
+//         params: query
+//     })
+// }
 
 //
 // export function fetchArticle() {
