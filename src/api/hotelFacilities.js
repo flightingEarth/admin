@@ -1,32 +1,32 @@
 import fetch from 'utils/fetch';
 
-export function hotelList(query) {
+export function getFacilities(query) {
     return fetch({
-        url: 'admin/hotel',
+        url: 'admin/hotelFacilities',
         method: 'get',
         params: query
     });
 }
 
-export function addHotel(data) {
+export function addBanner(data) {
     return fetch({
-        url: 'admin/hotel',
+        url: 'api/banner',
         method: 'post',
         data: data
     });
 }
 
-export function updateHotel(id, data) {
+export function updateBanner(id, data) {
     return fetch({
-        url: 'admin/hotel/' + id,
+        url: 'api/banner/' + id,
         method: 'PUT',
         data: data
     });
 }
 
-export function destroyHotel(id) {
+export function destroyBanner(id) {
     return fetch({
-        url: 'admin/hotel/' + id,
+        url: 'api/banner/' + id,
         method: 'DELETE'
     });
 }

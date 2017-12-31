@@ -27,6 +27,9 @@ import SourceModification from '@/views/scenicManagement/sourceModification'
 import TicketList from '@/views/scenicManagement/ticketList'
 import TourismTheme from '@/views/scenicManagement/tourismTheme'
 
+import Hotel from '@/views/hotel'
+import HotelCreate from '@/views/hotel/create'
+
 
 import HotelManagement from '@/views/hotelManagement'
 import AddHotel from '@/views/hotelManagement/addHotel'
@@ -194,6 +197,20 @@ const router = new Router({
                     component: ScenicLocation,
                     name: '景区地域',
                     icon: 'pointmax'
+                }
+            ]
+        },
+        {
+            path: '/hotel',
+            component: Layout,
+            name: '酒店管理',
+            icon: 'quanxian',
+            children: [
+                {
+                    path: '/hotel', component: Hotel, name: '酒店管理'
+                },
+                {
+                    path: '/hotel/create', hidden:true, component: HotelCreate, name: '酒店添加'
                 }
             ]
         },

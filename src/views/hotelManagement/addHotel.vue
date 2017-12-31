@@ -371,33 +371,11 @@
             return time.getTime() < this.beginTime
           }
         },
-        options: [{
-          value: 'zhinan',
-          label: '指南',
-          children: [{
-            value: 'shejiyuanze',
-            label: '设计原则',
-            children: [{
-              value: 'yizhi',
-              label: '一致'
-            }]
-          }]
-        }],
+        options: [],
         checkAll: false,
         networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
         isIndeterminate: true,
-        options2: [{
-          id: 'zhinan',
-          name: '指南',
-          children: [{
-            id: 'shejiyuanze',
-            name: '设计原则',
-            children: [{
-              id: 'yizhi',
-              name: '一致'
-            }]
-          }]
-        }],
+        options2: [],
         props:{
           label:"name",
           value:"id"
