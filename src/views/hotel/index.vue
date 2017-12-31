@@ -199,11 +199,7 @@
                 this.$router.push({path: "/hotel/"+index + '/edit'})
             },
             handleHouse(){
-<<<<<<< HEAD
                 this.$router.push({path: "/hotelManagement/houseShape"})
-=======
-                this.$router.push({path: "/hotel/room"})
->>>>>>> master
             }
         }
     }

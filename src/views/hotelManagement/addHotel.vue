@@ -354,34 +354,6 @@
 </template>
 
 <script>
-<<<<<<< Temporary merge branch 1
-  import {addHotel, addressList} from '@/api/article'
-  //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
-  export default {
-    data() {
-      return {
-        dialogImageUrl: '',
-        dialogVisible: false,
-        activeName: 'second',
-        minTime: {
-          disabledDate: (time) => {
-            return time.getTime() < this.beginTime
-          }
-        },
-        options: [],
-        checkAll: false,
-        networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
-        isIndeterminate: true,
-        options2: [],
-        props:{
-          label:"name",
-          value:"id"
-        },
-        ruleForm: {
-          network: []
-        },
-        rules: {
-=======
     import {addHotel, addressList} from '@/api/article'
     //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
     export default {
@@ -427,7 +399,6 @@
                     network: []
                 },
                 rules: {
->>>>>>> Temporary merge branch 2
 //          hotelName: [
 //            {required: true, message: '此处不能为空', trigger: 'blur'}
 //          ],
