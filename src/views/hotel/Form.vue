@@ -179,7 +179,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="设备服务" name="fourth">
                             <el-checkbox-group v-model="ruleForm.hotelFacilities">
-                            <el-checkbox v-for="city in facilitiesList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
+                                <el-checkbox v-for="city in facilitiesList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
                     </el-tabs>
@@ -194,16 +194,16 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <el-upload
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        list-type="picture-card"
-                                        :on-preview="handlePictureCardPreview"
-                                        :on-remove="handleRemove">
-                                    <i class="el-icon-plus"></i>
-                                </el-upload>
-                                <el-dialog :visible.sync="dialogVisible" size="tiny">
-                                    <img width="100%" :src="dialogImageUrl" alt="">
-                                </el-dialog>
+                                <!--<el-upload-->
+                                <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                                <!--list-type="picture-card"-->
+                                <!--:on-preview="handlePictureCardPreview"-->
+                                <!--:on-remove="handleRemove">-->
+                                <!--<i class="el-icon-plus"></i>-->
+                                <!--</el-upload>-->
+                                <div class="el-upload el-upload--text" @click="imageVisible = true">
+                                    <i class="el-icon-plus picture-uploader-icon"></i>
+                                </div>
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
                         </el-col>
@@ -350,16 +350,17 @@
 
             </el-form>
         </div>
-
-
+        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false" @submit="selectImagesSubmit"></select-images>
     </div>
 </template>
 
 <script>
     import { updateHotel, addHotel} from '@/api/hotel'
     import { getFacilities } from '@/api/hotelFacilities'
-    //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
+    import SelectImages from "@/components/Attachment/selectImages";
+
     export default {
+        components: { SelectImages },
         props: {
             ruleForm: {
                 type: Object,
@@ -374,6 +375,7 @@
         },
         data() {
             return {
+                imageVisible: false,
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'first',
@@ -395,59 +397,58 @@
                     value:"id"
                 },
                 rules: {
-                  hotelName: [
-                    { type: String, required: true, message: '请填写酒店名称', trigger: 'blur'}
-                  ],
-                  minimumHotelHousePrice: [
-                    { type: Number, required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
-                  ],
-                  hotelBrandId: [
-                    { type: Number,required: true, message: '请选择酒店的品牌', trigger: 'change'}
-                  ],
-                  hotelSupplierId: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
-                  ],
-                  hotelLongitude: [
-                    {required: true, message: '请填写百度经度', trigger: 'blur'},
-                    {type: number, message: '您填写的百度经度格式错误', trigger: 'blur'},
-                  ],
-                  hotelLatitude: [
-                    {required: true, message: '请填写百度纬度', trigger: 'blur'},
-                    {type: true, message: '您填写的百度纬度格式错误', trigger: 'blur'}
-                  ],
-                  hotelAddress: [
-                    {required: true, message: '请填写酒店地址', trigger: 'blur'}
-                  ],
-                  hotelStatus: [
-                    {required: true, message: '请选择酒店状态', trigger: 'change'}
-                  ],
-                  hotelSort: [
-                    {required: true, message: '请选择酒店排序顺序', trigger: 'blur'}
-                  ],
-                  hotelSaleCount: [
-                    {required: true, message: '请填写酒店的销量', trigger: 'blur'}
-                  ],
-                  hotelStar: [
-                    {required: true, message: '请选择酒店的星级', trigger: 'change'}
-                  ],
-                  hotelTelephone: [
-                    {required: true, message: '请填写酒店电话', trigger: 'blur'}
-                  ],
-                  hotelFeatures: [
-                    {required: true, message: '请填写酒店的特色', trigger: 'blur'}
-                  ],
-                  hotelIntroduction: [
-                    {required: true, message: '请填写酒店的简介', trigger: 'blur'}
-                  ],
-                  checkInTime: [
-                    {required: true, message: '请填写酒店入店时间', trigger: 'change'}
-                  ],
-                  departureTime: [
-                    {required: true, message: '请填写酒店离店时间', trigger: 'change'}
-                  ],
-                  hotelStartBusiness: [
-                    {required: true, message: '请填写开业时间', trigger: 'blur'},
-                  ],
+                    hotelName: [
+                        { required: true, message: '请填写酒店名称', trigger: 'blur'}
+                    ],
+                    minimumHotelHousePrice: [
+                        { type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
+                    ],
+                    hotelBrandId: [
+                        { type: 'number',required: true, message: '请选择酒店的品牌', trigger: 'change'}
+                    ],
+                    hotelSupplierId: [
+                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                    ],
+                    hotelLongitude: [
+                        {required: true, message: '请填写百度经度', trigger: 'blur'},
+                    ],
+                    hotelLatitude: [
+                        {required: true, message: '请填写百度纬度', trigger: 'blur'},
+//                    {type: number, message: '您填写的百度纬度格式错误', trigger: 'blur'}
+                    ],
+                    hotelAddress: [
+                        {required: true, message: '请填写酒店地址', trigger: 'blur'}
+                    ],
+                    hotelStatus: [
+                        {required: true, message: '请选择酒店状态', trigger: 'change'}
+                    ],
+                    hotelSort: [
+                        {required: true, message: '请选择酒店排序顺序', trigger: 'blur'}
+                    ],
+                    hotelSaleCount: [
+                        {required: true, message: '请填写酒店的销量', trigger: 'blur'}
+                    ],
+                    hotelStar: [
+                        {required: true, message: '请选择酒店的星级', trigger: 'change'}
+                    ],
+                    hotelTelephone: [
+                        {required: true, message: '请填写酒店电话', trigger: 'blur'}
+                    ],
+                    hotelFeatures: [
+                        {required: true, message: '请填写酒店的特色', trigger: 'blur'}
+                    ],
+                    hotelIntroduction: [
+                        {required: true, message: '请填写酒店的简介', trigger: 'blur'}
+                    ],
+                    checkInTime: [
+                        {required: true, message: '请填写酒店入店时间', trigger: 'change'}
+                    ],
+                    departureTime: [
+                        {required: true, message: '请填写酒店离店时间', trigger: 'change'}
+                    ],
+                    hotelStartBusiness: [
+                        {required: true, message: '请填写开业时间', trigger: 'blur'},
+                    ],
 //                  decorationTime: [
 //                    {required: true, message: '此处不能为空', trigger: 'blur'}
 //                  ],
@@ -467,7 +468,6 @@
             }
         },
         created() {
-
         },
         methods: {
             handleCheckAllChange(val) {
@@ -492,6 +492,7 @@
             },
 
             submitForm() {
+                console.log(this.ruleForm)
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
@@ -527,23 +528,23 @@
             },
             handleClick(tab) {
                 console.log(this.networkList.length)
-//                if (this.activeName == 'first'    ) {
-//
-//
-////                    this.$router.push({ path: '/setting/certificate' });
-//                } else if(this.activeName == 'second') {
-//                    if (this.networkList.length == 0) {
-//                        this.getNetworkList()
-//                    }
-//                }  else if(this.activeName == 'third') {
-//                    if (this.parkingLotList.length == 0) {
-//                        this.getParkingLot()
-//                    }
-//                } else if(this.activeName == 'fourth') {
-//                    if (this.facilitiesList.length == 0) {
-//                        this.getFacilitiesList()
-//                    }
-//                }
+                if (this.activeName == 'first'    ) {
+
+
+//                    this.$router.push({ path: '/setting/certificate' });
+                } else if(this.activeName == 'second') {
+                    if (this.networkList.length == 0) {
+                        this.getNetworkList()
+                    }
+                }  else if(this.activeName == 'third') {
+                    if (this.parkingLotList.length == 0) {
+                        this.getParkingLot()
+                    }
+                } else if(this.activeName == 'fourth') {
+                    if (this.facilitiesList.length == 0) {
+                        this.getFacilitiesList()
+                    }
+                }
             },
             //获取酒店网络设施
             getNetworkList() {
@@ -564,6 +565,10 @@
                 getFacilities(para).then(response => {
                     this.facilitiesList = response.data.data
                 })
+            },
+            //选择图片
+            selectImagesSubmit(images) {
+                this.news.page_image = images[0].links
             }
         }
     }
