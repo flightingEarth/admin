@@ -51,7 +51,7 @@
                 stripe
                 style="width: 100%">
                 <el-table-column
-                    prop="id"
+                    prop="roomId"
                     label="房间编号"
                     align="center"
                 >
@@ -63,36 +63,36 @@
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="houseId"
+                    prop="roomName"
                     label="房型名称"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="productName"
+                    prop="bedIntro"
                     label="床型"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="bed"
+                    prop="buildingArea"
                     label="面积"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="addBed"
+                    prop="roomFloor"
                     label="楼层"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="breakfast"
+                    prop="capacity"
                     label="可住人数"
                     align="center">
                 </el-table-column>
 
                 <el-table-column
-                    prop="wifi"
+                    prop="withWindows"
                     label="是否有窗"
                     align="center">
                 </el-table-column>
@@ -102,9 +102,12 @@
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="status"
                     label="房间状态"
                     align="center">
+                    <template slot-scope="scope">
+                        <el-button type="text" v-if="scope.row.status = 1" size="small">正常</el-button>
+                        <el-button type="text" v-if="scope.row.status = 2" size="small">未营业</el-button>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="操作"
@@ -152,19 +155,7 @@
                     value: '1',
                     label: '未营业'
                 }],
-                tableData: [{
-                    id: '995395',
-                    hotelId: '23',
-                    houseId: '679890',
-                    productName: '大床房',
-                    bed: '双人床1.8，1张',
-                    addBed: '不可加床',
-                    breakfast: '无早',
-                    wifi: '免费无线',
-                    shareType: '',
-                    status: '审核通过',
-                    productStatus: '',
-                }]
+                tableData: []
             }
         },
         created(){
@@ -174,10 +165,10 @@
             getList() {
                 this.listLoading = true
                 roomList(this.searchList).then(response => {
-//                    this.tableData = response.data.items
+                    this.tableData = response.data.data
 //                    this.total = response.data.total
 //                    this.listLoading = false
-                    console.log(response);
+//                    console.log(response);
                 })
             },
             handleSizeChange(val) {
