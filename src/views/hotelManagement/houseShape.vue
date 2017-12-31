@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <svg-icon icon-class="search"/>
+                <i class="iconfont icon-sousuo1"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -38,7 +38,7 @@
         </div>
 
         <div class="list-title">
-            <svg-icon icon-class="list"/>
+            <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHouse">添加房型</a></li>
@@ -132,6 +132,7 @@
 <script>
     import {fetchList} from '@/api/article'
     export default {
+        name: 'houseShape',
         data() {
             return {
                 searchList: {
@@ -142,14 +143,7 @@
                     pageSize: 10,
                     totalList: 100
                 },
-                beginTime: "",
-                endTime: "",
                 pageSizes: [10, 20, 50, 100],
-                minTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
-                    }
-                },
                 supplierOptions: [{
                     value: '0',
                     label: '正常'
@@ -216,9 +210,6 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                span {
-                    margin-left: 10px;
-                }
             }
             .input {
                 span {
@@ -271,7 +262,7 @@
         .list-title {
             width: 100%;
             height: 60px;
-            padding: 0 40px;
+            padding: 0 20px;
             background: #fff;
             margin-top: 20px;
             line-height: 60px;

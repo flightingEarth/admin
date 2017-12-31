@@ -3,7 +3,7 @@
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <svg-icon icon-class="white"/>
+                    <i class="iconfont icon-shuxie"></i>
                     <span>编辑门票</span>
                 </div>
                 <div class="input">
@@ -141,7 +141,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <svg-icon icon-class="cart"/>
+                    <i class="iconfont icon-gouwuche"></i>
                     <span>门票购买规则</span>
                 </div>
                 <div class="input">
@@ -223,7 +223,7 @@
 
 
                 <div class="title title1">
-                    <svg-icon icon-class="piao"/>
+                    <i class="iconfont icon-guize"></i>
                     <span>门票使用规则</span>
                 </div>
                 <div class="input">
@@ -300,7 +300,7 @@
                 </div>
 
                 <div class="title title1">
-                    <svg-icon icon-class="money"/>
+                    <i class="iconfont icon-qian"></i>
                     <span>价格信息</span>
                 </div>
                 <div class="input">
@@ -354,6 +354,7 @@
 <script>
     import {fetchList} from '@/api/article';
     export default {
+        name: 'addTicket',
         data() {
             return {
                 dialogImageUrl: '',

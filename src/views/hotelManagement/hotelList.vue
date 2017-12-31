@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <svg-icon icon-class="search"/>
+                <i class="iconfont icon-sousuo1"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -60,7 +60,7 @@
         </div>
 
         <div class="list-title">
-            <svg-icon icon-class="list"/>
+            <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
@@ -153,7 +153,7 @@
 <script>
     import {hotelList} from '@/api/article'
     export default {
-        name: 'dragTable',
+        name: 'hotelList',
         data() {
             return {
                 searchList: {
@@ -167,11 +167,6 @@
                 beginTime: "",
                 endTime: "",
                 pageSizes: [10, 20, 50, 100],
-                minTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
-                    }
-                },
                 tableData: [],
                 options2: [{
                     label: '江苏',
@@ -253,8 +248,8 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                span {
-                    margin-left: 10px;
+                i{
+                    color: #2C7ADE;
                 }
             }
             .input {
@@ -308,11 +303,14 @@
         .list-title {
             width: 100%;
             height: 60px;
-            padding: 0 40px;
+            padding: 0 20px;
             background: #fff;
             margin-top: 20px;
             line-height: 60px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
+            i{
+                color: #2C7ADE;
+            }
             ul {
                 list-style: none;
                 float: right;

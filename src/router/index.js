@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Layout from '@/views/layout/Layout'
 import Dashboard from '@/views/dashboard'
 
+
 import Financial from '@/views/financial'
 import CashApplication from '@/views/financial/cashApplication'
 import FinancialManagement from '@/views/financial/financialManagement'
@@ -385,7 +386,7 @@ const router = new Router({
                 component: OperationIndex,
                 name: '手动操作管理'
             }]
-        },
+        }
     ]
 })
 
