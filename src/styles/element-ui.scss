@@ -175,6 +175,9 @@
 .el-form-item__error{
   left: 92px;
 }
+ label{
+     font-weight: normal!important;
+ }
  label.el-radio{
      font-weight: normal;
  }
@@ -201,4 +204,13 @@
          }
      }
 
+ }
+
+ .area-select.medium{
+     .el-select{
+         width: 24.4%;
+     }
+ }
+ .iconfont{
+     color: #2C7ADE;
  }

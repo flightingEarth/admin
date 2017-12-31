@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <svg-icon icon-class="search"/>
+                <i class="iconfont icon-sousuo1"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -89,7 +89,7 @@
         </div>
 
         <div class="list-title">
-            <svg-icon icon-class="list"/>
+            <i class="iconfont icon-cf-c57"></i>
             <span>数据列表</span>
         </div>
 
@@ -212,6 +212,7 @@
 <script>
     import {fetchList} from '@/api/article'
     export default {
+        name:'cashApplication',
         data() {
             return {
                 searchList: {
@@ -223,6 +224,13 @@
                     totalList: 100,
                     currentPage: 1,
                     pageSize: 10
+                },
+                beginTime: "",
+                endTime: "",
+                minTime: {
+                    disabledDate: (time) => {
+                        return time.getTime() < this.beginTime
+                    }
                 },
 
                 gridData: [{
@@ -247,11 +255,6 @@
                 endTime: "",
                 listLoading: false,
                 pageSizes: [10, 20, 50, 100],
-                minTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
-                    }
-                },
                 supplierOptions: [{
                     value: '选项1',
                     label: '黄金糕'
@@ -311,8 +314,8 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                span {
-                    margin-left: 10px;
+                i{
+                    color: #2C7ADE;
                 }
             }
             .input {
@@ -367,10 +370,14 @@
         .list-title {
             width: 100%;
             height: 60px;
-            padding: 0 40px;
+            padding: 0 20px;
             background: #fff;
             margin-top: 20px;
             line-height: 60px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
+            i{
+                color: #2C7ADE;
+            }
         }
         ul {
             list-style: none;
@@ -399,7 +406,8 @@
             background: #fff;
             width: 100%;
             padding: 20px;
-            margin-top: 10px;
+            margin-top: 5px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
         }
         .stayIn {
             color: #666;

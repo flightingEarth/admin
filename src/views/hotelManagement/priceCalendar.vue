@@ -3,7 +3,7 @@
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <svg-icon icon-class="added"/>
+                    <i class="iconfont icon-comiisjiahao"></i>
                     <span>批量添加</span>
                 </div>
                 <div class="input">
@@ -40,34 +40,13 @@
                                 <span><i>|</i>选择时间:</span>
                             </div>
                             <div class="inputTime">
-                                <el-form-item label="膳食安排" prop="hotelName">
-                                    <el-date-picker
-                                        v-model="time1"
-                                        type="date"
-                                        placeholder="选择日期">
-                                    </el-date-picker>
-                                </el-form-item>
-                                <el-form-item label="膳食安排" prop="hotelName">
-                                    <el-date-picker
-                                        v-model="time2"
-                                        type="date"
-                                        placeholder="选择日期">
-                                    </el-date-picker>
-                                </el-form-item>
-                                <el-form-item label="膳食安排" prop="hotelName">
-                                    <el-date-picker
-                                        v-model="time3"
-                                        type="date"
-                                        placeholder="选择日期">
-                                    </el-date-picker>
-                                </el-form-item>
-                                <el-form-item label="膳食安排" prop="hotelName">
-                                    <el-date-picker
-                                        v-model="time4"
-                                        type="date"
-                                        placeholder="选择日期">
-                                    </el-date-picker>
-                                </el-form-item>
+                                <el-date-picker
+                                    v-model="ruleForm.time"
+                                    type="daterange"
+                                    range-separator="至"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期">
+                                </el-date-picker>
                             </div>
                         </el-col>
                         <el-col :span="12">
@@ -116,14 +95,81 @@
             </el-form>
         </div>
 
+        <div class="calendar">
+            <p>注：修改当日数量：双击选择日期 批量修改抽奖数量：鼠标按住拖选日期 选择修改抽奖数量：ctrl+单击日历</p>
+            <div class="title">
+                <i class="iconfont icon-zuo"></i>
+                <span>2017-12</span>
+                <i class="iconfont icon-you"></i>
+            </div>
+            <table>
+                <tr>
+                    <th>日</th>
+                    <th>一</th>
+                    <th>二</th>
+                    <th>三</th>
+                    <th>四</th>
+                    <th>五</th>
+                    <th>六</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                    <td>14</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>16</td>
+                    <td>17</td>
+                    <td>18</td>
+                    <td>19</td>
+                    <td>20</td>
+                    <td>21</td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td>23</td>
+                    <td>24</td>
+                    <td>25</td>
+                    <td>26</td>
+                    <td>27</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>29</td>
+                    <td>30</td>
+                    <td>31</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </table>
+        </div>
+
 
     </div>
 </template>
 
 <script>
     import {addHotel, addressList} from '@/api/article'
+    import "../../iconfont/iconfont.css"
     //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
     export default {
+        name: 'priceCalendar',
         data() {
             return {
                 dialogImageUrl: '',
@@ -213,20 +259,20 @@
 ////          this.options2 = response.data.data;
 //                })
 //            },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-//            addHotel(this.ruleForm).then(response => {
-//
-//              console.log(response);
-//            })
-                        console.log(this.ruleForm);
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
-            },
+//            submitForm(formName) {
+//                this.$refs[formName].validate((valid) => {
+//                    if (valid) {
+////            addHotel(this.ruleForm).then(response => {
+////
+////              console.log(response);
+////            })
+//                        console.log(this.ruleForm);
+//                    } else {
+//                        console.log('error submit!!')
+//                        return false
+//                    }
+//                })
+//            },
             resetForm(formName) {
                 this.$refs[formName].resetFields()
             }
@@ -259,7 +305,10 @@
                 padding-bottom: 10px;
                 margin-bottom: 20px;
                 span {
-                    margin-left: 10px;
+                    margin-left: 5px;
+                }
+                i{
+                    color: #2C7ADE;
                 }
             }
             .input {
@@ -303,6 +352,13 @@
                     overflow: hidden;
                     margin-top: 20px;
                     width: 80%;
+                    .el-input{
+                        width: 90%;
+                        margin-bottom: 20px;
+                        .el-input__inner{
+                            text-align: center;
+                        }
+                    }
                     .el-form-item {
                         width: 40%;
                         float: left;
@@ -358,6 +414,50 @@
                     color: #666;
                     margin-left: 0;
                     margin-top: 5px;
+                }
+            }
+        }
+        .calendar{
+            margin-top: 10px;
+            width: 100%;
+            height: 700px;
+            background: #fff;
+            padding: 0 70px;
+            overflow: hidden;
+            p{
+                margin: 15px 0;
+            }
+            .title{
+                height: 50px;
+                width: 100%;
+                background: #388FFF;
+                text-align: center;
+                color: #fff;
+                font-size: 18px;
+                line-height: 50px;
+                .icon-zuo{
+                    float: left;
+                    margin-left: 10px;
+                    cursor: pointer;
+                }
+                .icon-you{
+                    float: right;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+            }
+            table{
+                width: 100%;
+                table-layout: fixed;
+                th{
+                    height: 50px;
+                    background: #fff;
+                }
+                td{
+                    background: #F2F2F2;
+                    height: 100px;
+                    vertical-align: top;
+                    border: 1px solid #E6E6E6;
                 }
             }
         }

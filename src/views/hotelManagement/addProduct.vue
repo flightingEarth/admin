@@ -3,7 +3,7 @@
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <svg-icon icon-class="added"/>
+                    <i class="iconfont icon-comiisjiahao"></i>
                     <span>添加酒店</span>
                 </div>
                 <div class="input">
@@ -271,6 +271,7 @@
     import {addHotel, addressList} from '@/api/article'
     //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
     export default {
+        name:"addProduct",
         data() {
             return {
                 dialogImageUrl: '',
