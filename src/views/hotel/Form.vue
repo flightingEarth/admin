@@ -358,7 +358,6 @@
 <script>
     import { updateHotel, addHotel} from '@/api/hotel'
     import { getFacilities } from '@/api/hotelFacilities'
-    //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
     export default {
         props: {
             ruleForm: {
@@ -396,24 +395,23 @@
                 },
                 rules: {
                   hotelName: [
-                    { type: String, required: true, message: '请填写酒店名称', trigger: 'blur'}
+                    { required: true, message: '请填写酒店名称', trigger: 'blur'}
                   ],
                   minimumHotelHousePrice: [
-                    { type: Number, required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
+                    { type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
                   ],
                   hotelBrandId: [
-                    { type: Number,required: true, message: '请选择酒店的品牌', trigger: 'change'}
+                    { type: 'number',required: true, message: '请选择酒店的品牌', trigger: 'change'}
                   ],
                   hotelSupplierId: [
                     {required: true, message: '此处不能为空', trigger: 'blur'}
                   ],
                   hotelLongitude: [
                     {required: true, message: '请填写百度经度', trigger: 'blur'},
-                    {type: number, message: '您填写的百度经度格式错误', trigger: 'blur'},
                   ],
                   hotelLatitude: [
                     {required: true, message: '请填写百度纬度', trigger: 'blur'},
-                    {type: true, message: '您填写的百度纬度格式错误', trigger: 'blur'}
+//                    {type: number, message: '您填写的百度纬度格式错误', trigger: 'blur'}
                   ],
                   hotelAddress: [
                     {required: true, message: '请填写酒店地址', trigger: 'blur'}
@@ -467,7 +465,6 @@
             }
         },
         created() {
-
         },
         methods: {
             handleCheckAllChange(val) {
@@ -492,6 +489,7 @@
             },
 
             submitForm() {
+                console.log(this.ruleForm)
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
@@ -527,23 +525,23 @@
             },
             handleClick(tab) {
                 console.log(this.networkList.length)
-//                if (this.activeName == 'first'    ) {
-//
-//
-////                    this.$router.push({ path: '/setting/certificate' });
-//                } else if(this.activeName == 'second') {
-//                    if (this.networkList.length == 0) {
-//                        this.getNetworkList()
-//                    }
-//                }  else if(this.activeName == 'third') {
-//                    if (this.parkingLotList.length == 0) {
-//                        this.getParkingLot()
-//                    }
-//                } else if(this.activeName == 'fourth') {
-//                    if (this.facilitiesList.length == 0) {
-//                        this.getFacilitiesList()
-//                    }
-//                }
+                if (this.activeName == 'first'    ) {
+
+
+//                    this.$router.push({ path: '/setting/certificate' });
+                } else if(this.activeName == 'second') {
+                    if (this.networkList.length == 0) {
+                        this.getNetworkList()
+                    }
+                }  else if(this.activeName == 'third') {
+                    if (this.parkingLotList.length == 0) {
+                        this.getParkingLot()
+                    }
+                } else if(this.activeName == 'fourth') {
+                    if (this.facilitiesList.length == 0) {
+                        this.getFacilitiesList()
+                    }
+                }
             },
             //获取酒店网络设施
             getNetworkList() {
