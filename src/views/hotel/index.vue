@@ -106,6 +106,7 @@
                         align="center">
                 </el-table-column>
                 <el-table-column
+
                         label="酒店状态"
                         align="center">
                     <template slot-scope="scope">
@@ -198,7 +199,11 @@
                 this.$router.push({path: "/hotel/"+index + '/edit'})
             },
             handleHouse(){
+<<<<<<< HEAD
                 this.$router.push({path: "/hotelManagement/houseShape"})
+=======
+                this.$router.push({path: "/hotel/room"})
+>>>>>>> master
             }
         }
     }

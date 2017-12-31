@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <i class="iconfont icon-sousuo1"></i>
+                <svg-icon icon-class="search"/>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -51,7 +51,7 @@
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
                         <el-button>重置条件</el-button>
-                        <el-button type="primary">导出</el-button>
+                        <!--<el-button type="primary">导出</el-button>-->
                     </el-col>
 
                 </el-row>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="list-title">
-            <i class="iconfont icon-cf-c57"></i>
+            <svg-icon icon-class="list"/>
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
@@ -68,11 +68,7 @@
             </ul>
         </div>
         <div class="table">
-            <el-table
-                :data="tableData"
-                border
-                stripe
-                style="width: 100%">
+            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
                 <el-table-column
                     prop="hotelId"
                     label="编号"
@@ -138,35 +134,38 @@
 
             </el-table>
             <el-pagination
-                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-sizes="pageSizes"
-                :page-size="searchList.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="searchList.totalList">
+                :page-size="searchList.limit"
+                layout="prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import {hotelList} from '@/api/article'
+    import { hotelList } from '@/api/hotel'
     export default {
-        name: 'hotelList',
+        name: 'hotel',
         data() {
             return {
+                total: 0,
                 searchList: {
-                    scenicName: undefined,
-                    ticketType: undefined,
-                    ticketName: undefined,
+                    hotelName: '',
+                    hotelStar: '',
+                    hotelStatus: '',
                     currentPage: 1,
-                    pageSize: 10,
-                    totalList: 100
+                    limit: 20,
+                    page: 1
                 },
                 beginTime: "",
                 endTime: "",
-                pageSizes: [10, 20, 50, 100],
+                minTime: {
+                    disabledDate: (time) => {
+                        return time.getTime() < this.beginTime
+                    }
+                },
                 tableData: [],
                 options2: [{
                     label: '江苏',
@@ -193,13 +192,9 @@
                     this.listLoading = false
                 })
             },
-            handleSizeChange(val) {
-                this.searchList.pageSize = val
-                this.tableData()
-            },
             handleCurrentChange(val) {
-                this.searchList.currentPage = val
-                this.tableData()
+              this.searchList.page = val;
+                this.getList();
             },
             handleItemChange(val) {
                 console.log('active item:', val)
@@ -248,8 +243,8 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                i{
-                    color: #2C7ADE;
+                span {
+                    margin-left: 10px;
                 }
             }
             .input {
@@ -303,14 +298,11 @@
         .list-title {
             width: 100%;
             height: 60px;
-            padding: 0 20px;
+            padding: 0 40px;
             background: #fff;
             margin-top: 20px;
             line-height: 60px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-            i{
-                color: #2C7ADE;
-            }
             ul {
                 list-style: none;
                 float: right;

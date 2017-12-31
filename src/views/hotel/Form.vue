@@ -1,9 +1,10 @@
+
 <template>
     <div class="main">
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <i class="iconfont icon-comiisjiahao"></i>
+                    <svg-icon icon-class="added"/>
                     <span>添加酒店</span>
                 </div>
                 <div class="input">
@@ -20,8 +21,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>销售起价:</span>
                                 <el-form-item label="膳食安排" prop="minimumHotelHousePrice">
-                                    <el-input v-model="ruleForm.minimumHotelHousePrice" type="number"
-                                              placeholder="请输入数字"></el-input>
+                                    <el-input v-model="ruleForm.minimumHotelHousePrice" type="number" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -76,7 +76,7 @@
                                 <span><i>|</i>酒店状态:</span>
                                 <el-form-item label="活动区域" prop="hotelStatus">
                                     <el-select v-model="ruleForm.hotelStatus" placeholder="请选择">
-                                        <el-option label="正常营业" value="1"></el-option>
+                                        <el-option label="正常营业" value="1" ></el-option>
                                         <el-option label="不营业" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
@@ -94,8 +94,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
                                 <el-form-item label="膳食安排" prop="hotelSaleCount">
-                                    <el-input type="number" v-model="ruleForm.hotelSaleCount"
-                                              placeholder="请输入数字"></el-input>
+                                    <el-input type="number" v-model="ruleForm.hotelSaleCount" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -104,7 +103,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>所在省份:</span>
                                 <el-form-item label="活动区域" prop="activeLocation">
-                                    <area-select :level="2" v-model="city"></area-select>
+
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -126,7 +125,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <i class="iconfont icon-hotel"></i>
+                    <svg-icon icon-class="hotel"/>
                     <span>基本信息</span>
                 </div>
                 <div class="input">
@@ -159,30 +158,35 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <i class="iconfont icon-gongju"></i>
+                    <svg-icon icon-class="gongju"/>
                     <span>设备选择</span>
                 </div>
                 <div class="tab">
                     <el-checkbox :indeterminate="isIndeterminate" class="checkAll" v-model="checkAll"
                                  @change="handleCheckAllChange">全选
-                    </el-checkbox>
+          </el-checkbox>
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>
                         <el-tab-pane label="网络设备" name="second">
-                            <el-checkbox-group v-model="ruleForm.network" @change="handleCheckedCitiesChange">
-                                <el-checkbox v-for="city in networkList" :label="city" :key="city">{{city}}
-                                </el-checkbox>
+                            <el-checkbox-group v-model="ruleForm.network">
+                                <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
-                        <el-tab-pane label="停车场" name="third">角色管理</el-tab-pane>
+                        <el-tab-pane label="停车场" name="third">
+                            <el-checkbox-group v-model="ruleForm.parkingLot">
+                                <el-checkbox v-for="parking in parkingLotList" :label="parking.id" :key="parking.id">{{parking.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-tab-pane>
                         <el-tab-pane label="设备服务" name="fourth">
-
+                            <el-checkbox-group v-model="ruleForm.hotelFacilities">
+                            <el-checkbox v-for="city in facilitiesList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
+                            </el-checkbox-group>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
 
                 <div class="title title1">
-                    <i class="iconfont icon-tupian"></i>
+                    <svg-icon icon-class="gongju"/>
                     <span>图片添加</span>
                 </div>
                 <div class="input">
@@ -191,10 +195,10 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
                                 <el-upload
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove">
+                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                        list-type="picture-card"
+                                        :on-preview="handlePictureCardPreview"
+                                        :on-remove="handleRemove">
                                     <i class="el-icon-plus"></i>
                                 </el-upload>
                                 <el-dialog :visible.sync="dialogVisible" size="tiny">
@@ -207,7 +211,7 @@
                 </div>
 
                 <div class="title title1">
-                    <i class="iconfont icon-zhengce"></i>
+                    <svg-icon icon-class="zc"/>
                     <span>酒店政策</span>
                 </div>
                 <div class="input">
@@ -215,7 +219,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>入店时间:</span>
-                                <el-form-item label="活动区域" prop="checkInTime">
+                                <el-form-item label="入店时间" prop="checkInTime">
                                     <el-select v-model="ruleForm.checkInTime" placeholder="请选择">
                                         <el-option label="00:00" value="00:00"></el-option>
                                         <el-option label="01:00" value="01:00"></el-option>
@@ -281,12 +285,10 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>开业时间:</span>
-                                <el-form-item label="膳食安排" prop="hotelStartBusiness">
-                                    <el-date-picker
-                                        v-model="ruleForm.hotelStartBusiness"
-                                        type="date"
-                                        placeholder="选择日期">
-                                    </el-date-picker>
+                                <el-form-item label="开业时间" prop="hotelStartBusiness">
+                                    <el-form-item label="开业时间" prop="hotelStartBusiness">
+                                        <el-input v-model="ruleForm.hotelStartBusiness" placeholder="请填写开业时间（如：2014）"></el-input>
+                                    </el-form-item>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -294,7 +296,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>装修时间:</span>
-                                <el-form-item label="膳食安排" prop="decorationTime">
+                                <el-form-item label="装修时间" prop="decorationTime">
                                     <el-input v-model="ruleForm.decorationTime"></el-input>
                                 </el-form-item>
                             </div>
@@ -302,7 +304,7 @@
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>携带宠物:</span>
-                                <el-form-item label="膳食安排" prop="pet">
+                                <el-form-item label="携带宠物" prop="pet">
                                     <el-input v-model="ruleForm.pet"></el-input>
                                 </el-form-item>
                             </div>
@@ -311,7 +313,7 @@
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>取消政策:</span>
-                                <el-form-item label="膳食安排" prop="abolitionOfPolicy">
+                                <el-form-item label="取消政策" prop="abolitionOfPolicy">
                                     <el-input v-model="ruleForm.abolitionOfPolicy"></el-input>
                                 </el-form-item>
                             </div>
@@ -319,7 +321,7 @@
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>入住手续:</span>
-                                <el-form-item label="膳食安排" prop="checkIn">
+                                <el-form-item label="入住手续" prop="checkIn">
                                     <el-input v-model="ruleForm.checkIn"></el-input>
                                 </el-form-item>
                             </div>
@@ -340,7 +342,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+                            <el-button type="primary" @click="submitForm" :loading="addLoading">提交</el-button>
                             <el-button>返回</el-button>
                         </el-col>
                     </el-row>
@@ -354,163 +356,126 @@
 </template>
 
 <script>
-<<<<<<< Temporary merge branch 1
-  import {addHotel, addressList} from '@/api/article'
-  //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
-  export default {
-    data() {
-      return {
-        dialogImageUrl: '',
-        dialogVisible: false,
-        activeName: 'second',
-        minTime: {
-          disabledDate: (time) => {
-            return time.getTime() < this.beginTime
-          }
-        },
-        options: [],
-        checkAll: false,
-        networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
-        isIndeterminate: true,
-        options2: [],
-        props:{
-          label:"name",
-          value:"id"
-        },
-        ruleForm: {
-          network: []
-        },
-        rules: {
-=======
-    import {addHotel, addressList} from '@/api/article'
+    import { updateHotel, addHotel} from '@/api/hotel'
+    import { getFacilities } from '@/api/hotelFacilities'
     //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
     export default {
-        name:'addHotel',
+        props: {
+            ruleForm: {
+                type: Object,
+                default() {
+                    return {
+                        network: [],
+                        parkingLot: [],
+                        hotelFacilities:[]
+                    }
+                }
+            }
+        },
         data() {
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
-                activeName: 'second',
-                city: "",
-                options: [{
-                    value: 'zhinan',
-                    label: '指南',
-                    children: [{
-                        value: 'shejiyuanze',
-                        label: '设计原则',
-                        children: [{
-                            value: 'yizhi',
-                            label: '一致'
-                        }]
-                    }]
-                }],
-                checkAll: false,
-                networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
-                isIndeterminate: true,
-                options2: [{
-                    id: 'zhinan',
-                    name: '指南',
-                    children: [{
-                        id: 'shejiyuanze',
-                        name: '设计原则',
-                        children: [{
-                            id: 'yizhi',
-                            name: '一致'
-                        }]
-                    }]
-                }],
-                props: {
-                    label: "name",
-                    value: "id"
+                activeName: 'first',
+                addLoading: false,
+                minTime: {
+                    disabledDate: (time) => {
+                        return time.getTime() < this.beginTime
+                    }
                 },
-                ruleForm: {
-                    network: []
+                networkList:[],//网络设施
+                parkingLotList:[], //停车场
+                facilitiesList:[], //设备服务
+                options:[],
+                checkAll: false,
+                isIndeterminate: true,
+                options2: [],
+                props:{
+                    label:"name",
+                    value:"id"
                 },
                 rules: {
->>>>>>> Temporary merge branch 2
-//          hotelName: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          minimumHotelHousePrice: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelBrandId: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSupplierId: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelLongitude: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelLatitude: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelAddress: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelStatus: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSort: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSaleCount: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelStar: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelTelephone: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelFeatures: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelIntroduction: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          checkInTime: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          departureTime: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelStartBusiness: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          decorationTime: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          pet: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          abolitionOfPolicy: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          checkIn: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          buffet: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ]
+                  hotelName: [
+                    { type: String, required: true, message: '请填写酒店名称', trigger: 'blur'}
+                  ],
+                  minimumHotelHousePrice: [
+                    { type: Number, required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
+                  ],
+                  hotelBrandId: [
+                    { type: Number,required: true, message: '请选择酒店的品牌', trigger: 'change'}
+                  ],
+                  hotelSupplierId: [
+                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                  ],
+                  hotelLongitude: [
+                    {required: true, message: '请填写百度经度', trigger: 'blur'},
+                    {type: number, message: '您填写的百度经度格式错误', trigger: 'blur'},
+                  ],
+                  hotelLatitude: [
+                    {required: true, message: '请填写百度纬度', trigger: 'blur'},
+                    {type: true, message: '您填写的百度纬度格式错误', trigger: 'blur'}
+                  ],
+                  hotelAddress: [
+                    {required: true, message: '请填写酒店地址', trigger: 'blur'}
+                  ],
+                  hotelStatus: [
+                    {required: true, message: '请选择酒店状态', trigger: 'change'}
+                  ],
+                  hotelSort: [
+                    {required: true, message: '请选择酒店排序顺序', trigger: 'blur'}
+                  ],
+                  hotelSaleCount: [
+                    {required: true, message: '请填写酒店的销量', trigger: 'blur'}
+                  ],
+                  hotelStar: [
+                    {required: true, message: '请选择酒店的星级', trigger: 'change'}
+                  ],
+                  hotelTelephone: [
+                    {required: true, message: '请填写酒店电话', trigger: 'blur'}
+                  ],
+                  hotelFeatures: [
+                    {required: true, message: '请填写酒店的特色', trigger: 'blur'}
+                  ],
+                  hotelIntroduction: [
+                    {required: true, message: '请填写酒店的简介', trigger: 'blur'}
+                  ],
+                  checkInTime: [
+                    {required: true, message: '请填写酒店入店时间', trigger: 'change'}
+                  ],
+                  departureTime: [
+                    {required: true, message: '请填写酒店离店时间', trigger: 'change'}
+                  ],
+                  hotelStartBusiness: [
+                    {required: true, message: '请填写开业时间', trigger: 'blur'},
+                  ],
+//                  decorationTime: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ],
+//                  pet: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ],
+//                  abolitionOfPolicy: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ],
+//                  checkIn: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ],
+//                  buffet: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ]
                 }
             }
         },
         created() {
-//            this.getList()
+
         },
         methods: {
-            getList() {
-//                addressList().then(response => {
-////          this.options2 = response.data.data;
-//                })
-            },
             handleCheckAllChange(val) {
                 this.ruleForm.network = val ? this.networkList : []
                 this.isIndeterminate = false
             },
             handleCheckedCitiesChange(value) {
+                console.log(value)
                 let checkedCount = value.length
                 this.checkAll = checkedCount === this.networkList.length
                 this.isIndeterminate = checkedCount > 0 && checkedCount < this.networkList.length
@@ -526,25 +491,79 @@
                 this.dialogVisible = true
             },
 
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
+            submitForm() {
+                this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
-//            addHotel(this.ruleForm).then(response => {
-//
-//              console.log(response);
-//            })
-                        console.log(this.ruleForm);
+                        this.addLoading = true
+                        if (this.ruleForm.hotelId == undefined) {
+                            addHotel(this.ruleForm).then(response => {
+                                console.log(response.data);
+                                this.$message({
+                                    message: '添加成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        } else {
+                            updateHotel(this.ruleForm.hotelId, this.ruleForm).then(response => {
+                                this.$message({
+                                    message: '更新成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        }
                     } else {
                         console.log('error submit!!')
                         return false
                     }
                 })
             },
+            handleCancel(){
+                this.$router.push({path: "/hotel"})
+            },
             resetForm(formName) {
                 this.$refs[formName].resetFields()
             },
             handleClick(tab) {
-
+                console.log(this.networkList.length)
+//                if (this.activeName == 'first'    ) {
+//
+//
+////                    this.$router.push({ path: '/setting/certificate' });
+//                } else if(this.activeName == 'second') {
+//                    if (this.networkList.length == 0) {
+//                        this.getNetworkList()
+//                    }
+//                }  else if(this.activeName == 'third') {
+//                    if (this.parkingLotList.length == 0) {
+//                        this.getParkingLot()
+//                    }
+//                } else if(this.activeName == 'fourth') {
+//                    if (this.facilitiesList.length == 0) {
+//                        this.getFacilitiesList()
+//                    }
+//                }
+            },
+            //获取酒店网络设施
+            getNetworkList() {
+                let para = { type:1 }
+                getFacilities(para).then(response => {
+                    this.networkList = response.data.data
+                })
+            },
+            //获取酒店停车场
+            getParkingLot() {
+                let para = { type:2 }
+                getFacilities(para).then(response => {
+                    this.parkingLotList = response.data.data
+                })
+            },
+            getFacilitiesList() {
+                let para = { type:3 }
+                getFacilities(para).then(response => {
+                    this.facilitiesList = response.data.data
+                })
             }
         }
     }
@@ -638,6 +657,7 @@
                     top: 10px;
                 }
             }
+
         }
         .stayIn {
             color: #666;
