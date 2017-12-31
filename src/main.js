@@ -9,10 +9,15 @@ import 'element-ui/lib/theme-default/index.css'
 import './assets/custom-theme/index.css'; // 换肤版本element-ui css
 import './assets/iconfont/iconfont'; // iconfont 具体图标见https://github.com/PanJiaChen/vue-element-admin/wiki
 
-import IconSvg from './components/Icon-svg'// svg 组件
+// import IconSvg from './components/Icon-svg'// svg 组件
+import './icons' // icon
 
-Vue.component('icon-svg', IconSvg)
+import VueAreaLinkage from 'vue-area-linkage'; //城市三级联动
+
+// Vue.component('icon-svg', IconSvg)
 Vue.use(Element)
+
+Vue.use(VueAreaLinkage)
 
 Vue.config.productionTip = false
 

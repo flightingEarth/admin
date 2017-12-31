@@ -3,7 +3,7 @@
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <svg-icon icon-class="hotel"/>
+                    <i class="iconfont icon-comiisjiahao"></i>
                     <span>添加景区</span>
                 </div>
                 <div class="input">
@@ -85,7 +85,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <svg-icon icon-class="address"/>
+                    <i class="iconfont icon-dizhi"></i>
                     <span>地址详情</span>
                 </div>
                 <div class="input">
@@ -129,7 +129,7 @@
                 </div>
 
                 <div class="title title1">
-                    <svg-icon icon-class="img"/>
+                    <i class="iconfont icon-tupian"></i>
                     <span>图片添加</span>
                 </div>
                 <div class="input">
@@ -156,7 +156,7 @@
                 </div>
 
                 <div class="title title1">
-                    <svg-icon icon-class="scenic"/>
+                    <i class="iconfont icon-jingdian"></i>
                     <span>景区详细信息</span>
                 </div>
                 <div class="input">
@@ -221,16 +221,12 @@
 
     export default {
         components: {Tinymce, SelectImages},
+        name: 'addScenic',
         data() {
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'second',
-                minTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
-                    }
-                },
                 options: [{
                     value: 'zhinan',
                     label: '指南',
