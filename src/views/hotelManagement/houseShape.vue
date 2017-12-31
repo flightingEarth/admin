@@ -130,7 +130,8 @@
 </template>
 
 <script>
-    import {fetchList} from '@/api/article'
+    import { roomList } from '@/api/hotelRoom'
+
     export default {
         name: 'houseShape',
         data() {
@@ -166,13 +167,17 @@
                 }]
             }
         },
+        created(){
+            this.getList()
+        },
         methods: {
             getList() {
                 this.listLoading = true
-                fetchList(this.searchList).then(response => {
-                    this.tableData = response.data.items
-                    this.total = response.data.total
-                    this.listLoading = false
+                roomList(this.searchList).then(response => {
+//                    this.tableData = response.data.items
+//                    this.total = response.data.total
+//                    this.listLoading = false
+                    console.log(response);
                 })
             },
             handleSizeChange(val) {
