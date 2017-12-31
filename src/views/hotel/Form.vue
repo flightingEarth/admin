@@ -194,16 +194,16 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <el-upload
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        list-type="picture-card"
-                                        :on-preview="handlePictureCardPreview"
-                                        :on-remove="handleRemove">
-                                    <i class="el-icon-plus"></i>
-                                </el-upload>
-                                <el-dialog :visible.sync="dialogVisible" size="tiny">
-                                    <img width="100%" :src="dialogImageUrl" alt="">
-                                </el-dialog>
+                                <!--<el-upload-->
+                                        <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                                        <!--list-type="picture-card"-->
+                                        <!--:on-preview="handlePictureCardPreview"-->
+                                        <!--:on-remove="handleRemove">-->
+                                    <!--<i class="el-icon-plus"></i>-->
+                                <!--</el-upload>-->
+                                <div class="el-upload el-upload--text" @click="imageVisible = true">
+                                    <i class="el-icon-plus picture-uploader-icon"></i>
+                                </div>
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
                         </el-col>
@@ -350,15 +350,17 @@
 
             </el-form>
         </div>
-
-
+        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false" @submit="selectImagesSubmit"></select-images>
     </div>
 </template>
 
 <script>
     import { updateHotel, addHotel} from '@/api/hotel'
     import { getFacilities } from '@/api/hotelFacilities'
+    import SelectImages from "@/components/Attachment/selectImages";
+
     export default {
+        components: { SelectImages },
         props: {
             ruleForm: {
                 type: Object,
@@ -373,6 +375,7 @@
         },
         data() {
             return {
+                imageVisible: false,
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'first',
@@ -562,6 +565,10 @@
                 getFacilities(para).then(response => {
                     this.facilitiesList = response.data.data
                 })
+            },
+            //选择图片
+            selectImagesSubmit(images) {
+                this.news.page_image = images[0].links
             }
         }
     }

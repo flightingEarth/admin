@@ -42,9 +42,9 @@
 <script>
     import { parseTime } from '@/utils';
     import { getList, addNews, updateNews, destroyNews } from 'api/news';
-import FormMixin from './FormMixin'
-import Tinymce from '@/components/Tinymce'
-import SelectImages from "@/components/Attachment/selectImages";
+    import FormMixin from './FormMixin'
+    import Tinymce from '@/components/Tinymce'
+    import SelectImages from "@/components/Attachment/selectImages";
 
 export default {
 //    name:'NewForm',
