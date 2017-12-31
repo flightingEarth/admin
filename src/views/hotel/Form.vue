@@ -76,7 +76,7 @@
                                 <span><i>|</i>酒店状态:</span>
                                 <el-form-item label="活动区域" prop="hotelStatus">
                                     <el-select v-model="ruleForm.hotelStatus" placeholder="请选择">
-                                        <el-option label="正常营业" value="1"></el-option>
+                                        <el-option label="正常营业" value="1" ></el-option>
                                         <el-option label="不营业" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
@@ -103,11 +103,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>所在省份:</span>
                                 <el-form-item label="活动区域" prop="activeLocation">
-                                    <el-cascader
-                                            :options="options2"
-                                            v-model="ruleForm.address"
-                                            :props = "props"
-                                    ></el-cascader>
+
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -182,7 +178,7 @@
                             </el-checkbox-group>
                         </el-tab-pane>
                         <el-tab-pane label="设备服务" name="fourth">
-                            <el-checkbox-group v-model="checkedCities">
+                            <el-checkbox-group v-model="ruleForm.hotelFacilities">
                             <el-checkbox v-for="city in facilitiesList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
@@ -223,7 +219,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>入店时间:</span>
-                                <el-form-item label="活动区域" prop="checkInTime">
+                                <el-form-item label="入店时间" prop="checkInTime">
                                     <el-select v-model="ruleForm.checkInTime" placeholder="请选择">
                                         <el-option label="00:00" value="00:00"></el-option>
                                         <el-option label="01:00" value="01:00"></el-option>
@@ -289,12 +285,10 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>开业时间:</span>
-                                <el-form-item label="膳食安排" prop="hotelStartBusiness">
-                                    <el-date-picker
-                                            v-model="ruleForm.hotelStartBusiness"
-                                            type="date"
-                                            placeholder="选择日期">
-                                    </el-date-picker>
+                                <el-form-item label="开业时间" prop="hotelStartBusiness">
+                                    <el-form-item label="开业时间" prop="hotelStartBusiness">
+                                        <el-input v-model="ruleForm.hotelStartBusiness" placeholder="请填写开业时间（如：2014）"></el-input>
+                                    </el-form-item>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -302,7 +296,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>装修时间:</span>
-                                <el-form-item label="膳食安排" prop="decorationTime">
+                                <el-form-item label="装修时间" prop="decorationTime">
                                     <el-input v-model="ruleForm.decorationTime"></el-input>
                                 </el-form-item>
                             </div>
@@ -310,7 +304,7 @@
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>携带宠物:</span>
-                                <el-form-item label="膳食安排" prop="pet">
+                                <el-form-item label="携带宠物" prop="pet">
                                     <el-input v-model="ruleForm.pet"></el-input>
                                 </el-form-item>
                             </div>
@@ -319,7 +313,7 @@
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>取消政策:</span>
-                                <el-form-item label="膳食安排" prop="abolitionOfPolicy">
+                                <el-form-item label="取消政策" prop="abolitionOfPolicy">
                                     <el-input v-model="ruleForm.abolitionOfPolicy"></el-input>
                                 </el-form-item>
                             </div>
@@ -327,7 +321,7 @@
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>入住手续:</span>
-                                <el-form-item label="膳食安排" prop="checkIn">
+                                <el-form-item label="入住手续" prop="checkIn">
                                     <el-input v-model="ruleForm.checkIn"></el-input>
                                 </el-form-item>
                             </div>
@@ -348,7 +342,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm">添加</el-button>
+                            <el-button type="primary" @click="submitForm" :loading="addLoading">提交</el-button>
                             <el-button>返回</el-button>
                         </el-col>
                     </el-row>
@@ -366,11 +360,24 @@
     import { getFacilities } from '@/api/hotelFacilities'
     //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
     export default {
+        props: {
+            ruleForm: {
+                type: Object,
+                default() {
+                    return {
+                        network: [],
+                        parkingLot: [],
+                        hotelFacilities:[]
+                    }
+                }
+            }
+        },
         data() {
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'first',
+                addLoading: false,
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
@@ -387,76 +394,75 @@
                     label:"name",
                     value:"id"
                 },
-                ruleForm: {
-                    network: []
-                },
                 rules: {
                   hotelName: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    { type: String, required: true, message: '请填写酒店名称', trigger: 'blur'}
                   ],
                   minimumHotelHousePrice: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    { type: Number, required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
                   ],
                   hotelBrandId: [
-                    {required: true, message: '此处不能为空', trigger: 'change'}
+                    { type: Number,required: true, message: '请选择酒店的品牌', trigger: 'change'}
                   ],
                   hotelSupplierId: [
                     {required: true, message: '此处不能为空', trigger: 'blur'}
                   ],
                   hotelLongitude: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    {required: true, message: '请填写百度经度', trigger: 'blur'},
+                    {type: number, message: '您填写的百度经度格式错误', trigger: 'blur'},
                   ],
                   hotelLatitude: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    {required: true, message: '请填写百度纬度', trigger: 'blur'},
+                    {type: true, message: '您填写的百度纬度格式错误', trigger: 'blur'}
                   ],
                   hotelAddress: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    {required: true, message: '请填写酒店地址', trigger: 'blur'}
                   ],
                   hotelStatus: [
-                    {required: true, message: '此处不能为空', trigger: 'change'}
+                    {required: true, message: '请选择酒店状态', trigger: 'change'}
                   ],
                   hotelSort: [
-                    {required: true, message: '此处不能为空', trigger: 'change'}
+                    {required: true, message: '请选择酒店排序顺序', trigger: 'blur'}
                   ],
                   hotelSaleCount: [
-                    {required: true, message: '此处不能为空', trigger: 'change'}
+                    {required: true, message: '请填写酒店的销量', trigger: 'blur'}
                   ],
                   hotelStar: [
-                    {required: true, message: '此处不能为空', trigger: 'change'}
+                    {required: true, message: '请选择酒店的星级', trigger: 'change'}
                   ],
                   hotelTelephone: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    {required: true, message: '请填写酒店电话', trigger: 'blur'}
                   ],
                   hotelFeatures: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    {required: true, message: '请填写酒店的特色', trigger: 'blur'}
                   ],
                   hotelIntroduction: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
+                    {required: true, message: '请填写酒店的简介', trigger: 'blur'}
                   ],
                   checkInTime: [
-                    {required: true, message: '此处不能为空', trigger: 'change'}
+                    {required: true, message: '请填写酒店入店时间', trigger: 'change'}
                   ],
                   departureTime: [
-                    {required: true, message: '此处不能为空', trigger: 'change'}
+                    {required: true, message: '请填写酒店离店时间', trigger: 'change'}
                   ],
-//                  hotelStartBusiness: [
-//                    {required: true, message: '此处不能为空', trigger: 'blur'},
+                  hotelStartBusiness: [
+                    {required: true, message: '请填写开业时间', trigger: 'blur'},
+                  ],
+//                  decorationTime: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
 //                  ],
-                  decorationTime: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
-                  ],
-                  pet: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
-                  ],
-                  abolitionOfPolicy: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
-                  ],
-                  checkIn: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
-                  ],
-                  buffet: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
-                  ]
+//                  pet: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ],
+//                  abolitionOfPolicy: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ],
+//                  checkIn: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ],
+//                  buffet: [
+//                    {required: true, message: '此处不能为空', trigger: 'blur'}
+//                  ]
                 }
             }
         },
@@ -486,9 +492,9 @@
             },
 
             submitForm() {
-                console.log(this.ruleForm)
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
+                        this.addLoading = true
                         if (this.ruleForm.hotelId == undefined) {
                             addHotel(this.ruleForm).then(response => {
                                 console.log(response.data);
@@ -496,14 +502,15 @@
                                     message: '添加成功！',
                                     type: 'success'
                                 });
+                                this.handleCancel();
                             })
                         } else {
                             updateHotel(this.ruleForm.hotelId, this.ruleForm).then(response => {
-                                console.log(response.data);
                                 this.$message({
                                     message: '更新成功！',
                                     type: 'success'
                                 });
+                                this.handleCancel();
                             })
                         }
                     } else {
@@ -512,28 +519,31 @@
                     }
                 })
             },
+            handleCancel(){
+                this.$router.push({path: "/hotel"})
+            },
             resetForm(formName) {
                 this.$refs[formName].resetFields()
             },
-            handleClick(tab, event) {
-                if (this.activeName == 'first') {
-
-                    
-//                    this.$router.push({ path: '/setting/certificate' });
-                } else if(this.activeName == 'second') {
-                    if (this.networkList.length == 0) {
-                        this.getNetworkList()
-                    }
-                }  else if(this.activeName == 'third') {
-                    if (this.parkingLotList.length == 0) {
-                        this.getParkingLot()
-                    }
-                } else if(this.activeName == 'fourth') {
-                    if (this.facilitiesList.length == 0) {
-                        this.getFacilitiesList()
-                    }
-
-                }
+            handleClick(tab) {
+                console.log(this.networkList.length)
+//                if (this.activeName == 'first'    ) {
+//
+//
+////                    this.$router.push({ path: '/setting/certificate' });
+//                } else if(this.activeName == 'second') {
+//                    if (this.networkList.length == 0) {
+//                        this.getNetworkList()
+//                    }
+//                }  else if(this.activeName == 'third') {
+//                    if (this.parkingLotList.length == 0) {
+//                        this.getParkingLot()
+//                    }
+//                } else if(this.activeName == 'fourth') {
+//                    if (this.facilitiesList.length == 0) {
+//                        this.getFacilitiesList()
+//                    }
+//                }
             },
             //获取酒店网络设施
             getNetworkList() {

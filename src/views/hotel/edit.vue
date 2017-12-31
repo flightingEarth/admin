@@ -1,21 +1,21 @@
 <template>
-    <hotel-form :hotel="hotel"></hotel-form>
+    <hotel-form :ruleForm="ruleForm"></hotel-form>
 </template>
 
 <script>
     import HotelForm from './Form'
-    import { getList } from 'api/hotel'
+    import { getHotel } from 'api/hotel'
 
     export default {
         components: { HotelForm },
         data() {
             return {
-                hotel: undefined
+                ruleForm: undefined
             }
         },
         created() {
-            getList(this.$route.params.id).then(response => {
-                this.hotel = response.data.data
+            getHotel(this.$route.params.id).then(response => {
+                this.ruleForm = response.data.data
             })
         },
     }

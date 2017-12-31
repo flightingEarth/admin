@@ -8,6 +8,13 @@ export function hotelList(query) {
     });
 }
 
+export function getHotel(id) {
+    return fetch({
+        url: 'admin/hotel/' + id +'/edit',
+        method: 'get',
+    });
+}
+
 export function addHotel(data) {
     return fetch({
         url: 'admin/hotel',

@@ -4,9 +4,8 @@
 
 <script>
     import HotelForm from './Form'
-    import Hotel from "./index";
 
     export default {
-        components: {Hotel, HotelForm },
+        components: { HotelForm },
     }
 </script>

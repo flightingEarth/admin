@@ -196,7 +196,7 @@
                 this.getList()
             },
             edit(index) {
-                console.log(index);
+                this.$router.push({path: "/hotel/"+index + '/edit'})
             },
             handleHouse(){
                 this.$router.push({path: "/hotel/room"})

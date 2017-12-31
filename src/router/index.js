@@ -29,6 +29,7 @@ import TourismTheme from '@/views/scenicManagement/tourismTheme'
 
 import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
+import HotelEdit from '@/views/hotel/edit'
 
 
 import HotelManagement from '@/views/hotelManagement'
@@ -201,7 +202,7 @@ const router = new Router({
             ]
         },
         {
-            path: '/hotel',
+            path: '/',
             component: Layout,
             name: '酒店管理',
             icon: 'quanxian',
@@ -211,6 +212,9 @@ const router = new Router({
                 },
                 {
                     path: '/hotel/create', hidden:true, component: HotelCreate, name: '酒店添加'
+                },
+                {
+                    path: '/hotel/:id/edit', hidden:true, component: HotelEdit, name: '酒店编辑'
                 }
             ]
         },
