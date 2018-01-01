@@ -47,7 +47,7 @@
                                    size="small">
                             <i class="iconfont icon-iconjia"></i>
                         </el-button>
-                        <p>暂无数据，点击添加</p>
+                        <p v-show="categoryVisible">暂无数据，点击添加</p>
                     </div>
                 </div>
             </div>
