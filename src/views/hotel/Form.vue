@@ -528,9 +528,7 @@
             },
             handleClick(tab) {
                 console.log(this.networkList.length)
-                if (this.activeName == 'first'    ) {
-
-
+                if (this.activeName == 'first') {
 //                    this.$router.push({ path: '/setting/certificate' });
                 } else if(this.activeName == 'second') {
                     if (this.networkList.length == 0) {

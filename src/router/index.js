@@ -28,6 +28,10 @@ import SourceModification from '@/views/scenicManagement/sourceModification'
 import TicketList from '@/views/scenicManagement/ticketList'
 import TourismTheme from '@/views/scenicManagement/tourismTheme'
 
+import ScenicSpot from '@/views/scenicSpot'
+import ScenicCreate from '@/views/scenicSpot/create'
+import ScenicEdit from '@/views/scenicSpot/edit'
+
 import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
 import HotelEdit from '@/views/hotel/edit'
@@ -141,6 +145,21 @@ const router = new Router({
                 name: '用户管理',
                 icon: 'dashboard'
             }]
+        },
+
+        {
+            path: '/',
+            component: Layout,
+            name: '景区管理',
+            icon: 'quanxian',
+            children: [
+                {
+                    path: '/scenic', component: ScenicSpot, name: '景区管理',
+                },
+                {
+                    path: '/scenic/create',hidden:true, component: ScenicCreate, name: '景区管理',
+                }
+            ]
         },
 
         {
