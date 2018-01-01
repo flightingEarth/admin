@@ -1,9 +1,10 @@
+
 <template>
     <div class="main">
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <i class="iconfont icon-comiisjiahao"></i>
+                    <svg-icon icon-class="added"/>
                     <span>添加酒店</span>
                 </div>
                 <div class="input">
@@ -20,8 +21,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>销售起价:</span>
                                 <el-form-item label="膳食安排" prop="minimumHotelHousePrice">
-                                    <el-input v-model="ruleForm.minimumHotelHousePrice" type="number"
-                                              placeholder="请输入数字"></el-input>
+                                    <el-input v-model="ruleForm.minimumHotelHousePrice" type="number" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -76,7 +76,7 @@
                                 <span><i>|</i>酒店状态:</span>
                                 <el-form-item label="活动区域" prop="hotelStatus">
                                     <el-select v-model="ruleForm.hotelStatus" placeholder="请选择">
-                                        <el-option label="正常营业" value="1"></el-option>
+                                        <el-option label="正常营业" value="1" ></el-option>
                                         <el-option label="不营业" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
@@ -94,8 +94,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
                                 <el-form-item label="膳食安排" prop="hotelSaleCount">
-                                    <el-input type="number" v-model="ruleForm.hotelSaleCount"
-                                              placeholder="请输入数字"></el-input>
+                                    <el-input type="number" v-model="ruleForm.hotelSaleCount" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -126,7 +125,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <i class="iconfont icon-hotel"></i>
+                    <svg-icon icon-class="hotel"/>
                     <span>基本信息</span>
                 </div>
                 <div class="input">
@@ -159,26 +158,23 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <i class="iconfont icon-gongju"></i>
+                    <svg-icon icon-class="gongju"/>
                     <span>设备选择</span>
                 </div>
                 <div class="tab">
                     <el-checkbox :indeterminate="isIndeterminate" class="checkAll" v-model="checkAll"
                                  @change="handleCheckAllChange">全选
-                    </el-checkbox>
+          </el-checkbox>
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>
                         <el-tab-pane label="网络设备" name="second">
                             <el-checkbox-group v-model="ruleForm.network">
-                                <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}
-                                </el-checkbox>
+                                <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
                         <el-tab-pane label="停车场" name="third">
                             <el-checkbox-group v-model="ruleForm.parkingLot">
-                                <el-checkbox v-for="parking in parkingLotList" :label="parking.id" :key="parking.id">
-                                    {{parking.name}}
-                                </el-checkbox>
+                                <el-checkbox v-for="parking in parkingLotList" :label="parking.id" :key="parking.id">{{parking.name}}</el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
                         <el-tab-pane label="设备服务" name="fourth">
@@ -190,7 +186,7 @@
                 </div>
 
                 <div class="title title1">
-                    <i class="iconfont icon-tupian"></i>
+                    <svg-icon icon-class="gongju"/>
                     <span>图片添加</span>
                 </div>
                 <div class="input">
@@ -198,6 +194,13 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
+                                <!--<el-upload-->
+                                <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                                <!--list-type="picture-card"-->
+                                <!--:on-preview="handlePictureCardPreview"-->
+                                <!--:on-remove="handleRemove">-->
+                                <!--<i class="el-icon-plus"></i>-->
+                                <!--</el-upload>-->
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
@@ -208,7 +211,7 @@
                 </div>
 
                 <div class="title title1">
-                    <i class="iconfont icon-zhengce"></i>
+                    <svg-icon icon-class="zc"/>
                     <span>酒店政策</span>
                 </div>
                 <div class="input">
@@ -284,8 +287,7 @@
                                 <span><i>|</i>开业时间:</span>
                                 <el-form-item label="开业时间" prop="hotelStartBusiness">
                                     <el-form-item label="开业时间" prop="hotelStartBusiness">
-                                        <el-input v-model="ruleForm.hotelStartBusiness"
-                                                  placeholder="请填写开业时间（如：2014）"></el-input>
+                                        <el-input v-model="ruleForm.hotelStartBusiness" placeholder="请填写开业时间（如：2014）"></el-input>
                                     </el-form-item>
                                 </el-form-item>
                             </div>
@@ -348,19 +350,17 @@
 
             </el-form>
         </div>
-        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
-                       @submit="selectImagesSubmit">
-        </select-images>
+        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false" @submit="selectImagesSubmit"></select-images>
     </div>
 </template>
 
 <script>
-    import {updateHotel, addHotel} from '@/api/hotel'
-    import {getFacilities} from '@/api/hotelFacilities'
+    import { updateHotel, addHotel} from '@/api/hotel'
+    import { getFacilities } from '@/api/hotelFacilities'
     import SelectImages from "@/components/Attachment/selectImages";
 
     export default {
-        components: {SelectImages},
+        components: { SelectImages },
         props: {
             ruleForm: {
                 type: Object,
@@ -368,7 +368,7 @@
                     return {
                         network: [],
                         parkingLot: [],
-                        hotelFacilities: []
+                        hotelFacilities:[]
                     }
                 }
             }
@@ -385,22 +385,26 @@
                         return time.getTime() < this.beginTime
                     }
                 },
-                networkList: [],//网络设施
-                parkingLotList: [], //停车场
-                facilitiesList: [], //设备服务
-                options: [],
+                networkList:[],//网络设施
+                parkingLotList:[], //停车场
+                facilitiesList:[], //设备服务
+                options:[],
                 checkAll: false,
                 isIndeterminate: true,
                 options2: [],
+                props:{
+                    label:"name",
+                    value:"id"
+                },
                 rules: {
                     hotelName: [
-                        {required: true, message: '请填写酒店名称', trigger: 'blur'}
+                        { required: true, message: '请填写酒店名称', trigger: 'blur'}
                     ],
                     minimumHotelHousePrice: [
-                        {type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
+                        { type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
                     ],
                     hotelBrandId: [
-                        {type: 'number', required: true, message: '请选择酒店的品牌', trigger: 'change'}
+                        { type: 'number',required: true, message: '请选择酒店的品牌', trigger: 'change'}
                     ],
                     hotelSupplierId: [
                         {required: true, message: '此处不能为空', trigger: 'blur'}
@@ -525,18 +529,16 @@
             handleClick(tab) {
                 console.log(this.networkList.length)
                 if (this.activeName == 'first') {
-
-
 //                    this.$router.push({ path: '/setting/certificate' });
-                } else if (this.activeName == 'second') {
+                } else if(this.activeName == 'second') {
                     if (this.networkList.length == 0) {
                         this.getNetworkList()
                     }
-                } else if (this.activeName == 'third') {
+                }  else if(this.activeName == 'third') {
                     if (this.parkingLotList.length == 0) {
                         this.getParkingLot()
                     }
-                } else if (this.activeName == 'fourth') {
+                } else if(this.activeName == 'fourth') {
                     if (this.facilitiesList.length == 0) {
                         this.getFacilitiesList()
                     }
@@ -544,20 +546,20 @@
             },
             //获取酒店网络设施
             getNetworkList() {
-                let para = {type: 1}
+                let para = { type:1 }
                 getFacilities(para).then(response => {
                     this.networkList = response.data.data
                 })
             },
             //获取酒店停车场
             getParkingLot() {
-                let para = {type: 2}
+                let para = { type:2 }
                 getFacilities(para).then(response => {
                     this.parkingLotList = response.data.data
                 })
             },
             getFacilitiesList() {
-                let para = {type: 3}
+                let para = { type:3 }
                 getFacilities(para).then(response => {
                     this.facilitiesList = response.data.data
                 })
@@ -613,85 +615,73 @@
                 .el-textarea {
                     width: 80%;
                 }
-                .el-upload {
-                    width: 100px;
-                    height: 100px;
-                    line-height: 100px;
-                    background: #fff;
-                    border-radius: 5px;
-                    border: 1px solid #ccc;
+                .grid-content {
+                    margin-left: 20px;
                 }
-            .grid-content {
-                margin-left: 20px;
-            }
-            .el-select {
-                width: 80%;
-            }
-            .el-cascader {
-                margin: 0;
-                width: 80%;
-            }
-            .el-col-24 {
-                text-align: center;
-                margin-top: 20px;
-                border-top: 1px solid #E6E6E6;
-                padding-top: 20px;
-                button {
-                    width: 100px;
-                    height: 36px;
-                    line-height: 36px;
+                .el-select {
+                    width: 80%;
+                }
+                .el-cascader {
+                    margin: 0;
+                    width: 80%;
+                }
+                .el-col-24 {
                     text-align: center;
-                    padding: 0;
+                    margin-top: 20px;
+                    border-top: 1px solid #E6E6E6;
+                    padding-top: 20px;
+                    button {
+                        width: 100px;
+                        height: 36px;
+                        line-height: 36px;
+                        text-align: center;
+                        padding: 0;
+                    }
+                    .el-button--primary {
+                        border-color: #5FCAB1;
+                        background: #5FCAB1;
+                    }
                 }
-                .el-button--primary {
-                    border-color: #5FCAB1;
-                    background: #5FCAB1;
+                .imgSuggest {
+                    margin-left: 100px;
+                    font-size: 12px;
+                    color: #666;
                 }
             }
-            .imgSuggest {
-                margin-left: 100px;
-                font-size: 12px;
-                color: #666;
+            .el-tabs {
+                margin-left: 40px;
+                margin-top: 20px;
             }
-        }
-        .el-tabs {
-            margin-left: 40px;
-            margin-top: 20px;
-        }
-        .tab {
-            position: relative;
-            .checkAll {
-                position: absolute;
-                right: 10px;
-                top: 10px;
+            .tab {
+                position: relative;
+                .checkAll {
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                }
             }
+
         }
-
-    }
-
-    .stayIn {
-        color: #666;
-    }
-
-    .btn {
-        display: inline-block;
-        width: 80px;
-        height: 36px;
-        text-align: center;
-        border-radius: 3px;
-    }
-
-    .refuse {
-        background: #5fcab1;
-        color: #fff;
-    }
-
-    .agree {
-        border: 1px solid #DEDEDE;
-        color: #666;
-        margin-left: 0;
-        margin-top: 5px;
-    }
+        .stayIn {
+            color: #666;
+        }
+        .btn {
+            display: inline-block;
+            width: 80px;
+            height: 36px;
+            text-align: center;
+            border-radius: 3px;
+        }
+        .refuse {
+            background: #5fcab1;
+            color: #fff;
+        }
+        .agree {
+            border: 1px solid #DEDEDE;
+            color: #666;
+            margin-left: 0;
+            margin-top: 5px;
+        }
 
     }
 

@@ -6,6 +6,7 @@
                 <span>搜索</span>
             </div>
             <div class="input">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
@@ -56,6 +57,7 @@
                     </el-col>
 
                 </el-row>
+            </el-form>
 
             </div>
         </div>
