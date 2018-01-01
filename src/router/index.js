@@ -32,6 +32,14 @@ import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
 import HotelEdit from '@/views/hotel/edit'
 
+import HotelRoom from '@/views/hotelRoom'
+import RoomCreate from '@/views/hotelRoom/create'
+import RoomEdit from '@/views/hotelRoom/edit'
+
+import HotelProduct from '@/views/hotelProduct'
+import HotelProductCreate from '@/views/hotelProduct/create'
+import HotelProductEdit from '@/views/hotelProduct/edit'
+
 
 import HotelManagement from '@/views/hotelManagement'
 import AddHotel from '@/views/hotelManagement/addHotel'
@@ -42,7 +50,7 @@ import HotelFacilities from '@/views/hotelManagement/hotelFacilities'
 import HotelList from '@/views/hotelManagement/hotelList'
 import HotelOrder from '@/views/hotelManagement/hotelOrder'
 import HotelPorts from '@/views/hotelManagement/hotelPorts'
-import HotelProduct from '@/views/hotelManagement/hotelProduct'
+// import HotelProduct from '@/views/hotelManagement/hotelProduct'
 import HouseShape from '@/views/hotelManagement/houseShape'
 import LandmarkManagement from '@/views/hotelManagement/landmarkManagement'
 import PriceCalendar from '@/views/hotelManagement/priceCalendar'
@@ -216,7 +224,29 @@ const router = new Router({
                 },
                 {
                     path: '/hotel/:id/edit', hidden:true, component: HotelEdit, name: '酒店编辑'
-                }
+                },
+
+                //房型管理
+                {
+                    path: '/hotel/hotelRoom', hidden:true, component: HotelRoom, name: '房型管理'
+                },
+                {
+                    path: '/hotel/hotelRoom/create', hidden:true, component: RoomCreate, name: '房型添加'
+                },
+                {
+                    path: '/hotel/hotelRoom/:id/edit', hidden:true, component: RoomEdit, name: '房型编辑'
+                },
+
+                //酒店产品
+                {
+                    path: '/hotelproduct', component: HotelProduct, name: '酒店产品'
+                },
+                {
+                    path: '/hotelproduct/create', hidden:true, component: HotelProductCreate, name: '酒店产品添加'
+                },
+                {
+                    path: '/hotelproduct/:id/edit', hidden:true, component: HotelProductEdit, name: '酒店产品编辑'
+                },
             ]
         },
 
