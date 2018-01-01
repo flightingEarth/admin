@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <svg-icon icon-class="search"/>
+                <i class="iconfont icon-sousuo1"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -63,7 +63,7 @@
         </div>
 
         <div class="list-title">
-            <svg-icon icon-class="list"/>
+            <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
@@ -125,7 +125,7 @@
                         label="操作"
                         align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="handleHouse">房型</el-button>
+                        <el-button type="text" size="small" @click="handleHouse(scope.row.hotelId)">房型</el-button>
                         <el-button type="text" size="small" @click="edit(scope.row.hotelId)">编辑</el-button>
                     </template>
                 </el-table-column>
@@ -135,7 +135,7 @@
                     @current-change="handleCurrentChange"
                     :current-page="searchList.currentPage"
                     :page-size="searchList.limit"
-                    layout="prev, pager, next, jumper"
+                    layout="total, prev, pager, next, jumper"
                     :total="total">
             </el-pagination>
         </div>
@@ -224,9 +224,7 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                span {
-                    margin-left: 10px;
-                }
+
             }
             .input {
                 span {
@@ -279,7 +277,7 @@
         .list-title {
             width: 100%;
             height: 60px;
-            padding: 0 40px;
+            padding: 0 20px;
             background: #fff;
             margin-top: 20px;
             line-height: 60px;
