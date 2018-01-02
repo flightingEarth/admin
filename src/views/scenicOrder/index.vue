@@ -32,7 +32,7 @@
                     </el-col>
                     <el-col :span="12">
                         <div class="grid-content bg-purple-light">
-                            <span><i>|</i>支付方式:</span>
+                            <span><i>|</i>付款方式:</span>
                             <el-select v-model="searchList.payWay" placeholder="请选择">
                                 <el-option
                                     v-for="item in supplierOptions"
@@ -41,19 +41,6 @@
                                     :value="item.value">
                                 </el-option>
                             </el-select>
-                        </div>
-                    </el-col>
-
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple double">
-                            <span><i>|</i>有效起始:</span>
-                            <el-date-picker
-                                v-model="searchList.time"
-                                type="daterange"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期">
-                            </el-date-picker>
                         </div>
                     </el-col>
                     <el-col :span="12">
@@ -94,41 +81,41 @@
                 v-loading="listLoading" element-loading-text="正在加载中。。。"
             >
                 <el-table-column
-                    prop="orderDetail"
+                    prop="scenicName"
                     label="景区名称"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="inTime"
+                    prop="orderId"
                     label="订单号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="outTime"
+                    prop="currentNum"
                     label="数量"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="person"
+                    prop="visitorName"
                     label="联系人"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="pay"
+                    prop="payMethod"
                     label="付款方式"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="total"
-                    label="供应商总价"
+                    prop="totalPrice"
+                    label="订单总价"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="orderStatus"
+                    prop="showStatus"
                     label="订单状态"
                     align="center">
                     <template slot-scope="scope">
@@ -137,21 +124,16 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="orderTime"
+                    prop="endTime"
                     label="有效期"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="orderId"
-                    label="票种来源"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="操作"
                     align="center">
                     <template slot-scope="scope" class="">
-                        <el-button type="text" size="small" class="btn refuse">拒绝退票</el-button>
-                        <el-button type="text" size="small" class="btn agree">同意退票</el-button>
+                        <el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>
+                        <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
                     </template>
                 </el-table-column>
 
@@ -160,17 +142,16 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-sizes="pageSizes"
                 :page-size="searchList.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="searchList.totalList">
+                layout="total, prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import {fetchList} from '@/api/article'
+    import {scenicOrderList} from '@/api/scenicOrder'
     export default {
         name: 'scenicOrder',
         data() {
@@ -181,14 +162,13 @@
                     phone: undefined,
                     payWay: undefined,
                     status: undefined,
-                    totalList: 100,
                     currentPage: 1,
                     pageSize: 10
                 },
                 number: 0,
                 liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
                 listLoading: false,
-                pageSizes: [10, 20, 50, 100],
+                total:1,
                 supplierOptions: [{
                     value: '0',
                     label: '不限'
@@ -203,58 +183,93 @@
                     value: '0',
                     label: '其他'
                 }],
-                tableData: [{
-                    orderDetail: '杭州马可波罗假日酒店（1晚1间）（大床）（洁乐体验）（12）',
-                    inTime: '2017-12-13',
-                    outTime: '2017-12-23',
-                    person: '王盐盐:13219009090',
-                    pay: '在线支付',
-                    total: '¥552.00',
-                    orderTime: '2017-11-13 00:00:00',
-                    orderId: '17121817457158'
-                }]
+                tableData: []
             }
+        },
+        created(){
+          this.getList();
         },
         methods: {
             getList() {
                 this.listLoading = true
-                fetchList(this.searchList).then(response => {
-                    this.tableData = response.data.items
-                    this.total = response.data.total
+                scenicOrderList(this.searchList).then(response => {
+                    this.tableData = response.data.data
+                    this.total = response.data.meta.total
                     this.listLoading = false
                 })
             },
             handleSizeChange(val) {
                 this.searchList.pageSize = val
-                this.tableData()
+                this.getList()
             },
             handleCurrentChange(val) {
                 this.searchList.currentPage = val
-                this.tableData()
+                this.getList()
             },
             handleClickLi(index) {
                 this.number = index;
                 if (index === 0) {
-                    console.log("全部")
+                    this.searchList.showStatus = 0;
+                    this.getList();
                 }
                 if (index === 1) {
-                    console.log("未付订单")
+                    this.searchList.showStatus = 1;
+                    this.getList();
                 }
                 if (index === 2) {
-                    console.log("已付未检")
+                    this.searchList.showStatus = 2;
+                    this.getList();
                 }
                 if (index === 3) {
-                    console.log("已检订单")
+                    this.searchList.showStatus = 3;
+                    this.getList();
                 }
                 if (index === 4) {
-                    console.log("已改订单")
+                    this.searchList.showStatus = 4;
+                    this.getList();
                 }
                 if (index === 5) {
-                    console.log("已退订单")
+                    this.searchList.showStatus = 5;
+                    this.getList();
                 }
                 if (index === 6) {
-                    console.log("已完成")
+                    this.searchList.showStatus = 6;
+                    this.getList();
                 }
+            },
+            open2() {
+                this.$confirm('是否拒绝退票?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '拒绝退票成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消拒绝退票'
+                    });
+                });
+            },
+            open3() {
+                this.$confirm('是否同意退票?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '同意退票成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消同意退票'
+                    });
+                });
             }
         }
     }

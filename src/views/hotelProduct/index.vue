@@ -127,7 +127,7 @@
                     align="center">
                     <template slot-scope="scope">
                         <el-button type="text" size="small" @click="edit(scope.row.goods_id)">编辑</el-button>
-                        <el-button type="text" size="small">查看</el-button>
+                        <el-button type="text" size="small" @click="handlePrice">价格日历</el-button>
                     </template>
                 </el-table-column>
 
@@ -181,6 +181,9 @@
             },
             edit(index){
                 this.$router.push({path:"/hotelproduct/" + index +  "/edit" })
+            },
+            handlePrice(){
+                this.$router.push({path:"/hotel/priceCalendar" })
             }
         }
     }
