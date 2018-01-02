@@ -20,20 +20,20 @@
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>身份证号:</span>
-                            <el-input v-model="searchList.cardNum" placeholder=""></el-input>
+                            <el-input v-model="searchList.idCard" placeholder=""></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>手机号码:</span>
-                            <el-input v-model="searchList.phone" placeholder=""></el-input>
+                            <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
                         </div>
                     </el-col>
                     <el-col :span="12">
                         <div class="grid-content bg-purple-light">
                             <span><i>|</i>支付方式:</span>
-                            <el-select v-model="searchList.payWay" placeholder="请选择">
+                            <el-select v-model="searchList.payMethod" placeholder="请选择">
                                 <el-option
                                     v-for="item in supplierOptions"
                                     :key="item.value"
@@ -57,7 +57,6 @@
             <i class="iconfont icon-cf-c57"></i>
             <span>订单列表</span>
         </div>
-
         <div class="table">
             <el-table
                 :data="tableData"
@@ -129,12 +128,12 @@
                     label="操作"
                     align="center">
                     <template slot-scope="scope" class="">
-                        <el-button type="text" size="small" class="btn refuse">拒绝退票</el-button>
-                        <el-button type="text" size="small" class="btn agree">同意退票</el-button>
+                        <el-button type="text" size="small" class="btn refuse" @click="open2" >拒绝退票</el-button>
+                        <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
                     </template>
                 </el-table-column>
-
             </el-table>
+
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -164,17 +163,18 @@
                 },
                 number: 0,
                 total:1,
-                liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
+                visible2:false,
+                liList: ["全部订单", "待支付", "待入住", "待离店", "待评价", "已取消", "已退订", "已完成"],
                 listLoading: false,
                 supplierOptions: [{
                     value: '0',
-                    label: '不限'
+                    label: '全部'
                 }, {
                     value: '1',
                     label: '在线支付'
                 }, {
                     value: '2',
-                    label: '景区到付'
+                    label: '酒店到付'
                 }],
                 tableData: []
             }
@@ -205,26 +205,71 @@
             handleClickLi(index) {
                 this.number = index;
                 if (index === 0) {
-                    console.log("全部")
+                    this.searchList.showStatus = 0;
+                    this.getList();
                 }
                 if (index === 1) {
-                    console.log("未付订单")
+                    this.searchList.showStatus = 1;
+                    this.getList();
                 }
                 if (index === 2) {
-                    console.log("已付未检")
+                    this.searchList.showStatus = 2;
+                    this.getList();
                 }
                 if (index === 3) {
-                    console.log("已检订单")
+                    this.searchList.showStatus = 3;
+                    this.getList();
                 }
                 if (index === 4) {
-                    console.log("已改订单")
+                    this.searchList.showStatus = 4;
+                    this.getList();
                 }
                 if (index === 5) {
-                    console.log("已退订单")
+                    this.searchList.showStatus = 5;
+                    this.getList();
                 }
                 if (index === 6) {
-                    console.log("已完成")
+                    this.searchList.showStatus = 6;
+                    this.getList();
                 }
+                if (index === 7) {
+                    this.searchList.showStatus = 7;
+                    this.getList();
+                }
+            },
+            open2() {
+                this.$confirm('是否拒绝退票?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '拒绝退票成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消拒绝退票'
+                    });
+                });
+            },
+            open3() {
+                this.$confirm('是否同意退票?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '同意退票成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消同意退票'
+                    });
+                });
             }
         }
     }
