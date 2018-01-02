@@ -13,13 +13,14 @@ import ScenicSpot from '@/views/scenicSpot'
 import ScenicCreate from '@/views/scenicSpot/create'
 import ScenicEdit from '@/views/scenicSpot/edit'
 
+import ScenicTicket from '@/views/scenicTicket'
+import TicketCreate from '@/views/scenicTicket/create'
+import TicketEdit from '@/views/scenicTicket/edit'
+
+
 import ScenicOrder from '@/views/scenicOrder'
 import ScenicOrderCreate from '@/views/scenicOrder/create'
 import ScenicOrderEdit from '@/views/scenicOrder/edit'
-
-import TicketList from '@/views/ticketList'
-import TicketCreate from '@/views/ticketList/create'
-import TicketEdit from '@/views/ticketList/edit'
 
 import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
@@ -115,77 +116,19 @@ const router = new Router({
 
                 //门票列表
                 {
-                    path: '/ticketList', component: TicketList, name: '门票列表'
+                    path: '/scenic/:scenicId/ticket', component: ScenicTicket, name: '门票管理',
                 },
                 {
-                    path: '/ticketList/create', hidden: true, component: TicketCreate, name: '门票添加'
+                    path: '/scenic/:scenicId/ticket/create',hidden:true, component: TicketCreate, name: '门票添加',
                 },
                 {
-                    path: '/ticketList/:id/edit', hidden: true, component: TicketEdit, name: '门票编辑'
-                },
+                    path: '/scenic/:scenicId/ticket/:id/edit',hidden:true, component: TicketEdit, name: '门票编辑',
+                }
+
 
             ]
         },
 
-        /*{
-            path: '/scenicManagement',
-            component: Layout,
-            name: '景区管理',
-            icon: 'quanxian',
-            children: [
-                {
-                    path: '/scenicManagement', hidden: true, component: ScenicManagement, name: '景区管理',
-                },
-                {
-                    path: '/scenicManagement/scenicProduct',
-                    component: ScenicProduct,
-                    name: '景区产品',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/scenicList',
-                    component: ScenicList,
-                    name: '景区列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/ticketList',
-                    component: TicketList,
-                    name: '门票列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/tourismTheme',
-                    component: TourismTheme,
-                    name: '旅游主题',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/machineList',
-                    component: MachineList,
-                    name: '机器列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/sourceModification',
-                    component: SourceModification,
-                    name: '来源修改',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/scenicOrder',
-                    component: ScenicOrder,
-                    name: '景区订单',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/scenicLocation',
-                    component: ScenicLocation,
-                    name: '景区地域',
-                    icon: 'pointmax'
-                }
-            ]
-        },*/
         {
             path: '/',
             component: Layout,
@@ -239,149 +182,6 @@ const router = new Router({
                 },
             ]
         },
-
-        /*{
-            path: '/hotelManagement',
-            component: Layout,
-            name: '酒店管理',
-            icon: 'quanxian',
-            children: [
-                {
-                    path: '/hotelManagement', hidden: true, component: HotelManagement, name: '酒店管理',
-                },
-                {
-                    path: '/hotelManagement/hotelProduct',
-                    component: HotelProduct,
-                    name: '酒店产品',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelList',
-                    component: HotelList,
-                    name: '酒店列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/landmarkManagement',
-                    component: LandmarkManagement,
-                    name: '地标管理',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelBrand',
-                    component: HotelBrand,
-                    name: '酒店品牌',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelFacilities',
-                    component: HotelFacilities,
-                    name: '酒店设施',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/shareList',
-                    component: ShareList,
-                    name: '分润列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelOrder',
-                    component: HotelOrder,
-                    name: '酒店订单',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelPorts',
-                    component: HotelPorts,
-                    name: '酒店接口',
-                    icon: 'pointmax'
-                }
-            ]
-        },
-        {
-            path: '/hotelManagement/addHotel',
-            component: Layout,
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/addHotel',
-                component: AddHotel,
-                name: '添加酒店',
-                meta: {title: '添加酒店'}
-            }]
-        },
-        {
-            path: '/scenicManagement/addTicket',
-            component: Layout,
-            redirect: 'addTicket',
-            hidden: true,
-            children: [{
-                path: '/scenicManagement/addTicket',
-                component: AddTicket,
-                name: '添加门票',
-                title: '添加门票',
-                meta: {title: '添加门票'}
-            }]
-        },
-        {
-            path: '/addHouse',
-            component: Layout,
-            redirect: 'addHouse',
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/addHouse',
-                component: AddHouse,
-                name: '添加房型',
-                meta: {title: '添加房型'}
-            }]
-        },
-        {
-            path: '/houseShape',
-            component: Layout,
-            redirect: 'houseShape',
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/houseShape',
-                component: HouseShape,
-                name: '房型产品',
-                meta: {title: '房型产品'}
-            }]
-        },
-        {
-            path: '/addProduct',
-            component: Layout,
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/addProduct',
-                component: AddProduct,
-                name: '添加产品',
-                meta: {title: '添加产品'}
-            }]
-        },
-        {
-            path: '/priceCalendar',
-            component: Layout,
-            redirect: 'priceCalendar',
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/priceCalendar',
-                component: PriceCalendar,
-                name: '价格日历',
-                meta: {title: '价格日历'}
-            }]
-        },
-        {
-            path: '/addScenic',
-            component: Layout,
-            redirect: 'addScenic',
-            hidden: true,
-            children: [{
-                path: '/scenicManagement/addScenic',
-                component: AddScenic,
-                name: '添加景区',
-                meta: {title: '添加景区'}
-            }]
-        }*/
     ]
 })
 
