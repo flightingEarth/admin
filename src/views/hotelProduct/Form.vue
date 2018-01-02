@@ -4,26 +4,29 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-comiisjiahao"></i>
-                    <span>添加酒店</span>
+                    <span>{{title}}</span>
                 </div>
                 <div class="input">
                     <el-row>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>产&nbsp;&nbsp;品&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;称:</span>
-                                <el-form-item label="膳食安排" prop="hotelName">
-                                    <el-input v-model="ruleForm.hotelName"></el-input>
+                                <el-form-item label="膳食安排" prop="goodsName">
+                                    <el-input v-model="ruleForm.goodsName"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>产&nbsp;&nbsp;品&nbsp;&nbsp;类&nbsp;&nbsp;型:</span>
-                                <el-form-item label="膳食安排" prop="minimumHotelHousePrice">
-                                    <el-select v-model="ruleForm.hotelBrandId" placeholder="请选择">
-                                        <el-option label="散客房" value="0"></el-option>
-                                        <el-option label="团队房按天" value="1"></el-option>
-                                        <el-option label="团队房按订单" value="2"></el-option>
+                                <el-form-item label="膳食安排" prop="isGroup">
+                                    <el-select v-model="ruleForm.isGroup" placeholder="请选择">
+                                        <el-option
+                                            v-for="item in isGroup"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                        </el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -32,16 +35,16 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>起购&nbsp;房&nbsp;间&nbsp;数:</span>
-                                <el-form-item label="活动区域" prop="hotelBrandId">
-                                    <el-input v-model="ruleForm.hotelName" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
+                                <el-form-item label="活动区域" prop="lowestNum">
+                                    <el-input v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>床&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</span>
-                                <el-form-item label="膳食安排" prop="hotelSupplierId">
-                                    <el-input v-model="ruleForm.hotelSupplierId"></el-input>
+                                <el-form-item label="膳食安排" prop="bedType">
+                                    <el-input v-model="ruleForm.bedType"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -49,8 +52,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>担&nbsp;&nbsp;保&nbsp;&nbsp;规&nbsp;&nbsp;&nbsp;则:</span>
-                                <el-form-item label="膳食安排" prop="hotelLongitude">
-                                    <el-select v-model="ruleForm.hotelBrandId" placeholder="请选择">
+                                <el-form-item label="膳食安排" prop="guaranteeType">
+                                    <el-select v-model="ruleForm.guaranteeType" placeholder="请选择">
                                         <el-option label="无需担保" value="0"></el-option>
                                         <el-option label="无条件担保" value="1"></el-option>
                                         <el-option label="房量担保" value="2"></el-option>
@@ -58,14 +61,20 @@
                                         <el-option label="房量和到店时间同时担保" value="4"></el-option>
                                         <el-option label="无条件担保（限时取消）" value="5"></el-option>
                                     </el-select>
+                                    <el-option
+                                        v-for="item in guaranteeType"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>早&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;餐:</span>
-                                <el-form-item label="膳食安排" prop="hotelLatitude">
-                                    <el-select v-model="ruleForm.hotelBrandId" placeholder="请选择">
+                                <el-form-item label="膳食安排" prop="breakfast">
+                                    <el-select v-model="ruleForm.breakfast" placeholder="请选择">
                                         <el-option label="单早" value="0"></el-option>
                                         <el-option label="无早" value="1"></el-option>
                                     </el-select>
@@ -77,8 +86,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>取&nbsp;&nbsp;消&nbsp;&nbsp;规&nbsp;&nbsp;&nbsp;则:</span>
-                                <el-form-item label="膳食安排" prop="hotelAddress">
-                                    <el-select v-model="ruleForm.hotelBrandId" placeholder="请选择">
+                                <el-form-item label="膳食安排" prop="changeRules">
+                                    <el-select v-model="ruleForm.changeRules" placeholder="请选择">
                                         <el-option label="免费取消" value="0"></el-option>
                                         <el-option label="允许变更／取消，需在XX日YY时之前通知" value="1"></el-option>
                                         <el-option label="允许变更／取消，需在最早到店时间之前几个小时通知" value="2"></el-option>
@@ -90,8 +99,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>加&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;床:</span>
-                                <el-form-item label="活动区域" prop="hotelStatus">
-                                    <el-select v-model="ruleForm.hotelStatus" placeholder="请选择">
+                                <el-form-item label="活动区域" prop="extraBed">
+                                    <el-select v-model="ruleForm.extraBed" placeholder="请选择">
                                         <el-option label="可加床" value="1"></el-option>
                                         <el-option label="不可加床" value="2"></el-option>
                                     </el-select>
@@ -101,8 +110,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>退&nbsp;&nbsp;房&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;间:</span>
-                                <el-form-item label="膳食安排" prop="hotelSort">
-                                    <el-input v-model="ruleForm.hotelSort"
+                                <el-form-item label="膳食安排" prop="refundTime">
+                                    <el-input v-model="ruleForm.refundTime"
                                               placeholder="例：1天15:59表示入住酒店前一天16：00前可申请退房"></el-input>
                                 </el-form-item>
                             </div>
@@ -110,8 +119,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;带:</span>
-                                <el-form-item label="膳食安排" prop="hotelSaleCount">
-                                    <el-select v-model="ruleForm.hotelStatus" placeholder="请选择">
+                                <el-form-item label="膳食安排" prop="broadbandFee">
+                                    <el-select v-model="ruleForm.broadbandFee" placeholder="请选择">
                                         <el-option label="收费" value="1"></el-option>
                                         <el-option label="免费有线" value="2"></el-option>
                                         <el-option label="免费无线" value="3"></el-option>
@@ -123,16 +132,16 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>担保房间数量:</span>
-                                <el-form-item label="活动区域" prop="checkInTime">
-                                    <el-input v-model="ruleForm.hotelSort" type="number"></el-input>
+                                <el-form-item label="活动区域" prop="amount">
+                                    <el-input v-model="ruleForm.amount" type="number"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i></i>确&nbsp;&nbsp;认&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;间:</span>
-                                <el-form-item label="活动区域" prop="hotelStar">
-                                    <el-input v-model="ruleForm.hotelSort" type="number"
+                                <el-form-item label="活动区域" prop="promptly">
+                                    <el-input v-model="ruleForm.promptly" type="number"
                                               placeholder="填写数字，2表示2小时确认，如需立即确认，则填写"></el-input>
                                 </el-form-item>
                             </div>
@@ -141,8 +150,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>退改扣费比例:</span>
-                                <el-form-item label="活动区域" prop="departureTime">
-                                    <el-input v-model="ruleForm.hotelSort" type="number"
+                                <el-form-item label="活动区域" prop="changeRate">
+                                    <el-input v-model="ruleForm.changeRate" type="number"
                                               placeholder="填写格式，如：0-100，100%用户的房费全部作为违约金"></el-input>
                                 </el-form-item>
                             </div>
@@ -150,10 +159,10 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>付&nbsp;&nbsp;款&nbsp;&nbsp;方&nbsp;&nbsp;&nbsp;式:</span>
-                                <el-form-item label="膳食安排" prop="hotelStartBusiness">
-                                    <el-select v-model="ruleForm.hotelStatus" placeholder="请选择">
-                                        <el-option label="到店支付" value="1"></el-option>
-                                        <el-option label="网上支付" value="2"></el-option>
+                                <el-form-item label="膳食安排" prop="payMethod">
+                                    <el-select v-model="ruleForm.payMethod" placeholder="请选择">
+                                        <el-option label="到店支付" value="0"></el-option>
+                                        <el-option label="网上支付" value="1"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -161,8 +170,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>最早到达时间:</span>
-                                <el-form-item label="膳食安排" prop="decorationTime">
-                                    <el-select v-model="ruleForm.checkInTime" placeholder="请选择">
+                                <el-form-item label="膳食安排" prop="arrivalTime">
+                                    <el-select v-model="ruleForm.arrivalTime" placeholder="请选择">
                                         <el-option label="00:00" value="00:00"></el-option>
                                         <el-option label="01:00" value="01:00"></el-option>
                                         <el-option label="02:00" value="02:00"></el-option>
@@ -194,18 +203,18 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>立减或返金额:</span>
-                                <el-form-item label="膳食安排" prop="checkIn">
-                                    <el-input v-model="ruleForm.checkIn"></el-input>
+                                <el-form-item label="膳食安排" prop="payMoney">
+                                    <el-input v-model="ruleForm.payMoney"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>审&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
-                                <el-form-item label="膳食安排" prop="abolitionOfPolicy">
-                                    <el-radio v-model="ruleForm.radio" label="1">待审核</el-radio>
-                                    <el-radio v-model="ruleForm.radio" label="2">审核通过</el-radio>
-                                    <el-radio v-model="ruleForm.radio" label="3">审核未通过</el-radio>
+                                <el-form-item label="膳食安排" prop="reviewStatus">
+                                    <el-radio v-model="ruleForm.reviewStatus" label="0">待审核</el-radio>
+                                    <el-radio v-model="ruleForm.reviewStatus" label="1">审核通过</el-radio>
+                                    <el-radio v-model="ruleForm.reviewStatus" label="2">审核未通过</el-radio>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -213,9 +222,9 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>产&nbsp;&nbsp;品&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
-                                <el-form-item label="膳食安排" prop="pet">
-                                    <el-radio v-model="ruleForm.radio" label="1">上架</el-radio>
-                                    <el-radio v-model="ruleForm.radio" label="2">下架</el-radio>
+                                <el-form-item label="膳食安排" prop="status">
+                                    <el-radio v-model="ruleForm.status" label="1">上架</el-radio>
+                                    <el-radio v-model="ruleForm.status" label="2">下架</el-radio>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -224,16 +233,11 @@
                                 <span><i>|</i>到店担保时间:</span>
                                 <el-form-item label="活动区域" prop="activeLocation">
                                     <el-date-picker
-                                        v-model="inTime"
-                                        type="date"
-                                        placeholder="选择日期">
-                                    </el-date-picker>
-                                    <span class="zhi">至</span>
-                                    <el-date-picker
-                                        v-model="outTime"
-                                        type="date"
-                                        placeholder="选择日期"
-                                        :picker-options="minInTime">
+                                        v-model="ruleForm.time"
+                                        type="daterange"
+                                        range-separator="至"
+                                        start-placeholder="开始日期"
+                                        end-placeholder="结束日期">
                                     </el-date-picker>
                                 </el-form-item>
                             </div>
@@ -241,8 +245,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
-                                <el-form-item label="膳食安排" prop="buffet">
-                                    <el-input v-model="ruleForm.buffet" type="number" placeholder="请输入数字"></el-input>
+                                <el-form-item label="膳食安排" prop="sort">
+                                    <el-input v-model="ruleForm.sort" type="number" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -254,7 +258,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                             <el-button>返回</el-button>
                         </el-col>
                     </el-row>
@@ -271,7 +275,17 @@
     import {addHotel, addressList} from '@/api/article'
     //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
     export default {
-        name:"addProduct",
+        name: "addProduct",
+        props: {
+            ruleForm: {
+                type: Object,
+                default() {
+                    return {
+//                        status: 1
+                    }
+                }
+            }
+        },
         data() {
             return {
                 dialogImageUrl: '',
@@ -279,23 +293,52 @@
                 activeName: 'second',
                 inTime: "",
                 outTime: "",
+                title: "",
                 minInTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.inTime
                     }
                 },
-                options: [{
-                    value: 'zhinan',
-                    label: '指南',
-                    children: [{
-                        value: 'shejiyuanze',
-                        label: '设计原则',
-                        children: [{
-                            value: 'yizhi',
-                            label: '一致'
-                        }]
-                    }]
-                }],
+                isGroup: [
+                    {
+                    value: '0',
+                    label: '散客房',
+                    },
+                    {
+                        value: '1',
+                        label: '团队房按天',
+                    },
+                    {
+                        value: '2',
+                        label: '团队房按订单',
+                    }
+                ],
+                guaranteeType:[
+                    {
+                        value: '0',
+                        label: '无需担保',
+                    },
+                    {
+                        value: '1',
+                        label: '无条件担保',
+                    },
+                    {
+                        value: '1',
+                        label: '房量担保',
+                    },
+                    {
+                        value: '1',
+                        label: '到店时间担保',
+                    },
+                    {
+                        value: '1',
+                        label: '房量和到店时间同时担保',
+                    },
+                    {
+                        value: '1',
+                        label: '无条件担保',
+                    }
+                ],
                 checkAll: false,
                 networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
                 isIndeterminate: true,
@@ -314,9 +357,6 @@
                 props: {
                     label: "name",
                     value: "id"
-                },
-                ruleForm: {
-                    network: []
                 },
                 rules: {
 //          hotelName: [
@@ -390,6 +430,13 @@
         },
         created() {
 //            this.getList()
+
+            if (this.$route.params.id) {
+                this.title = "编辑产品"
+            } else {
+                this.title = "添加产品"
+            }
+
         },
         methods: {
 //            getList() {
@@ -476,6 +523,9 @@
                         float: left;
                         margin-left: 10px;
                         margin-top: 0;
+                    }
+                    .el-input__inner {
+                        width: 78%;
                     }
                 }
                 .el-textarea {

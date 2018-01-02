@@ -35,11 +35,9 @@
                             </li>
                         </ul>
 
-                        <el-col :span="24">
-                            <div class="grid-content bg-purple titleTime">
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple titleTime top">
                                 <span><i>|</i>选择时间:</span>
-                            </div>
-                            <div class="inputTime">
                                 <el-date-picker
                                     v-model="ruleForm.time"
                                     type="daterange"
@@ -50,23 +48,23 @@
                             </div>
                         </el-col>
                         <el-col :span="12">
-                            <div class="grid-content bg-purple-light left">
+                            <div class="grid-content bg-purple-light top">
                                 <span><i>|</i>库存余量:</span>
                                 <el-form-item label="膳食安排" prop="checkIn">
                                     <el-input v-model="ruleForm.checkIn"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
+                        <!--<el-col :span="12">-->
+                            <!--<div class="grid-content bg-purple-light">-->
+                                <!--<span><i>|</i>金币抵扣:</span>-->
+                                <!--<el-form-item label="膳食安排" prop="checkIn">-->
+                                    <!--<el-input v-model="ruleForm.checkIn"></el-input>-->
+                                <!--</el-form-item>-->
+                            <!--</div>-->
+                        <!--</el-col>-->
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>金币抵扣:</span>
-                                <el-form-item label="膳食安排" prop="checkIn">
-                                    <el-input v-model="ruleForm.checkIn"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light left">
                                 <span><i>|</i>市场价格:</span>
                                 <el-form-item label="膳食安排" prop="checkIn">
                                     <el-input v-model="ruleForm.checkIn"></el-input>
@@ -113,49 +111,127 @@
                     <th>六</th>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
+                    <td>
+                        <span class="date">1</span>
+                        <p>库存量:600.00</p>
+                        <p>市场价:600.00</p>
+                        <p>销售价:529.00</p>
+                        <p>金币抵:0</p>
+                    </td>
+                    <td>
+                        <span class="date">2</span>
+                    </td>
+                    <td>
+                        <span class="date">3</span>
+                    </td>
+                    <td>
+                        <span class="date">4</span>
+                    </td>
+                    <td>
+                        <span class="date">5</span>
+                    </td>
+                    <td>
+                        <span class="date">6</span>
+                    </td>
+                    <td>
+                        <span class="date">7</span>
+                        <p>库存量:600.00</p>
+                        <p>市场价:600.00</p>
+                        <p>销售价:529.00</p>
+                        <p>金币抵:0</p>
+                    </td>
                 </tr>
                 <tr>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
+                    <td>
+                        <span class="date">8</span>
+                    </td>
+                    <td>
+                        <span class="date">9</span>
+                    </td>
+                    <td>
+                        <span class="date">10</span>
+                    </td>
+                    <td>
+                        <span class="date">11</span>
+                    </td>
+                    <td>
+                        <span class="date">12</span>
+                    </td>
+                    <td>
+                        <span class="date">13</span>
+                    </td>
+                    <td>
+                        <span class="date">14</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td>15</td>
-                    <td>16</td>
-                    <td>17</td>
-                    <td>18</td>
-                    <td>19</td>
-                    <td>20</td>
-                    <td>21</td>
+                    <td>
+                        <span class="date">15</span>
+                    </td>
+                    <td>
+                        <span class="date">16</span>
+                    </td>
+                    <td>
+                        <span class="date">17</span>
+                    </td>
+                    <td>
+                        <span class="date">18</span>
+                    </td>
+                    <td>
+                        <span class="date">19</span>
+                    </td>
+                    <td>
+                        <span class="date">20</span>
+                    </td>
+                    <td>
+                        <span class="date">21</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                    <td>26</td>
-                    <td>27</td>
-                    <td>28</td>
+                    <td>
+                        <span class="date">22</span>
+                    </td>
+                    <td>
+                        <span class="date">23</span>
+                    </td>
+                    <td>
+                        <span class="date">24</span>
+                    </td>
+                    <td>
+                        <span class="date">25</span>
+                    </td>
+                    <td>
+                        <span class="date">26</span>
+                    </td>
+                    <td>
+                        <span class="date">27</span>
+                    </td>
+                    <td>
+                        <span class="date">28</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td>29</td>
-                    <td>30</td>
-                    <td>31</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
+                    <td>
+                        <span class="date">29</span>
+                    </td>
+                    <td>
+                        <span class="date">30</span>
+                    </td>
+                    <td>
+                        <span class="date">31</span>
+                    </td>
+                    <td>
+                        <span class="date">1</span>
+                    </td>
+                    <td>
+                        <span class="date">2</span>
+                    </td>
+                    <td>
+                        <span class="date">3</span>
+                    </td>
+                    <td>
+                        <span class="date">4</span>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -344,14 +420,19 @@
                 .titleTime {
                     float: left;
                     overflow: hidden;
+                    /*margin-top: 20px;*/
+                    /*margin-left: 10%;*/
+                    width: 100%;
+                }
+                .top{
                     margin-top: 20px;
-                    margin-left: 10%;
                 }
                 .inputTime {
                     float: left;
                     overflow: hidden;
                     margin-top: 20px;
-                    width: 80%;
+                    width: 100%;
+                    margin-bottom: 20px;
                     .el-input{
                         width: 90%;
                         margin-bottom: 20px;
@@ -370,6 +451,7 @@
                     }
                 }
                 .grid-content{
+                    padding-left: 10%;
                     .el-input{
                         width: 64%;
                     }
@@ -452,12 +534,22 @@
                 th{
                     height: 50px;
                     background: #fff;
+                    font-size: 24px;
+                    font-weight: normal;
                 }
                 td{
                     background: #F2F2F2;
                     height: 100px;
                     vertical-align: top;
                     border: 1px solid #E6E6E6;
+                    position: relative;
+                    span{
+                        position: absolute;
+                        font-size: 26px;
+                    }
+                    p{
+                        margin: 5px 0 5px 60px ;
+                    }
                 }
             }
         }

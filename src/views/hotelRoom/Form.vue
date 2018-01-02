@@ -4,7 +4,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-comiisjiahao"></i>
-                    <span>添加酒店房型</span>
+                    <span>{{title}}</span>
                 </div>
                 <div class="input">
                     <el-row>
@@ -120,7 +120,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading">添加
+                            <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading">提交
                             </el-button>
                             <el-button>返回</el-button>
                         </el-col>
@@ -156,6 +156,7 @@
                 activeName: 'second',
                 addLoading: false,
                 status: 1,
+                title:"",
                 rules: {
                     roomName: [
                         {required: true, message: '请输入房型名称', trigger: 'blur'}
@@ -195,6 +196,11 @@
         },
         created() {
             console.log(this.$route.params.id)
+            if(this.$route.params.id){
+                this.title="编辑酒店房型"
+            }else{
+                this.title="添加酒店房型"
+            }
         },
         methods: {
             submitForm(formName) {

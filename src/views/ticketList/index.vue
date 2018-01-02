@@ -2,56 +2,56 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <svg-icon icon-class="search"/>
+                <i class="iconfont icon-sousuo1"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>酒店名称:</span>
-                            <el-input v-model="searchList.hotelName" placeholder="请输入酒店名称"></el-input>
+                            <span><i>|</i>景区名称:</span>
+                            <el-input v-model="searchList.scenicName" placeholder="请输入门票编号或名称"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>酒店星级:</span>
-                            <el-select v-model="searchList.hotelStar" placeholder="请选择">
-                                <el-option label="客栈／公寓" value="1"></el-option>
-                                <el-option label="二星级／经济型" value="2"></el-option>
-                                <el-option label="三星级／舒适型" value="3"></el-option>
-                                <el-option label="四星级／高档型" value="4"></el-option>
-                                <el-option label="五星级／豪华型" value="5"></el-option>
+                            <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
+                            <el-select v-model="searchList.ticketType" placeholder="请选择">
+                                <el-option
+                                    v-for="item in supplierOptions"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
                             </el-select>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>选择城市:</span>
-                            <el-cascader
-                                :options="options2"
-                                @active-item-change="handleItemChange"
-                                :props="props"
-                            ></el-cascader>
+                            <span><i>|</i>门票搜索:</span>
+                            <el-input v-model="searchList.ticketName" placeholder="请输入旅游主题"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
-                            <span><i>|</i>酒店状态:</span>
-                            <el-select v-model="searchList.hotelStatus" placeholder="请选择">
-                                <el-option label="正常" value="1"></el-option>
-                                <el-option label="不营业" value="2"></el-option>
-                            </el-select>
+                            <span><i>|</i>有效起始:</span>
+                            <el-date-picker
+                                v-model="searchList.time"
+                                type="daterange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                            </el-date-picker>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
-                        <el-button type="primary" @click="handleSearch">搜索</el-button>
+                        <el-button type="primary">搜索</el-button>
                         <el-button>重置条件</el-button>
-                        <!--<el-button type="primary">导出</el-button>-->
+                        <el-button type="primary">导出</el-button>
                     </el-col>
 
                 </el-row>
@@ -60,167 +60,173 @@
         </div>
 
         <div class="list-title">
-            <svg-icon icon-class="list"/>
+            <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
             <ul>
-                <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
-                <li><a href="javascript:;">价格日历</a></li>
+                <li><a href="javascript:;" @click="addTicket">添加门票</a></li>
             </ul>
         </div>
         <div class="table">
-            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
+            <el-table
+                :data="tableData"
+                border
+                stripe
+                style="width: 100%">
                 <el-table-column
-                    prop="hotelId"
-                    label="编号"
+                    prop="ticketId"
+                    label="门票编号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelName"
-                    label="酒店名称"
+                    prop="scenicId"
+                    label="景区编号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelStar"
-                    label="酒店星级"
+                    prop="ticketType"
+                    label="票种"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelAddress"
-                    label="酒店地址"
+                    prop="ticketName"
+                    label="门票名称"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelTelephone"
-                    label="联系方式"
+                    prop="supplier"
+                    label="供应商"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelSupplierId"
-                    label="供应商UID"
+                    prop="saleNum"
+                    label="售出数量（张）"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="minimumHotelHousePrice"
-                    label="最小价格"
+                    prop="surplusNum"
+                    label="剩余数量（张）"
                     align="center">
                 </el-table-column>
-                <el-table-column
 
-                    label="酒店状态"
+                <el-table-column
+                    prop="price"
+                    label="价格（元）"
                     align="center">
-                    <template slot-scope="scope">
-                        <el-button v-if="scope.row.hotelStatus ==1" type="text" size="small">上架</el-button>
-                        <el-button v-if="scope.row.hotelStatus ==2" type="text" size="small">下架</el-button>
-                    </template>
                 </el-table-column>
                 <el-table-column
-                    prop="createdTime"
-                    label="添加时间"
+                    prop="rule"
+                    label="规则"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="benginTime"
+                    label="有效期开始"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="endTime"
+                    label="有效期结束"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="status"
+                    label="状态"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="ticketSource"
+                    label="票种来源"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="操作"
                     align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="handleHouse">房型</el-button>
-                        <el-button type="text" size="small" @click="edit(scope.row.hotelId)">编辑</el-button>
+                        <el-button type="text" size="small" @click="edit(scope.row.ticketId)">编辑</el-button>
+                        <el-button type="text" size="small">查看</el-button>
                     </template>
                 </el-table-column>
 
             </el-table>
             <el-pagination
+                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-size="searchList.limit"
-                layout="prev, pager, next, jumper"
-                :total="total">
+                :page-sizes="pageSizes"
+                :page-size="searchList.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="searchList.totalList">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import { hotelList } from '@/api/hotel'
+    import {fetchList} from '@/api/article'
     export default {
-        name: 'hotel',
+        name: 'ticketList',
         data() {
             return {
-                total: 0,
                 searchList: {
-                    hotelName: '',
-                    hotelStar: '',
-                    hotelStatus: '',
+                    scenicName: undefined,
+                    ticketType: undefined,
+                    ticketName: undefined,
                     currentPage: 1,
-                    limit: 20,
-                    page: 1
+                    pageSize: 10,
+                    totalList: 100
                 },
-                beginTime: "",
-                endTime: "",
-                minTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
-                    }
-                },
-                tableData: [],
-                options2: [{
-                    label: '江苏',
-                    cities: []
+                pageSizes: [10, 20, 50, 100],
+                supplierOptions: [{
+                    value: '选项1',
+                    label: '黄金糕'
                 }, {
-                    label: '浙江',
-                    cities: []
+                    value: '选项2',
+                    label: '双皮奶'
                 }],
-                props: {
-                    value: 'label',
-                    children: 'cities'
-                }
+                tableData: [{
+                    ticketId: '28286',
+                    scenicId: '5395',
+                    ticketType: '普通票',
+                    ticketName: '淡季平日票（团队）',
+                    supplier: 'jq-api-38389 2017葫芦岛百大万美温泉',
+                    saleNum: '0',
+                    surplusNum: '9999',
+                    price: '市：103.00  售：89.00  供：79.00  游币：0个',
+                    rule: '使用后分润 刷身份证',
+                    benginTime: '2017-11-13 00:00:00',
+                    endTime: '2017-11-13 00:00:00',
+                    status: '审核通过',
+                    ticketSource: '自动对家-票付通 （九天科技）'
+                }]
             }
-        },
-        created() {
-            this.getList()
         },
         methods: {
             getList() {
                 this.listLoading = true
-                hotelList(this.searchList).then(response => {
-                    this.tableData = response.data.data
-                    this.total = response.data.meta.total
+                fetchList(this.searchList).then(response => {
+                    this.tableData = response.data.items
+                    this.total = response.data.total
                     this.listLoading = false
                 })
             },
+            handleSizeChange(val) {
+                this.searchList.pageSize = val
+                this.tableData()
+            },
             handleCurrentChange(val) {
-              this.searchList.page = val;
-                this.getList();
+                this.searchList.currentPage = val
+                this.tableData()
             },
-            handleItemChange(val) {
-                console.log('active item:', val)
-                setTimeout(_ => {
-                    if (val.indexOf('江苏') > -1 && !this.options2[0].cities.length) {
-                        this.options2[0].cities = [{
-                            label: '南京'
-                        }]
-                    } else if (val.indexOf('浙江') > -1 && !this.options2[1].cities.length) {
-                        this.options2[1].cities = [{
-                            label: '杭州'
-                        }]
-                    }
-                }, 300)
+            addTicket() {
+                this.$router.push({path: "/ticketList/create"})
             },
-            addHotel() {
-                this.$router.push({path: "/hotelManagement/addHotel"})
-            },
-            handleSearch() {
-                this.getList()
-            },
-            edit(index) {
-                console.log(index);
-            },
-            handleHouse(){
-                this.$router.push({path: "/hotelManagement/houseShape"})
+            edit(index){
+                this.$router.push({path: "/ticketList/" + index + "/edit"})
             }
         }
     }
@@ -243,8 +249,8 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                span {
-                    margin-left: 10px;
+                i{
+                    color: #2C7ADE;
                 }
             }
             .input {
@@ -268,9 +274,10 @@
                 .el-select {
                     width: 70%;
                 }
-                .el-cascader {
-                    margin: 0;
-                    width: 70%;
+                .double {
+                    .el-input__inner{
+                        width: 70%;
+                    }
                 }
                 .el-col-24 {
                     text-align: center;
@@ -298,11 +305,14 @@
         .list-title {
             width: 100%;
             height: 60px;
-            padding: 0 40px;
+            padding: 0 20px;
             background: #fff;
             margin-top: 20px;
             line-height: 60px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
+            i{
+                color: #2C7ADE;
+            }
             ul {
                 list-style: none;
                 float: right;
@@ -318,8 +328,8 @@
                     margin-top: 12px;
                     border-radius: 3px;
                     a {
-                        color: #fff;
                         display: block;
+                        color: #fff;
                     }
                 }
             }

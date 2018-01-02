@@ -1,20 +1,20 @@
 <template>
-    <scenic-form :ruleForm="ruleForm"></scenic-form>
+    <hotel-form :ruleForm="ruleForm"></hotel-form>
 </template>
 
 <script>
-    import ScenicForm from './Form'
-    import { getScenic } from 'api/scenic'
+    import HotelForm from './Form'
+    import { getHotel } from 'api/hotel'
 
     export default {
-        components: { ScenicForm },
+        components: { HotelForm },
         data() {
             return {
                 ruleForm: undefined
             }
         },
         created() {
-            getScenic(this.$route.params.id).then(response => {
+            getHotel(this.$route.params.id).then(response => {
                 this.ruleForm = response.data.data
             })
         },

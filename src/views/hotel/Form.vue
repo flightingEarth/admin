@@ -5,7 +5,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <svg-icon icon-class="added"/>
-                    <span>添加酒店</span>
+                    <span>{{title}}</span>
                 </div>
                 <div class="input">
                     <el-row>
@@ -195,11 +195,19 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
                                 <!--<el-upload-->
+<<<<<<< HEAD
                                         <!--action="https://jsonplaceholder.typicode.com/posts/"-->
                                         <!--list-type="picture-card"-->
                                         <!--:on-preview="handlePictureCardPreview"-->
                                         <!--:on-remove="handleRemove">-->
                                     <!--<i class="el-icon-plus"></i>-->
+=======
+                                <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                                <!--list-type="picture-card"-->
+                                <!--:on-preview="handlePictureCardPreview"-->
+                                <!--:on-remove="handleRemove">-->
+                                <!--<i class="el-icon-plus"></i>-->
+>>>>>>> 2ca8f1c0ab455e2bcef3bfbbbabdf1598c629b4e
                                 <!--</el-upload>-->
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
@@ -389,6 +397,7 @@
                 parkingLotList:[], //停车场
                 facilitiesList:[], //设备服务
                 options:[],
+                title:"",
                 checkAll: false,
                 isIndeterminate: true,
                 options2: [],
@@ -468,6 +477,11 @@
             }
         },
         created() {
+            if(this.$route.params.id){
+                this.title = "编辑酒店"
+            }else {
+                this.title = "添加酒店"
+            }
         },
         methods: {
             handleCheckAllChange(val) {

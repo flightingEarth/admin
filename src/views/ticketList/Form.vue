@@ -4,7 +4,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-shuxie"></i>
-                    <span>编辑门票</span>
+                    <span>{{title}}</span>
                 </div>
                 <div class="input">
                     <el-row>
@@ -53,6 +53,7 @@
                         <el-col :span="20">
                             <div class="grid-content bg-purple-light double">
                                 <span><i>|</i>入园时间:</span>
+<<<<<<< HEAD:src/views/scenicTicket/Form.vue
                                 <el-form-item label="入园时间" prop="in_time">
                                     <el-time-select
                                             v-model="ruleForm.in_time"
@@ -66,6 +67,40 @@
                                             :picker-options="{start: '12:30',step: '00:15',end: '20:30'}"
                                             placeholder="闭园时间">
                                     </el-time-select>
+=======
+                                <el-form-item label="活动区域" prop="inTime">
+                                    <el-date-picker
+                                        v-model="ruleForm.time"
+                                        type="daterange"
+                                        range-separator="至"
+                                        start-placeholder="开始日期"
+                                        end-placeholder="结束日期">
+                                    </el-date-picker>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>入园方式:</span>
+                                <el-form-item label="活动形式" prop="inType">
+                                    <el-input type="textarea" v-model="ruleForm.inType"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>包含项目:</span>
+                                <el-form-item label="活动形式" prop="include">
+                                    <el-input type="textarea" v-model="ruleForm.include"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>退票说明:</span>
+                                <el-form-item label="活动形式" prop="refundTicket">
+                                    <el-input type="textarea" v-model="ruleForm.refundTicket"></el-input>
+>>>>>>> 2ca8f1c0ab455e2bcef3bfbbbabdf1598c629b4e:src/views/ticketList/Form.vue
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -83,6 +118,7 @@
                                 <span><i>|</i>可&nbsp;&nbsp;&nbsp;售&nbsp;&nbsp;日&nbsp;&nbsp;期:</span>
                                 <el-form-item label="售卖日期" prop="sell_start_time">
                                     <el-date-picker
+<<<<<<< HEAD:src/views/scenicTicket/Form.vue
                                             v-model="sell_start_time"
                                             type="date"
                                             format="yyyy-MM-dd"
@@ -95,6 +131,13 @@
                                             placeholder="选择日期"
                                             format="yyyy-MM-dd"
                                             :picker-options="minInTime">
+=======
+                                        v-model="ruleForm.time1"
+                                        type="daterange"
+                                        range-separator="至"
+                                        start-placeholder="开始日期"
+                                        end-placeholder="结束日期">
+>>>>>>> 2ca8f1c0ab455e2bcef3bfbbbabdf1598c629b4e:src/views/ticketList/Form.vue
                                     </el-date-picker>
                                 </el-form-item>
                             </div>
@@ -324,7 +367,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                             <el-button>返回</el-button>
                         </el-col>
                     </el-row>
@@ -353,6 +396,7 @@
         },
         data() {
             return {
+<<<<<<< HEAD:src/views/scenicTicket/Form.vue
                 scenicId: 0,
                 sell_start_time: '',
                 minInTime: {
@@ -365,6 +409,42 @@
                     disabledDate: (time) => {
                         return time.getTime() < this.validTime
                     }
+=======
+                dialogImageUrl: '',
+                dialogVisible: false,
+                activeName: 'second',
+                checkAll: false,
+                checkedCities: [],
+                isIndeterminate: true,
+                title:"",
+                ruleForm: {
+                    ticketType: "",
+                    ticketName: "",
+                    status: "",
+                    upDown: "",
+                    address: "",
+                    activities: "",
+                    timeType: "",
+                    pay: "",
+                    inType: "",
+                    include: "",
+                    refundTicket: "",
+                    orderTime: "",
+                    timesLimit: "",
+                    minNumber: "",
+                    balanceType: "",
+                    card: "",
+                    useType: "",
+                    useTime: "",
+                    delay: "",
+                    refundTicketTime: "",
+                    refundTicketRule: "",
+                    support: "",
+                    changeRule: "",
+                    marketPrice: "",
+                    supplyTime: "",
+                    salesPrice: ""
+>>>>>>> 2ca8f1c0ab455e2bcef3bfbbbabdf1598c629b4e:src/views/ticketList/Form.vue
                 },
                 rules: {
                     ticketType: [
@@ -446,7 +526,18 @@
             }
         },
         created() {
+<<<<<<< HEAD:src/views/scenicTicket/Form.vue
             this.scenicId = this.$route.params.scenicId
+=======
+//            this.getList()
+
+            if(this.$route.params.id){
+                this.title = "编辑门票"
+            }else {
+                this.title = "添加门票"
+            }
+
+>>>>>>> 2ca8f1c0ab455e2bcef3bfbbbabdf1598c629b4e:src/views/ticketList/Form.vue
         },
         methods: {
             handleRemove(file, fileList) {
@@ -575,18 +666,13 @@
                     }
                 }
                 .double {
-                    .el-input {
-                        width: 22.6%;
-                    }
-                    .zhi {
-                        float: left;
-                        margin-left: 10px;
-                        margin-top: 0;
+                    .el-input__inner{
+                        width: 44%;
                     }
                 }
                 .double12 {
-                    .el-input {
-                        width: 36.6%;
+                    .el-input__inner{
+                        width: 73%;
                     }
                 }
                 .imgSuggest {

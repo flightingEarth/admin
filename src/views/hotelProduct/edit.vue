@@ -4,7 +4,7 @@
 
 <script>
     import HotelForm from './Form'
-    import { getHotel } from 'api/hotel'
+    import { getProduct } from 'api/hotelProduct'
 
     export default {
         components: { HotelForm },
@@ -14,7 +14,7 @@
             }
         },
         created() {
-            getHotel(this.$route.params.id).then(response => {
+            getProduct(this.$route.params.id).then(response => {
                 this.ruleForm = response.data.data
             })
         },
