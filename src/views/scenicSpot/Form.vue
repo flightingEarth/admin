@@ -4,7 +4,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-comiisjiahao"></i>
-                    <span>添加景区</span>
+                    <span>{{title}}</span>
                 </div>
                 <div class="input">
                     <el-row>
@@ -20,7 +20,7 @@
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>景区星级:</span>
+                                <span><i>|</i>景&nbsp;&nbsp;区&nbsp;&nbsp;星&nbsp;&nbsp;级:</span>
                                 <el-form-item label="景区星级" prop="scenicStar">
                                     <el-select v-model="ruleForm.scenicStar" placeholder="请选择景区星级">
                                         <el-option
@@ -43,7 +43,7 @@
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>开放时间:</span>
+                                <span><i>|</i>开&nbsp;&nbsp;放&nbsp;&nbsp;时&nbsp;&nbsp;间:</span>
                                 <el-form-item label="膳食安排" prop="scenicOpenTime">
                                     <el-input v-model="ruleForm.scenicOpenTime"></el-input>
                                 </el-form-item>
@@ -60,7 +60,7 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>联系电话:</span>
+                                <span><i>|</i>联&nbsp;&nbsp;系&nbsp;&nbsp;电&nbsp;&nbsp;话:</span>
                                 <el-form-item label="联系电话" prop="contactNumber">
                                     <el-input v-model="ruleForm.contactNumber"></el-input>
                                 </el-form-item>
@@ -216,7 +216,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                             <el-button>返回</el-button>
                         </el-col>
                     </el-row>
@@ -258,6 +258,7 @@
                 dialogVisible: false,
                 activeName: 'second',
                 checkAll: false,
+                title:"",
                 checkedCities: [],
                 isIndeterminate: true,
                 rules: {
@@ -318,6 +319,11 @@
         created() {
             this.scenicStarList = getScenicStar()
             this.getStatusList = getStatusList()
+            if(this.$route.params.id){
+                this.title = "编辑景区"
+            }else{
+                this.title = "添加景区"
+            }
         },
         methods: {
             handleRemove(file, fileList) {

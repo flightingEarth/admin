@@ -129,66 +129,6 @@ const router = new Router({
 
             ]
         },
-
-        /*{
-            path: '/scenicManagement',
-            component: Layout,
-            name: '景区管理',
-            icon: 'quanxian',
-            children: [
-                {
-                    path: '/scenicManagement', hidden: true, component: ScenicManagement, name: '景区管理',
-                },
-                {
-                    path: '/scenicManagement/scenicProduct',
-                    component: ScenicProduct,
-                    name: '景区产品',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/scenicList',
-                    component: ScenicList,
-                    name: '景区列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/ticketList',
-                    component: TicketList,
-                    name: '门票列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/tourismTheme',
-                    component: TourismTheme,
-                    name: '旅游主题',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/machineList',
-                    component: MachineList,
-                    name: '机器列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/sourceModification',
-                    component: SourceModification,
-                    name: '来源修改',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/scenicOrder',
-                    component: ScenicOrder,
-                    name: '景区订单',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/scenicManagement/scenicLocation',
-                    component: ScenicLocation,
-                    name: '景区地域',
-                    icon: 'pointmax'
-                }
-            ]
-        },*/
         {
             path: '/',
             component: Layout,
@@ -221,7 +161,7 @@ const router = new Router({
 
                 //酒店产品
                 {
-                    path: '/hotelproduct', component: HotelProduct, name: '酒店产品'
+                    path: '/hotelproduct', hidden: true, component: HotelProduct, name: '酒店产品'
                 },
                 {
                     path: '/hotelproduct/create', hidden: true, component: HotelProductCreate, name: '酒店产品添加'

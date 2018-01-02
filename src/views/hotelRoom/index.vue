@@ -120,7 +120,7 @@
                     label="操作"
                     align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="hotelProduct">产品</el-button>
+                        <el-button type="text" size="small" @click="hotelProduct(scope.row.roomId)">产品</el-button>
                         <el-button type="text" size="small" @click="edit(scope.row.roomId)">编辑</el-button>
                     </template>
                 </el-table-column>
@@ -182,7 +182,7 @@
                 this.getList();
             },
             resetForm(formName) {
-                console.log(this.$refs.ruleForm)
+//                console.log(this.$refs.ruleForm)
                 this.$refs.ruleForm.resetFields();
             },
             addHouse() {
@@ -192,8 +192,8 @@
             edit(index) {
                 this.$router.push({path: "/hotel/hotelRoom/"+index + '/edit'})
             },
-            hotelProduct() {
-//                this.$router.push({ path:"/hotelManagement/hotelProduct" })
+            hotelProduct(roomId) {
+                this.$router.push({ path:"/hotelproduct?roomId="+ roomId })
             }
         }
     }

@@ -194,15 +194,15 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <!--<el-upload-->
-                                <!--action="https://jsonplaceholder.typicode.com/posts/"-->
-                                <!--list-type="picture-card"-->
-                                <!--:on-preview="handlePictureCardPreview"-->
-                                <!--:on-remove="handleRemove">-->
-                                <!--<i class="el-icon-plus"></i>-->
-                                <!--</el-upload>-->
+                                <el-upload
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                list-type="picture-card"
+                                :on-preview="handlePictureCardPreview"
+                                :on-remove="handleRemove">
+                                <i class="el-icon-plus"></i>
+                                </el-upload>
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
-                                    <i class="el-icon-plus picture-uploader-icon"></i>
+                                    <!--<i class="el-icon-plus picture-uploader-icon"></i>-->
                                 </div>
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>

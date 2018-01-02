@@ -102,11 +102,21 @@
                             </div>
                         </el-col>
                         <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
+                            <div class="grid-content bg-purple-light refundTime">
                                 <span><i>|</i>退&nbsp;&nbsp;房&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;间:</span>
                                 <el-form-item label="膳食安排" prop="refundTime">
-                                    <el-input v-model="ruleForm.refundTime"
-                                              placeholder="例：1天15:59表示入住酒店前一天16：00前可申请退房"></el-input>
+                                    <el-input v-model="ruleForm.refundDay"
+                                              placeholder="例：1天,请输入1"></el-input>
+                                    <span class="day">天</span>
+                                    <el-time-select
+                                        v-model="refundTime"
+                                        :picker-options="{
+                                            start: '00:00',
+                                            step: '00:15',
+                                            end: '23:45'
+                                          }"
+                                        placeholder="选择时间">
+                                    </el-time-select>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -225,14 +235,31 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple double">
                                 <span><i>|</i>到店担保时间:</span>
-                                <el-form-item label="活动区域" prop="activeLocation">
-                                    <el-date-picker
-                                        v-model="ruleForm.time"
-                                        type="daterange"
-                                        range-separator="至"
-                                        start-placeholder="开始日期"
-                                        end-placeholder="结束日期">
-                                    </el-date-picker>
+                                <el-form-item label="活动区域" prop="inTime">
+                                    <el-time-select
+                                        v-model="startTime"
+                                        :picker-options="{
+                                            start: '00:00',
+                                            step: '00:15',
+                                            end: '23:45'
+                                          }"
+                                        placeholder="担保开始时间">
+                                    </el-time-select>
+                                    <span class="zhi">
+                                        <el-select v-model="ruleForm.isTomorrow" placeholder="请选择">
+                                        <el-option label="当天" value="0"></el-option>
+                                        <el-option label="次日" value="1"></el-option>
+                                    </el-select>
+                                    </span>
+                                    <el-time-select
+                                        v-model="endTime"
+                                        :picker-options="{
+                                            start: '00:00',
+                                            step: '00:15',
+                                            end: '23:45'
+                                          }"
+                                        placeholder="担保结束时间">
+                                    </el-time-select>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -267,6 +294,7 @@
 
 <script>
     import {updateProduct, addProduct} from '@/api/hotelProduct'
+    import {parseTime} from '@/utils';
     export default {
         name: "addProduct",
         props: {
@@ -284,14 +312,10 @@
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'second',
-                inTime: "",
-                outTime: "",
                 title: "",
-                minInTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.inTime
-                    }
-                },
+                refundTime: "",
+                startTime: "",
+                endTime: "",
                 isGroup: [
                     {
                         value: '0',
@@ -331,9 +355,6 @@
                     extraBed: [
                         {required: true, message: '请选择可否加床', trigger: 'change'}
                     ],
-                    refundTime: [
-                        {required: true, message: '请输入退房时间', trigger: 'blur'}
-                    ],
                     broadbandFee: [
                         {required: true, message: '请选择宽带类型', trigger: 'change'}
                     ],
@@ -368,6 +389,7 @@
             }
         },
         created() {
+            this.ruleForm.roomId = this.$route.query.roomId;
             if (this.$route.params.id) {
                 this.title = "编辑产品"
             } else {
@@ -377,6 +399,9 @@
         },
         methods: {
             submitForm(formName) {
+                this.ruleForm.refundTime = parseTime(this.refundTime, '{h}:{i}')
+                this.ruleForm.startTime = parseTime(this.startTime, '{h}:{i}')
+                this.ruleForm.endTime = parseTime(this.endTime, '{h}:{i}')
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
@@ -456,15 +481,28 @@
                 }
                 .double {
                     .el-input {
-                        width: 36%;
+                        width: 24%;
                     }
                     .zhi {
                         float: left;
                         margin-left: 10px;
                         margin-top: 0;
+                        .el-select {
+                            width: 100%;
+                        }
                     }
                     .el-input__inner {
                         width: 78%;
+                    }
+                }
+                .refundTime {
+                    .el-input {
+                        width: 37%;
+                        /*float: left;*/
+                    }
+                    .day {
+                        /*float: left;*/
+                        margin: 0 10px 0;
                     }
                 }
                 .el-textarea {

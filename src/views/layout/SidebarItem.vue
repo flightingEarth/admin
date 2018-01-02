@@ -4,10 +4,11 @@
 				<template v-for="(item,index) in routes" v-if="!item.hidden">
 					<el-submenu :index="index+''" v-if="!item.leaf">
 							<template slot="title">
-								<icon-svg v-if='item.icon' :icon-class="item.icon"></icon-svg><span>{{item.name}}</span>
+								<!--<icon-svg v-if='item.icon' :icon-class="item.icon"></icon-svg>-->
+                                <span>{{item.name}}</span>
 							</template>
 						<!--<template slot="title"><i v-if='item.icon' :class="item.icon"></i>{{item.name}}</template>-->
-						<el-menu-item :name="name" v-for="(child, index) in item.children" :index="child.path" v-if="!child.hidden" :key="index">{{child.name}}</el-menu-item>
+						<el-menu-item v-for="(child, index) in item.children" :index="child.path" v-if="!child.hidden" :key="index">{{child.name}}</el-menu-item>
 					</el-submenu>
 				</template>
 			</el-menu>

@@ -4,13 +4,13 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-shuxie"></i>
-                    <span>编辑门票</span>
+                    <span>{{title}}</span>
                 </div>
                 <div class="input">
                     <el-row>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>门票名称:</span>
+                                <span><i>|</i>门&nbsp;&nbsp;&nbsp;票&nbsp;&nbsp;名&nbsp;&nbsp;称:</span>
                                 <el-form-item label="门票名称" prop="ticketName">
                                     <el-input v-model="ruleForm.ticketName"></el-input>
                                 </el-form-item>
@@ -18,7 +18,7 @@
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
+                                <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
                                 <el-form-item label="票种" prop="ticketType">
                                     <el-select v-model="ruleForm.ticketType" placeholder="请选择">
                                         <el-option label="普通票" value="0"></el-option>
@@ -29,7 +29,7 @@
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>审核状态:</span>
+                                <span><i>|</i>审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;态:</span>
                                 <el-form-item label="活动区域" prop="auditStatus">
                                     <el-select v-model="ruleForm.review_status" placeholder="请选择">
                                         <el-option label="通过"  value="0"></el-option>
@@ -40,7 +40,7 @@
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>上&nbsp;下&nbsp; 架:</span>
+                                <span><i>|</i>上&nbsp;&nbsp;&nbsp;&nbsp;下&nbsp;&nbsp;&nbsp;&nbsp;架:</span>
                                 <el-form-item label="上下架" prop="status">
                                     <el-select v-model="ruleForm.status" placeholder="请选择">
                                         <el-option label="上架" value="0"></el-option>
@@ -52,7 +52,7 @@
 
                         <el-col :span="20">
                             <div class="grid-content bg-purple-light double">
-                                <span><i>|</i>入园时间:</span>
+                                <span><i>|</i>入&nbsp;&nbsp;&nbsp;园&nbsp;&nbsp;时&nbsp;&nbsp;间:</span>
                                 <el-form-item label="入园时间" prop="in_time">
                                     <el-time-select
                                             v-model="ruleForm.in_time"
@@ -159,7 +159,7 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>限购方式:</span>
+                                <span><i>|</i>限&nbsp;&nbsp;&nbsp;购&nbsp;&nbsp;方&nbsp;&nbsp;式:</span>
                                 <el-form-item label="限购方式" prop="orderTime">
                                     <el-select v-model="ruleForm.buy_limit_date" placeholder="请选择">
                                         <el-option label="整个销售时间段" value="0"></el-option>
@@ -175,7 +175,7 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>限购规则:</span>
+                                <span><i>|</i>限&nbsp;&nbsp;&nbsp;购&nbsp;&nbsp;规&nbsp;&nbsp;则:</span>
                                 <el-form-item label="限购方式" prop="orderTime">
                                     <el-select v-model="ruleForm.buy_limit" placeholder="请选择">
                                         <el-option label="不限" value="0"></el-option>
@@ -192,7 +192,7 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>限购张数:</span>
+                                <span><i>|</i>限&nbsp;&nbsp;&nbsp;购&nbsp;&nbsp;张&nbsp;&nbsp;数:</span>
                                 <el-form-item label="限购张数" prop="orderTime">
                                     <el-input type="number" v-model="ruleForm.buy_limit_num"></el-input>
                                 </el-form-item>
@@ -203,7 +203,7 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>退票规则:</span>
+                                <span><i>|</i>退&nbsp;&nbsp;&nbsp;票&nbsp;&nbsp;规&nbsp;&nbsp;则:</span>
                                 <el-form-item label="退票规则" prop="refund_rule">
                                     <el-select v-model="ruleForm.refund_rule" placeholder="请选择">
                                         <el-option label="随时退" value="0"></el-option>
@@ -271,7 +271,7 @@
 
                         <el-col :span="8">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>库存:</span>
+                                <span><i>|</i>库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存:</span>
                                 <el-form-item label="销售价格" prop="remain">
                                     <el-input type="number" v-model="ruleForm.remain"></el-input>
                                 </el-form-item>
@@ -358,6 +358,7 @@
             return {
                 scenicId: 0,
                 sell_start_time: '',
+                title:"",
                 minInTime: {
                     disabledDate: (time) => {
 //                        console.log(time)
@@ -450,6 +451,11 @@
         },
         created() {
             this.scenicId = this.$route.params.scenicId
+            if(this.$route.params.scenicId){
+                this.title = "编辑门票"
+            }else{
+                this.title = "添加门票"
+            }
         },
         methods: {
             handleRemove(file, fileList) {
@@ -542,7 +548,7 @@
                     width: 73%;
                 }
                 .el-textarea {
-                    width: 80%;
+                    width: 73%;
                 }
                 .grid-content {
                     margin-left: 20px;
@@ -573,7 +579,7 @@
                 }
                 .double {
                     .el-input {
-                        width: 22.6%;
+                        width: 20.5%;
                     }
                     .zhi {
                         float: left;
@@ -583,7 +589,7 @@
                 }
                 .double12 {
                     .el-input {
-                        width: 36.6%;
+                        width: 34.5%;
                     }
                 }
                 .imgSuggest {

@@ -179,7 +179,7 @@
                 }
                 .el-input {
                     float: left;
-                    width: 70%;
+                    width: 80%;
                 }
                 .grid-content {
                     margin-left: 20px;

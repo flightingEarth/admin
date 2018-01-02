@@ -156,7 +156,7 @@
                     ticketName: undefined,
                     currentPage: 1,
                 },
-                total:"",
+                total:1,
                 tableData: []
             }
         },
@@ -177,7 +177,7 @@
                 this.tableData()
             },
             addProduct() {
-                this.$router.push({ path:"/hotelproduct/create" });
+                this.$router.push({ path:"/hotelproduct/create?roomId=" + this.$route.query.roomId });
             },
             edit(index){
                 this.$router.push({path:"/hotelproduct/" + index +  "/edit" })

@@ -43,35 +43,8 @@
                             </el-select>
                         </div>
                     </el-col>
-
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple double">
-                            <span><i>|</i>有效起始:</span>
-                            <el-date-picker
-                                v-model="searchList.time"
-                                type="daterange"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期">
-                            </el-date-picker>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <span><i>|</i>交易状态:</span>
-                            <el-select v-model="searchList.status" placeholder="请选择">
-                                <el-option
-                                    v-for="item in scenicStar"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </el-col>
-
                     <el-col :span="24">
-                        <el-button type="primary">搜索</el-button>
+                        <el-button type="primary" @click="handleSearch">搜索</el-button>
                         <el-button>重置条件</el-button>
                     </el-col>
 
@@ -94,42 +67,42 @@
                 v-loading="listLoading" element-loading-text="正在加载中。。。"
             >
                 <el-table-column
-                    prop="orderDetail"
+                    prop="hotelName"
                     label="订单详情"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="inTime"
+                    prop="inDay"
                     label="入住时间"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="outTime"
+                    prop="outDay"
                     label="离店时间"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="person"
+                    prop="guests"
                     label="联系人"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="phone"
+                    prop="mobilePhone"
                     label="手机号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="pay"
+                    prop="PayMethod"
                     label="付款方式"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="total"
+                    prop="totalPrice"
                     label="供应商总价"
                     align="center">
                 </el-table-column>
@@ -143,7 +116,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="orderTime"
+                    prop="createdAt"
                     label="预订时间"
                     align="center">
                 </el-table-column>
@@ -166,17 +139,16 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-sizes="pageSizes"
                 :page-size="searchList.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="searchList.totalList">
+                layout="total, prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import {fetchList} from '@/api/article'
+    import { hotelOrderList } from '@/api/hotelOrder'
     export default {
         name: 'hotelOrder',
         data() {
@@ -187,14 +159,13 @@
                     phone: undefined,
                     payWay: undefined,
                     status: undefined,
-                    totalList: 100,
                     currentPage: 1,
                     pageSize: 10
                 },
                 number: 0,
+                total:1,
                 liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
                 listLoading: false,
-                pageSizes: [10, 20, 50, 100],
                 supplierOptions: [{
                     value: '0',
                     label: '不限'
@@ -205,26 +176,18 @@
                     value: '2',
                     label: '景区到付'
                 }],
-                scenicStar: [],
-                tableData: [{
-                    orderDetail: '杭州马可波罗假日酒店（1晚1间）（大床）（洁乐体验）（12）',
-                    inTime: '2017-12-13',
-                    outTime: '2017-12-23',
-                    person: '王盐盐',
-                    phone: ":13219009090",
-                    pay: '在线支付',
-                    total: '¥552.00',
-                    orderTime: '2017-11-13 00:00:00',
-                    orderId: '17121817457158'
-                }]
+                tableData: []
             }
+        },
+        created(){
+            this.getList();
         },
         methods: {
             getList() {
                 this.listLoading = true
-                fetchList(this.searchList).then(response => {
-                    this.tableData = response.data.items
-                    this.total = response.data.total
+                hotelOrderList(this.searchList).then(response => {
+                    this.tableData = response.data.data
+                    this.total = response.data.meta.total
                     this.listLoading = false
                 })
             },
@@ -235,6 +198,9 @@
             handleCurrentChange(val) {
                 this.searchList.currentPage = val
                 this.tableData()
+            },
+            handleSearch(){
+                this.getList();
             },
             handleClickLi(index) {
                 this.number = index;
