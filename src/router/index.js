@@ -17,9 +17,11 @@ import ScenicOrder from '@/views/scenicOrder'
 import ScenicOrderCreate from '@/views/scenicOrder/create'
 import ScenicOrderEdit from '@/views/scenicOrder/edit'
 
-import TicketList from '@/views/ticketList'
-import TicketCreate from '@/views/ticketList/create'
-import TicketEdit from '@/views/ticketList/edit'
+import ScenicTicket from '@/views/scenicTicket'
+import TicketCreate from '@/views/scenicTicket/create'
+import TicketEdit from '@/views/scenicTicket/edit'
+
+
 
 import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
@@ -115,14 +117,15 @@ const router = new Router({
 
                 //门票列表
                 {
-                    path: '/ticketList', component: TicketList, name: '门票列表'
+                    path: '/scenic/:scenicId/ticket', component: ScenicTicket, name: '门票管理',
                 },
                 {
-                    path: '/ticketList/create', hidden: true, component: TicketCreate, name: '门票添加'
+                    path: '/scenic/:scenicId/ticket/create',hidden:true, component: TicketCreate, name: '门票添加',
                 },
                 {
-                    path: '/ticketList/:id/edit', hidden: true, component: TicketEdit, name: '门票编辑'
-                },
+                    path: '/scenic/:scenicId/ticket/:id/edit',hidden:true, component: TicketEdit, name: '门票编辑',
+                }
+
 
             ]
         },
