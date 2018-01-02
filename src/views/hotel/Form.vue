@@ -5,7 +5,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <svg-icon icon-class="added"/>
-                    <span>{{title}}</span>
+                    <span>添加酒店</span>
                 </div>
                 <div class="input">
                     <el-row>
@@ -179,7 +179,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="设备服务" name="fourth">
                             <el-checkbox-group v-model="ruleForm.hotelFacilities">
-                            <el-checkbox v-for="city in facilitiesList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
+                                <el-checkbox v-for="city in facilitiesList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
                     </el-tabs>
@@ -194,21 +194,6 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <!--<el-upload-->
-<<<<<<< HEAD
-                                        <!--action="https://jsonplaceholder.typicode.com/posts/"-->
-                                        <!--list-type="picture-card"-->
-                                        <!--:on-preview="handlePictureCardPreview"-->
-                                        <!--:on-remove="handleRemove">-->
-                                    <!--<i class="el-icon-plus"></i>-->
-=======
-                                <!--action="https://jsonplaceholder.typicode.com/posts/"-->
-                                <!--list-type="picture-card"-->
-                                <!--:on-preview="handlePictureCardPreview"-->
-                                <!--:on-remove="handleRemove">-->
-                                <!--<i class="el-icon-plus"></i>-->
->>>>>>> 2ca8f1c0ab455e2bcef3bfbbbabdf1598c629b4e
-                                <!--</el-upload>-->
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
@@ -397,7 +382,6 @@
                 parkingLotList:[], //停车场
                 facilitiesList:[], //设备服务
                 options:[],
-                title:"",
                 checkAll: false,
                 isIndeterminate: true,
                 options2: [],
@@ -406,58 +390,58 @@
                     value:"id"
                 },
                 rules: {
-                  hotelName: [
-                    { required: true, message: '请填写酒店名称', trigger: 'blur'}
-                  ],
-                  minimumHotelHousePrice: [
-                    { type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
-                  ],
-                  hotelBrandId: [
-                    { type: 'number',required: true, message: '请选择酒店的品牌', trigger: 'change'}
-                  ],
-                  hotelSupplierId: [
-                    {required: true, message: '此处不能为空', trigger: 'blur'}
-                  ],
-                  hotelLongitude: [
-                    {required: true, message: '请填写百度经度', trigger: 'blur'},
-                  ],
-                  hotelLatitude: [
-                    {required: true, message: '请填写百度纬度', trigger: 'blur'},
+                    hotelName: [
+                        { required: true, message: '请填写酒店名称', trigger: 'blur'}
+                    ],
+                    minimumHotelHousePrice: [
+                        { type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
+                    ],
+                    hotelBrandId: [
+                        { type: 'number',required: true, message: '请选择酒店的品牌', trigger: 'change'}
+                    ],
+                    hotelSupplierId: [
+                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                    ],
+                    hotelLongitude: [
+                        {required: true, message: '请填写百度经度', trigger: 'blur'},
+                    ],
+                    hotelLatitude: [
+                        {required: true, message: '请填写百度纬度', trigger: 'blur'},
 //                    {type: number, message: '您填写的百度纬度格式错误', trigger: 'blur'}
-                  ],
-                  hotelAddress: [
-                    {required: true, message: '请填写酒店地址', trigger: 'blur'}
-                  ],
-                  hotelStatus: [
-                    {required: true, message: '请选择酒店状态', trigger: 'change'}
-                  ],
-                  hotelSort: [
-                    {required: true, message: '请选择酒店排序顺序', trigger: 'blur'}
-                  ],
-                  hotelSaleCount: [
-                    {required: true, message: '请填写酒店的销量', trigger: 'blur'}
-                  ],
-                  hotelStar: [
-                    {required: true, message: '请选择酒店的星级', trigger: 'change'}
-                  ],
-                  hotelTelephone: [
-                    {required: true, message: '请填写酒店电话', trigger: 'blur'}
-                  ],
-                  hotelFeatures: [
-                    {required: true, message: '请填写酒店的特色', trigger: 'blur'}
-                  ],
-                  hotelIntroduction: [
-                    {required: true, message: '请填写酒店的简介', trigger: 'blur'}
-                  ],
-                  checkInTime: [
-                    {required: true, message: '请填写酒店入店时间', trigger: 'change'}
-                  ],
-                  departureTime: [
-                    {required: true, message: '请填写酒店离店时间', trigger: 'change'}
-                  ],
-                  hotelStartBusiness: [
-                    {required: true, message: '请填写开业时间', trigger: 'blur'},
-                  ],
+                    ],
+                    hotelAddress: [
+                        {required: true, message: '请填写酒店地址', trigger: 'blur'}
+                    ],
+                    hotelStatus: [
+                        {required: true, message: '请选择酒店状态', trigger: 'change'}
+                    ],
+                    hotelSort: [
+                        {required: true, message: '请选择酒店排序顺序', trigger: 'blur'}
+                    ],
+                    hotelSaleCount: [
+                        {required: true, message: '请填写酒店的销量', trigger: 'blur'}
+                    ],
+                    hotelStar: [
+                        {required: true, message: '请选择酒店的星级', trigger: 'change'}
+                    ],
+                    hotelTelephone: [
+                        {required: true, message: '请填写酒店电话', trigger: 'blur'}
+                    ],
+                    hotelFeatures: [
+                        {required: true, message: '请填写酒店的特色', trigger: 'blur'}
+                    ],
+                    hotelIntroduction: [
+                        {required: true, message: '请填写酒店的简介', trigger: 'blur'}
+                    ],
+                    checkInTime: [
+                        {required: true, message: '请填写酒店入店时间', trigger: 'change'}
+                    ],
+                    departureTime: [
+                        {required: true, message: '请填写酒店离店时间', trigger: 'change'}
+                    ],
+                    hotelStartBusiness: [
+                        {required: true, message: '请填写开业时间', trigger: 'blur'},
+                    ],
 //                  decorationTime: [
 //                    {required: true, message: '此处不能为空', trigger: 'blur'}
 //                  ],
@@ -477,11 +461,6 @@
             }
         },
         created() {
-            if(this.$route.params.id){
-                this.title = "编辑酒店"
-            }else {
-                this.title = "添加酒店"
-            }
         },
         methods: {
             handleCheckAllChange(val) {
@@ -506,7 +485,6 @@
             },
 
             submitForm() {
-                console.log(this.ruleForm)
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
@@ -542,9 +520,7 @@
             },
             handleClick(tab) {
                 console.log(this.networkList.length)
-                if (this.activeName == 'first'    ) {
-
-
+                if (this.activeName == 'first') {
 //                    this.$router.push({ path: '/setting/certificate' });
                 } else if(this.activeName == 'second') {
                     if (this.networkList.length == 0) {
