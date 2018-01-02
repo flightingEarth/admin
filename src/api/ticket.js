@@ -17,7 +17,7 @@ export function getTicket(scenicId, id) {
 
 export function addTicket(scenicId, data) {
     return fetch({
-        url: 'admin/scenic/' + scenicId + '/ticket/create',
+        url: 'admin/scenic/' + scenicId + '/ticket',
         method: 'post',
         data: data
     });

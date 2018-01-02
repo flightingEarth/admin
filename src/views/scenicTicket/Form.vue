@@ -22,6 +22,7 @@
                                 <el-form-item label="票种" prop="ticketType">
                                     <el-select v-model="ruleForm.ticketType" placeholder="请选择">
                                         <el-option label="普通票" value="0"></el-option>
+                                        <el-option label="年票" value="1"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -82,7 +83,7 @@
                                 <span><i>|</i>可&nbsp;&nbsp;&nbsp;售&nbsp;&nbsp;日&nbsp;&nbsp;期:</span>
                                 <el-form-item label="售卖日期" prop="sell_start_time">
                                     <el-date-picker
-                                            v-model="ruleForm.sell_start_time"
+                                            v-model="sell_start_time"
                                             type="date"
                                             format="yyyy-MM-dd"
                                             placeholder="选择日期">
@@ -126,7 +127,6 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-
                     </el-row>
                 </div>
 
@@ -339,7 +339,7 @@
 
 <script>
     import { parseTime } from '@/utils';
-    import {fetchList} from '@/api/article';
+    import { updateTicket, addTicket } from '@/api/ticket'
     export default {
         name: 'addTicket',
         props: {
@@ -353,10 +353,12 @@
         },
         data() {
             return {
-
+                scenicId: 0,
+                sell_start_time: '',
                 minInTime: {
                     disabledDate: (time) => {
-                        return time.getTime() < this.inTime
+//                        console.log(time)
+                        return time.getTime() < this.sell_start_time
                     }
                 },
                 minValidTime: {
@@ -383,7 +385,7 @@
                     in_time: [
                         {required: true, message: '请填写入园时间', trigger: 'change'}
                     ],
-                    sell_start_time: [
+                    sell_end_time: [
                         {required: true, type:'date', message: '请选择售卖日期', trigger: 'change'}
                     ],
                     advance_date: [
@@ -408,7 +410,7 @@
                         {required: true, message: '请选择限购的限购张数', trigger: 'blur'}
                     ],
                     market_price: [
-                        {required: true, message: '请请输入门票市场销售价',trigger: 'blur'}
+                        {required: true, message: '请请输入门票市场价',trigger: 'blur'}
                     ],
                     shop_price: [
                         {required: true, message: '请填写门票的销售价', trigger: 'blur'}
@@ -443,6 +445,9 @@
                 }
             }
         },
+        created() {
+            this.scenicId = this.$route.params.scenicId
+        },
         methods: {
             handleRemove(file, fileList) {
                 console.log(file, fileList)
@@ -453,15 +458,39 @@
             },
 
             submitForm(formName) {
+                console.log(this.ruleForm.sell_end_time, parseTime(this.ruleForm.sell_end_time, '{y}-{m}-{d}'))
+                if (!this.sell_start_time || !this.ruleForm.sell_end_time || this.sell_start_time == '0-0-0 0:0:0' || this.ruleForm.sell_end_time == '0-0-0 0:0:0') {
+                    this.$message({
+                        message: '请选择可售日期！',
+                        type: 'error'
+                    });
+                    return false;
+                }
 
-
-                this.ruleForm.sell_start_time = parseTime(this.ruleForm.sell_start_time, '{y}-{m}-{d}');
-                console.log(this.ruleForm)
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.ruleForm.sell_start_time = parseTime(this.ruleForm.sell_start_time, '{y}-{m}-{d}');
+                        this.ruleForm.sell_start_time = parseTime(this.sell_start_time, '{y}-{m}-{d}');
                         this.ruleForm.sell_end_time = parseTime(this.ruleForm.sell_end_time, '{y}-{m}-{d}');
-                        console.log(this.ruleForm)
+
+                        this.addLoading = true
+                        if (this.ruleForm.tieketId == undefined) {
+                            addTicket(this.scenicId, this.ruleForm).then(response => {
+                                this.$message({
+                                    message: '添加成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        } else {
+                            updateTicket(this.scenicId, this.ruleForm.tieketId, this.ruleForm).then(response => {
+                                this.$message({
+                                    message: '更新成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        }
+
                     } else {
                         console.log('error submit!!')
                         return false
