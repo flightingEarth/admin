@@ -54,14 +54,19 @@
                                 <span><i>|</i>担&nbsp;&nbsp;保&nbsp;&nbsp;规&nbsp;&nbsp;&nbsp;则:</span>
                                 <el-form-item label="膳食安排" prop="guaranteeType">
                                     <el-select v-model="ruleForm.guaranteeType" placeholder="请选择">
-                                        <el-option
-                                            v-for="item in guaranteeType"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
+                                        <el-option label="无需担保" value="0"></el-option>
+                                        <el-option label="无条件担保" value="1"></el-option>
+                                        <el-option label="房量担保" value="2"></el-option>
+                                        <el-option label="到店时间担保" value="3"></el-option>
+                                        <el-option label="房量和到店时间同时担保" value="4"></el-option>
+                                        <el-option label="无条件担保（限时取消）" value="5"></el-option>
                                     </el-select>
-
+                                    <el-option
+                                        v-for="item in guaranteeType"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -296,8 +301,8 @@
                 },
                 isGroup: [
                     {
-                        value: '0',
-                        label: '散客房',
+                    value: '0',
+                    label: '散客房',
                     },
                     {
                         value: '1',
@@ -308,7 +313,7 @@
                         label: '团队房按订单',
                     }
                 ],
-                guaranteeType: [
+                guaranteeType:[
                     {
                         value: '0',
                         label: '无需担保',
@@ -318,22 +323,37 @@
                         label: '无条件担保',
                     },
                     {
-                        value: '2',
+                        value: '1',
                         label: '房量担保',
                     },
                     {
-                        value: '3',
+                        value: '1',
                         label: '到店时间担保',
                     },
                     {
-                        value: '4',
+                        value: '1',
                         label: '房量和到店时间同时担保',
                     },
                     {
-                        value: '5',
-                        label: '无条件担保 (限时取消)',
+                        value: '1',
+                        label: '无条件担保',
                     }
                 ],
+                checkAll: false,
+                networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
+                isIndeterminate: true,
+                options2: [{
+                    id: 'zhinan',
+                    name: '指南',
+                    children: [{
+                        id: 'shejiyuanze',
+                        name: '设计原则',
+                        children: [{
+                            id: 'yizhi',
+                            name: '一致'
+                        }]
+                    }]
+                }],
                 props: {
                     label: "name",
                     value: "id"

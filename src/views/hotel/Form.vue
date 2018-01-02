@@ -194,6 +194,13 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
+                                <!--<el-upload-->
+                                <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                                <!--list-type="picture-card"-->
+                                <!--:on-preview="handlePictureCardPreview"-->
+                                <!--:on-remove="handleRemove">-->
+                                <!--<i class="el-icon-plus"></i>-->
+                                <!--</el-upload>-->
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
@@ -491,6 +498,7 @@
             },
 
             submitForm() {
+                console.log(this.ruleForm)
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true

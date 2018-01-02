@@ -71,7 +71,7 @@
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button type="text" size="small" @click="edit(scope.row.scenicId)">编辑</el-button>
-                        <el-button type="text" size="small" @click="handleTicket(scope.row.scenicId)">门票管理</el-button>
+                        <el-button type="text" size="small">查看</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -88,7 +88,7 @@
 
 <script>
     import { getList } from '@/api/scenic'
-    import { getStatusList, getScenicStar, getCurrentState } from '@/utils/common'
+    import { getStatusList, getCurrentState } from '@/utils/common'
 
     export default {
         name: 'scenicList',
@@ -103,7 +103,7 @@
                     limit: 20,
                     page: 1
                 },
-                scenicStarList: [],
+                scenicStarList: [{'id':1,'name':'1A'}, {'id':2,'name':'2A'}, {'id':3,'name':'3A'}, {'id':4,'name':'4A'}, {'id':5,'name':'5A'}],
                 statusList: [],
                 tableData: [],
                 listLoading: false
@@ -111,7 +111,6 @@
         },
         created() {
             this.statusList = getStatusList();
-            this.scenicStarList = getScenicStar()
             this.getList()
         },
         methods: {
@@ -134,13 +133,10 @@
                 this.getList()
             },
             create() {
-                this.$router.push({path: "/scenic/create"})
+                this.$router.push({path: "/scenicSpot/create"})
             },
             edit(index) {
-                this.$router.push({path: "/scenic/"+index + '/edit'})
-            },
-            handleTicket(index){
-                this.$router.push({path: "/scenic/" + index+ '/ticket'})
+                this.$router.push({path: "/scenicSpot/"+index + '/edit'})
             }
         }
     }
@@ -179,7 +175,7 @@
                 }
                 .el-input {
                     float: left;
-                    width: 70%;
+                    width: 80%;
                 }
                 .grid-content {
                     margin-left: 20px;
@@ -254,6 +250,5 @@
         .el-pagination {
             margin-top: 10px;
         }
-
     }
 </style>
