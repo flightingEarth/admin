@@ -19,11 +19,17 @@
                         <div class="grid-content bg-purple">
                             <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
                             <el-select v-model="searchList.ticketType" placeholder="请选择">
-                                <el-option label="普通票" value="0"></el-option>
-                                <el-option label="年票" value="1"></el-option>
+                                <el-option
+                                        v-for="item in supplierOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
                             </el-select>
                         </div>
                     </el-col>
+
+
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
