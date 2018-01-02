@@ -95,13 +95,13 @@ const router = new Router({
             icon: 'quanxian',
             children: [
                 {
-                    path: '/scenicSpot', component: ScenicSpot, name: '景区管理'
+                    path: '/scenic', component: ScenicSpot, name: '景区管理'
                 },
                 {
-                    path: '/scenicSpot/create', hidden: true, component: ScenicCreate, name: '景区添加'
+                    path: '/scenic/create', hidden: true, component: ScenicCreate, name: '景区添加'
                 },
                 {
-                    path: '/scenicSpot/:id/edit', hidden: true, component: ScenicEdit, name: '景区编辑'
+                    path: '/scenic/:id/edit', hidden: true, component: ScenicEdit, name: '景区编辑'
                 },
 
                 //景区订单

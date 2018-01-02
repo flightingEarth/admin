@@ -61,12 +61,6 @@
                                         <el-option label="房量和到店时间同时担保" value="4"></el-option>
                                         <el-option label="无条件担保（限时取消）" value="5"></el-option>
                                     </el-select>
-                                    <el-option
-                                        v-for="item in guaranteeType"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                    </el-option>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -272,8 +266,7 @@
 </template>
 
 <script>
-    import {addHotel, addressList} from '@/api/article'
-    //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
+    import {updateProduct, addProduct} from '@/api/hotelProduct'
     export default {
         name: "addProduct",
         props: {
@@ -301,8 +294,8 @@
                 },
                 isGroup: [
                     {
-                    value: '0',
-                    label: '散客房',
+                        value: '0',
+                        label: '散客房',
                     },
                     {
                         value: '1',
@@ -313,124 +306,68 @@
                         label: '团队房按订单',
                     }
                 ],
-                guaranteeType:[
-                    {
-                        value: '0',
-                        label: '无需担保',
-                    },
-                    {
-                        value: '1',
-                        label: '无条件担保',
-                    },
-                    {
-                        value: '1',
-                        label: '房量担保',
-                    },
-                    {
-                        value: '1',
-                        label: '到店时间担保',
-                    },
-                    {
-                        value: '1',
-                        label: '房量和到店时间同时担保',
-                    },
-                    {
-                        value: '1',
-                        label: '无条件担保',
-                    }
-                ],
-                checkAll: false,
-                networkList: ['免费宽带', '收费宽带', '免费Wi-Fi', '部分公共区域免费Wi-Fi', '提供宽带上网', '收费Wi-Fi'],
-                isIndeterminate: true,
-                options2: [{
-                    id: 'zhinan',
-                    name: '指南',
-                    children: [{
-                        id: 'shejiyuanze',
-                        name: '设计原则',
-                        children: [{
-                            id: 'yizhi',
-                            name: '一致'
-                        }]
-                    }]
-                }],
-                props: {
-                    label: "name",
-                    value: "id"
-                },
                 rules: {
-//          hotelName: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          minimumHotelHousePrice: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelBrandId: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSupplierId: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelLongitude: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelLatitude: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelAddress: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelStatus: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSort: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSaleCount: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelStar: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelTelephone: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelFeatures: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelIntroduction: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          checkInTime: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          departureTime: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelStartBusiness: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          decorationTime: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          pet: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          abolitionOfPolicy: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          checkIn: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          buffet: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ]
+                    goodsName: [
+                        {required: true, message: '请输入产品名称', trigger: 'blur'}
+                    ],
+                    isGroup: [
+                        {required: true, message: '请选择产品类型', trigger: 'change'}
+                    ],
+                    lowestNum: [
+                        {required: true, message: '请输入起购房间数量', trigger: 'blur'}
+                    ],
+                    bedType: [
+                        {required: true, message: '请输入床型', trigger: 'blur'}
+                    ],
+                    guaranteeType: [
+                        {required: true, message: '请选择担保规则', trigger: 'change'}
+                    ],
+                    breakfast: [
+                        {required: true, message: '请选择是否含早', trigger: 'change'}
+                    ],
+                    changeRules: [
+                        {required: true, message: '请选择取消规则', trigger: 'change'}
+                    ],
+                    extraBed: [
+                        {required: true, message: '请选择可否加床', trigger: 'change'}
+                    ],
+                    refundTime: [
+                        {required: true, message: '请输入退房时间', trigger: 'blur'}
+                    ],
+                    broadbandFee: [
+                        {required: true, message: '请选择宽带类型', trigger: 'change'}
+                    ],
+                    amount: [
+                        {required: true, message: '请输入担保房间数量', trigger: 'blur'}
+                    ],
+                    promptly: [
+                        {required: true, message: '请输入确认时间', trigger: 'blur'}
+                    ],
+                    changeRate: [
+                        {required: true, message: '请输入改扣费比例', trigger: 'blur'}
+                    ],
+                    payMethod: [
+                        {required: true, message: '请选择付款方式', trigger: 'change'}
+                    ],
+                    arrivalTime: [
+                        {required: true, message: '请选择最早到达时间', trigger: 'change'}
+                    ],
+                    payMoney: [
+                        {required: true, message: '请输入立减或减返金额', trigger: 'blur'}
+                    ],
+                    reviewStatus: [
+                        {required: true, message: '请选择审核状态', trigger: 'change'}
+                    ],
+                    status: [
+                        {required: true, message: '请选择产品状态', trigger: 'blur'}
+                    ],
+                    sort: [
+                        {required: true, message: '请输入排序规则', trigger: 'blur'}
+                    ]
                 }
             }
         },
         created() {
-//            this.getList()
-
             if (this.$route.params.id) {
                 this.title = "编辑产品"
             } else {
@@ -439,29 +376,28 @@
 
         },
         methods: {
-//            getList() {
-//                addressList().then(response => {
-////          this.options2 = response.data.data;
-//                })
-//            },
-            handleCheckAllChange(val) {
-                this.ruleForm.network = val ? this.networkList : []
-                this.isIndeterminate = false
-            },
-            handleCheckedCitiesChange(value) {
-                let checkedCount = value.length
-                this.checkAll = checkedCount === this.networkList.length
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.networkList.length
-            },
-
             submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
+                this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
-//            addHotel(this.ruleForm).then(response => {
-//
-//              console.log(response);
-//            })
-                        console.log(this.ruleForm);
+                        this.addLoading = true
+                        if (this.ruleForm.goods_id == undefined) {
+                            addProduct(this.ruleForm).then(response => {
+                                console.log(response.data);
+                                this.$message({
+                                    message: '添加成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        } else {
+                            updateProduct(this.ruleForm.goods_id, this.ruleForm).then(response => {
+                                this.$message({
+                                    message: '更新成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        }
                     } else {
                         console.log('error submit!!')
                         return false
@@ -469,8 +405,11 @@
                 })
             },
             resetForm(formName) {
-                this.$refs[formName].resetFields()
-            }
+                this.$refs[formName].resetField()
+            },
+            handleCancel(){
+                this.$router.push({path: "/hotelproduct"})
+            },
         }
     }
 </script>
