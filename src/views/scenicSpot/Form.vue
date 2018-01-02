@@ -4,15 +4,15 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-comiisjiahao"></i>
-                    <span>{{title}}</span>
+                    <span>添加景区</span>
                 </div>
                 <div class="input">
                     <el-row>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>旅游主题:</span>
-                                <el-form-item label="膳食安排" prop="tourismTheme">
-                                    <el-select v-model="ruleForm.type" placeholder="请选择旅游主题">
+                                <el-form-item label="膳食安排" prop="scenicTypeId">
+                                    <el-select v-model="ruleForm.scenicTypeId" placeholder="请选择旅游主题">
                                         <el-option v-for="type in scenicTypes" :label="type.name" :value="type.id"></el-option>
                                     </el-select>
                                 </el-form-item>
@@ -21,13 +21,14 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>景区星级:</span>
-                                <el-form-item label="膳食安排" prop="scenicStar">
+                                <el-form-item label="景区星级" prop="scenicStar">
                                     <el-select v-model="ruleForm.scenicStar" placeholder="请选择景区星级">
-                                        <el-option label="5A级景区" value="5A级景区"></el-option>
-                                        <el-option label="4A级景区" value="4A级景区"></el-option>
-                                        <el-option label="3A级景区" value="3A级景区"></el-option>
-                                        <el-option label="2A级景区" value="2A级景区"></el-option>
-                                        <el-option label="1A级景区" value="1A级景区"></el-option>
+                                        <el-option
+                                                v-for="item in scenicStarList"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id">
+                                        </el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -35,7 +36,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>景区名称:</span>
-                                <el-form-item label="活动区域" prop="scenicName">
+                                <el-form-item label="景区名称" prop="scenicName">
                                     <el-input v-model="ruleForm.scenicName"></el-input>
                                 </el-form-item>
                             </div>
@@ -43,22 +44,51 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>开放时间:</span>
-                                <el-form-item label="膳食安排" prop="openTime">
-                                    <el-date-picker
-                                            v-model="ruleForm.openTime"
-                                            type="date"
-                                            placeholder="选择日期">
-                                    </el-date-picker>
+                                <el-form-item label="膳食安排" prop="scenicOpenTime">
+                                    <el-input v-model="ruleForm.scenicOpenTime"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>最小售价:</span>
+                                <el-form-item label="最小售价" prop="minPrice">
+                                    <el-input v-model="ruleForm.minPrice"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>联系电话:</span>
+                                <el-form-item label="联系电话" prop="contactNumber">
+                                    <el-input v-model="ruleForm.contactNumber"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>景区标识:</span>
+                                <el-form-item label="景区标识" prop="identification">
+                                    <el-input v-model="ruleForm.identification"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>推荐旅游时间:</span>
+                                <el-form-item label="推荐旅游时间" prop="recommendTime">
+                                    <el-input v-model="ruleForm.recommendTime"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>上&nbsp;下&nbsp; 架:</span>
-                                <el-form-item label="膳食安排" prop="upDown">
+                                <el-form-item label="膳食安排" prop="status">
                                     <el-select v-model="ruleForm.status" placeholder="请选择上下架">
-                                        <el-option label="上架" value="上架"></el-option>
-                                        <el-option label="下架" value="下架"></el-option>
+                                        <el-option label="上架" value="1"></el-option>
+                                        <el-option label="下架" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -82,29 +112,31 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>所在省份:</span>
-                                <area-cascader :level="1" type="all" v-model="ruleForm.region"></area-cascader>
-                            </div>
-                        </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>百度经度:</span>
-                                <el-form-item label="膳食安排" prop="longitude">
-                                    <el-input  v-model="ruleForm.longitude"></el-input>
+                                <el-form-item label="膳食安排" prop="region">
+                                    <area-cascader :level="1" type="all" v-model="ruleForm.region"></area-cascader>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>详细地址:</span>
-                                <el-form-item label="膳食安排" prop="detailAddress">
-                                    <el-input v-model="ruleForm.detailAddress"></el-input>
+                                <el-form-item label="详细地址" prop="detailAddress">
+                                    <el-input v-model="ruleForm.scenicAddress"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>百度经度:</span>
+                                <el-form-item label="百度经度" prop="longitude">
+                                    <el-input  v-model="ruleForm.longitude"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度纬度:</span>
-                                <el-form-item label="膳食安排" prop="latitude">
+                                <el-form-item label="百度纬度" prop="latitude">
                                     <el-input v-model="ruleForm.latitude"></el-input>
                                 </el-form-item>
                             </div>
@@ -148,25 +180,33 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>预订须知:</span>
-                                <Tinymce :height="200" id="guidelines" ref="guidelines" v-model="ruleForm.guidelines"></Tinymce>
+                                <el-form-item label="内容" prop="guidelines">
+                                <Tinymce :height="200" id="guidelines" ref="scenicGuidelines" v-model="ruleForm.scenicGuidelines"></Tinymce>
+                                </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>景区详情:</span>
-                                <Tinymce :height="200" id="scenicInfo" ref="scenicInfo" v-model="ruleForm.info"></Tinymce>
+                                <el-form-item label="内容" prop="scenicInfo">
+                                <Tinymce :height="200" id="scenicInfo" ref="scenicInfo" v-model="ruleForm.scenicInfo"></Tinymce>
+                                </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>交通路线:</span>
-                                <Tinymce :height="200" id="traffic" ref="traffic" v-model="ruleForm.traffic"></Tinymce>
+                                <el-form-item label="内容" prop="scenicTraffic">
+                                <Tinymce :height="200" id="traffic" ref="traffic" v-model="ruleForm.scenicTraffic"></Tinymce>
+                                </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>注意事项:</span>
-                                <Tinymce :height="200" id="notice" ref="notice"  v-model="ruleForm.notice"></Tinymce>
+                                <el-form-item label="内容" prop="scenicNotice">
+                                <Tinymce :height="200" id="notice" ref="notice"  v-model="ruleForm.scenicNotice"></Tinymce>
+                                </el-form-item>
                             </div>
                         </el-col>
                     </el-row>
@@ -176,7 +216,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
                             <el-button>返回</el-button>
                         </el-col>
                     </el-row>
@@ -193,12 +233,13 @@
     import FormMixin from './FormMixin'
     import Tinymce from '@/components/Tinymce'
     import SelectImages from "@/components/Attachment/selectImages";
+    import { getStatusList, getScenicStar } from '@/utils/common'
+    import { updateScenic, addScenic} from '@/api/scenic'
 
     export default {
         name: 'ScenicCreate',
         components: {Tinymce, SelectImages},
         mixins: [FormMixin],
-        title:"",
         props: {
             ruleForm: {
                 type: Object,
@@ -211,70 +252,72 @@
         },
         data() {
             return {
+//                selected:['140000', '140400', '140421'],
+                scenicStarList:  [],
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'second',
                 checkAll: false,
                 checkedCities: [],
-                cities: cityOptions,
                 isIndeterminate: true,
-//                ruleForm: {
-//                    tourismTheme: "",
-//                    scenicStar: "",
-//                    scenicName: "",
-//                    openTime: "",
-//                    upDown: "",
-//                    scenicPoint: "",
-//                    activeLocation: "",
-//                    longitude: "",
-//                    detailAddress: "",
-//                    latitude: "",
-//                    scave: "aaaa",
-//                    order: "",
-//                    scenicDetail: "",
-//                    trafficLine: "",
-//                    attention: ""
-//                },
                 rules: {
-                    tourismTheme: [
-                        {required: true, message: '此处不能为空', trigger: 'change'}
+                    scenicTypeId: [
+                        {required: true, type:'number', message: '请选择旅游主题', trigger: 'change'}
                     ],
                     scenicStar: [
-                        {required: true, message: '此处不能为空', trigger: 'change'}
+                        {required: true, type:'number',message: '请选择景区星级', trigger: 'change'}
                     ],
                     scenicName: [
-                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                        {required: true, message: '请输入景区名称', trigger: 'blur'}
                     ],
-                    openTime: [
-                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                    scenicOpenTime: [
+                        {required: true, message: '请输入景区的开发时间', trigger: 'blur'}
                     ],
-                    upDown: [
-                        {required: true, message: '此处不能为空', trigger: 'change'}
+                    minPrice: [
+                        {required: true, message: '请输入景区的最小售价', trigger:'blur'}
                     ],
-                    scenicPoint: [
-                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                    contactNumber: [
+                        {required: true, message: '请输入景区的联系方式', trigger:'blur'}
                     ],
-                    activeLocation: [
-                        {required: true, message: '此处不能为空', trigger: 'change'}
+                    recommendTime: [
+                        {required: true, message: '请输入推荐旅游时间', trigger:'blur'}
+                    ],
+                    status: [
+                        {required: true, message: '请选择景区状态', trigger: 'change'}
+                    ],
+                    features: [
+                        {required: true, message: '请输入景区的特色', trigger: 'change'}
+                    ],
+                    region: [
+                        {required: true, type: 'array', message: '请选择景区所在的省市区', trigger: 'blur'}
                     ],
                     longitude: [
-                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                        {required: true, message: '请输入景区的经度', trigger: 'blur'}
                     ],
-                    detailAddress: [
-                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                    scenicAddress: [
+                        {required: true, message: '请输入景区的详细地址', trigger: 'blur'}
                     ],
                     latitude: [
-                        {required: true, message: '此处不能为空', trigger: 'blur'}
+                        {required: true, message: '请输入景区的纬度', trigger: 'blur'}
+                    ],
+                    scenicGuidelines: [
+                        {required: true, message: '请输入景区的预定须知', trigger: 'blur'}
+                    ],
+                    scenicInfo: [
+                        {required: true, message: '请输入景区详情', trigger: 'blur'}
+                    ],
+                    scenicTraffic: [
+                        {required: true, message: '请输入景区交通线路', trigger: 'blur'}
+                    ],
+                    scenicNotice: [
+                        {required: true, message: '请输入景区的注意事项', trigger: 'blur'}
                     ]
                 }
             }
         },
-        created(){
-          if(this.$route.params.id){
-              this.title = "编辑景区"
-          }  else {
-              this.title = "添加景区"
-          }
+        created() {
+            this.scenicStarList = getScenicStar()
+            this.getStatusList = getStatusList()
         },
         methods: {
             handleRemove(file, fileList) {
@@ -286,19 +329,36 @@
             },
 
             submitForm(formName) {
-                console.log(this.ruleForm)
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log(this.ruleForm)
-                    } else {
+                        this.addLoading = true
+                        if (this.ruleForm.scenicId == undefined) {
+                            addScenic(this.ruleForm).then(response => {
+                                console.log(response.data);
+                                this.$message({
+                                    message: '添加成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        } else {
+                            updateScenic(this.ruleForm.scenicId, this.ruleForm).then(response => {
+                                this.$message({
+                                    message: '更新成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            })
+                        }
+                    }else {
                         console.log('error submit!!')
                         return false
                     }
                 })
             },
-            resetForm(formName) {
-                this.$refs[formName].resetFields()
-            }
+            handleCancel() {
+                this.$router.push({path: "/scenic"})
+            },
         }
     }
 </script>
