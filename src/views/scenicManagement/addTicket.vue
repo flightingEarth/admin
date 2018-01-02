@@ -10,19 +10,19 @@
                     <el-row>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
-                                <el-form-item label="膳食安排" prop="ticketType">
-                                    <el-select v-model="ruleForm.ticketType" placeholder="请选择">
-                                        <el-option label="普通票" value="0"></el-option>
-                                    </el-select>
+                                <span><i>|</i>门票名称:</span>
+                                <el-form-item label="门票名称" prop="ticketName">
+                                    <el-input v-model="ruleForm.ticketName"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>门票名称:</span>
-                                <el-form-item label="膳食安排" prop="ticketName">
-                                    <el-input v-model="ruleForm.ticketName"></el-input>
+                                <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
+                                <el-form-item label="票种" prop="ticketType">
+                                    <el-select v-model="ruleForm.ticketType" placeholder="请选择">
+                                        <el-option label="普通票" value="0"></el-option>
+                                    </el-select>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -41,7 +41,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>上&nbsp;下&nbsp; 架:</span>
                                 <el-form-item label="活动区域" prop="upDown">
-                                    <el-select v-model="ruleForm.upDown" placeholder="请选择">
+                                    <el-select v-model="ruleForm.status" placeholder="请选择">
                                         <el-option label="上架" value="0"></el-option>
                                         <el-option label="下架" value="1"></el-option>
                                     </el-select>
@@ -52,36 +52,13 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>取票地址:</span>
-                                <el-form-item label="膳食安排" prop="address">
+                                <el-form-item label="取票地址" prop="address">
                                     <el-input v-model="ruleForm.address"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple">
-                                <span><i>|</i>进行活动:</span>
-                                <el-form-item label="活动区域" prop="activities">
-                                    <el-select v-model="ruleForm.activities" placeholder="请选择">
-                                        <el-option label="无活动" value="0"></el-option>
-                                        <el-option label="有活动" value="1"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </div>
-                        </el-col>
 
 
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>时间类型:</span>
-                                <el-form-item label="膳食安排" prop="timeType">
-                                    <el-radio-group v-model="ruleForm.timeType">
-                                        <el-radio label="全部"></el-radio>
-                                        <el-radio label="日常票"></el-radio>
-                                        <el-radio label="周末票"></el-radio>
-                                    </el-radio-group>
-                                </el-form-item>
-                            </div>
-                        </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>支付方式:</span>
@@ -113,30 +90,6 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="22">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>入园方式:</span>
-                                <el-form-item label="活动形式" prop="inType">
-                                    <el-input type="textarea" v-model="ruleForm.inType"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-                        <el-col :span="22">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>包含项目:</span>
-                                <el-form-item label="活动形式" prop="include">
-                                    <el-input type="textarea" v-model="ruleForm.include"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-                        <el-col :span="22">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>退票说明:</span>
-                                <el-form-item label="活动形式" prop="refundTicket">
-                                    <el-input type="textarea" v-model="ruleForm.refundTicket"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
 
                     </el-row>
                 </div>
@@ -148,19 +101,14 @@
                     <el-row>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light double double12">
-                                <span><i>|</i>有&nbsp;&nbsp;&nbsp;效&nbsp;&nbsp;日&nbsp;&nbsp;期:</span>
-                                <el-form-item label="活动区域" prop="validTime">
+                                <span><i>|</i>售&nbsp;&nbsp;&nbsp;卖&nbsp;&nbsp;日&nbsp;&nbsp;期:</span>
+                                <el-form-item label="售卖日期" prop="validTime">
                                     <el-date-picker
-                                        v-model="validTime"
-                                        type="date"
-                                        placeholder="选择日期">
-                                    </el-date-picker>
-                                    <span class="zhi">至</span>
-                                    <el-date-picker
-                                        v-model="validedTime"
-                                        type="date"
-                                        placeholder="选择日期"
-                                        :picker-options="minValidTime">
+                                            v-model="value6"
+                                            type="daterange"
+                                            range-separator="至"
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期">
                                     </el-date-picker>
                                 </el-form-item>
                             </div>
@@ -305,32 +253,63 @@
                 </div>
                 <div class="input">
                     <el-row>
-
                         <el-col :span="8">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>市场价格:</span>
-                                <el-form-item label="膳食安排" prop="marketPrice">
-                                    <el-input v-model="ruleForm.marketPrice"></el-input>
+                                <el-form-item label="市场价格" prop="marketPrice">
+                                    <el-input v-model="ruleForm.market_price"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="8">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>供应价格:</span>
-                                <el-form-item label="膳食安排" prop="supplyTime">
-                                    <el-input v-model="ruleForm.supplyTime"></el-input>
+                                <el-form-item label="供应价格" prop="supplyTime">
+                                    <el-input v-model="ruleForm.provide_price"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="8">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销售价格:</span>
-                                <el-form-item label="膳食安排" prop="salesPrice">
-                                    <el-input v-model="ruleForm.salesPrice"></el-input>
+                                <el-form-item label="销售价格" prop="salesPrice">
+                                    <el-input v-model="ruleForm.shop_price"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
 
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>入园方式:</span>
+                                <el-form-item label="活动形式" prop="inType">
+                                    <el-input type="textarea" v-model="ruleForm.park_mode"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>包含项目:</span>
+                                <el-form-item label="包含项目" prop="include">
+                                    <el-input type="textarea" v-model="ruleForm.contain_item"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>退票说明:</span>
+                                <el-form-item label="活动形式" prop="refundTicket">
+                                    <el-input type="textarea" v-model="ruleForm.退款说明"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>使用说明:</span>
+                                <el-form-item label="使用说明" prop="refundTicket">
+                                    <el-input type="textarea" v-model="ruleForm.instructions"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
                     </el-row>
                 </div>
 
