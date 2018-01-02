@@ -31,9 +31,9 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>审核状态:</span>
                                 <el-form-item label="活动区域" prop="auditStatus">
-                                    <el-select v-model="ruleForm.auditStatus" placeholder="请选择">
-                                        <el-option label="审核通过" value="0"></el-option>
-                                        <el-option label="审核未通过" value="1"></el-option>
+                                    <el-select v-model="ruleForm.review_status" placeholder="请选择">
+                                        <el-option label="通过"  value="0"></el-option>
+                                        <el-option label="未通过"  value="1"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -41,7 +41,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>上&nbsp;下&nbsp; 架:</span>
-                                <el-form-item label="活动区域" prop="status">
+                                <el-form-item label="上下架" prop="status">
                                     <el-select v-model="ruleForm.status" placeholder="请选择">
                                         <el-option label="上架" value="0"></el-option>
                                         <el-option label="下架" value="1"></el-option>
@@ -83,9 +83,10 @@
                                 <span><i>|</i>可&nbsp;&nbsp;&nbsp;售&nbsp;&nbsp;日&nbsp;&nbsp;期:</span>
                                 <el-form-item label="售卖日期" prop="sell_start_time">
                                     <el-date-picker
-                                            v-model="sell_start_time"
+                                            v-model="ruleForm.sell_start_time"
                                             type="date"
                                             format="yyyy-MM-dd"
+                                            value-format="yyyy-MM-dd"
                                             placeholder="选择日期">
                                     </el-date-picker>
                                     <span class="zhi">至</span>
@@ -94,6 +95,7 @@
                                             type="date"
                                             placeholder="选择日期"
                                             format="yyyy-MM-dd"
+                                            value-format="yyyy-MM-dd"
                                             :picker-options="minInTime">
                                     </el-date-picker>
                                 </el-form-item>
@@ -103,7 +105,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>推迟游玩天数:</span>
                                 <el-form-item label="推迟游玩天数" prop="delay_days">
-                                    <el-input value="number" v-model="ruleForm.delay_days"></el-input>
+                                    <el-input type="number" v-model="ruleForm.delay_days"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -111,7 +113,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>提前预定天数:</span>
                                 <el-form-item label="提前预定天数" prop="orderTime">
-                                    <el-input value="number"  v-model="ruleForm.advance_date"></el-input>
+                                    <el-input type="number" value="number"  v-model="ruleForm.advance_date"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -122,7 +124,7 @@
                                     <el-time-select
                                             v-model="ruleForm.advance_time"
                                             :picker-options="{start: '08:30',step: '00:15',end: '12:30'}"
-                                            placeholder="入园时间">
+                                            placeholder="提前预定时间">
                                     </el-time-select>
                                 </el-form-item>
                             </div>
@@ -141,7 +143,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>一次最多购买的票数:</span>
                                 <el-form-item label="一次最多购买的票数" prop="orderTime">
-                                    <el-input v-model="ruleForm.buy_limit_up"></el-input>
+                                    <el-input type="number" v-model="ruleForm.buy_limit_up"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -150,7 +152,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>一次最少购买的票数:</span>
                                 <el-form-item label="一次最多购买的票数" prop="orderTime">
-                                    <el-input v-model="ruleForm.buy_limit_low"></el-input>
+                                    <el-input type="number" v-model="ruleForm.buy_limit_low"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -192,7 +194,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>限购张数:</span>
                                 <el-form-item label="限购张数" prop="orderTime">
-                                    <el-input value="number" v-model="ruleForm.buy_limit_num"></el-input>
+                                    <el-input type="number" v-model="ruleForm.buy_limit_num"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -216,7 +218,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>可退天数限制:</span>
                                 <el-form-item label="膳食安排" prop="refund_day">
-                                    <el-input v-model="ruleForm.refund_day"></el-input>
+                                    <el-input type="number" v-model="ruleForm.refund_day"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -246,7 +248,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>市场价格:</span>
                                 <el-form-item label="市场价格" prop="market_price">
-                                    <el-input v-model="ruleForm.market_price"></el-input>
+                                    <el-input type="number" v-model="ruleForm.market_price"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -254,7 +256,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>供应价格:</span>
                                 <el-form-item label="供应价格" prop="provide_price">
-                                    <el-input v-model="ruleForm.provide_price"></el-input>
+                                    <el-input type="number" v-model="ruleForm.provide_price"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -262,7 +264,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销售价格:</span>
                                 <el-form-item label="销售价格" prop="shop_price">
-                                    <el-input v-model="ruleForm.shop_price"></el-input>
+                                    <el-input type="number" v-model="ruleForm.shop_price"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -271,7 +273,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>库存:</span>
                                 <el-form-item label="销售价格" prop="remain">
-                                    <el-input v-model="ruleForm.remain"></el-input>
+                                    <el-input type="number" v-model="ruleForm.remain"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -347,6 +349,7 @@
                 type: Object,
                 default() {
                     return {
+                        status : '上架'
                     }
                 }
             }
@@ -376,7 +379,7 @@
                     status: [
                         {required: true, message: '请选择门票售卖状态', trigger: 'change'}
                     ],
-                    auditStatus: [
+                    review_status: [
                         {required: true, message: '请选择门票审核状态', trigger: 'change'}
                     ],
                     address: [
@@ -458,8 +461,8 @@
             },
 
             submitForm(formName) {
-                console.log(this.ruleForm.sell_end_time, parseTime(this.ruleForm.sell_end_time, '{y}-{m}-{d}'))
-                if (!this.sell_start_time || !this.ruleForm.sell_end_time || this.sell_start_time == '0-0-0 0:0:0' || this.ruleForm.sell_end_time == '0-0-0 0:0:0') {
+                console.log(this.ruleForm)
+                if (!this.ruleForm.sell_start_time || !this.ruleForm.sell_end_time || this.ruleForm.sell_start_time == '0-0-0 0:0:0' || this.ruleForm.sell_end_time == '0-0-0 0:0:0') {
                     this.$message({
                         message: '请选择可售日期！',
                         type: 'error'
@@ -469,11 +472,8 @@
 
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.ruleForm.sell_start_time = parseTime(this.sell_start_time, '{y}-{m}-{d}');
-                        this.ruleForm.sell_end_time = parseTime(this.ruleForm.sell_end_time, '{y}-{m}-{d}');
-
                         this.addLoading = true
-                        if (this.ruleForm.tieketId == undefined) {
+                        if (this.ruleForm.ticketId == undefined) {
                             addTicket(this.scenicId, this.ruleForm).then(response => {
                                 this.$message({
                                     message: '添加成功！',
@@ -497,9 +497,6 @@
                     }
                 })
             },
-            resetForm(formName) {
-                this.$refs[formName].resetFields()
-            }
         }
     }
 </script>

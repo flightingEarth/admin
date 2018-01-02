@@ -1,20 +1,20 @@
 <template>
-    <scenic-form :ruleForm="ruleForm"></scenic-form>
+    <ticket-form :ruleForm="ruleForm"></ticket-form>
 </template>
 
 <script>
-    import ScenicForm from './Form'
-    import { getScenic } from 'api/scenic'
+    import TicketForm from './Form'
+    import { getTicket } from 'api/ticket'
 
     export default {
-        components: { ScenicForm },
+        components: { TicketForm },
         data() {
             return {
                 ruleForm: undefined
             }
         },
         created() {
-            getScenic(this.$route.params.id).then(response => {
+            getTicket(this.$route.params.scenicId, this.$route.params.id).then(response => {
                 this.ruleForm = response.data.data
             })
         },
