@@ -14,6 +14,24 @@
             </div>
 
             <div class="modal-body">
+                <div class="network-image-region clearfix">
+                    <div class="title">网络图片：</div>
+                    <div class="content">
+                        <div class="input-append">
+                            <el-input placeholder="请输入内容" size="small" v-model="networkImageUrl">
+                                <template slot="append" >
+                                    <el-button type="primary" @click="confirmNetworkImageUrl">提取</el-button>
+                                </template>
+                            </el-input>
+                        </div>
+                        <ul class="image-list">
+                            <li class="upload-local-image-item" v-for="(file, index) in networkFileList">
+                                <img :src="file.url" @error="handleInvalidLink(index)" class="image-box"/>
+                                <i class="close-modal small el-icon-circle-cross" @click="handleRemoveNetworkImage(index)"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="local-image-region clearfix" >
                     <div class="title">本地图片：</div>
                     <div class="content">
@@ -24,18 +42,18 @@
                             </li>
                         </ul>
                         <el-upload
-                            ref="upload"
-                            class="picture-uploader"
-                            :auto-upload="false"
-                            :multiple="false"
-                            :action="action"
-                            name="image"
-                            :data="para"
-                            :file-list="files"
-                            :on-error="handlePictureError"
-                            :on-success="handlePictureSuccess"
-                            :on-change="handlePictureChange"
-                            :show-file-list="false">
+                                ref="upload"
+                                class="picture-uploader"
+                                :auto-upload="false"
+                                :multiple="false"
+                                :action="action"
+                                name="image"
+                                :data="para"
+                                :file-list="files"
+                                :on-error="handlePictureError"
+                                :on-success="handlePictureSuccess"
+                                :on-change="handlePictureChange"
+                                :show-file-list="false">
                             <i slot="trigger"  class="el-icon-plus picture-uploader-icon"></i>
                             <div slot="tip" class="c-gray el-upload__tip" style="padding-top: 20px;">仅支持jpg、gif、png三种格式, 大小不超过3 MB</div>
 
@@ -82,6 +100,8 @@
         },
         data() {
             return {
+                networkFileList: [], // 网络图片
+                networkImageUrl: '', // 网络图片url
                 fileList: [], //本地图片
                 files:[],
                 para:{category_id: 0},
@@ -108,6 +128,11 @@
                 this.$emit('switch')
             },
             //提取网络图片url
+            confirmNetworkImageUrl() {
+                if (this.networkImageUrl) {
+                    this.networkFileList.push({url:this.networkImageUrl})
+                }
+            },
             //上传本地图片 事件
             handlePictureChange(file, fileList) {
                 console.log(file)
@@ -121,6 +146,15 @@
 
                 this.isDisabled = !(this.fileList.length > 0)
 
+            },
+            // 无效的链接
+            handleInvalidLink(index) {
+                this.$message.error('无效的链接!')
+                this.handleRemoveNetworkImage(index)
+            },
+            // 移除网络图片
+            handleRemoveNetworkImage(index) {
+                this.networkFileList.splice(index, 1)
             },
             // 移除本地图片
             handleRemove(index) {

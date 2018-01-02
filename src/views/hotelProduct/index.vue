@@ -6,58 +6,48 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>酒店名称:</span>
-                            <el-input v-model="searchList.hotelName" placeholder="请输入酒店名称"></el-input>
+                            <span><i>|</i>产品名称:</span>
+                            <el-input v-model="searchList.hotelName" placeholder=""></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>酒店星级:</span>
-                            <el-select v-model="searchList.hotelStar" placeholder="请选择">
-                                <el-option label="全部" value="0"></el-option>
-                                <el-option label="客栈／公寓" value="1"></el-option>
-                                <el-option label="二星级／经济型" value="2"></el-option>
-                                <el-option label="三星级／舒适型" value="3"></el-option>
-                                <el-option label="四星级／高档型" value="4"></el-option>
-                                <el-option label="五星级／豪华型" value="5"></el-option>
+                            <span><i>|</i>审核状态:</span>
+                            <el-select v-model="searchList.ticketType" placeholder="请选择">
+                                <el-option
+                                    v-for="item in supplierOptions"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
                             </el-select>
-                        </div>
-                    </el-col>
-
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>选择城市:</span>
-                            <el-cascader
-                                    :options="options2"
-                                    @active-item-change="handleItemChange"
-                                    :props="props"
-                            ></el-cascader>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
-                            <span><i>|</i>酒店状态:</span>
+                            <span><i>|</i>产品状态:</span>
                             <el-select v-model="searchList.hotelStatus" placeholder="请选择">
-                                <el-option label="正常" value="1"></el-option>
-                                <el-option label="不营业" value="2"></el-option>
+                                <el-option
+                                    v-for="item in supplierOptions"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
                             </el-select>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
-                        <el-button type="primary" @click="handleSearch">搜索</el-button>
+                        <el-button type="primary">搜索</el-button>
                         <el-button>重置条件</el-button>
-                        <!--<el-button type="primary">导出</el-button>-->
                     </el-col>
 
                 </el-row>
-            </el-form>
 
             </div>
         </div>
@@ -66,142 +56,170 @@
             <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
             <ul>
-                <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
-                <li><a href="javascript:;">价格日历</a></li>
+                <li><a href="javascript:;" @click="addProduct">添加产品</a></li>
             </ul>
         </div>
         <div class="table">
-            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
+            <el-table
+                :data="tableData"
+                border
+                stripe
+                style="width: 100%">
                 <el-table-column
-                        prop="hotelId"
-                        label="编号"
-                        align="center"
+                    prop="id"
+                    label="产品编号"
+                    align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="hotelName"
-                        label="酒店名称"
-                        align="center"
+                    prop="hotelId"
+                    label="酒店编号"
+                    align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="hotelStar"
-                        label="酒店星级"
-                        align="center"
+                    prop="houseId"
+                    label="房型编号"
+                    align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="hotelAddress"
-                        label="酒店地址"
-                        align="center"
+                    prop="productName"
+                    label="产品名称"
+                    align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="hotelTelephone"
-                        label="联系方式"
-                        align="center"
+                    prop="bed"
+                    label="床型"
+                    align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="minimumHotelHousePrice"
-                        label="最小价格"
-                        align="center">
+                    prop="addBed"
+                    label="加床"
+                    align="center">
                 </el-table-column>
                 <el-table-column
+                    prop="breakfast"
+                    label="早餐"
+                    align="center">
+                </el-table-column>
 
-                        label="酒店状态"
-                        align="center">
-                    <template slot-scope="scope">
-                        <el-button v-if="scope.row.hotelStatus ==1" type="text" size="small">上架</el-button>
-                        <el-button v-if="scope.row.hotelStatus ==2" type="text" size="small">下架</el-button>
-                    </template>
+                <el-table-column
+                    prop="wifi"
+                    label="宽带"
+                    align="center">
                 </el-table-column>
                 <el-table-column
-                        prop="createdTime"
-                        label="添加时间"
-                        align="center">
+                    prop="shareType"
+                    label="分润方式"
+                    align="center">
                 </el-table-column>
                 <el-table-column
-                        label="操作"
-                        align="center">
+                    prop="status"
+                    label="审核状态"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="productStatus"
+                    label="产品状态"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="creatTime"
+                    label="创建时间"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="操作"
+                    align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="handleHouse(scope.row.hotelId)">房型</el-button>
-                        <el-button type="text" size="small" @click="edit(scope.row.hotelId)">编辑</el-button>
+                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small">查看</el-button>
                     </template>
                 </el-table-column>
 
             </el-table>
             <el-pagination
-                    @current-change="handleCurrentChange"
-                    :current-page="searchList.currentPage"
-                    :page-size="searchList.limit"
-                    layout="total, prev, pager, next, jumper"
-                    :total="total">
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="searchList.currentPage"
+                :page-sizes="pageSizes"
+                :page-size="searchList.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="searchList.totalList">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import { hotelList } from '@/api/hotel'
+    import {fetchList} from '@/api/article'
+    import "../../iconfont/iconfont.css";
     export default {
-        name: 'hotel',
+        name: 'hotelProduct',
         data() {
             return {
-                total: 0,
                 searchList: {
-                    hotelName: '',
-                    hotelStar: '',
-                    hotelStatus: '',
+                    scenicName: undefined,
+                    ticketType: undefined,
+                    ticketName: undefined,
                     currentPage: 1,
-                    limit: 20,
-                    page: 1
+                    pageSize: 10,
+                    totalList: 100
                 },
-                beginTime: "",
-                endTime: "",
-                minTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
-                    }
-                },
-                tableData: [],
-                options2: [],
+                pageSizes: [10, 20, 50, 100],
+                supplierOptions: [{
+                    value: '0',
+                    label: '其他'
+                }],
+                tableData: [{
+                    id: '995395',
+                    hotelId: '23',
+                    houseId: '679890',
+                    productName: '大床房',
+                    bed: '双人床1.8，1张',
+                    addBed: '不可加床',
+                    breakfast: '无早',
+                    wifi: '免费无线',
+                    shareType: '',
+                    status: '审核通过',
+                    productStatus: '',
+                    creatTime: '2017-11-13 00:00:00'
+                }],
+                options2: [{
+                    label: '江苏',
+                    cities: []
+                }, {
+                    label: '浙江',
+                    cities: []
+                }],
                 props: {
                     value: 'label',
                     children: 'cities'
                 }
             }
         },
-        created() {
-            this.getList()
-        },
         methods: {
             getList() {
                 this.listLoading = true
-                hotelList(this.searchList).then(response => {
-                    this.tableData = response.data.data
-                    this.total = response.data.meta.total
+                fetchList(this.searchList).then(response => {
+                    this.tableData = response.data.items
+                    this.total = response.data.total
                     this.listLoading = false
                 })
             },
+            handleSizeChange(val) {
+                this.searchList.pageSize = val
+                this.tableData()
+            },
             handleCurrentChange(val) {
-                this.searchList.page = val;
-                this.getList();
+                this.searchList.currentPage = val
+                this.tableData()
             },
-            handleItemChange(val) {
-                console.log('active item:', val)
-            },
-            addHotel() {
-                this.$router.push({path: "/hotel/create"})
-            },
-            handleSearch() {
-                this.getList()
-            },
-            edit(index) {
-                this.$router.push({path: "/hotel/"+index + '/edit'})
-            },
-            handleHouse(){
-                this.$router.push({path: "/hotelManagement/houseShape"})
+            addProduct() {
+                this.$router.push({ path:"/hotelManagement/addProduct" });
             }
         }
     }
@@ -224,7 +242,9 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-
+                i{
+                    color: #2C7ADE;
+                }
             }
             .input {
                 span {
@@ -282,6 +302,9 @@
             margin-top: 20px;
             line-height: 60px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
+            i{
+                color: #2C7ADE;
+            }
             ul {
                 list-style: none;
                 float: right;

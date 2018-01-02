@@ -1,3 +1,12 @@
+
+export function getCurrentState(state) {
+    if (state == 1) {
+        return '正常'
+    } else if (state == 2) {
+        return '未营业'
+    }
+}
+
 function pluralize(time, label) {
   if (time === 1) {
     return time + label

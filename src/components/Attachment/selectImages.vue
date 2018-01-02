@@ -1,6 +1,7 @@
 <template>
     <div class="upload-image-region">
-        <el-dialog custom-class="widget-attachment" top="0" :before-close="handleClose" :show-close="false" v-model="visible" :close-on-click-modal="false">
+        <el-dialog custom-class="widget-attachment" top="0" :before-close="handleClose" :show-close="false"
+                   v-model="visible" :close-on-click-modal="false">
 
             <div class="modal-header" slot="title">
                 <i class="el-icon-close close" @click="handleClose"></i>
@@ -13,15 +14,16 @@
                 <span class="title">{{ title }}</span>
 
                 <!--<div class="ui-search-box">-->
-                    <!--<el-input placeholder="搜索" size="small" v-model="keyword" :on-icon-click="searchImage" icon="search">-->
-                    <!--</el-input>-->
+                <!--<el-input placeholder="搜索" size="small" v-model="keyword" :on-icon-click="searchImage" icon="search">-->
+                <!--</el-input>-->
                 <!--</div>-->
             </div>
 
             <div class="modal-body">
                 <div class="category-list-region" v-show="categoryVisible">
                     <ul class="category-list">
-                        <li class="category-item" v-for="(category,index) in categories" @click="handleSelectionCategory(index, category)" :class="{active:isActive == index}">
+                        <li class="category-item" v-for="(category,index) in categories"
+                            @click="handleSelectionCategory(index, category)" :class="{active:isActive == index}">
                             {{category.name}}
                             <!--<span class="category-name">{{category.name}}</span>-->
                             <span class="category-num">{{category.count}}</span>
@@ -30,9 +32,9 @@
                 </div>
                 <div class="attachment-list-region">
                     <ul class="image-list">
-                        <li class="image-item" v-for="image in images" @click="handleSelectImage(image)" >
+                        <li class="image-item" v-for="image in images" @click="handleSelectImage(image)">
                             <img class="image-box" width="120" height="120" :src="image.links"/>
-                            <div class="image-meta">{{ image.width + '*' + image.height  }}</div>
+                            <div class="image-meta">{{ image.width + '*' + image.height }}</div>
                             <!--<div class="image-title">{{ image.name }}</div>-->
                             <div class="attachment-selected" v-if="image.checked">
                                 <i class="el-icon-check"></i>
@@ -41,51 +43,52 @@
                     </ul>
 
                     <div class="attachment-pagination">
-                        <el-button type="success" class="fl" v-show="categoryVisible" @click="uploadImageVisible = true" size="small">上传图片</el-button>
-                        <el-pagination class="fr"
-                                       small
-                                       @current-change="handleCurrentChange"
-                                       :page-size="limit"
-                                       layout="prev, pager, next"
-                                       :total="total">
-                        </el-pagination>
+                        <el-button type="success" class="addImg" v-show="categoryVisible" @click="uploadImageVisible = true"
+                                   size="small">
+                            <i class="iconfont icon-iconjia"></i>
+                        </el-button>
+                        <p v-show="categoryVisible">暂无数据，点击添加</p>
                     </div>
                 </div>
             </div>
 
 
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" :class="{ 'ui-btn-disabled': isDisabled }" style="width: 120px;" @click="submit">确 定</el-button>
+                <el-button type="primary" :class="{ 'ui-btn-disabled': isDisabled }" style="width: 120px;"
+                           @click="submit">确 定
+                </el-button>
             </div>
         </el-dialog>
 
-        <Upload-image :categoryId="currentCategory.id" backTitle="我的图片" @submit="loadImages" @close="uploadImageVisible = false" :visible="uploadImageVisible"></Upload-image>
+        <Upload-image :categoryId="currentCategory.id" backTitle="我的图片" @submit="loadImages"
+                      @close="uploadImageVisible = false" :visible="uploadImageVisible"></Upload-image>
 
     </div>
 </template>
 
 <script>
     import UploadImage from '@/components/Attachment/uploadImage';
-    import { getImages  } from 'api/image'
-    import { getCategories } from 'api/imageCategory'
+    import {getImages} from 'api/image'
+    import {getCategories} from 'api/imageCategory'
+    import "../../iconfont/iconfont.css"
 
     export default {
         name: 'SelectImages',
-        components:{
+        components: {
             UploadImage
         },
-        props:{
+        props: {
             visible: {
                 type: Boolean,
                 default: false
             },
             backTitle: {
                 type: String,
-                default:''
+                default: ''
             },
             title: {
                 type: String,
-                default:'我的文件'
+                default: '上传图片'
             },
             min: {
                 type: Number,
@@ -104,12 +107,24 @@
                 keyword: '',
                 categoryVisible: true,
                 images: [],
-                categories: [],
-                selected:[],
+                categories: [{
+                    "name": "未命名",
+                    "count": 1
+                    },
+                    {
+                        "name": "未命名1",
+                        "count": 2
+                    },
+                    {
+                        "name": "未命名2",
+                        "count": 3
+                    }
+                ],
+                selected: [],
                 currentCategory: {id: 0},
                 count: 0,
                 total: 0,
-                page:1,
+                page: 1,
                 limit: 15,
                 uploadImageVisible: false
             }
@@ -123,7 +138,7 @@
                 this.isDisabled = (val > 0) ? false : true
             }
         },
-        methods:{
+        methods: {
             loadImages() {
                 let para = {
                     page: this.page,
@@ -184,7 +199,7 @@
                 }
             },
             submit() {
-                if (! this.isDisabled) {
+                if (!this.isDisabled) {
                     let selected = []
                     this.images.forEach(function (image, index) {
                         if (image.checked) {
@@ -201,9 +216,10 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-    .modal-body{
+    .modal-body {
         height: 528px;
     }
+
     //分类
     .category-list-region {
         float: left;
@@ -232,17 +248,28 @@
                     color: #999;
                 }
             }
-            .active{
+            .active {
                 background: #fff;
             }
         }
     }
 
+    .modal-header {
+        position: relative;
+        border: 0;
+        .title {
+            position: absolute;
+            top: 5px;
+            left: 20px;
+            /*color: #fff;*/
+        }
+    }
+
     //图片展示
-    .attachment-list-region{
-        padding: 20px 20px 10px 0   ;
+    .attachment-list-region {
+        padding: 20px 20px 10px 0;
         /*width: 680px;*/
-        .image-list{
+        .image-list {
             height: 430px;
             margin-left: 5px;
             .image-item {
@@ -267,7 +294,7 @@
                     line-height: 25px;
                     color: #fff;
                     text-align: center;
-                    background: rgba(0,0,0,0.2);
+                    background: rgba(0, 0, 0, 0.2);
                     bottom: 0;
                 }
                 .image-title {
@@ -312,19 +339,30 @@
 
         .attachment-pagination {
             position: absolute;
-            bottom: 90px;
-            width: 680px;
+            bottom: 0;
             padding: 6px;
             margin-left: 160px;
             height: 40px;
+            left: 33%;
             line-height: 40px;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
-            background: #f8f8f8;
-            .ui-pagination-total{
-                padding: 6px 0;
-                float:right;
+            /*background: #f8f8f8;*/
+            .addImg{
+                width: 120px;
+                height: 120px;
+                border: 5px dashed #f2f2f2;
+                background: #fff;
+                span{
+                    .icon-iconjia{
+                        color: #E6E6E6!important;
+                        font-size: 30px;
+                    }
+                }
+            }
+            p{
+                color: #999;
             }
         }
     }

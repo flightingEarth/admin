@@ -28,9 +28,24 @@ import SourceModification from '@/views/scenicManagement/sourceModification'
 import TicketList from '@/views/scenicManagement/ticketList'
 import TourismTheme from '@/views/scenicManagement/tourismTheme'
 
+import ScenicSpot from '@/views/scenicSpot'
+import ScenicCreate from '@/views/scenicSpot/create'
+import ScenicEdit from '@/views/scenicSpot/edit'
+import ScenicTicket from '@/views/scenicTicket'
+import TicketCreate from '@/views/scenicTicket/create'
+import TicketEdit from '@/views/scenicTicket/edit'
+
 import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
 import HotelEdit from '@/views/hotel/edit'
+
+import HotelRoom from '@/views/hotelRoom'
+import RoomCreate from '@/views/hotelRoom/create'
+import RoomEdit from '@/views/hotelRoom/edit'
+
+import HotelProduct from '@/views/hotelProduct'
+import HotelProductCreate from '@/views/hotelProduct/create'
+import HotelProductEdit from '@/views/hotelProduct/edit'
 
 
 import HotelManagement from '@/views/hotelManagement'
@@ -42,7 +57,7 @@ import HotelFacilities from '@/views/hotelManagement/hotelFacilities'
 import HotelList from '@/views/hotelManagement/hotelList'
 import HotelOrder from '@/views/hotelManagement/hotelOrder'
 import HotelPorts from '@/views/hotelManagement/hotelPorts'
-import HotelProduct from '@/views/hotelManagement/hotelProduct'
+// import HotelProduct from '@/views/hotelManagement/hotelProduct'
 import HouseShape from '@/views/hotelManagement/houseShape'
 import LandmarkManagement from '@/views/hotelManagement/landmarkManagement'
 import PriceCalendar from '@/views/hotelManagement/priceCalendar'
@@ -144,6 +159,33 @@ const router = new Router({
         },
 
         {
+            path: '/',
+            component: Layout,
+            name: '景区管理',
+            icon: 'quanxian',
+            children: [
+                {
+                    path: '/scenic', component: ScenicSpot, name: '景区管理',
+                },
+                {
+                    path: '/scenic/create',hidden:true, component: ScenicCreate, name: '景区添加',
+                },
+                {
+                    path: '/scenic/:id/edit',hidden:true, component: ScenicEdit, name: '景区编辑',
+                },
+                {
+                    path: '/scenic/:scenicId/ticket', component: ScenicTicket, name: '门票管理',
+                },
+                {
+                    path: '/scenic/:scenicId/ticket/create',hidden:true, component: TicketCreate, name: '门票添加',
+                },
+                {
+                    path: '/scenic/:scenicId/ticket/:id/edit',hidden:true, component: TicketEdit, name: '门票编辑',
+                }
+            ]
+        },
+
+        {
             path: '/scenicManagement',
             component: Layout,
             name: '景区管理',
@@ -216,7 +258,29 @@ const router = new Router({
                 },
                 {
                     path: '/hotel/:id/edit', hidden:true, component: HotelEdit, name: '酒店编辑'
-                }
+                },
+
+                //房型管理
+                {
+                    path: '/hotel/hotelRoom', hidden:true, component: HotelRoom, name: '房型管理'
+                },
+                {
+                    path: '/hotel/hotelRoom/create', hidden:true, component: RoomCreate, name: '房型添加'
+                },
+                {
+                    path: '/hotel/hotelRoom/:id/edit', hidden:true, component: RoomEdit, name: '房型编辑'
+                },
+
+                //酒店产品
+                {
+                    path: '/hotelproduct', component: HotelProduct, name: '酒店产品'
+                },
+                {
+                    path: '/hotelproduct/create', hidden:true, component: HotelProductCreate, name: '酒店产品添加'
+                },
+                {
+                    path: '/hotelproduct/:id/edit', hidden:true, component: HotelProductEdit, name: '酒店产品编辑'
+                },
             ]
         },
 
