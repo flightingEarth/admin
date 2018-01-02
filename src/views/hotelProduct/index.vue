@@ -18,12 +18,8 @@
                         <div class="grid-content bg-purple">
                             <span><i>|</i>审核状态:</span>
                             <el-select v-model="searchList.ticketType" placeholder="请选择">
-                                <el-option
-                                    v-for="item in supplierOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
+                                <el-option label="审核通过" value="1"></el-option>
+                                <el-option label="审核未通过" value="2"></el-option>
                             </el-select>
                         </div>
                     </el-col>
@@ -32,12 +28,8 @@
                         <div class="grid-content bg-purple double">
                             <span><i>|</i>产品状态:</span>
                             <el-select v-model="searchList.hotelStatus" placeholder="请选择">
-                                <el-option
-                                    v-for="item in supplierOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
+                                <el-option label="正常营业" value="1"></el-option>
+                                <el-option label="未营业" value="2"></el-option>
                             </el-select>
                         </div>
                     </el-col>
@@ -66,7 +58,7 @@
                 stripe
                 style="width: 100%">
                 <el-table-column
-                    prop="id"
+                    prop="goods_id"
                     label="产品编号"
                     align="center"
                 >
@@ -78,25 +70,25 @@
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="houseId"
+                    prop="roomId"
                     label="房型编号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="productName"
+                    prop="goodsName"
                     label="产品名称"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="bed"
+                    prop="bedType"
                     label="床型"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="addBed"
+                    prop="extraBed"
                     label="加床"
                     align="center">
                 </el-table-column>
@@ -107,27 +99,26 @@
                 </el-table-column>
 
                 <el-table-column
-                    prop="wifi"
+                    prop="broadbandFee"
                     label="宽带"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="shareType"
-                    label="分润方式"
+                    prop="reviewStatus"
+                    label="审核状态"
                     align="center">
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.reviewStatus = 0">审核未通过</span>
+                        <span v-if="scope.row.reviewStatus = 1">审核通过</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="status"
-                    label="审核状态"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="productStatus"
                     label="产品状态"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="creatTime"
+                    prop="arrivalTime"
                     label="创建时间"
                     align="center">
                 </el-table-column>
@@ -135,27 +126,25 @@
                     label="操作"
                     align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small" @click="edit(scope.row.goods_id)">编辑</el-button>
                         <el-button type="text" size="small">查看</el-button>
                     </template>
                 </el-table-column>
 
             </el-table>
             <el-pagination
-                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-sizes="pageSizes"
                 :page-size="searchList.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="searchList.totalList">
+                layout="total, prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import {fetchList} from '@/api/article'
+    import { ProductList } from '@/api/hotelProduct'
     import "../../iconfont/iconfont.css";
     export default {
         name: 'hotelProduct',
@@ -166,60 +155,32 @@
                     ticketType: undefined,
                     ticketName: undefined,
                     currentPage: 1,
-                    pageSize: 10,
-                    totalList: 100
                 },
-                pageSizes: [10, 20, 50, 100],
-                supplierOptions: [{
-                    value: '0',
-                    label: '其他'
-                }],
-                tableData: [{
-                    id: '995395',
-                    hotelId: '23',
-                    houseId: '679890',
-                    productName: '大床房',
-                    bed: '双人床1.8，1张',
-                    addBed: '不可加床',
-                    breakfast: '无早',
-                    wifi: '免费无线',
-                    shareType: '',
-                    status: '审核通过',
-                    productStatus: '',
-                    creatTime: '2017-11-13 00:00:00'
-                }],
-                options2: [{
-                    label: '江苏',
-                    cities: []
-                }, {
-                    label: '浙江',
-                    cities: []
-                }],
-                props: {
-                    value: 'label',
-                    children: 'cities'
-                }
+                total:"",
+                tableData: []
             }
+        },
+        created(){
+          this.getList()
         },
         methods: {
             getList() {
                 this.listLoading = true
-                fetchList(this.searchList).then(response => {
-                    this.tableData = response.data.items
-                    this.total = response.data.total
+                ProductList(this.searchList).then(response => {
+                    this.tableData = response.data.data
+                    this.total = response.data.meta.total
                     this.listLoading = false
                 })
-            },
-            handleSizeChange(val) {
-                this.searchList.pageSize = val
-                this.tableData()
             },
             handleCurrentChange(val) {
                 this.searchList.currentPage = val
                 this.tableData()
             },
             addProduct() {
-                this.$router.push({ path:"/hotelManagement/addProduct" });
+                this.$router.push({ path:"/hotelproduct/create" });
+            },
+            edit(index){
+                this.$router.push({path:"/hotelproduct/" + index +  "/edit" })
             }
         }
     }

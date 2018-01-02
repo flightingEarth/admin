@@ -5,7 +5,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <svg-icon icon-class="added"/>
-                    <span>添加酒店</span>
+                    <span>{{title}}</span>
                 </div>
                 <div class="input">
                     <el-row>
@@ -389,6 +389,7 @@
                 parkingLotList:[], //停车场
                 facilitiesList:[], //设备服务
                 options:[],
+                title:"",
                 checkAll: false,
                 isIndeterminate: true,
                 options2: [],
@@ -468,6 +469,11 @@
             }
         },
         created() {
+            if(this.$route.params.id){
+                this.title = "编辑酒店"
+            }else {
+                this.title = "添加酒店"
+            }
         },
         methods: {
             handleCheckAllChange(val) {

@@ -4,7 +4,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-comiisjiahao"></i>
-                    <span>{{title}}</span>
+                    <span>添加景区</span>
                 </div>
                 <div class="input">
                     <el-row>
@@ -176,7 +176,7 @@
                 <div class="input">
                     <el-row>
                         <el-col :span="24">
-                            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
                             <el-button>返回</el-button>
                         </el-col>
                     </el-row>
@@ -198,7 +198,6 @@
         name: 'ScenicCreate',
         components: {Tinymce, SelectImages},
         mixins: [FormMixin],
-        title:"",
         props: {
             ruleForm: {
                 type: Object,
@@ -268,13 +267,6 @@
                     ]
                 }
             }
-        },
-        created(){
-          if(this.$route.params.id){
-              this.title = "编辑景区"
-          }  else {
-              this.title = "添加景区"
-          }
         },
         methods: {
             handleRemove(file, fileList) {

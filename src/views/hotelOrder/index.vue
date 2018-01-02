@@ -48,16 +48,11 @@
                         <div class="grid-content bg-purple double">
                             <span><i>|</i>有效起始:</span>
                             <el-date-picker
-                                v-model="beginTime"
-                                type="date"
-                                placeholder="选择日期">
-                            </el-date-picker>
-                            <span class="zhi">至</span>
-                            <el-date-picker
-                                v-model="endTime"
-                                type="date"
-                                placeholder="选择日期"
-                                :picker-options="minTime">
+                                v-model="searchList.time"
+                                type="daterange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
                             </el-date-picker>
                         </div>
                     </el-col>
@@ -198,8 +193,6 @@
                 },
                 number: 0,
                 liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
-                beginTime: "",
-                endTime: "",
                 listLoading: false,
                 pageSizes: [10, 20, 50, 100],
                 supplierOptions: [{
@@ -309,6 +302,9 @@
                 .grid-content {
                     margin-left: 20px;
                     margin-top: 20px;
+                    .el-input__inner{
+                        width: 80%;
+                    }
                 }
                 .el-select {
                     width: 80%;

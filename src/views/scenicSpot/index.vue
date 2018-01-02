@@ -70,7 +70,7 @@
                 <el-table-column prop="scenicStatus" label="上下架" align="center"></el-table-column>
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small" @click="edit(scope.row.scenicId)">编辑</el-button>
                         <el-button type="text" size="small">查看</el-button>
                     </template>
                 </el-table-column>
@@ -133,13 +133,10 @@
                 this.getList()
             },
             create() {
-                this.$router.push({path: "/scenic/create"})
+                this.$router.push({path: "/scenicSpot/create"})
             },
             edit(index) {
-                this.$router.push({path: "/scenic/"+index + '/edit'})
-            },
-            handleHouse(index){
-                this.$router.push({path: "/scenic/" + index+ '/ticket'})
+                this.$router.push({path: "/scenicSpot/"+index + '/edit'})
             }
         }
     }
@@ -178,11 +175,16 @@
                 }
                 .el-input {
                     float: left;
-                    width: 70%;
+                    width: 80%;
                 }
                 .grid-content {
                     margin-left: 20px;
                     margin-top: 20px;
+                    .area-cascader{
+                        .el-input{
+                            width: 80%;
+                        }
+                    }
                 }
                 .el-select {
                     width: 80%;
@@ -248,6 +250,5 @@
         .el-pagination {
             margin-top: 10px;
         }
-
     }
 </style>

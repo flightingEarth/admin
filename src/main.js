@@ -5,7 +5,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 import Element from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import './assets/custom-theme/index.css'; // 换肤版本element-ui css
 import './assets/iconfont/iconfont'; // iconfont 具体图标见https://github.com/PanJiaChen/vue-element-admin/wiki
 

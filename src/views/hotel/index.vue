@@ -67,7 +67,7 @@
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
-                <li><a href="javascript:;">价格日历</a></li>
+                <li><a href="javascript:;" @click="priceCalendar">价格日历</a></li>
             </ul>
         </div>
         <div class="table">
@@ -201,7 +201,10 @@
                 this.$router.push({path: "/hotel/"+index + '/edit'})
             },
             handleHouse(){
-                this.$router.push({path: "/hotelManagement/houseShape"})
+                this.$router.push({path: "/hotel/hotelRoom"})
+            },
+            priceCalendar(){
+                this.$router.push({path: "/hotel/priceCalendar"})
             }
         }
     }
