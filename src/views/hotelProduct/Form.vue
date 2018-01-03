@@ -32,11 +32,21 @@
                             </div>
                         </el-col>
 
+                        <el-popover
+                            ref="popoverLowestNum"
+                            placement="bottom"
+                            title="提示信息"
+                            width="200"
+                            trigger="click"
+                            content="填写数字，数字越大排序越靠前" style="display: none">
+                        </el-popover>
+
+
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>起购&nbsp;房&nbsp;间&nbsp;数:</span>
                                 <el-form-item label="活动区域" prop="lowestNum">
-                                    <el-input v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
+                                    <el-input v-model="ruleForm.lowestNum" v-popover:popoverLowestNum placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -360,9 +370,6 @@
                     ],
                     amount: [
                         {required: true, message: '请输入担保房间数量', trigger: 'blur'}
-                    ],
-                    promptly: [
-                        {required: true, message: '请输入确认时间', trigger: 'blur'}
                     ],
                     changeRate: [
                         {required: true, message: '请输入改扣费比例', trigger: 'blur'}

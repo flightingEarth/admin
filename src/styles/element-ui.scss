@@ -1,263 +1,292 @@
- //覆盖一些element-ui样式
- .block-checkbox {
-   display: block;
- }
+//覆盖一些element-ui样式
+.block-checkbox {
+    display: block;
+}
 
- .operation-container {
-   .cell {
-     padding: 10px !important;
-   }
-   .el-button {
-     &:nth-child(3) {
-       margin-top: 10px;
-       margin-left: 0px;
-     }
-     &:nth-child(4) {
-       margin-top: 10px;
-     }
-   }
- }
-
- .el-upload {
-   input[type="file"] {
-     display: none !important;
-   }
- }
-
- .el-upload__input {
-   display: none;
- }
-
- .cell {
-   .el-tag {
-     margin-right: 8px;
-   }
- }
-
- .small-padding {
-   .cell {
-     padding-left: 8px;
-     padding-right: 8px;
-   }
- }
-
- .status-col {
-   .cell {
-     padding: 0 10px;
-     text-align: center;
-     .el-tag {
-       margin-right: 0px;
-     }
-   }
- }
-
- //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
- .el-dialog {
-   transform: none;
-   left: 0;
-   position: relative;
-   margin: 0 auto;
- }
-
- //文章页textarea修改样式
- .article-textarea {
-   textarea {
-     padding-right: 40px;
-     resize: none;
-     border: none;
-     border-radius: 0px;
-     border-bottom: 1px solid #bfcbd9;
-   }
- }
-
- //element ui upload
- .upload-container {
-   .el-upload {
-     width: 100%;
-     .el-upload-dragger {
-       width: 100%;
-       height: 200px;
-     }
-   }
- }
-
-
- #app {
-     height: 100%;
-  .sidebar-container {
-    background: #EAEDF2 !important;
-    color: #666!important;
-    position: relative!important;
-    float: left;
-      overflow-y: visible!important;
-    .el-menu {
-      background: #EAEDF2 !important;
-      color: #666!important;
-      .el-menu-item {
-        background: #EAEDF2 !important;
-        color: #666!important;
-      }
-      .el-menu-item:hover{
-        background: #fff!important;
-      }
-      .is-active{
-        background: #fff!important;
-        color: #4CCAB1!important;
-        .svg-icon{
-          color: #4CCAB1!important;
-        }
-      }
-      ul{
-        //text-align: center!important;
-        li {
-          .svg-icon{
-            margin-right: 0!important;
-            font-size: 20px!important;
-            vertical-align: middle!important;
-          }
-        }
-      }
+.operation-container {
+    .cell {
+        padding: 10px !important;
     }
-  }
+    .el-button {
+        &:nth-child(3) {
+            margin-top: 10px;
+            margin-left: 0px;
+        }
+        &:nth-child(4) {
+            margin-top: 10px;
+        }
+    }
+}
+
+.el-upload {
+    input[type="file"] {
+        display: none !important;
+    }
+}
+
+.el-upload__input {
+    display: none;
+}
+
+.cell {
+    .el-tag {
+        margin-right: 8px;
+    }
+}
+
+.small-padding {
+    .cell {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+.status-col {
+    .cell {
+        padding: 0 10px;
+        text-align: center;
+        .el-tag {
+            margin-right: 0px;
+        }
+    }
+}
+
+//暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
+.el-dialog {
+    transform: none;
+    left: 0;
+    position: relative;
+    margin: 0 auto;
+}
+
+//文章页textarea修改样式
+.article-textarea {
+    textarea {
+        padding-right: 40px;
+        resize: none;
+        border: none;
+        border-radius: 0px;
+        border-bottom: 1px solid #bfcbd9;
+    }
+}
+
+//element ui upload
+.upload-container {
+    .el-upload {
+        width: 100%;
+        .el-upload-dragger {
+            width: 100%;
+            height: 200px;
+        }
+    }
+}
+
+#app {
+    height: 100%;
+    .sidebar-container {
+        background: #EAEDF2 !important;
+        color: #666 !important;
+        position: relative !important;
+        float: left;
+        overflow-y: visible !important;
+        .el-menu {
+            background: #EAEDF2 !important;
+            color: #666 !important;
+            .el-menu-item {
+                background: #EAEDF2 !important;
+                color: #666 !important;
+            }
+            .el-menu-item:hover {
+                background: #fff !important;
+            }
+            .is-active {
+                background: #fff !important;
+                color: #4CCAB1 !important;
+                .svg-icon {
+                    color: #4CCAB1 !important;
+                }
+            }
+            ul {
+                //text-align: center!important;
+                li {
+                    .svg-icon {
+                        margin-right: 0 !important;
+                        font-size: 20px !important;
+                        vertical-align: middle !important;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .el-submenu__title {
-  background: #EAEDF2 !important;
-  color: #666!important;
+    background: #EAEDF2 !important;
+    color: #666 !important;
 }
 
-.tags-view-container{
-  display: none!important;
-  .tags-view-wrappe{
-    display: none!important;
-  }
-}
-.el-table{
-  thead{
-    tr{
-      background: #E2F9FF!important;
+.tags-view-container {
+    display: none !important;
+    .tags-view-wrappe {
+        display: none !important;
     }
-  }
-    .cell{
+}
+
+.el-table {
+    thead {
+        tr {
+            background: #E2F9FF !important;
+        }
+    }
+    .cell {
         padding-left: 5px;
         padding-right: 5px;
     }
 }
-.el-textarea__inner{
-  height: 200px!important;
-}
-.el-upload--picture-card{
-  width: 100px;
-  height: 100px;
-  line-height: 102px;
-}
-.el-upload-list__item{
-  width: 100px;
-  height: 100px;
-}
-.el-tabs__header{
-  margin: 0;
-  box-shadow: 1px 0px 3px rgba(157,160,166,0.2),-1px 0px 3px rgba(157,160,166,0.2);
-  padding-left: 20px;
-}
-.el-tabs__content{
-  height: 60px;
-  padding-top: 20px;
-  box-shadow: 1px 0px 3px rgba(157,160,166,0.2),-1px 0px 3px rgba(157,160,166,0.2);
-  padding-left: 20px;
-}
-.el-form-item__label{
-  display: none;
-}
-.el-form-item__content{
-  margin-left: 0!important;
-}
-.el-form-item__error{
-  left: 92px;
-}
- label{
-     font-weight: normal!important;
- }
- label.el-radio{
-     font-weight: normal;
- }
- .el-dialog{
-     width: 360px;
-     height: 355px;
-     .el-input{
-         width: 60%!important;
-     }
-     .el-dialog__header{
-         height: 40px;
-         background: #5FCAB1;
-         line-height: 40px;
-         padding: 0;
-         padding-left: 10px;
-         .el-dialog__title{
-             color: #fff;
-             font-size: 16px;
-         }
-     }
-     .alertBtn{
-         text-align: center;
-     }
- }
- .shenhe{
-     .el-textarea{
-         width: 60% !important;
-         .el-textarea__inner{
-             height: 70px!important;
-         }
-     }
 
- }
+.el-textarea__inner {
+    height: 200px !important;
+}
 
- .area-select.medium{
-     .el-select{
-         width: 24.4%;
-     }
- }
- .iconfont{
-     color: #2C7ADE;
- }
- .modal-body{
-     background: #fff!important;
- }
- .dialog-footer{
-     background: #fff!important;
- }
+.el-upload--picture-card {
+    width: 100px;
+    height: 100px;
+    line-height: 102px;
+}
 
- .el-dialog__header{
-     background: #fff!important;
-     border-bottom: 1px solid #F2F2F2;
- }
- .titleTime{
-     .el-input__inner{
-         width: 64%!important;
-     }
- }
- .el-input__prefix{
-     display: none;
- }
- .el-range-input{
-     margin-left: 15px!important;
- }
- .supplierForm{
-     .el-form-item{
-         .el-form-item__label{
-             width: 60px!important;
-             display: inline-block;
-         }
-     }
- }
+.el-upload-list__item {
+    width: 100px;
+    height: 100px;
+}
 
+.el-tabs__header {
+    margin: 0;
+    box-shadow: 1px 0px 3px rgba(157, 160, 166, 0.2), -1px 0px 3px rgba(157, 160, 166, 0.2);
+    padding-left: 20px;
+}
 
- .financial{
-     .el-dialog{
-         .el-dialog__header{
-             .el-dialog__title{
-                 color: #606266!important;
-             }
-         }
-     }
- }
+.el-tabs__content {
+    height: 60px;
+    padding-top: 20px;
+    box-shadow: 1px 0px 3px rgba(157, 160, 166, 0.2), -1px 0px 3px rgba(157, 160, 166, 0.2);
+    padding-left: 20px;
+}
+
+.el-form-item__label {
+    display: none;
+}
+
+.el-form-item__content {
+    margin-left: 0 !important;
+}
+
+.el-form-item__error {
+    left: 92px;
+}
+
+label {
+    font-weight: normal !important;
+}
+
+label.el-radio {
+    font-weight: normal;
+}
+
+.el-dialog {
+    width: 360px;
+    height: 355px;
+    .el-input {
+        width: 60% !important;
+    }
+    .el-dialog__header {
+        height: 40px;
+        background: #5FCAB1;
+        line-height: 40px;
+        padding: 0;
+        padding-left: 10px;
+        .el-dialog__title {
+            color: #fff;
+            font-size: 16px;
+        }
+    }
+    .alertBtn {
+        text-align: center;
+    }
+}
+
+.shenhe {
+    .el-textarea {
+        width: 60% !important;
+        .el-textarea__inner {
+            height: 70px !important;
+        }
+    }
+
+}
+
+.area-select.medium {
+    .el-select {
+        width: 24.4%;
+    }
+}
+
+.iconfont {
+    color: #2C7ADE;
+}
+
+.modal-body {
+    background: #fff !important;
+}
+
+.dialog-footer {
+    background: #fff !important;
+}
+
+.el-dialog__header {
+    background: #fff !important;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.titleTime {
+    .el-input__inner {
+        width: 64% !important;
+    }
+}
+
+.el-input__prefix {
+    display: none;
+}
+
+.el-range-input {
+    margin-left: 15px !important;
+}
+
+.supplierForm {
+    .el-form-item {
+        .el-form-item__label {
+            width: 60px !important;
+            display: inline-block;
+        }
+    }
+}
+
+.financial {
+    .el-dialog {
+        .el-dialog__header {
+            .el-dialog__title {
+                color: #606266 !important;
+            }
+        }
+    }
+}
+
+.el-popover {
+    padding: 0 10px 20px;
+    color: #666;
+    .el-popover__title {
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid #F2F2F2;
+        padding-left: 10px;
+    }
+}

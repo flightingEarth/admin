@@ -127,16 +127,25 @@
                                 </el-form-item>
                             </div>
                         </el-col>
+                        <el-popover
+                            ref="popoverSort"
+                            placement="bottom"
+                            title="提示信息"
+                            width="200"
+                            trigger="click"
+                            content="填写数字，数字越大排序越靠前" style="display: none">
+                        </el-popover>
+
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
                                 <el-form-item label="膳食安排" prop="hotelSort">
-                                    <el-input v-model="ruleForm.hotelSort" type="number" placeholder="请输入数字"></el-input>
+                                    <el-input v-model="ruleForm.hotelSort"  v-popover:popoverSort type="number" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-popover
-                            ref="popover2"
+                            ref="popoverSale"
                             placement="bottom"
                             title="提示信息"
                             width="200"
@@ -148,7 +157,7 @@
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
                                 <el-form-item label="膳食安排" prop="hotelSaleCount">
                                     <el-input type="number" v-model="ruleForm.hotelSaleCount"
-                                              placeholder="请输入数字" v-popover:popover2></el-input>
+                                              placeholder="请输入数字" v-popover:popoverSale></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
