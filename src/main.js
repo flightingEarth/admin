@@ -10,7 +10,7 @@ import './assets/custom-theme/index.css'; // 换肤版本element-ui css
 import './assets/iconfont/iconfont'; // iconfont 具体图标见https://github.com/PanJiaChen/vue-element-admin/wiki
 
 // import IconSvg from './components/Icon-svg'// svg 组件
-import './icons' // icon
+// import './icons' // icon
 
 import VueAreaLinkage from 'vue-area-linkage'; //城市三级联动
 

@@ -121,13 +121,13 @@ const router = new Router({
 
                 //门票列表
                 {
-                    path: '/scenic/:scenicId/ticket', component: ScenicTicket, name: '门票管理',
+                    path: '/scenic/:scenicId/ticket', hidden:true, component: ScenicTicket, name: '门票管理',
                 },
                 {
-                    path: '/scenic/:scenicId/ticket/create',hidden:true, component: TicketCreate, name: '门票添加',
+                    path: '/scenic/:scenicId/ticket/create', hidden:true, component: TicketCreate, name: '门票添加',
                 },
                 {
-                    path: '/scenic/:scenicId/ticket/:id/edit',hidden:true, component: TicketEdit, name: '门票编辑',
+                    path: '/scenic/:scenicId/ticket/:id/edit', hidden:true, component: TicketEdit, name: '门票编辑',
                 },
 
                 //景区退款审核

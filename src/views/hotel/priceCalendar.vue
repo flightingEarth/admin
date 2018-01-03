@@ -9,29 +9,13 @@
                 <div class="input">
                     <el-row>
                         <ul>
-                            <li>
-                                <el-checkbox v-model="ruleForm.Monday" value="1">周一</el-checkbox>
+                            <li v-for="city in cities">
+                                <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                                    <el-checkbox  :label="city" :key="city">{{city}}</el-checkbox>
+                                </el-checkbox-group>
                             </li>
                             <li>
-                                <el-checkbox v-model="ruleForm.Tuesday" value="2">周二</el-checkbox>
-                            </li>
-                            <li>
-                                <el-checkbox v-model="ruleForm.Wednesday" value="3">周三</el-checkbox>
-                            </li>
-                            <li>
-                                <el-checkbox v-model="ruleForm.Thursday" value="4">周四</el-checkbox>
-                            </li>
-                            <li>
-                                <el-checkbox v-model="ruleForm.Friday" value="5">周五</el-checkbox>
-                            </li>
-                            <li>
-                                <el-checkbox v-model="ruleForm.Saturday" value="6">周六</el-checkbox>
-                            </li>
-                            <li>
-                                <el-checkbox v-model="ruleForm.Sunday" value="7">周日</el-checkbox>
-                            </li>
-                            <li>
-                                <el-checkbox v-model="ruleForm.checkAll">全选</el-checkbox>
+                                <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
                             </li>
                         </ul>
 
@@ -243,11 +227,15 @@
 <script>
     import {addHotel, addressList} from '@/api/article'
     import "../../iconfont/iconfont.css"
-    //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
+    const cityOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
     export default {
         name: 'priceCalendar',
         data() {
             return {
+                checkAll: false,
+                checkedCities: [],
+                cities: cityOptions,
+                isIndeterminate: true,
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'second',
@@ -256,99 +244,22 @@
                 time3:"",
                 time4:"",
                 ruleForm: {},
-                rules: {
-//          hotelName: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          minimumHotelHousePrice: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelBrandId: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSupplierId: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelLongitude: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelLatitude: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelAddress: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelStatus: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSort: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelSaleCount: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelStar: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelTelephone: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelFeatures: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          hotelIntroduction: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          checkInTime: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          departureTime: [
-//            {required: true, message: '此处不能为空', trigger: 'change'}
-//          ],
-//          hotelStartBusiness: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          decorationTime: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          pet: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          abolitionOfPolicy: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          checkIn: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ],
-//          buffet: [
-//            {required: true, message: '此处不能为空', trigger: 'blur'}
-//          ]
-                }
+                rules: {}
             }
         },
         created() {
 //            this.getList()
         },
         methods: {
-//            getList() {
-//                addressList().then(response => {
-////          this.options2 = response.data.data;
-//                })
-//            },
-//            submitForm(formName) {
-//                this.$refs[formName].validate((valid) => {
-//                    if (valid) {
-////            addHotel(this.ruleForm).then(response => {
-////
-////              console.log(response);
-////            })
-//                        console.log(this.ruleForm);
-//                    } else {
-//                        console.log('error submit!!')
-//                        return false
-//                    }
-//                })
-//            },
+            handleCheckAllChange(val) {
+                this.checkedCities = val ? cityOptions : [];
+                this.isIndeterminate = false;
+            },
+            handleCheckedCitiesChange(value) {
+                let checkedCount = value.length;
+                this.checkAll = checkedCount === this.cities.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+            },
             resetForm(formName) {
                 this.$refs[formName].resetFields()
             }

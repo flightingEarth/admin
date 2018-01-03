@@ -39,23 +39,30 @@
 
                         <el-popover
                             ref="popover4"
-                            placement="right"
+                            placement="bottom"
                             title="选择供应商"
                             trigger="click"
+                            offset="1"
                             v-model="tableShow"
                         >
                             <el-form ref="form" :model="form" label-width="80px" class="supplierForm">
-                                <el-form-item label="用户名">
-                                    <el-input v-model="form.name" placeholder="用户名或昵称"></el-input>
-                                </el-form-item>
-                                <el-form-item label="编号">
-                                    <el-input v-model="form.id" placeholder="用户编号"></el-input>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-button type="primary" @click="onSubmit">搜索</el-button>
-
-                                </el-form-item>
-
+                                <el-row>
+                                    <el-col :span="8">
+                                        <el-form-item label="用户名">
+                                            <el-input v-model="form.name" placeholder="用户名或昵称"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <el-form-item label="编号">
+                                            <el-input v-model="form.id" placeholder="用户编号"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <el-form-item>
+                                            <el-button type="primary" @click="onSubmit">搜索</el-button>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
 
                             </el-form>
                             <el-table
@@ -436,7 +443,7 @@
                     name1: '分销商测试001',
                     type: '分销商',
                     status: '正常'
-                    },
+                },
                     {
                         id: '3579071',
                         name: 'fenxiaoshangceshi002',
@@ -781,6 +788,7 @@
         overflow: hidden;
         .el-form-item {
             float: left;
+            width: 100%;
         }
         .el-input {
             width: 66% !important;
