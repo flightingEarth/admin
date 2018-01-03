@@ -185,32 +185,15 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>最早到达时间:</span>
                                 <el-form-item label="膳食安排" prop="arrivalTime">
-                                    <el-select v-model="ruleForm.arrivalTime" placeholder="请选择">
-                                        <el-option label="00:00" value="00:00"></el-option>
-                                        <el-option label="01:00" value="01:00"></el-option>
-                                        <el-option label="02:00" value="02:00"></el-option>
-                                        <el-option label="03:00" value="03:00"></el-option>
-                                        <el-option label="04:00" value="04:00"></el-option>
-                                        <el-option label="05:00" value="05:00"></el-option>
-                                        <el-option label="06:00" value="06:00"></el-option>
-                                        <el-option label="07:00" value="07:00"></el-option>
-                                        <el-option label="08:00" value="08:00"></el-option>
-                                        <el-option label="09:00" value="09:00"></el-option>
-                                        <el-option label="10:00" value="10:00"></el-option>
-                                        <el-option label="11:00" value="11:00"></el-option>
-                                        <el-option label="12:00" value="12:00"></el-option>
-                                        <el-option label="13:00" value="13:00"></el-option>
-                                        <el-option label="14:00" value="14:00"></el-option>
-                                        <el-option label="15:00" value="15:00"></el-option>
-                                        <el-option label="16:00" value="16:00"></el-option>
-                                        <el-option label="17:00" value="17:00"></el-option>
-                                        <el-option label="18:00" value="18:00"></el-option>
-                                        <el-option label="19:00" value="19:00"></el-option>
-                                        <el-option label="20:00" value="20:00"></el-option>
-                                        <el-option label="21:00" value="21:00"></el-option>
-                                        <el-option label="22:00" value="22:00"></el-option>
-                                        <el-option label="23:00" value="23:00"></el-option>
-                                    </el-select>
+                                        <el-time-select
+                                            v-model="ruleForm.arrivalTime"
+                                            :picker-options="{
+                                            start: '00:00',
+                                            step: '01:00',
+                                            end: '23:45'
+                                          }"
+                                            placeholder="请选择">
+                                        </el-time-select>
                                 </el-form-item>
                             </div>
                         </el-col>

@@ -1,7 +1,7 @@
 <template>
     <div class="upload-image-region">
         <el-dialog custom-class="widget-attachment" top="0" :before-close="handleClose" :show-close="false"
-                   v-model="visible" :close-on-click-modal="false">
+                   :visible.sync="visible" :close-on-click-modal="false">
 
             <div class="modal-header" slot="title">
                 <i class="el-icon-close close" @click="handleClose"></i>

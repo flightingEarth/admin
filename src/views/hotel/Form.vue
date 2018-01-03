@@ -251,6 +251,9 @@
                     </el-tabs>
                 </div>
 
+                <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
+                               @submit="selectImagesSubmit"></select-images>
+
                 <div class="title title1">
                     <i class="iconfont icon-tupian"></i>
                     <span>图片添加</span>
@@ -260,15 +263,15 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <el-upload
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove">
-                                    <i class="el-icon-plus"></i>
-                                </el-upload>
-                                <div class="el-upload el-upload--text" @click="imageVisible = true">
-                                    <!--<i class="el-icon-plus picture-uploader-icon"></i>-->
+                                <!--<el-upload-->
+                                    <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                                    <!--list-type="picture-card"-->
+                                    <!--:on-preview="handlePictureCardPreview"-->
+                                    <!--:on-remove="handleRemove">-->
+                                    <!--<i class="el-icon-plus"></i>-->
+                                <!--</el-upload>-->
+                                <div class="el-upload el-upload--text"  @click="imageVisible = true">
+                                    <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
@@ -417,8 +420,7 @@
 
             </el-form>
         </div>
-        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
-                       @submit="selectImagesSubmit"></select-images>
+
     </div>
 </template>
 
@@ -764,6 +766,15 @@
                     margin-left: 100px;
                     font-size: 12px;
                     color: #666;
+                }
+                .el-upload{
+                    width: 100px;
+                    height: 100px;
+                    border: 5px dashed #E6E6E6;
+                    text-align: center;
+                    line-height: 100px;
+                    font-size: 24px;
+                    color: #E6E6E6;
                 }
             }
             .el-tabs {

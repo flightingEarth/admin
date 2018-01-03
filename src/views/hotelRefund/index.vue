@@ -9,49 +9,41 @@
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>订&nbsp;&nbsp;单&nbsp;&nbsp;ID:</span>
+                            <span><i>|</i>订&nbsp;&nbsp;单&nbsp;&nbsp;号:</span>
                             <el-input v-model="searchList.orderId" placeholder="请输入订单ID"></el-input>
                         </div>
                     </el-col>
-
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>酒店搜索:</span>
-                            <el-input v-model="searchList.hotelName" placeholder="请输入酒店名称或酒店编号"></el-input>
-                        </div>
-                    </el-col>
-
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>供&nbsp;&nbsp;应&nbsp;&nbsp;商:</span>
-                            <el-input v-model="searchList.supplier" placeholder="请输入供应商账户名或id"></el-input>
+                            <el-input v-model="searchList.supplierName" placeholder="请输入供应商账户名"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>申&nbsp;&nbsp;请&nbsp;&nbsp;人:</span>
-                            <el-input v-model="searchList.proposer" placeholder="请输入申请人或uid或手机号"></el-input>
-                        </div>
-                    </el-col>
-
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple double">
-                            <span><i>|</i>退款状态:</span>
-                            <el-select v-model="searchList.refundStatus" placeholder="请选择">
-                                <el-option label="退款中" value="1"></el-option>
-                                <el-option label="未退款" value="2"></el-option>
-                                <el-option label="已退款" value="3"></el-option>
-                            </el-select>
+                            <el-input v-model="searchList.mobilePhone" placeholder="请输入申请人手机号"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
                             <span><i>|</i>是否退款:</span>
-                            <el-select v-model="searchList.isRefund" placeholder="请选择">
-                                <el-option label="是" value="1"></el-option>
-                                <el-option label="否" value="2"></el-option>
+                            <el-select v-model="searchList.reviewStatus" placeholder="请选择">
+                                <el-option label="未退款" value="1"></el-option>
+                                <el-option label="已退款" value="2"></el-option>
+                            </el-select>
+                        </div>
+                    </el-col>
+
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple double">
+                            <span><i>|</i>退款状态:</span>
+                            <el-select v-model="searchList.status" placeholder="请选择">
+                                <el-option label="申请退款" value="0"></el-option>
+                                <el-option label="同意退款" value="1"></el-option>
+                                <el-option label="拒绝退款" value="2"></el-option>
                             </el-select>
                         </div>
                     </el-col>
@@ -70,28 +62,30 @@
 
         <el-dialog title="退款审核" :visible.sync="dialogFormVisible" class="financial">
 
-            <el-form :model="addForm" label-width="100px">
+            <el-form :model="addForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <div class="grid-content bg-purple-light shenhe">
                     <span><i class="iconfont icon-guize"></i>审&nbsp;&nbsp;&nbsp;&nbsp;核:</span>
-                    <el-form-item label="膳食安排" prop="balanceType">
-                        <el-radio v-model="addForm.radio" label="1">审核通过</el-radio>
-                        <el-radio v-model="addForm.radio" label="2">驳回</el-radio>
+                    <el-form-item label="膳食安排" prop="reviewStatus">
+                        <el-radio-group v-model="addForm.reviewStatus">
+                            <el-radio label="审核通过" value="1"></el-radio>
+                            <el-radio label="驳回" value="2"></el-radio>
+                        </el-radio-group>
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
                     <span><i class="iconfont icon-qian"></i>手续费:</span>
-                    <el-form-item label="膳食安排" prop="balanceType">
-                        <el-input v-model="addForm.phone"></el-input>
+                    <el-form-item label="膳食安排" prop="counterFee">
+                        <el-input v-model="addForm.counterFee" type="number"></el-input>
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
                     <span><i class="iconfont icon-shuxie"></i>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
-                    <el-form-item label="活动形式">
-                        <el-input type="textarea" v-model="addForm.textarea"></el-input>
+                    <el-form-item label="活动形式" prop="note">
+                        <el-input type="textarea" v-model="addForm.note"></el-input>
                     </el-form-item>
                 </div>
                 <div class="alertBtn">
-                    <el-button type="primary">确定</el-button>
+                    <el-button type="primary" @click="handleSubmit">确定</el-button>
                     <el-button @click="back">返回</el-button>
                 </div>
             </el-form>
@@ -105,13 +99,13 @@
         <div class="table">
             <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
                 <el-table-column
-                    prop="hotelId"
+                    prop="refundId"
                     label="编号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelOrder"
+                    prop="orderId"
                     label="酒店订单"
                     align="center"
                 >
@@ -123,13 +117,13 @@
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="refundTime"
+                    prop="days"
                     label="退订日期"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="refundNum"
+                    prop="num"
                     label="退订数量"
                     align="center"
                 >
@@ -140,53 +134,44 @@
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="supplierID"
-                    label="供应商ID"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="proposerName"
+                    prop="userName"
                     label="申请人名称"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="proposerUID"
-                    label="申请人uid"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="proposerPhone"
+                    prop="mobilePhone"
                     label="申请人手机号"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="poundage"
+                    prop="counterFee"
                     label="手续费"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="refundStatus"
                     label="退款状态"
                     align="center">
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.status == 0">用户申请退款</span>
+                        <span v-if="scope.row.status == 1">同意退款</span>
+                        <span v-if="scope.row.status == 2">拒绝退款</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                    prop="isRefund"
                     label="是否退款"
                     align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="createdTime"
-                    label="创建时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" class="btn refuse" @click="dialogFormVisible = true">审核</el-button>
+                        <span v-if="scope.row.reviewStatus == 1">未退款</span>
+                        <span v-if="scope.row.reviewStatus == 2">已退款</span>
+                        <el-button  type="text" size="small" v-if="scope.row.status == 1 && scope.row.reviewStatus == 1"  @click="hadleAudit(scope.row.refundId)">审核</el-button>
                     </template>
                 </el-table-column>
 
+                <el-table-column
+                    prop="createdAt"
+                    label="创建时间"
+                    align="center">
+                </el-table-column>
             </el-table>
             <el-pagination
                 @current-change="handleCurrentChange"
@@ -200,7 +185,7 @@
 </template>
 
 <script>
-    import { hotelList } from '@/api/hotel'
+    import { refundlList , auditWithdraw } from '@/api/hotelRefund'
     export default {
         name: 'hotel',
         data() {
@@ -213,7 +198,18 @@
                 },
                 dialogFormVisible:false,
                 addForm:{},
-                tableData: []
+                tableData: [],
+                rules: {
+                    reviewStatus: [
+                        {required: true, message: '请选择审核结果', trigger: 'change'}
+                    ],
+                    counterFee: [
+                        {required: true, message: '请填写手续费', trigger: 'blur'}
+                    ],
+                    note: [
+                        {required: true, message: '请填写备注', trigger: 'blur'}
+                    ]
+                }
             }
         },
         created() {
@@ -222,7 +218,7 @@
         methods: {
             getList() {
                 this.listLoading = true
-                hotelList(this.searchList).then(response => {
+                refundlList(this.searchList).then(response => {
                     this.tableData = response.data.data
                     this.total = response.data.meta.total
                     this.listLoading = false
@@ -237,6 +233,42 @@
             },
             back(){
                 this.dialogFormVisible = false
+            },
+            hadleAudit(id){
+                this.dialogFormVisible = true;
+                this.refundId = id;
+            },
+            handleSubmit(){
+                this.$refs.ruleForm.validate((valid) => {
+                    if (valid) {
+                        this.addLoading = true
+
+                        if(this.addForm.reviewStatus == "审核通过"){
+                            this.addForm.reviewStatus = 1
+                        }else {
+                            this.addForm.reviewStatus = 2
+                        }
+
+                        auditWithdraw(this.refundId, this.addForm).then(response => {
+                            if (response.data.status) {
+                                this.$message({
+                                    message: '审核成功！',
+                                    type: 'success'
+                                });
+                            } else {
+                                this.$message({
+                                    message: response.data.msg,
+                                    type: 'error'
+                                });
+                            }
+
+                            this.dialogFormVisible = false;
+                        })
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
             }
         }
     }
@@ -377,6 +409,7 @@
         .refuse {
             background: #5fcab1;
             color: #fff;
+            font-size: 12px;
         }
         .agree {
             border: 1px solid #DEDEDE;

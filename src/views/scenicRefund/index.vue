@@ -16,32 +16,32 @@
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>门票信息:</span>
-                            <el-input v-model="searchList.hotelName" placeholder="请输入门票名称或门票编号"></el-input>
+                            <span><i>|</i>门票名称:</span>
+                            <el-input v-model="searchList.ticketName" placeholder="请输入门票名称或门票编号"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>游&nbsp;&nbsp;玩&nbsp;&nbsp;人:</span>
-                            <el-input v-model="searchList.supplier" placeholder="请输入游玩人手机号和证件号"></el-input>
+                            <el-input v-model="searchList.mobilePhone" placeholder="请输入游玩人手机号"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>购&nbsp;&nbsp;买&nbsp;&nbsp;者:</span>
-                            <el-input v-model="searchList.proposer" placeholder="请输入购买者uid或帐号"></el-input>
+                            <el-input v-model="searchList.userName" placeholder="请输入购买者账号"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
                             <span><i>|</i>审核状态:</span>
-                            <el-select v-model="searchList.refundStatus" placeholder="请选择">
-                                <el-option label="退款中" value="1"></el-option>
-                                <el-option label="未退款" value="2"></el-option>
-                                <el-option label="已退款" value="3"></el-option>
+                            <el-select v-model="searchList.status" placeholder="请选择">
+                                <el-option label="待审核" value="0"></el-option>
+                                <el-option label="审核通过" value="1"></el-option>
+                                <el-option label="审核未通过" value="2"></el-option>
                             </el-select>
                         </div>
                     </el-col>
@@ -59,28 +59,30 @@
 
         <el-dialog title="退款审核" :visible.sync="dialogFormVisible" class="financial">
 
-            <el-form :model="addForm" label-width="100px">
+            <el-form :model="addForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <div class="grid-content bg-purple-light shenhe">
                     <span><i class="iconfont icon-guize"></i>审&nbsp;&nbsp;&nbsp;&nbsp;核:</span>
-                    <el-form-item label="膳食安排" prop="balanceType">
-                        <el-radio v-model="addForm.radio" label="1">审核通过</el-radio>
-                        <el-radio v-model="addForm.radio" label="2">驳回</el-radio>
+                    <el-form-item label="膳食安排" prop="status">
+                        <el-radio-group v-model="addForm.status">
+                            <el-radio label="审核通过" value="1"></el-radio>
+                            <el-radio label="驳回" value="2"></el-radio>
+                        </el-radio-group>
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
                     <span><i class="iconfont icon-qian"></i>手续费:</span>
-                    <el-form-item label="膳食安排" prop="balanceType">
-                        <el-input v-model="addForm.phone"></el-input>
+                    <el-form-item label="膳食安排" prop="refundFee">
+                        <el-input v-model="addForm.refundFee" type="number"></el-input>
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
                     <span><i class="iconfont icon-shuxie"></i>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
-                    <el-form-item label="活动形式">
-                        <el-input type="textarea" v-model="addForm.textarea"></el-input>
+                    <el-form-item label="活动形式" prop="note">
+                        <el-input type="textarea" v-model="addForm.note"></el-input>
                     </el-form-item>
                 </div>
                 <div class="alertBtn">
-                    <el-button type="primary">确定</el-button>
+                    <el-button type="primary" @click="handleSubmit">确定</el-button>
                     <el-button @click="back">返回</el-button>
                 </div>
             </el-form>
@@ -93,67 +95,51 @@
         <div class="table">
             <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
                 <el-table-column
-                    prop="hotelId"
+                    prop="orderId"
                     label="订单号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="ticketInfo"
-                    label="门票信息"
+                    prop="ticketName"
+                    label="门票名称"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelName"
+                    prop="mobilePhone"
                     label="游玩人手机号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="refundTime"
-                    label="游玩人证件号"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="refundNum"
+                    prop="userName"
                     label="购买者"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="supplierName"
+                    prop="refundNum"
                     label="数量（张）"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="supplierID"
-                    label="实际支付（元）"
+                    prop="refundFee"
+                    label="退款手续费"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="proposerName"
+                    prop="refundAmount"
                     label="退款金额（元）"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="proposerUID"
+                    prop="refundReason"
                     label="备注"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="proposerPhone"
-                    label="出游时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="poundage"
-                    label="审核时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="refundStatus"
+                    prop="createdAt"
                     label="创建时间"
                     align="center">
                 </el-table-column>
@@ -161,7 +147,9 @@
                     label="操作"
                     align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" class="btn refuse"  @click="dialogFormVisible = true">审核</el-button>
+                        <el-button v-if="scope.row.status == 0" class="btn refuse"  @click="hadleAudit(scope.row.orderId)">审核</el-button>
+                        <span v-if="scope.row.status == 1">审核成功</span>
+                        <span v-if="scope.row.status == 2">审核未通过</span>
                     </template>
                 </el-table-column>
 
@@ -178,7 +166,7 @@
 </template>
 
 <script>
-    import { hotelList } from '@/api/hotel'
+    import { refundlList , auditWithdraw } from '@/api/scenicRefund'
     export default {
         name: 'hotel',
         data() {
@@ -192,7 +180,18 @@
                 },
                 addForm:{},
                 dialogFormVisible:false,
-                tableData: []
+                tableData: [],
+                rules: {
+                    status: [
+                        {required: true, message: '请选择审核结果', trigger: 'change'}
+                    ],
+                    refundFee: [
+                        {required: true, message: '请填写手续费', trigger: 'blur'}
+                    ],
+                    note: [
+                        {required: true, message: '请填写备注', trigger: 'blur'}
+                    ]
+                }
             }
         },
         created() {
@@ -201,7 +200,7 @@
         methods: {
             getList() {
                 this.listLoading = true
-                hotelList(this.searchList).then(response => {
+                refundlList(this.searchList).then(response => {
                     this.tableData = response.data.data
                     this.total = response.data.meta.total
                     this.listLoading = false
@@ -216,6 +215,42 @@
             },
             back(){
                 this.dialogFormVisible = false
+            },
+            hadleAudit(id){
+                this.dialogFormVisible = true;
+                this.orderId = id;
+            },
+            handleSubmit(){
+                this.$refs.ruleForm.validate((valid) => {
+                    if (valid) {
+                        this.addLoading = true
+
+                        if(this.addForm.status == "审核通过"){
+                            this.addForm.status = 1
+                        }else {
+                            this.addForm.status = 2
+                        }
+
+                        auditWithdraw(this.orderId, this.addForm).then(response => {
+                            if (response.data.status) {
+                                this.$message({
+                                    message: '审核成功！',
+                                    type: 'success'
+                                });
+                            } else {
+                                this.$message({
+                                    message: response.data.msg,
+                                    type: 'error'
+                                });
+                            }
+
+                            this.dialogFormVisible = false;
+                        })
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
             }
         }
     }
@@ -356,6 +391,7 @@
         .refuse {
             background: #5fcab1;
             color: #fff;
+            font-size: 12px;
         }
         .agree {
             border: 1px solid #DEDEDE;

@@ -9,6 +9,9 @@ import CashApplication from '@/views/financial/cashApplication'
 
 import UserIndex from '@/views/userManagement/index'
 
+
+import Attachment from '@/views/attachment/index'
+
 import ScenicSpot from '@/views/scenicSpot'
 import ScenicCreate from '@/views/scenicSpot/create'
 import ScenicEdit from '@/views/scenicSpot/edit'
@@ -196,149 +199,16 @@ const router = new Router({
                 },
             ]
         },
-
-        /*{
-            path: '/hotelManagement',
-            component: Layout,
-            name: '酒店管理',
-            icon: 'quanxian',
-            children: [
-                {
-                    path: '/hotelManagement', hidden: true, component: HotelManagement, name: '酒店管理',
-                },
-                {
-                    path: '/hotelManagement/hotelProduct',
-                    component: HotelProduct,
-                    name: '酒店产品',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelList',
-                    component: HotelList,
-                    name: '酒店列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/landmarkManagement',
-                    component: LandmarkManagement,
-                    name: '地标管理',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelBrand',
-                    component: HotelBrand,
-                    name: '酒店品牌',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelFacilities',
-                    component: HotelFacilities,
-                    name: '酒店设施',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/shareList',
-                    component: ShareList,
-                    name: '分润列表',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelOrder',
-                    component: HotelOrder,
-                    name: '酒店订单',
-                    icon: 'pointmax'
-                },
-                {
-                    path: '/hotelManagement/hotelPorts',
-                    component: HotelPorts,
-                    name: '酒店接口',
-                    icon: 'pointmax'
-                }
-            ]
-        },
         {
-            path: '/hotelManagement/addHotel',
+            path: '/attachment',
             component: Layout,
-            hidden: true,
+            name: '设置',
             children: [{
-                path: '/hotelManagement/addHotel',
-                component: AddHotel,
-                name: '添加酒店',
-                meta: {title: '添加酒店'}
+                path: '/attachment/index',
+                component: Attachment,
+                name: '我的文件'
             }]
         },
-        {
-            path: '/scenicManagement/addTicket',
-            component: Layout,
-            redirect: 'addTicket',
-            hidden: true,
-            children: [{
-                path: '/scenicManagement/addTicket',
-                component: AddTicket,
-                name: '添加门票',
-                title: '添加门票',
-                meta: {title: '添加门票'}
-            }]
-        },
-        {
-            path: '/addHouse',
-            component: Layout,
-            redirect: 'addHouse',
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/addHouse',
-                component: AddHouse,
-                name: '添加房型',
-                meta: {title: '添加房型'}
-            }]
-        },
-        {
-            path: '/houseShape',
-            component: Layout,
-            redirect: 'houseShape',
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/houseShape',
-                component: HouseShape,
-                name: '房型产品',
-                meta: {title: '房型产品'}
-            }]
-        },
-        {
-            path: '/addProduct',
-            component: Layout,
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/addProduct',
-                component: AddProduct,
-                name: '添加产品',
-                meta: {title: '添加产品'}
-            }]
-        },
-        {
-            path: '/priceCalendar',
-            component: Layout,
-            redirect: 'priceCalendar',
-            hidden: true,
-            children: [{
-                path: '/hotelManagement/priceCalendar',
-                component: PriceCalendar,
-                name: '价格日历',
-                meta: {title: '价格日历'}
-            }]
-        },
-        {
-            path: '/addScenic',
-            component: Layout,
-            redirect: 'addScenic',
-            hidden: true,
-            children: [{
-                path: '/scenicManagement/addScenic',
-                component: AddScenic,
-                name: '添加景区',
-                meta: {title: '添加景区'}
-            }]
-        }*/
     ]
 })
 
