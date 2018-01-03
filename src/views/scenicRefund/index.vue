@@ -153,6 +153,7 @@
     export default {
         name: 'hotel',
         data() {
+
             return {
                 total: 0,
                 searchList: {

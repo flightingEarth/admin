@@ -88,6 +88,32 @@
             </div>
         </div>
 
+
+        <!--新增界面-->
+        <el-dialog title="提现审核" :visible.sync="dialogFormVisible" class="financial">
+
+            <el-form :model="addForm" label-width="100px">
+                <div class="grid-content bg-purple-light shenhe">
+                    <span><i class="iconfont icon-guize"></i>审核:</span>
+                    <el-form-item label="膳食安排" prop="balanceType">
+                        <el-radio v-model="addForm.radio" label="1">审核通过</el-radio>
+                        <el-radio v-model="addForm.radio" label="2">驳回</el-radio>
+                    </el-form-item>
+                </div>
+                <div class="grid-content bg-purple-light shenhe">
+                    <span><i class="iconfont icon-shuxie"></i>备注:</span>
+                    <el-form-item label="活动形式">
+                        <el-input type="textarea" v-model="addForm.textarea"></el-input>
+                    </el-form-item>
+                </div>
+                <div class="alertBtn">
+                    <el-button type="primary">确定</el-button>
+                    <el-button>返回</el-button>
+                </div>
+            </el-form>
+        </el-dialog>
+
+
         <div class="list-title">
             <i class="iconfont icon-cf-c57"></i>
             <span>数据列表</span>
@@ -161,7 +187,7 @@
                     align="center">
                     <template slot-scope="scope">
                         <el-button type="text" size="small" class="stayIn">已付</el-button>
-                        <el-button  type="text" size="small"  @click="addFormVisible = true">一键审核</el-button>
+                        <el-button  type="text" size="small"  @click="dialogFormVisible = true">一键审核</el-button>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -177,36 +203,11 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-sizes="pageSizes"
                 :page-size="searchList.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="searchList.totalList">
+                layout="total, prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </div>
-
-        <!--新增界面-->
-        <el-dialog title="提现审核" v-model="addFormVisible" :close-on-click-modal="false">
-
-            <el-form :model="addForm" :rules="Rules" ref="addForm" label-width="100px">
-                <div class="grid-content bg-purple-light shenhe">
-                    <span><i></i>审核:</span>
-                    <el-form-item label="膳食安排" prop="balanceType">
-                        <el-radio v-model="addForm.radio" label="1">审核通过</el-radio>
-                        <el-radio v-model="addForm.radio" label="2">驳回</el-radio>
-                    </el-form-item>
-                </div>
-                <div class="grid-content bg-purple-light shenhe">
-                    <span><i></i>备注:</span>
-                    <el-form-item label="活动形式">
-                        <el-input type="textarea" v-model="addForm.textarea"></el-input>
-                    </el-form-item>
-                </div>
-                <div class="alertBtn">
-                    <el-button type="primary">确定</el-button>
-                    <el-button>返回</el-button>
-                </div>
-            </el-form>
-        </el-dialog>
     </div>
 </template>
 
@@ -222,10 +223,10 @@
                     phone: undefined,
                     payWay: undefined,
                     status: undefined,
-                    totalList: 100,
                     currentPage: 1,
                     pageSize: 10
                 },
+                total: 1,
                 beginTime: "",
                 endTime: "",
                 minTime: {
@@ -251,7 +252,7 @@
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄'
                 }],
-                addFormVisible: false,//新增界面是否显示
+                dialogFormVisible: false,//新增界面是否显示
                 beginTime: "",
                 endTime: "",
                 listLoading: false,
@@ -270,7 +271,7 @@
                     orderTime: '2017-11-13 00:00:00',
                     orderId: '17121817457158'
                 }],
-                addForm:[],
+                addForm:{},
                 Rules:[]
             }
         },
@@ -438,6 +439,9 @@
                 float: left;
                 margin-top: 7px;
                 margin-right: 10px;
+            }
+            .iconfont{
+                margin-right: 5px;
             }
             .el-textarea{
                 width: 60% !important;

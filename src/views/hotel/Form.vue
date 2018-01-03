@@ -63,6 +63,7 @@
                                 :data="tableData"
                                 highlight-current-row
                                 @current-change="handleCurrentChange"
+                                height="250"
                                 style="width: 100%">
                                 <el-table-column width="90" property="id" label="编号"></el-table-column>
                                 <el-table-column width="200" property="name" label="用户名"></el-table-column>
@@ -440,6 +441,34 @@
                         id: '3579071',
                         name: 'fenxiaoshangceshi002',
                         name1: '分销商测试002',
+                        type: '分销商',
+                        status: '正常'
+                    },
+                    {
+                        id: '3579071',
+                        name: 'fenxiaoshangceshi003',
+                        name1: '分销商测试003',
+                        type: '分销商',
+                        status: '正常'
+                    },
+                    {
+                        id: '3579071',
+                        name: 'fenxiaoshangceshi003',
+                        name1: '分销商测试003',
+                        type: '分销商',
+                        status: '正常'
+                    },
+                    {
+                        id: '3579071',
+                        name: 'fenxiaoshangceshi003',
+                        name1: '分销商测试003',
+                        type: '分销商',
+                        status: '正常'
+                    },
+                    {
+                        id: '3579071',
+                        name: 'fenxiaoshangceshi003',
+                        name1: '分销商测试003',
                         type: '分销商',
                         status: '正常'
                     },

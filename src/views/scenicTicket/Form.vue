@@ -103,14 +103,6 @@
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>推迟游玩天数:</span>
-                                <el-form-item label="推迟游玩天数" prop="delay_days">
-                                    <el-input type="number" v-model="ruleForm.delay_days"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
                                 <span><i>|</i>提前预定天数:</span>
                                 <el-form-item label="提前预定天数" prop="orderTime">
                                     <el-input type="number" value="number"  v-model="ruleForm.advance_date"></el-input>
@@ -126,6 +118,14 @@
                                             :picker-options="{start: '08:30',step: '00:15',end: '12:30'}"
                                             placeholder="提前预定时间">
                                     </el-time-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>推迟游玩天数:</span>
+                                <el-form-item label="推迟游玩天数" prop="delay_days">
+                                    <el-input type="number" v-model="ruleForm.delay_days"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -216,22 +216,22 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>可退天数限制:</span>
-                                <el-form-item label="膳食安排" prop="refund_day">
-                                    <el-input type="number" v-model="ruleForm.refund_day"></el-input>
+                                <span><i>|</i>可退时分限制:</span>
+                                <el-form-item label="可退时分限制" prop="refund_time">
+                                    <el-time-select
+                                        v-model="ruleForm.refund_time"
+                                        :picker-options="{ start: '08:30', step: '00:15', end: '18:30'}"
+                                        placeholder="选择时间">
+                                    </el-time-select>
                                 </el-form-item>
                             </div>
                         </el-col>
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>可退时分限制:</span>
-                                <el-form-item label="可退时分限制" prop="refund_time">
-                                    <el-time-select
-                                            v-model="ruleForm.refund_time"
-                                            :picker-options="{ start: '08:30', step: '00:15', end: '18:30'}"
-                                            placeholder="选择时间">
-                                    </el-time-select>
+                                <span><i>|</i>可退天数限制:</span>
+                                <el-form-item label="膳食安排" prop="refund_day">
+                                    <el-input type="number" v-model="ruleForm.refund_day"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
