@@ -67,6 +67,37 @@
             </div>
         </div>
 
+
+        <el-dialog title="退款审核" :visible.sync="dialogFormVisible" class="financial">
+
+            <el-form :model="addForm" label-width="100px">
+                <div class="grid-content bg-purple-light shenhe">
+                    <span><i class="iconfont icon-guize"></i>审&nbsp;&nbsp;&nbsp;&nbsp;核:</span>
+                    <el-form-item label="膳食安排" prop="balanceType">
+                        <el-radio v-model="addForm.radio" label="1">审核通过</el-radio>
+                        <el-radio v-model="addForm.radio" label="2">驳回</el-radio>
+                    </el-form-item>
+                </div>
+                <div class="grid-content bg-purple-light shenhe">
+                    <span><i class="iconfont icon-qian"></i>手续费:</span>
+                    <el-form-item label="膳食安排" prop="balanceType">
+                        <el-input v-model="addForm.phone"></el-input>
+                    </el-form-item>
+                </div>
+                <div class="grid-content bg-purple-light shenhe">
+                    <span><i class="iconfont icon-shuxie"></i>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
+                    <el-form-item label="活动形式">
+                        <el-input type="textarea" v-model="addForm.textarea"></el-input>
+                    </el-form-item>
+                </div>
+                <div class="alertBtn">
+                    <el-button type="primary">确定</el-button>
+                    <el-button @click="back">返回</el-button>
+                </div>
+            </el-form>
+        </el-dialog>
+
+
         <div class="list-title">
             <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
@@ -152,8 +183,7 @@
                     label="操作"
                     align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" class="btn refuse" @click="open2" >拒绝退款</el-button>
-                        <el-button type="text" size="small" class="btn agree" @click="open3">同意退款</el-button>
+                        <el-button type="text" size="small" class="btn refuse" @click="dialogFormVisible = true">审核</el-button>
                     </template>
                 </el-table-column>
 
@@ -181,6 +211,8 @@
                     limit: 20,
                     page: 1
                 },
+                dialogFormVisible:false,
+                addForm:{},
                 tableData: []
             }
         },
@@ -203,39 +235,8 @@
             handleSearch() {
                 this.getList()
             },
-            open2() {
-                this.$confirm('是否拒绝退款?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '拒绝退款成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消拒绝退款'
-                    });
-                });
-            },
-            open3() {
-                this.$confirm('是否同意退款?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '同意退款成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消同意退款'
-                    });
-                });
+            back(){
+                this.dialogFormVisible = false
             }
         }
     }
@@ -308,6 +309,24 @@
                 }
             }
         }
+
+        .shenhe{
+            .el-form-item{
+                /*margin-bottom: 0;*/
+            }
+            span{
+                float: left;
+                margin-top: 7px;
+                margin-right: 10px;
+            }
+            .iconfont{
+                margin-right: 5px;
+            }
+            .alertBtn{
+                margin-left: 5%;
+            }
+        }
+
         .list-title {
             width: 100%;
             height: 60px;

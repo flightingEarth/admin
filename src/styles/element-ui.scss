@@ -183,7 +183,10 @@
  }
  .el-dialog{
      width: 360px;
-     height: 276px;
+     height: 355px;
+     .el-input{
+         width: 60%!important;
+     }
      .el-dialog__header{
          height: 40px;
          background: #5FCAB1;
@@ -194,6 +197,9 @@
              color: #fff;
              font-size: 16px;
          }
+     }
+     .alertBtn{
+         text-align: center;
      }
  }
  .shenhe{

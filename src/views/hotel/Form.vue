@@ -39,11 +39,12 @@
 
                         <el-popover
                             ref="popover4"
-                            placement="bottom"
+                            placement="bottom-end"
                             title="选择供应商"
                             trigger="click"
                             offset="1"
                             v-model="tableShow"
+                            style="display: none"
                         >
                             <el-form ref="form" :model="form" label-width="80px" class="supplierForm">
                                 <el-row>
@@ -84,7 +85,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>供&nbsp;应&nbsp; 商:</span>
                                 <el-form-item label="膳食安排" prop="hotelSupplierId">
-                                    <el-input v-model="ruleForm.hotelSupplierId" v-popover:popover4></el-input>
+                                    <el-input v-model="ruleForm.hotelSupplierId" v-popover:popover4  :readonly="true"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -134,12 +135,20 @@
                                 </el-form-item>
                             </div>
                         </el-col>
+                        <el-popover
+                            ref="popover2"
+                            placement="bottom"
+                            title="提示信息"
+                            width="200"
+                            trigger="click"
+                            content="填写数字，2代表销售了2间屋子" style="display: none">
+                        </el-popover>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
                                 <el-form-item label="膳食安排" prop="hotelSaleCount">
                                     <el-input type="number" v-model="ruleForm.hotelSaleCount"
-                                              placeholder="请输入数字"></el-input>
+                                              placeholder="请输入数字" v-popover:popover2></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>

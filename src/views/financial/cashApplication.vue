@@ -108,7 +108,7 @@
                 </div>
                 <div class="alertBtn">
                     <el-button type="primary">确定</el-button>
-                    <el-button>返回</el-button>
+                    <el-button @click="back">返回</el-button>
                 </div>
             </el-form>
         </el-dialog>
@@ -291,6 +291,9 @@
             handleCurrentChange(val) {
                 this.searchList.currentPage = val
                 this.tableData()
+            },
+            back(){
+                this.dialogFormVisible = false
             }
         }
 
@@ -439,6 +442,12 @@
                 float: left;
                 margin-top: 7px;
                 margin-right: 10px;
+            }
+            .el-form-item{
+
+            }
+            .el-input{
+                width: 60%!important;
             }
             .iconfont{
                 margin-right: 5px;
