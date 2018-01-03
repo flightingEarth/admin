@@ -21,12 +21,16 @@ import ScenicTicket from '@/views/scenicTicket'
 import TicketCreate from '@/views/scenicTicket/create'
 import TicketEdit from '@/views/scenicTicket/edit'
 
+import ScenicRefund from '@/views/scenicRefund'
 
 
 import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
 import HotelEdit from '@/views/hotel/edit'
+
 import PriceCalendar from '@/views/hotel/priceCalendar'
+
+import HotelRefund from '@/views/hotelRefund'
 
 import HotelRoom from '@/views/hotelRoom'
 import RoomCreate from '@/views/hotelRoom/create'
@@ -124,7 +128,12 @@ const router = new Router({
                 },
                 {
                     path: '/scenic/:scenicId/ticket/:id/edit',hidden:true, component: TicketEdit, name: '门票编辑',
-                }
+                },
+
+                //景区退款审核
+                {
+                    path: '/scenicRefund', component: ScenicRefund, name: '退款审核'
+                },
 
 
             ]
@@ -179,6 +188,11 @@ const router = new Router({
                 },
                 {
                     path: '/hotelorder/:id/edit', hidden: true, component: HotelOrderEdit, name: '酒店订单编辑'
+                },
+
+                //酒店退款审核
+                {
+                    path: '/hotelRefund', component: HotelRefund, name: '退款审核'
                 },
             ]
         },

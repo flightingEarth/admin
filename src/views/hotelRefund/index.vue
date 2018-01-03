@@ -9,54 +9,57 @@
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>景区名称:</span>
-                            <el-input v-model="searchList.scenicName" placeholder="请输入门票编号或名称"></el-input>
+                            <span><i>|</i>订&nbsp;&nbsp;单&nbsp;&nbsp;ID:</span>
+                            <el-input v-model="searchList.orderId" placeholder="请输入订单ID"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
-                            <el-select v-model="searchList.ticketType" placeholder="请选择">
-                                <el-option
-                                    v-for="item in supplierOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <span><i>|</i>酒店搜索:</span>
+                            <el-input v-model="searchList.hotelName" placeholder="请输入酒店名称或酒店编号"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>门票搜索:</span>
-                            <el-input v-model="searchList.ticketName" placeholder="请输入旅游主题"></el-input>
+                            <span><i>|</i>供&nbsp;&nbsp;应&nbsp;&nbsp;商:</span>
+                            <el-input v-model="searchList.supplier" placeholder="请输入供应商账户名或id"></el-input>
+                        </div>
+                    </el-col>
+
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <span><i>|</i>申&nbsp;&nbsp;请&nbsp;&nbsp;人:</span>
+                            <el-input v-model="searchList.proposer" placeholder="请输入申请人或uid或手机号"></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
-                            <span><i>|</i>有效起始:</span>
-                            <el-date-picker
-                                v-model="beginTime"
-                                type="date"
-                                placeholder="选择日期">
-                            </el-date-picker>
-                            <span class="zhi">至</span>
-                            <el-date-picker
-                                v-model="endTime"
-                                type="date"
-                                placeholder="选择日期"
-                                :picker-options="minTime">
-                            </el-date-picker>
+                            <span><i>|</i>退款状态:</span>
+                            <el-select v-model="searchList.refundStatus" placeholder="请选择">
+                                <el-option label="退款中" value="1"></el-option>
+                                <el-option label="未退款" value="2"></el-option>
+                                <el-option label="已退款" value="3"></el-option>
+                            </el-select>
+                        </div>
+                    </el-col>
+
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple double">
+                            <span><i>|</i>是否退款:</span>
+                            <el-select v-model="searchList.isRefund" placeholder="请选择">
+                                <el-option label="是" value="1"></el-option>
+                                <el-option label="否" value="2"></el-option>
+                            </el-select>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
-                        <el-button type="primary">搜索</el-button>
+                        <el-button type="primary" @click="handleSearch">搜索</el-button>
                         <el-button>重置条件</el-button>
-                        <el-button type="primary">导出</el-button>
+                        <!--<el-button type="primary">导出</el-button>-->
                     </el-col>
 
                 </el-row>
@@ -67,200 +70,172 @@
         <div class="list-title">
             <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
-            <ul>
-                <li><a href="javascript:;" @click="addTicket">添加门票</a></li>
-            </ul>
         </div>
         <div class="table">
-            <el-table
-                :data="tableData"
-                border
-                stripe
-                style="width: 100%">
+            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
                 <el-table-column
-                    prop="ticketId"
-                    label="门票编号"
+                    prop="hotelId"
+                    label="编号"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="scenicId"
-                    label="景区编号"
+                    prop="hotelOrder"
+                    label="酒店订单"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="ticketType"
-                    label="票种"
+                    prop="hotelName"
+                    label="酒店名称"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="ticketName"
-                    label="门票名称"
+                    prop="refundTime"
+                    label="退订日期"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="supplier"
-                    label="供应商"
+                    prop="refundNum"
+                    label="退订数量"
                     align="center"
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="saleNum"
-                    label="售出数量（张）"
+                    prop="supplierName"
+                    label="供应商名称"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="surplusNum"
-                    label="剩余数量（张）"
-                    align="center">
-                </el-table-column>
-
-                <el-table-column
-                    prop="price"
-                    label="价格（元）"
+                    prop="supplierID"
+                    label="供应商ID"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="rule"
-                    label="规则"
+                    prop="proposerName"
+                    label="申请人名称"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="benginTime"
-                    label="有效期开始"
+                    prop="proposerUID"
+                    label="申请人uid"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="endTime"
-                    label="有效期结束"
+                    prop="proposerPhone"
+                    label="申请人手机号"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="status"
-                    label="状态"
+                    prop="poundage"
+                    label="手续费"
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="ticketSource"
-                    label="票种来源"
+                    prop="refundStatus"
+                    label="退款状态"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="isRefund"
+                    label="是否退款"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    prop="createdTime"
+                    label="创建时间"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="操作"
                     align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small">编辑</el-button>
-                        <el-button type="text" size="small">查看</el-button>
+                        <el-button type="text" size="small" class="btn refuse" @click="open2" >拒绝退款</el-button>
+                        <el-button type="text" size="small" class="btn agree" @click="open3">同意退款</el-button>
                     </template>
                 </el-table-column>
 
             </el-table>
             <el-pagination
-                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="searchList.currentPage"
-                :page-sizes="pageSizes"
-                :page-size="searchList.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="searchList.totalList">
+                :page-size="searchList.limit"
+                layout="total, prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-    import {fetchList} from '@/api/article'
+    import { hotelList } from '@/api/hotel'
     export default {
-        name: 'ticketList',
+        name: 'hotel',
         data() {
             return {
+                total: 0,
                 searchList: {
-                    scenicName: undefined,
-                    ticketType: undefined,
-                    ticketName: undefined,
                     currentPage: 1,
-                    pageSize: 10,
-                    totalList: 100
+                    limit: 20,
+                    page: 1
                 },
-                beginTime: "",
-                endTime: "",
-                pageSizes: [10, 20, 50, 100],
-                minTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
-                    }
-                },
-                supplierOptions: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
-                scenicStar: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
-                tableData: [{
-                    ticketId: '28286',
-                    scenicId: '5395',
-                    ticketType: '普通票',
-                    ticketName: '淡季平日票（团队）',
-                    supplier: 'jq-api-38389 2017葫芦岛百大万美温泉',
-                    saleNum: '0',
-                    surplusNum: '9999',
-                    price: '市：103.00  售：89.00  供：79.00  游币：0个',
-                    rule: '使用后分润 刷身份证',
-                    benginTime: '2017-11-13 00:00:00',
-                    endTime: '2017-11-13 00:00:00',
-                    status: '审核通过',
-                    ticketSource: '自动对家-票付通 （九天科技）'
-                }]
+                tableData: []
             }
+        },
+        created() {
+            this.getList()
         },
         methods: {
             getList() {
                 this.listLoading = true
-                fetchList(this.searchList).then(response => {
-                    this.tableData = response.data.items
-                    this.total = response.data.total
+                hotelList(this.searchList).then(response => {
+                    this.tableData = response.data.data
+                    this.total = response.data.meta.total
                     this.listLoading = false
                 })
             },
-            handleSizeChange(val) {
-                this.searchList.pageSize = val
-                this.tableData()
-            },
             handleCurrentChange(val) {
-                this.searchList.currentPage = val
-                this.tableData()
+                this.searchList.page = val;
+                this.getList();
             },
-            addTicket() {
-                this.$router.push({path: "/scenicManagement/addTicket"})
+            handleSearch() {
+                this.getList()
+            },
+            open2() {
+                this.$confirm('是否拒绝退款?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '拒绝退款成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消拒绝退款'
+                    });
+                });
+            },
+            open3() {
+                this.$confirm('是否同意退款?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '同意退款成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消同意退款'
+                    });
+                });
             }
         }
     }
@@ -283,9 +258,7 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                i{
-                    color: #2C7ADE;
-                }
+
             }
             .input {
                 span {
@@ -308,14 +281,9 @@
                 .el-select {
                     width: 70%;
                 }
-                .double {
-                    .el-input {
-                        width: 32.8%;
-                    }
-                    .zhi {
-                        float: left;
-                        margin-left: 10px;
-                    }
+                .el-cascader {
+                    margin: 0;
+                    width: 70%;
                 }
                 .el-col-24 {
                     text-align: center;
@@ -348,9 +316,6 @@
             margin-top: 20px;
             line-height: 60px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-            i{
-                color: #2C7ADE;
-            }
             ul {
                 list-style: none;
                 float: right;
@@ -366,8 +331,8 @@
                     margin-top: 12px;
                     border-radius: 3px;
                     a {
-                        display: block;
                         color: #fff;
+                        display: block;
                     }
                 }
             }
@@ -381,6 +346,24 @@
         }
         .el-pagination {
             margin-top: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 80px;
+            height: 36px;
+            text-align: center;
+            border-radius: 3px;
+        }
+        .refuse {
+            background: #5fcab1;
+            color: #fff;
+        }
+        .agree {
+            border: 1px solid #DEDEDE;
+            color: #666;
+            margin-left: 0;
+            margin-top: 5px;
         }
 
     }

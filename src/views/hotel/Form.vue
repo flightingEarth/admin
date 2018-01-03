@@ -1,10 +1,9 @@
-
 <template>
     <div class="main">
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <svg-icon icon-class="added"/>
+                    <i class="iconfont icon-comiisjiahao"></i>
                     <span>{{title}}</span>
                 </div>
                 <div class="input">
@@ -21,7 +20,8 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>销售起价:</span>
                                 <el-form-item label="膳食安排" prop="minimumHotelHousePrice">
-                                    <el-input v-model="ruleForm.minimumHotelHousePrice" type="number" placeholder="请输入数字"></el-input>
+                                    <el-input v-model="ruleForm.minimumHotelHousePrice" type="number"
+                                              placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -36,11 +36,47 @@
                                 </el-form-item>
                             </div>
                         </el-col>
+
+                        <el-popover
+                            ref="popover4"
+                            placement="right"
+                            title="选择供应商"
+                            trigger="click"
+                            v-model="tableShow"
+                        >
+                            <el-form ref="form" :model="form" label-width="80px" class="supplierForm">
+                                <el-form-item label="用户名">
+                                    <el-input v-model="form.name" placeholder="用户名或昵称"></el-input>
+                                </el-form-item>
+                                <el-form-item label="编号">
+                                    <el-input v-model="form.id" placeholder="用户编号"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click="onSubmit">搜索</el-button>
+
+                                </el-form-item>
+
+
+                            </el-form>
+                            <el-table
+                                ref="singleTable"
+                                :data="tableData"
+                                highlight-current-row
+                                @current-change="handleCurrentChange"
+                                style="width: 100%">
+                                <el-table-column width="90" property="id" label="编号"></el-table-column>
+                                <el-table-column width="200" property="name" label="用户名"></el-table-column>
+                                <el-table-column width="130" property="name1" label="用户昵称"></el-table-column>
+                                <el-table-column width="100" property="type" label="用户类型"></el-table-column>
+                                <el-table-column width="100" property="status" label="状态"></el-table-column>
+                            </el-table>
+                        </el-popover>
+
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>供&nbsp;应&nbsp; 商:</span>
                                 <el-form-item label="膳食安排" prop="hotelSupplierId">
-                                    <el-input v-model="ruleForm.hotelSupplierId"></el-input>
+                                    <el-input v-model="ruleForm.hotelSupplierId" v-popover:popover4></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -76,7 +112,7 @@
                                 <span><i>|</i>酒店状态:</span>
                                 <el-form-item label="活动区域" prop="hotelStatus">
                                     <el-select v-model="ruleForm.hotelStatus" placeholder="请选择">
-                                        <el-option label="正常营业" value="1" ></el-option>
+                                        <el-option label="正常营业" value="1"></el-option>
                                         <el-option label="不营业" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
@@ -94,7 +130,8 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
                                 <el-form-item label="膳食安排" prop="hotelSaleCount">
-                                    <el-input type="number" v-model="ruleForm.hotelSaleCount" placeholder="请输入数字"></el-input>
+                                    <el-input type="number" v-model="ruleForm.hotelSaleCount"
+                                              placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -125,7 +162,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <svg-icon icon-class="hotel"/>
+                    <i class="iconfont icon-shuxie"></i>
                     <span>基本信息</span>
                 </div>
                 <div class="input">
@@ -158,23 +195,26 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <svg-icon icon-class="gongju"/>
+                    <i class="iconfont icon-gongju"></i>
                     <span>设备选择</span>
                 </div>
                 <div class="tab">
                     <el-checkbox :indeterminate="isIndeterminate" class="checkAll" v-model="checkAll"
                                  @change="handleCheckAllChange">全选
-          </el-checkbox>
+                    </el-checkbox>
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>
                         <el-tab-pane label="网络设备" name="second">
                             <el-checkbox-group v-model="ruleForm.network">
-                                <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}</el-checkbox>
+                                <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}
+                                </el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
                         <el-tab-pane label="停车场" name="third">
                             <el-checkbox-group v-model="ruleForm.parkingLot">
-                                <el-checkbox v-for="parking in parkingLotList" :label="parking.id" :key="parking.id">{{parking.name}}</el-checkbox>
+                                <el-checkbox v-for="parking in parkingLotList" :label="parking.id" :key="parking.id">
+                                    {{parking.name}}
+                                </el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
                         <el-tab-pane label="设备服务" name="fourth">
@@ -186,7 +226,7 @@
                 </div>
 
                 <div class="title title1">
-                    <svg-icon icon-class="gongju"/>
+                    <i class="iconfont icon-tupian"></i>
                     <span>图片添加</span>
                 </div>
                 <div class="input">
@@ -195,11 +235,11 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
                                 <el-upload
-                                action="https://jsonplaceholder.typicode.com/posts/"
-                                list-type="picture-card"
-                                :on-preview="handlePictureCardPreview"
-                                :on-remove="handleRemove">
-                                <i class="el-icon-plus"></i>
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove">
+                                    <i class="el-icon-plus"></i>
                                 </el-upload>
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
                                     <!--<i class="el-icon-plus picture-uploader-icon"></i>-->
@@ -211,7 +251,7 @@
                 </div>
 
                 <div class="title title1">
-                    <svg-icon icon-class="zc"/>
+                    <i class="iconfont icon-hotel"></i>
                     <span>酒店政策</span>
                 </div>
                 <div class="input">
@@ -287,7 +327,8 @@
                                 <span><i>|</i>开业时间:</span>
                                 <el-form-item label="开业时间" prop="hotelStartBusiness">
                                     <el-form-item label="开业时间" prop="hotelStartBusiness">
-                                        <el-input v-model="ruleForm.hotelStartBusiness" placeholder="请填写开业时间（如：2014）"></el-input>
+                                        <el-input v-model="ruleForm.hotelStartBusiness"
+                                                  placeholder="请填写开业时间（如：2014）"></el-input>
                                     </el-form-item>
                                 </el-form-item>
                             </div>
@@ -350,17 +391,18 @@
 
             </el-form>
         </div>
-        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false" @submit="selectImagesSubmit"></select-images>
+        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
+                       @submit="selectImagesSubmit"></select-images>
     </div>
 </template>
 
 <script>
-    import { updateHotel, addHotel} from '@/api/hotel'
-    import { getFacilities } from '@/api/hotelFacilities'
+    import {updateHotel, addHotel} from '@/api/hotel'
+    import {getFacilities} from '@/api/hotelFacilities'
     import SelectImages from "@/components/Attachment/selectImages";
 
     export default {
-        components: { SelectImages },
+        components: {SelectImages},
         props: {
             ruleForm: {
                 type: Object,
@@ -368,7 +410,7 @@
                     return {
                         network: [],
                         parkingLot: [],
-                        hotelFacilities:[]
+                        hotelFacilities: []
                     }
                 }
             }
@@ -385,31 +427,54 @@
                         return time.getTime() < this.beginTime
                     }
                 },
-                networkList:[],//网络设施
-                parkingLotList:[], //停车场
-                facilitiesList:[], //设备服务
-                options:[],
-                title:"",
+                form: {},
+                tableShow: false,
+                tableData: [{
+                    id: '3579071',
+                    name: 'fenxiaoshangceshi001',
+                    name1: '分销商测试001',
+                    type: '分销商',
+                    status: '正常'
+                    },
+                    {
+                        id: '3579071',
+                        name: 'fenxiaoshangceshi002',
+                        name1: '分销商测试002',
+                        type: '分销商',
+                        status: '正常'
+                    },
+                    {
+                        id: '3579071',
+                        name: 'fenxiaoshangceshi003',
+                        name1: '分销商测试003',
+                        type: '分销商',
+                        status: '正常'
+                    }],
+                networkList: [],//网络设施
+                parkingLotList: [], //停车场
+                facilitiesList: [], //设备服务
+                options: [],
+                title: "",
                 checkAll: false,
                 isIndeterminate: true,
                 options2: [],
-                props:{
-                    label:"name",
-                    value:"id"
+                props: {
+                    label: "name",
+                    value: "id"
                 },
                 rules: {
                     hotelName: [
-                        { required: true, message: '请填写酒店名称', trigger: 'blur'}
+                        {required: true, message: '请填写酒店名称', trigger: 'blur'}
                     ],
                     minimumHotelHousePrice: [
-                        { type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
+                        {type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
                     ],
                     hotelBrandId: [
-                        { type: 'number',required: true, message: '请选择酒店的品牌', trigger: 'change'}
+                        {type: 'number', required: true, message: '请选择酒店的品牌', trigger: 'change'}
                     ],
-                    hotelSupplierId: [
-                        {required: true, message: '此处不能为空', trigger: 'blur'}
-                    ],
+//                    hotelSupplierId: [
+//                        {required: true, message: '此处不能为空', trigger: 'blur'}
+//                    ],
                     hotelLongitude: [
                         {required: true, message: '请填写百度经度', trigger: 'blur'},
                     ],
@@ -449,29 +514,14 @@
                     ],
                     hotelStartBusiness: [
                         {required: true, message: '请填写开业时间', trigger: 'blur'},
-                    ],
-//                  decorationTime: [
-//                    {required: true, message: '此处不能为空', trigger: 'blur'}
-//                  ],
-//                  pet: [
-//                    {required: true, message: '此处不能为空', trigger: 'blur'}
-//                  ],
-//                  abolitionOfPolicy: [
-//                    {required: true, message: '此处不能为空', trigger: 'blur'}
-//                  ],
-//                  checkIn: [
-//                    {required: true, message: '此处不能为空', trigger: 'blur'}
-//                  ],
-//                  buffet: [
-//                    {required: true, message: '此处不能为空', trigger: 'blur'}
-//                  ]
+                    ]
                 }
             }
         },
         created() {
-            if(this.$route.params.id){
+            if (this.$route.params.id) {
                 this.title = "编辑酒店"
-            }else {
+            } else {
                 this.title = "添加酒店"
             }
         },
@@ -536,15 +586,15 @@
                 console.log(this.networkList.length)
                 if (this.activeName == 'first') {
 //                    this.$router.push({ path: '/setting/certificate' });
-                } else if(this.activeName == 'second') {
+                } else if (this.activeName == 'second') {
                     if (this.networkList.length == 0) {
                         this.getNetworkList()
                     }
-                }  else if(this.activeName == 'third') {
+                } else if (this.activeName == 'third') {
                     if (this.parkingLotList.length == 0) {
                         this.getParkingLot()
                     }
-                } else if(this.activeName == 'fourth') {
+                } else if (this.activeName == 'fourth') {
                     if (this.facilitiesList.length == 0) {
                         this.getFacilitiesList()
                     }
@@ -552,20 +602,20 @@
             },
             //获取酒店网络设施
             getNetworkList() {
-                let para = { type:1 }
+                let para = {type: 1}
                 getFacilities(para).then(response => {
                     this.networkList = response.data.data
                 })
             },
             //获取酒店停车场
             getParkingLot() {
-                let para = { type:2 }
+                let para = {type: 2}
                 getFacilities(para).then(response => {
                     this.parkingLotList = response.data.data
                 })
             },
             getFacilitiesList() {
-                let para = { type:3 }
+                let para = {type: 3}
                 getFacilities(para).then(response => {
                     this.facilitiesList = response.data.data
                 })
@@ -573,6 +623,14 @@
             //选择图片
             selectImagesSubmit(images) {
                 this.news.page_image = images[0].links
+            },
+            onSubmit(){
+
+            },
+            handleCurrentChange(val) {
+                console.log(val)
+                this.tableShow = false;
+                this.ruleForm.hotelSupplierId = val.name1;
             }
         }
     }
@@ -688,7 +746,21 @@
             margin-left: 0;
             margin-top: 5px;
         }
+    }
 
+    .supplierForm {
+        overflow: hidden;
+        .el-form-item {
+            float: left;
+        }
+        .el-input {
+            width: 66% !important;
+        }
+        .el-button--primary {
+            background: #5FCAB1;
+            border-color: #5FCAB1;
+            margin-left: 20px;
+        }
     }
 
 

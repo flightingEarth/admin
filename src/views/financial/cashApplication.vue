@@ -183,6 +183,7 @@
                 :total="searchList.totalList">
             </el-pagination>
         </div>
+
         <!--新增界面-->
         <el-dialog title="提现审核" v-model="addFormVisible" :close-on-click-modal="false">
 

@@ -5,14 +5,12 @@
                 <img src="./logo.png" alt="">
             </div>
             <div class="title">
-                <el-breadcrumb-item v-for="(item,index)  in levelList" :key="item.path">
-                    <span v-if='item.redirect!="noredirect"||index!=levelList.length-1'>{{item.name}}</span>
-                </el-breadcrumb-item>
+                {{title}}
             </div>
             <div class="login">
                 <span class="headImg"></span>
                 <a href="javascript:;" @click="open"><span class="name">超级管理员</span>
-                <i class="el-icon-caret-bottom"></i></a>
+                    <i class="el-icon-caret-bottom"></i></a>
                 <div class="tab" v-show="show">
                     <ul>
                         <li><a href="javscript:;"><i class="iconfont icon-wode"></i>我的主页</a></li>
@@ -44,7 +42,8 @@
         data() {
             return {
                 levelList: null,
-                show: false
+                show: false,
+                title:"",
             }
         },
 
@@ -53,18 +52,16 @@
                 return this.$store.state.app.sidebar
             }
         },
+        created(){
+            this.getBreadcrumb();
+            console.log(this.$route.matched[0].name)
+        },
         methods: {
             getBreadcrumb() {
-                let matched = this.$route.matched.filter(item => item.name);
-//        const first = matched[0];
-//        if (first && (first.name !== '首页' || first.path !== '')) {
-//          matched = [{ name: '首页', path: '/' }].concat(matched)
-//        }
-                this.levelList = matched;
-                console.log(this.$route.matched)
+                this.title = this.$route.matched[0].name
             },
             open(){
-                    this.show = !this.show
+                this.show = !this.show
             }
         },
         watch: {
@@ -77,6 +74,7 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
     @import "src/styles/mixin.scss";
+
     .app-wrapper {
         @include clearfix;
         position: relative;
@@ -129,11 +127,6 @@
             font-size: 24px;
             color: #fff;
             font-weight: normal;
-            padding-left: 50px;
-            span {
-                font-weight: normal;
-                color: #fff;
-            }
         }
         .login {
             float: right;
@@ -143,7 +136,7 @@
             margin-right: 20px;
             line-height: 70px;
             position: relative;
-            .headImg{
+            .headImg {
                 display: inline-block;
                 width: 50px;
                 height: 50px;
@@ -151,42 +144,42 @@
                 background: blue;
                 margin: 10px 0 0 10px;
                 float: left;
-                img{
+                img {
                     width: 100%;
                 }
             }
-            .name{
+            .name {
                 font-size: 16px;
                 color: #f3f3f3;
                 margin-left: 10px;
             }
-            .el-icon-caret-bottom{
+            .el-icon-caret-bottom {
                 color: #f3f3f3;
                 margin-left: 10px;
             }
-            .tab{
+            .tab {
                 position: absolute;
                 width: 200px;
                 background: #fff;
                 top: 70px;
                 z-index: 9999;
                 box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-                ul{
+                ul {
                     width: 100%;
-                    li{
+                    li {
                         /*text-align: center;*/
                         font-size: 16px;
                         color: #888;
                         height: 30px;
                         line-height: 30px;
                         border-bottom: 1px solid #E6E6E6;
-                        a{
+                        a {
                             display: block;
                         }
-                        a:hover{
+                        a:hover {
                             background: #EBEBEB;
                         }
-                        .iconfont{
+                        .iconfont {
                             color: #666;
                             margin: 0 10px;
                         }

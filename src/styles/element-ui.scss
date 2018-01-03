@@ -236,4 +236,12 @@
  .el-range-input{
      margin-left: 15px!important;
  }
+ .supplierForm{
+     .el-form-item{
+         .el-form-item__label{
+             width: 60px!important;
+             display: inline-block;
+         }
+     }
+ }
 
