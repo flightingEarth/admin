@@ -75,8 +75,8 @@
                         </el-col>
                         <el-col :span="8">
                             <span>修改订单改票规则：</span>
-                            <el-radio v-model="radio" label="1">备选项</el-radio>
-                            <el-radio v-model="radio" label="2">备选项</el-radio>
+                            <el-radio v-model="radio1" label="1">备选项</el-radio>
+                            <el-radio v-model="radio1" label="2">备选项</el-radio>
                         </el-col>
                     </el-row>
                 </div>
@@ -85,7 +85,7 @@
             <!--酒店产品详情-->
             <div class="search product">
                 <i class="iconfont icon-cf-c57"></i>
-                <span>订单产品详情</span>
+                <span>支付订单信息</span>
             </div>
             <div class="search product table">
                 <el-table
@@ -95,58 +95,43 @@
                 >
                     <el-table-column
                         prop="date"
-                        label="酒店ID"
+                        label="支付编号"
                         align="center"
                     >
                     </el-table-column>
                     <el-table-column
                         prop="name"
-                        label="产品ID"
+                        label="订单ID"
                         align="center">
                     </el-table-column>
                     <el-table-column
                         prop="address"
+                        label="产品编号"
+                        align="center">
+                    </el-table-column>
+                    <el-table-column
+                        prop="name"
+                        label="联系人"
+                        align="center">
+                    </el-table-column>
+                    <el-table-column
+                        prop="name"
+                        label="联系人手机号"
+                        align="center">
+                    </el-table-column>
+                    <el-table-column
+                        prop="name"
+                        label="支付金额（元）"
+                        align="center">
+                    </el-table-column>
+                    <el-table-column
+                        prop="name"
                         label="产品名称"
                         align="center">
                     </el-table-column>
                     <el-table-column
                         prop="name"
-                        label="楼层"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="面积"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="床型"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="可住人数"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="加床"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="早餐"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="宽带"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="房间描述"
+                        label="支付时间"
                         align="center">
                     </el-table-column>
                 </el-table>
@@ -179,6 +164,8 @@
                 list: {
                     orderId: 123456,
                 },
+                radio:"",
+                radio1:"",
                 rules: {},
                 tableData: [{
                     date: '2016-05-02',
