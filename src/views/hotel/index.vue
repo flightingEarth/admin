@@ -32,9 +32,9 @@
                         <div class="grid-content bg-purple">
                             <span><i>|</i>选择城市:</span>
                             <el-cascader
-                                    :options="options2"
-                                    @active-item-change="handleItemChange"
-                                    :props="props"
+                                :options="options2"
+                                @active-item-change="handleItemChange"
+                                :props="props"
                             ></el-cascader>
                         </div>
                     </el-col>
@@ -68,80 +68,78 @@
                 <li><a href="javascript:;" @click="priceCalendar">价格日历</a></li>
             </ul>
         </div>
-        <div class="table">
-            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
-                <el-table-column
-                        prop="hotelId"
-                        label="编号"
-                        align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                        prop="hotelName"
-                        label="酒店名称"
-                        align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                        prop="hotelStar"
-                        label="酒店星级"
-                        align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                        prop="hotelAddress"
-                        label="酒店地址"
-                        align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                        prop="hotelTelephone"
-                        label="联系方式"
-                        align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                        prop="minimumHotelHousePrice"
-                        label="最小价格"
-                        align="center">
-                </el-table-column>
-                <el-table-column
+        <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
+            <el-table-column
+                prop="hotelId"
+                label="编号"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="hotelName"
+                label="酒店名称"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="hotelStar"
+                label="酒店星级"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="hotelAddress"
+                label="酒店地址"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="hotelTelephone"
+                label="联系方式"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="minimumHotelHousePrice"
+                label="最小价格"
+                align="center">
+            </el-table-column>
+            <el-table-column
 
-                        label="酒店状态"
-                        align="center">
-                    <template slot-scope="scope">
-                        <el-button v-if="scope.row.hotelStatus ==1" type="text" size="small">上架</el-button>
-                        <el-button v-if="scope.row.hotelStatus ==2" type="text" size="small">下架</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        prop="createdTime"
-                        label="添加时间"
-                        align="center">
-                </el-table-column>
-                <el-table-column
-                        label="操作"
-                        align="center">
-                    <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="handleHouse(scope.row.hotelId)">房型</el-button>
-                        <el-button type="text" size="small" @click="edit(scope.row.hotelId)">编辑</el-button>
-                    </template>
-                </el-table-column>
+                label="酒店状态"
+                align="center">
+                <template slot-scope="scope">
+                    <el-button v-if="scope.row.hotelStatus ==1" type="text" size="small">上架</el-button>
+                    <el-button v-if="scope.row.hotelStatus ==2" type="text" size="small">下架</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="createdTime"
+                label="添加时间"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="操作"
+                align="center">
+                <template slot-scope="scope">
+                    <el-button type="text" size="small" @click="handleHouse(scope.row.hotelId)">房型</el-button>
+                    <el-button type="text" size="small" @click="edit(scope.row.hotelId)">编辑</el-button>
+                </template>
+            </el-table-column>
 
-            </el-table>
-            <el-pagination
-                    @current-change="handleCurrentChange"
-                    :current-page="searchList.currentPage"
-                    :page-size="searchList.limit"
-                    layout="total, prev, pager, next, jumper"
-                    :total="total">
-            </el-pagination>
-        </div>
+        </el-table>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="searchList.currentPage"
+            :page-size="searchList.limit"
+            layout="total, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
     </div>
 </template>
 
 <script>
-    import { hotelList } from '@/api/hotel'
+    import {hotelList} from '@/api/hotel'
     export default {
         name: 'hotel',
         data() {
@@ -196,7 +194,7 @@
                 this.getList()
             },
             edit(index) {
-                this.$router.push({path: "/hotel/"+index + '/edit'})
+                this.$router.push({path: "/hotel/" + index + '/edit'})
             },
             handleHouse(){
                 this.$router.push({path: "/hotel/hotelRoom"})
@@ -225,7 +223,6 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-
             }
             .input {
                 span {
@@ -277,28 +274,41 @@
         }
         .list-title {
             width: 100%;
-            height: 60px;
-            padding: 0 20px;
-            background: #fff;
-            margin-top: 20px;
-            line-height: 60px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            margin-bottom: 0 !important;
+            margin-top: 24px;
+            height: 40px;
+            line-height: 40px;
+            .iconfont {
+                color: #333;
+                margin-left: 20px;
+                font-size: 18px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
+            }
             ul {
                 list-style: none;
                 float: right;
                 margin: 0;
                 li {
                     float: left;
-                    width: 100px;
-                    height: 36px;
+                    width: 90px;
+                    height: 25px;
                     text-align: center;
-                    line-height: 36px;
-                    background: #307FFF;
-                    margin-left: 10px;
-                    margin-top: 12px;
-                    border-radius: 3px;
+                    line-height: 25px;
+                    background: #fff;
+                    margin-right: 10px;
+                    margin-top: 9px;
+                    border-radius: 2px;
+                    border: 1px solid #ccc;
+                    font-size: 12px;
                     a {
-                        color: #fff;
+                        color: #666;
                         display: block;
                     }
                 }

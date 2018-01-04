@@ -4,7 +4,7 @@
             <template v-for="(item,index) in routes" v-if="!item.hidden">
                 <el-submenu :index="index+''" v-if="!item.leaf">
                     <template slot="title">
-                        <span><i class="iconfont icon-iconjia"></i>{{item.name}}</span>
+                        <span>{{item.name}}</span>
                     </template>
                     <el-menu-item v-for="(child, index) in item.children" :index="child.path" v-if="!child.hidden"
                                   :key="index"><i class="iconfont icon-dian-copy-copy"></i>{{child.name}}

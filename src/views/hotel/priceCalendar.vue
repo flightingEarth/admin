@@ -78,7 +78,7 @@
         </div>
 
         <div class="calendar">
-            <p>注：修改当日数量：双击选择日期 批量修改抽奖数量：鼠标按住拖选日期 选择修改抽奖数量：ctrl+单击日历</p>
+            <p class="prompt">注：修改当日数量：双击选择日期 批量修改抽奖数量：鼠标按住拖选日期 选择修改抽奖数量：ctrl+单击日历</p>
             <div class="title">
                 <i class="iconfont icon-zuo"></i>
                 <span>2017-12</span>
@@ -204,16 +204,16 @@
                     <td>
                         <span class="date">31</span>
                     </td>
-                    <td>
+                    <td class="nextDate">
                         <span class="date">1</span>
                     </td>
-                    <td>
+                    <td class="nextDate">
                         <span class="date">2</span>
                     </td>
-                    <td>
+                    <td class="nextDate">
                         <span class="date">3</span>
                     </td>
-                    <td>
+                    <td class="nextDate">
                         <span class="date">4</span>
                     </td>
                 </tr>
@@ -417,17 +417,23 @@
             background: #fff;
             padding: 0 70px;
             overflow: hidden;
-            p{
+            .prompt{
+                color: red;
                 margin: 15px 0;
+                text-align: center;
+            }
+            .iconfont{
+                color: #262F3B;
             }
             .title{
                 height: 50px;
-                width: 100%;
-                background: #388FFF;
+                width: 30%;
+                /*background: #388FFF;*/
                 text-align: center;
-                color: #fff;
+                color: #262F3B;
                 font-size: 18px;
                 line-height: 50px;
+                margin: 0 auto;
                 .icon-zuo{
                     float: left;
                     margin-left: 10px;
@@ -440,27 +446,35 @@
                 }
             }
             table{
-                width: 100%;
+                width: 80%;
                 table-layout: fixed;
+                margin: 0 auto;
+                border-collapse: collapse;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
                 th{
                     height: 50px;
                     background: #fff;
-                    font-size: 24px;
+                    font-size: 18px;
                     font-weight: normal;
                 }
                 td{
-                    background: #F2F2F2;
+                    background: #fff;
                     height: 100px;
                     vertical-align: top;
                     border: 1px solid #E6E6E6;
                     position: relative;
+                    padding: 5px 0 0 10px;
                     span{
                         position: absolute;
-                        font-size: 26px;
+                        font-size: 18px;
                     }
                     p{
                         margin: 5px 0 5px 60px ;
                     }
+                }
+                .nextDate{
+                    background: #F5F5F5;
                 }
             }
         }

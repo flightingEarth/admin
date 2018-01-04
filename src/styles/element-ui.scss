@@ -95,6 +95,7 @@
             .el-menu-item {
                 background: #EAEDF2 !important;
                 color: #666 !important;
+                font-size: 16px!important;
             }
             .el-menu-item:hover {
                 background: #fff !important;
@@ -123,6 +124,10 @@
 .el-submenu__title {
     background: #EAEDF2 !important;
     color: #666 !important;
+    font-size: 16px!important;
+    i{
+        color: #fff!important;
+    }
 }
 
 .tags-view-container {
@@ -200,13 +205,14 @@ label.el-radio {
     }
     .el-dialog__header {
         height: 40px;
-        background: #5FCAB1;
+        background: #5FCAB1 !important;
         line-height: 40px;
-        padding: 0;
-        padding-left: 10px;
-        .el-dialog__title {
-            color: #fff;
-            font-size: 16px;
+        padding: 0 0 0 10px;
+        .el-dialog {
+            .el-dialog__title {
+                color: #fff !important;
+                font-size: 16px;
+            }
         }
     }
     .alertBtn {
@@ -274,7 +280,7 @@ label.el-radio {
     .el-dialog {
         .el-dialog__header {
             .el-dialog__title {
-                color: #606266 !important;
+                color: #fff !important;
             }
         }
     }
@@ -292,10 +298,16 @@ label.el-radio {
 }
 
 .el-table {
+    border-color: #ccc;
     tr {
         th {
-            background: #E2F9FF;
+            background: rgba(249, 250, 252, 1);
+        }
+        th.is-leaf{
+            border-color: #ccc;
         }
     }
 }
-
+.el-table--border td{
+    border-color: #ccc!important;
+}

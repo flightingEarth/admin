@@ -8,9 +8,9 @@
                 <div class="input">
                     <el-row :gutter="20">
                         <el-col :span="6">订单号：<span>{{list.orderId}}</span></el-col>
-                        <el-col :span="6">下单时间：<span>2017-12-29 21:18</span></el-col>
-                        <el-col :span="6">订单状态：<span>待入住</span></el-col>
-                        <el-col :span="6">支付金额：<span>¥488.00</span></el-col>
+                        <el-col :span="6">下单时间：<span>{{list.time}}</span></el-col>
+                        <el-col :span="6">订单状态：<span>{{list.status}}</span></el-col>
+                        <el-col :span="6">支付金额：<span>{{list.pay}}</span></el-col>
                     </el-row>
                 </div>
             </div>
@@ -20,9 +20,9 @@
                 </div>
                 <div class="input">
                     <el-row class="hotelInfo">
-                        <el-col :span="24" class="hotelName">重庆希尔顿假日酒店</el-col>
-                        <el-col :span="24">酒店地址：<span>北京市朝阳区南京东路789创意产业园</span></el-col>
-                        <el-col :span="24">前台电话：<span>010-87687997</span></el-col>
+                        <el-col :span="24" class="hotelName">{{list.hotelName}}</el-col>
+                        <el-col :span="24">酒店地址：<span>{{list.address}}</span></el-col>
+                        <el-col :span="24">前台电话：<span>{{list.phone}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
@@ -30,12 +30,12 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">房型：<span>（大床）（非凡体验）</span></el-col>
-                        <el-col :span="8">床型：<span>2.0米双人床，1张</span></el-col>
-                        <el-col :span="8">间数：<span>1晚1间</span></el-col>
-                        <el-col :span="8">早餐：<span>无</span></el-col>
-                        <el-col :span="8">入离日期：<span>2017-11-20</span> 至 <span>2017-11-22 1晚</span></el-col>
-                        <el-col :span="8">到店时间：<span>2017-11-20 12:11:12</span> 至 <span>2017-11-21 12:11:12</span>
+                        <el-col :span="8">房型：<span>{{list.roomType}}</span></el-col>
+                        <el-col :span="8">床型：<span>{{list.bedType}}</span></el-col>
+                        <el-col :span="8">间数：<span>{{list.roomNum}}</span></el-col>
+                        <el-col :span="8">早餐：<span>{{list.breakfast}}</span></el-col>
+                        <el-col :span="8">入离日期：<span>{{list.inTime}}</span> 至 <span>{{list.outTime}}</span></el-col>
+                        <el-col :span="8">到店时间：<span>{{list.arriveTime}}</span> 至 <span>{{list.leaveTime}}</span>
                         </el-col>
                     </el-row>
                 </div>
@@ -44,9 +44,9 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="24">入住人：<span>（大床）（非凡体验）</span></el-col>
-                        <el-col :span="8">联系人手机：<span>17812230099</span></el-col>
-                        <el-col :span="8">身份证：<span>370827189709101212</span></el-col>
+                        <el-col :span="24">入住人：<span>{{list.person}}</span></el-col>
+                        <el-col :span="8">联系人手机：<span>{{list.phone}}</span></el-col>
+                        <el-col :span="8">身份证：<span>{{list.idCard}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
@@ -54,8 +54,8 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">支付方式：<span>在线支付</span></el-col>
-                        <el-col :span="8">支付状态：<span>已支付</span></el-col>
+                        <el-col :span="8">支付方式：<span>{{list.payType}}</span></el-col>
+                        <el-col :span="8">支付状态：<span>{{list.payStatus}}</span></el-col>
                     </el-row>
                 </div>
             </div>
@@ -72,58 +72,58 @@
                     :border="true"
                 >
                     <el-table-column
-                        prop="date"
+                        prop="hotelId"
                         label="酒店ID"
                         align="center"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="productId"
                         label="产品ID"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="address"
+                        prop="productName"
                         label="产品名称"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="floor"
                         label="楼层"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="area"
                         label="面积"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="bedType"
                         label="床型"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="inNum"
                         label="可住人数"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="addBed"
                         label="加床"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="breakfast"
                         label="早餐"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="broadband"
                         label="宽带"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="roomDescription"
                         label="房间描述"
                         align="center">
                     </el-table-column>
@@ -136,12 +136,9 @@
 </template>
 
 <script>
-    import FormMixin from './FormMixin'
-    import Tinymce from '@/components/Tinymce'
-    import SelectImages from "@/components/Attachment/selectImages";
 
     export default {
-        name: 'ScenicCreate',
+        name: 'ScenicDetail',
         props: {
             ruleForm: {
                 type: Object,
@@ -158,12 +155,13 @@
                     orderId: 123456,
                 },
                 rules: {},
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }]
+                tableData: []
             }
+        },
+        created() {
+//            getHotel(this.$route.params.id).then(response => {
+//                this.list = response.data.data
+//            })
         },
         methods: {
 //            resetForm(formName) {

@@ -57,97 +57,94 @@
             <i class="iconfont icon-cf-c57"></i>
             <span>订单列表</span>
         </div>
-        <div class="table">
-            <el-table
-                :data="tableData"
-                border
-                stripe
-                style="width: 100%"
-                v-loading="listLoading" element-loading-text="正在加载中。。。"
+        <el-table
+            :data="tableData"
+            border
+            stripe
+            style="width: 100%"
+            v-loading="listLoading" element-loading-text="正在加载中。。。"
+        >
+            <el-table-column
+                prop="hotelName"
+                label="订单详情"
+                align="center"
             >
-                <el-table-column
-                    prop="hotelName"
-                    label="订单详情"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="inDay"
-                    label="入住时间"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="outDay"
-                    label="离店时间"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="guests"
-                    label="联系人"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="mobilePhone"
-                    label="手机号"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="PayMethod"
-                    label="付款方式"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="totalPrice"
-                    label="供应商总价"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="orderStatus"
-                    label="订单状态"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-button type="text" size="small" class="stayIn">待入住</el-button>
-                        <el-button type="text" size="small">订单详情</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="createdAt"
-                    label="预订时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="orderId"
-                    label="订单号"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    align="center">
-                    <template slot-scope="scope" class="">
-                        <el-button type="text" size="small" class="btn refuse" @click="open2" >拒绝退票</el-button>
-                        <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
+            </el-table-column>
+            <el-table-column
+                prop="inDay"
+                label="入住时间"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="outDay"
+                label="离店时间"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="guests"
+                label="联系人"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="mobilePhone"
+                label="手机号"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="PayMethod"
+                label="付款方式"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="totalPrice"
+                label="供应商总价"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="orderStatus"
+                label="订单状态"
+                align="center">
+                <template slot-scope="scope">
+                    <el-button type="text" size="small" class="stayIn">待入住</el-button>
+                    <el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="createdAt"
+                label="预订时间"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="orderId"
+                label="订单号"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="操作"
+                align="center">
+                <template slot-scope="scope" class="">
+                    <el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>
+                    <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
 
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="searchList.currentPage"
-                :page-size="searchList.pageSize"
-                layout="total, prev, pager, next, jumper"
-                :total="total">
-            </el-pagination>
-        </div>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="searchList.page"
+            :page-size="searchList.limit"
+            layout="total, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
     </div>
 </template>
 
 <script>
-    import { hotelOrderList } from '@/api/hotelOrder'
+    import {hotelOrderList} from '@/api/hotelOrder'
     export default {
         name: 'hotelOrder',
         data() {
@@ -158,12 +155,12 @@
                     phone: undefined,
                     payWay: undefined,
                     status: undefined,
-                    currentPage: 1,
-                    pageSize: 10
+                    limit: 20,
+                    page: 1
                 },
                 number: 0,
-                total:1,
-                visible2:false,
+                total: 1,
+                visible2: false,
                 liList: ["全部订单", "待支付", "待入住", "待离店", "待评价", "已取消", "已退订", "已完成"],
                 listLoading: false,
                 supplierOptions: [{
@@ -191,13 +188,9 @@
                     this.listLoading = false
                 })
             },
-            handleSizeChange(val) {
-                this.searchList.pageSize = val
-                this.tableData()
-            },
             handleCurrentChange(val) {
-                this.searchList.currentPage = val
-                this.tableData()
+                this.searchList.page = val
+                this.getList()
             },
             handleSearch(){
                 this.getList();
@@ -270,6 +263,10 @@
                         message: '已取消同意退票'
                     });
                 });
+            },
+            handleDetail(id){
+                console.log(id);
+                this.$router.push({path: '/hotelorder/' + id + '/detail'});
             }
         }
     }
@@ -292,7 +289,7 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                i{
+                i {
                     color: #2C7ADE;
                 }
             }
@@ -313,7 +310,7 @@
                 .grid-content {
                     margin-left: 20px;
                     margin-top: 20px;
-                    .el-input__inner{
+                    .el-input__inner {
                         width: 80%;
                     }
                 }
@@ -350,14 +347,22 @@
         }
         .list-title {
             width: 100%;
-            height: 60px;
-            padding: 0 20px;
-            background: #fff;
-            margin-top: 20px;
-            line-height: 60px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-            i{
-                color: #2C7ADE;
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            margin-bottom: 0 !important;
+            margin-top: 24px;
+            height: 40px;
+            line-height: 40px;
+            .iconfont {
+                color: #333;
+                margin-left: 20px;
+                font-size: 18px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
             }
         }
         ul {

@@ -92,81 +92,81 @@
             <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
         </div>
-        <div class="table">
-            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
-                <el-table-column
-                    prop="orderId"
-                    label="订单号"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="ticketName"
-                    label="门票名称"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="mobilePhone"
-                    label="游玩人手机号"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="userName"
-                    label="购买者"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="refundNum"
-                    label="数量（张）"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="refundFee"
-                    label="退款手续费"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="refundAmount"
-                    label="退款金额（元）"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="refundReason"
-                    label="备注"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="createdAt"
-                    label="创建时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-button v-if="scope.row.status == 0" class="btn refuse"  @click="hadleAudit(scope.row.orderId)">审核</el-button>
-                        <span v-if="scope.row.status == 1">审核成功</span>
-                        <span v-if="scope.row.status == 2">审核未通过</span>
-                    </template>
-                </el-table-column>
+        <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
+            <el-table-column
+                prop="orderId"
+                label="订单号"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="ticketName"
+                label="门票名称"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="mobilePhone"
+                label="游玩人手机号"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="userName"
+                label="购买者"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="refundNum"
+                label="数量（张）"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="refundFee"
+                label="退款手续费"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="refundAmount"
+                label="退款金额（元）"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="refundReason"
+                label="备注"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="createdAt"
+                label="创建时间"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="操作"
+                align="center">
+                <template slot-scope="scope">
+                    <el-button v-if="scope.row.status == 0" class="btn refuse" @click="hadleAudit(scope.row.orderId)">
+                        审核
+                    </el-button>
+                    <span v-if="scope.row.status == 1">审核成功</span>
+                    <span v-if="scope.row.status == 2">审核未通过</span>
+                </template>
+            </el-table-column>
 
-            </el-table>
-            <el-pagination
-                @current-change="handleCurrentChange"
-                :current-page="searchList.currentPage"
-                :page-size="searchList.limit"
-                layout="total, prev, pager, next, jumper"
-                :total="total">
-            </el-pagination>
-        </div>
+        </el-table>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="searchList.currentPage"
+            :page-size="searchList.limit"
+            layout="total, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
     </div>
 </template>
 
 <script>
-    import { refundlList , auditWithdraw } from '@/api/scenicRefund'
+    import {refundlList, auditWithdraw} from '@/api/scenicRefund'
     export default {
         name: 'hotel',
         data() {
@@ -178,8 +178,8 @@
                     limit: 20,
                     page: 1
                 },
-                addForm:{},
-                dialogFormVisible:false,
+                addForm: {},
+                dialogFormVisible: false,
                 tableData: [],
                 rules: {
                     status: [
@@ -225,9 +225,9 @@
                     if (valid) {
                         this.addLoading = true
 
-                        if(this.addForm.status == "审核通过"){
+                        if (this.addForm.status == "审核通过") {
                             this.addForm.status = 1
-                        }else {
+                        } else {
                             this.addForm.status = 2
                         }
 
@@ -324,31 +324,42 @@
             }
         }
 
-        .shenhe{
-            .el-form-item{
+        .shenhe {
+            .el-form-item {
                 /*margin-bottom: 0;*/
             }
-            span{
+            span {
                 float: left;
                 margin-top: 7px;
                 margin-right: 10px;
             }
-            .iconfont{
+            .iconfont {
                 margin-right: 5px;
             }
-            .alertBtn{
+            .alertBtn {
                 margin-left: 5%;
             }
         }
 
         .list-title {
             width: 100%;
-            height: 60px;
-            padding: 0 20px;
-            background: #fff;
-            margin-top: 20px;
-            line-height: 60px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            margin-bottom: 0 !important;
+            margin-top: 24px;
+            height: 40px;
+            line-height: 40px;
+            .iconfont {
+                color: #333;
+                margin-left: 20px;
+                font-size: 18px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
+            }
             ul {
                 list-style: none;
                 float: right;

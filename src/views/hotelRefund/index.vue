@@ -96,96 +96,96 @@
             <i class="iconfont icon-cf-c57"></i>
             <span>列表数据</span>
         </div>
-        <div class="table">
-            <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
-                <el-table-column
-                    prop="refundId"
-                    label="编号"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="orderId"
-                    label="酒店订单"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="hotelName"
-                    label="酒店名称"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="days"
-                    label="退订日期"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="num"
-                    label="退订数量"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="supplierName"
-                    label="供应商名称"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="userName"
-                    label="申请人名称"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="mobilePhone"
-                    label="申请人手机号"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="counterFee"
-                    label="手续费"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    label="退款状态"
-                    align="center">
-                    <template slot-scope="scope">
-                        <span v-if="scope.row.status == 0">用户申请退款</span>
-                        <span v-if="scope.row.status == 1">同意退款</span>
-                        <span v-if="scope.row.status == 2">拒绝退款</span>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="是否退款"
-                    align="center">
-                    <template slot-scope="scope">
-                        <span v-if="scope.row.reviewStatus == 1">未退款</span>
-                        <span v-if="scope.row.reviewStatus == 2">已退款</span>
-                        <el-button  type="text" size="small" v-if="scope.row.status == 1 && scope.row.reviewStatus == 1"  @click="hadleAudit(scope.row.refundId)">审核</el-button>
-                    </template>
-                </el-table-column>
+        <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
+            <el-table-column
+                prop="refundId"
+                label="编号"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="orderId"
+                label="酒店订单"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="hotelName"
+                label="酒店名称"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="days"
+                label="退订日期"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="num"
+                label="退订数量"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="supplierName"
+                label="供应商名称"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="userName"
+                label="申请人名称"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="mobilePhone"
+                label="申请人手机号"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="counterFee"
+                label="手续费"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="退款状态"
+                align="center">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.status == 0">用户申请退款</span>
+                    <span v-if="scope.row.status == 1">同意退款</span>
+                    <span v-if="scope.row.status == 2">拒绝退款</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="是否退款"
+                align="center">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.reviewStatus == 1">未退款</span>
+                    <span v-if="scope.row.reviewStatus == 2">已退款</span>
+                    <el-button type="text" size="small" v-if="scope.row.status == 1 && scope.row.reviewStatus == 1"
+                               @click="hadleAudit(scope.row.refundId)">审核
+                    </el-button>
+                </template>
+            </el-table-column>
 
-                <el-table-column
-                    prop="createdAt"
-                    label="创建时间"
-                    align="center">
-                </el-table-column>
-            </el-table>
-            <el-pagination
-                @current-change="handleCurrentChange"
-                :current-page="searchList.currentPage"
-                :page-size="searchList.limit"
-                layout="total, prev, pager, next, jumper"
-                :total="total">
-            </el-pagination>
-        </div>
+            <el-table-column
+                prop="createdAt"
+                label="创建时间"
+                align="center">
+            </el-table-column>
+        </el-table>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="searchList.currentPage"
+            :page-size="searchList.limit"
+            layout="total, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
     </div>
 </template>
 
 <script>
-    import { refundlList , auditWithdraw } from '@/api/hotelRefund'
+    import {refundlList, auditWithdraw} from '@/api/hotelRefund'
     export default {
         name: 'hotel',
         data() {
@@ -196,8 +196,8 @@
                     limit: 20,
                     page: 1
                 },
-                dialogFormVisible:false,
-                addForm:{},
+                dialogFormVisible: false,
+                addForm: {},
                 tableData: [],
                 rules: {
                     reviewStatus: [
@@ -243,9 +243,9 @@
                     if (valid) {
                         this.addLoading = true
 
-                        if(this.addForm.reviewStatus == "审核通过"){
+                        if (this.addForm.reviewStatus == "审核通过") {
                             this.addForm.reviewStatus = 1
-                        }else {
+                        } else {
                             this.addForm.reviewStatus = 2
                         }
 
@@ -342,50 +342,41 @@
             }
         }
 
-        .shenhe{
-            .el-form-item{
+        .shenhe {
+            .el-form-item {
                 /*margin-bottom: 0;*/
             }
-            span{
+            span {
                 float: left;
                 margin-top: 7px;
                 margin-right: 10px;
             }
-            .iconfont{
+            .iconfont {
                 margin-right: 5px;
             }
-            .alertBtn{
+            .alertBtn {
                 margin-left: 5%;
             }
         }
 
         .list-title {
             width: 100%;
-            height: 60px;
-            padding: 0 20px;
-            background: #fff;
-            margin-top: 20px;
-            line-height: 60px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-            ul {
-                list-style: none;
-                float: right;
-                margin: 0;
-                li {
-                    float: left;
-                    width: 100px;
-                    height: 36px;
-                    text-align: center;
-                    line-height: 36px;
-                    background: #307FFF;
-                    margin-left: 10px;
-                    margin-top: 12px;
-                    border-radius: 3px;
-                    a {
-                        color: #fff;
-                        display: block;
-                    }
-                }
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            margin-bottom: 0 !important;
+            margin-top: 24px;
+            height: 40px;
+            line-height: 40px;
+            .iconfont {
+                color: #333;
+                margin-left: 20px;
+                font-size: 18px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
             }
         }
         .table {
