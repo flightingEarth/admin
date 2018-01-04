@@ -62,6 +62,26 @@
                 </div>
             </div>
 
+            <div class="search">
+                <div class="title">
+                    <span>订单详情</span>
+                </div>
+                <div class="input">
+                    <el-row :gutter="20">
+                        <el-col :span="8">
+                            <span>修改订单退票规则：</span>
+                            <el-radio v-model="radio" label="1">备选项</el-radio>
+                            <el-radio v-model="radio" label="2">备选项</el-radio>
+                        </el-col>
+                        <el-col :span="8">
+                            <span>修改订单改票规则：</span>
+                            <el-radio v-model="radio" label="1">备选项</el-radio>
+                            <el-radio v-model="radio" label="2">备选项</el-radio>
+                        </el-col>
+                    </el-row>
+                </div>
+            </div>
+
             <!--酒店产品详情-->
             <div class="search product">
                 <i class="iconfont icon-cf-c57"></i>

@@ -135,10 +135,9 @@
             </el-table>
 
             <el-pagination
-                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page="searchList.currentPage"
-                :page-size="searchList.pageSize"
+                :current-page="searchList.page"
+                :page-size="searchList.limit"
                 layout="total, prev, pager, next, jumper"
                 :total="total">
             </el-pagination>
@@ -158,8 +157,8 @@
                     phone: undefined,
                     payWay: undefined,
                     status: undefined,
-                    currentPage: 1,
-                    pageSize: 10
+                    limit: 20,
+                    page: 1
                 },
                 number: 0,
                 total:1,
@@ -191,13 +190,9 @@
                     this.listLoading = false
                 })
             },
-            handleSizeChange(val) {
-                this.searchList.pageSize = val
-                this.tableData()
-            },
             handleCurrentChange(val) {
-                this.searchList.currentPage = val
-                this.tableData()
+                this.searchList.page = val
+                this.getList()
             },
             handleSearch(){
                 this.getList();

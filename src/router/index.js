@@ -44,10 +44,10 @@ import HotelProduct from '@/views/hotelProduct'
 import HotelProductCreate from '@/views/hotelProduct/create'
 import HotelProductEdit from '@/views/hotelProduct/edit'
 
-import HotelOrder from '@/views/HotelOrder'
-import HotelOrderCreate from '@/views/HotelOrder/create'
-import HotelOrderEdit from '@/views/HotelOrder/edit'
-import HotelOrderDetail from '@/views/HotelOrder/detail'
+import HotelOrder from '@/views/hotelOrder'
+import HotelOrderCreate from '@/views/hotelOrder/create'
+import HotelOrderEdit from '@/views/hotelOrder/edit'
+import HotelOrderDetail from '@/views/hotelOrder/detail'
 
 
 Vue.use(Router)
