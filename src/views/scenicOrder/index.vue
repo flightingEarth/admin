@@ -72,81 +72,79 @@
             <span>订单列表</span>
         </div>
 
-        <div class="table">
-            <el-table
-                :data="tableData"
-                border
-                stripe
-                style="width: 100%"
-                v-loading="listLoading" element-loading-text="正在加载中。。。"
+        <el-table
+            :data="tableData"
+            border
+            stripe
+            style="width: 100%"
+            v-loading="listLoading" element-loading-text="正在加载中。。。"
+        >
+            <el-table-column
+                prop="scenicName"
+                label="景区名称"
+                align="center"
             >
-                <el-table-column
-                    prop="scenicName"
-                    label="景区名称"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="orderId"
-                    label="订单号"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="currentNum"
-                    label="数量"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="visitorName"
-                    label="联系人"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="payMethod"
-                    label="付款方式"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="totalPrice"
-                    label="订单总价"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="showStatus"
-                    label="订单状态"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-button type="text" size="small" class="stayIn">待入住</el-button>
-                        <el-button type="text" size="small">订单详情</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="endTime"
-                    label="有效期"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    align="center">
-                    <template slot-scope="scope" class="">
-                        <el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>
-                        <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
-                    </template>
-                </el-table-column>
+            </el-table-column>
+            <el-table-column
+                prop="orderId"
+                label="订单号"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="currentNum"
+                label="数量"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="visitorName"
+                label="联系人"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="payMethod"
+                label="付款方式"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="totalPrice"
+                label="订单总价"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="showStatus"
+                label="订单状态"
+                align="center">
+                <template slot-scope="scope">
+                    <el-button type="text" size="small" class="stayIn">待入住</el-button>
+                    <el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="endTime"
+                label="有效期"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="操作"
+                align="center">
+                <template slot-scope="scope" class="">
+                    <el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>
+                    <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
+                </template>
+            </el-table-column>
 
-            </el-table>
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="searchList.currentPage"
-                :page-size="searchList.pageSize"
-                layout="total, prev, pager, next, jumper"
-                :total="total">
-            </el-pagination>
-        </div>
+        </el-table>
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="searchList.currentPage"
+            :page-size="searchList.pageSize"
+            layout="total, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
     </div>
 </template>
 
@@ -168,7 +166,7 @@
                 number: 0,
                 liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
                 listLoading: false,
-                total:1,
+                total: 1,
                 supplierOptions: [{
                     value: '0',
                     label: '不限'
@@ -187,7 +185,7 @@
             }
         },
         created(){
-          this.getList();
+            this.getList();
         },
         methods: {
             getList() {
@@ -270,6 +268,9 @@
                         message: '已取消同意退票'
                     });
                 });
+            },
+            handleDetail(id){
+                this.$router.push({path: '/scenicOrder/' + id + '/detail'})
             }
         }
     }
@@ -292,7 +293,7 @@
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
-                i{
+                i {
                     color: #2C7ADE;
                 }
             }
@@ -313,7 +314,7 @@
                 .grid-content {
                     margin-left: 20px;
                     margin-top: 20px;
-                    .el-input__inner{
+                    .el-input__inner {
                         width: 80%;
                     }
                 }
@@ -350,14 +351,22 @@
         }
         .list-title {
             width: 100%;
-            height: 60px;
-            padding: 0 20px;
-            background: #fff;
-            margin-top: 20px;
-            line-height: 60px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-            i{
-                color: #2C7ADE;
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            margin-bottom: 0 !important;
+            margin-top: 24px;
+            height: 40px;
+            line-height: 40px;
+            .iconfont {
+                color: #333;
+                margin-left: 20px;
+                font-size: 18px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
             }
         }
         ul {

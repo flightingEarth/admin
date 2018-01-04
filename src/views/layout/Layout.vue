@@ -1,6 +1,6 @@
 <template>
     <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
-        <div style="width: 100%; height: 70px; background: rgba(88,94,107,1);">
+        <div style="width: 100%; height: 50px; background: rgba(88,94,107,1);">
             <div class="logo">
                 <img src="./logo.png" alt="">
             </div>
@@ -8,16 +8,9 @@
                 {{title}}
             </div>
             <div class="login">
-                <span class="headImg"></span>
-                <a href="javascript:;" @click="open"><span class="name">超级管理员</span>
-                    <i class="el-icon-caret-bottom"></i></a>
-                <div class="tab" v-show="show">
-                    <ul>
-                        <li><a href="javscript:;"><i class="iconfont icon-wode"></i>我的主页</a></li>
-                        <li><a href="javscript:;"><i class="iconfont icon-riliriqi2"></i>My Calendar</a></li>
-                        <li><a href="javscript:;"><i class="iconfont icon-tuichu"></i>退出</a></li>
-                    </ul>
-                </div>
+                <span class="headImg">登录用户:</span>
+                <span class="name">朔城区测试酒店</span>
+                <a href="javascript:;">退出</a>
             </div>
         </div>
         <sidebar class="sidebar-container"></sidebar>
@@ -42,7 +35,6 @@
         data() {
             return {
                 levelList: null,
-                show: false,
                 title:"",
             }
         },
@@ -58,9 +50,6 @@
         methods: {
             getBreadcrumb() {
                 this.title = this.$route.matched[0].name
-            },
-            open(){
-                this.show = !this.show
             }
         },
         watch: {
@@ -90,14 +79,17 @@
         }
         .sidebar-container {
             transition: width 0.28s ease-out;
-            width: 180px;
+            width: 17%;
             height: 100%;
             position: fixed;
-            top: 0;
+            top: 50px;
             bottom: 0;
             left: 0;
             z-index: 1001;
             overflow-y: auto;
+            padding-left: 40px;
+            font-size: 16px;
+            color: #666;
             &::-webkit-scrollbar {
                 display: none
             }
@@ -105,85 +97,58 @@
         .main-container {
             min-height: 100%;
             transition: margin-left 0.28s ease-out;
-            margin-left: 180px;
+            margin-left: 17%;
         }
         .logo {
-            width: 180px;
-            padding-top: 10px;
+            width: 17%;
             float: left;
+            height: 50px;
+            overflow: hidden;
             img {
-                width: 100%;
+                width: 50%;
             }
         }
         .title {
-            width: 200px;
-            height: 70px;
+            width: 110px;
+            height: 50px;
             background: #818590;
             float: left;
             text-align: center;
             overflow: hidden;
-            line-height: 70px;
-            font-size: 24px;
+            line-height: 50px;
+            font-size: 16px;
             color: #fff;
             font-weight: normal;
+            margin-left: 80px;
+            font-weight: bold;
         }
         .login {
             float: right;
-            width: 200px;
-            height: 70px;
-            background: #818590;
+            height: 50px;
             margin-right: 20px;
-            line-height: 70px;
+            line-height: 50px;
             position: relative;
             .headImg {
-                display: inline-block;
-                width: 50px;
-                height: 50px;
-                overflow: hidden;
-                background: blue;
-                margin: 10px 0 0 10px;
-                float: left;
-                img {
-                    width: 100%;
-                }
+                font-size: 16px;
+                color: #fff;
+                font-weight: bold;
+                font-family: 宋体;
             }
             .name {
-                font-size: 16px;
-                color: #f3f3f3;
-                margin-left: 10px;
+                font-size: 18px;
+                color: rgb(76, 202, 177);
+                font-family: 宋体;
+                font-weight: bold;
+
             }
             .el-icon-caret-bottom {
                 color: #f3f3f3;
                 margin-left: 10px;
             }
-            .tab {
-                position: absolute;
-                width: 200px;
-                background: #fff;
-                top: 70px;
-                z-index: 9999;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-                ul {
-                    width: 100%;
-                    li {
-                        /*text-align: center;*/
-                        font-size: 16px;
-                        color: #888;
-                        height: 30px;
-                        line-height: 30px;
-                        border-bottom: 1px solid #E6E6E6;
-                        a {
-                            display: block;
-                        }
-                        a:hover {
-                            background: #EBEBEB;
-                        }
-                        .iconfont {
-                            color: #666;
-                            margin: 0 10px;
-                        }
-                    }
-                }
+            a{
+                color: #54a7f8;
+                font-size: 18px;
+                margin-left: 80px;
             }
         }
     }

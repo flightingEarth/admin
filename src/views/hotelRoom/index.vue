@@ -50,7 +50,6 @@
                 <li><a href="javascript:;" @click="addHouse">添加房型</a></li>
             </ul>
         </div>
-        <div class="table">
             <el-table
                 :data="tableData"
                 border
@@ -134,7 +133,6 @@
                 :total="total">
             </el-pagination>
         </div>
-    </div>
 </template>
 
 <script>
@@ -267,29 +265,42 @@
         }
         .list-title {
             width: 100%;
-            height: 60px;
-            padding: 0 20px;
-            background: #fff;
-            margin-top: 20px;
-            line-height: 60px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            margin-bottom: 0 !important;
+            margin-top: 24px;
+            height: 40px;
+            line-height: 40px;
+            .iconfont {
+                color: #333;
+                margin-left: 20px;
+                font-size: 18px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
+            }
             ul {
                 list-style: none;
                 float: right;
                 margin: 0;
                 li {
                     float: left;
-                    width: 100px;
-                    height: 36px;
+                    width: 90px;
+                    height: 25px;
                     text-align: center;
-                    line-height: 36px;
-                    background: #307FFF;
-                    margin-left: 10px;
-                    margin-top: 12px;
-                    border-radius: 3px;
+                    line-height: 25px;
+                    background: #fff;
+                    margin-right: 10px;
+                    margin-top: 9px;
+                    border-radius: 2px;
+                    border: 1px solid #ccc;
+                    font-size: 12px;
                     a {
+                        color: #666;
                         display: block;
-                        color: #fff;
                     }
                 }
             }

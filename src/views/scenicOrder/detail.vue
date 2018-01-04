@@ -8,9 +8,9 @@
                 <div class="input">
                     <el-row :gutter="20">
                         <el-col :span="6">订单号：<span>{{list.orderId}}</span></el-col>
-                        <el-col :span="6">下单时间：<span>2017-12-29 21:18</span></el-col>
-                        <el-col :span="6">订单状态：<span>待入住</span></el-col>
-                        <el-col :span="6">支付金额：<span>¥488.00</span></el-col>
+                        <el-col :span="6">下单时间：<span>{{list.time}}</span></el-col>
+                        <el-col :span="6">订单状态：<span>{{list.orderStatus}}</span></el-col>
+                        <el-col :span="6">支付金额：<span>{{list.pay}}</span></el-col>
                     </el-row>
                 </div>
             </div>
@@ -20,44 +20,44 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">订单号：<span>20171209004</span></el-col>
-                        <el-col :span="8">门票名称：<span>九华山旅游门票</span></el-col>
-                        <el-col :span="8">老订单：<span>-</span></el-col>
+                        <el-col :span="8">订单号：<span>{{list.orderId}}</span></el-col>
+                        <el-col :span="8">门票名称：<span>{{list.ticketName}}</span></el-col>
+                        <el-col :span="8">老订单：<span>{{list.oldOrder}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">游客姓名：<span>张晓晓</span></el-col>
-                        <el-col :span="8">单价：<span>¥46.00</span></el-col>
-                        <el-col :span="8">购买数量：<span>2</span></el-col>
+                        <el-col :span="8">游客姓名：<span>{{list.personName}}</span></el-col>
+                        <el-col :span="8">单价：<span>{{list.price}}</span></el-col>
+                        <el-col :span="8">购买数量：<span>{{list.number}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">下单时间：<span>2017-0911 12:09:00</span></el-col>
-                        <el-col :span="8">总价：<span>¥200.00</span></el-col>
-                        <el-col :span="8">手机号码：<span>19909092887</span></el-col>
+                        <el-col :span="8">下单时间：<span>{{list.orderTime}}</span></el-col>
+                        <el-col :span="8">总价：<span>{{list.totalPrice}}</span></el-col>
+                        <el-col :span="8">手机号码：<span>{{list.mobilePhone}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">支付方式：<span>在线支付</span></el-col>
-                        <el-col :span="8">支付状态：<span>已付</span></el-col>
-                        <el-col :span="8">计划出游时间：<span>2017-09-11 12:09:00</span></el-col>
+                        <el-col :span="8">支付方式：<span>{{list.paytype}}</span></el-col>
+                        <el-col :span="8">支付状态：<span>{{list.payStatus}}</span></el-col>
+                        <el-col :span="8">计划出游时间：<span>{{list.outTime}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">状态：<span>已检票</span></el-col>
-                        <el-col :span="8">使用时间：<span>2017-09-11 12:09:00</span></el-col>
+                        <el-col :span="8">状态：<span>{{list.status}}</span></el-col>
+                        <el-col :span="8">使用时间：<span>{{list.useTime}}</span></el-col>
                     </el-row>
                 </div>
             </div>
@@ -70,13 +70,13 @@
                     <el-row :gutter="20">
                         <el-col :span="8">
                             <span>修改订单退票规则：</span>
-                            <el-radio v-model="radio" label="1">备选项</el-radio>
-                            <el-radio v-model="radio" label="2">备选项</el-radio>
+                            <el-radio v-model="radio" label="1">可退</el-radio>
+                            <el-radio v-model="radio" label="2">不可退</el-radio>
                         </el-col>
                         <el-col :span="8">
                             <span>修改订单改票规则：</span>
-                            <el-radio v-model="radio1" label="1">备选项</el-radio>
-                            <el-radio v-model="radio1" label="2">备选项</el-radio>
+                            <el-radio v-model="radio1" label="1">可改</el-radio>
+                            <el-radio v-model="radio1" label="2">不可改</el-radio>
                         </el-col>
                     </el-row>
                 </div>
@@ -165,12 +165,13 @@
                 radio:"",
                 radio1:"",
                 rules: {},
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }]
+                tableData: []
             }
+        },
+        created() {
+//            getHotel(this.$route.params.id).then(response => {
+//                this.list = response.data.data
+//            })
         },
         methods: {
 //            resetForm(formName) {
