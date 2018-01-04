@@ -62,23 +62,42 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>联&nbsp;&nbsp;系&nbsp;&nbsp;电&nbsp;&nbsp;话:</span>
                                 <el-form-item label="联系电话" prop="contactNumber">
-                                    <el-input v-model="ruleForm.contactNumber"></el-input>
+                                    <el-input type="number" v-model="ruleForm.contactNumber"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
+                        <el-popover
+                                ref="identification"
+                                placement="bottom"
+                                title="景区标识"
+                                width="100"
+                                trigger="click"
+                                content="例：世界3大奇塔等" style="display: none">
+                        </el-popover>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>景区标识:</span>
                                 <el-form-item label="景区标识" prop="identification">
-                                    <el-input v-model="ruleForm.identification"></el-input>
+
+                                    <el-input v-model="ruleForm.identification" v-popover:identification></el-input>
+
                                 </el-form-item>
                             </div>
                         </el-col>
+
+                        <el-popover
+                                ref="recommendTime"
+                                placement="bottom"
+                                title="解释说明"
+                                width="250"
+                                trigger="click"
+                                content="推荐旅游时间;例：XX月—-XX月" style="display: none">
+                        </el-popover>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>推荐旅游时间:</span>
                                 <el-form-item label="推荐旅游时间" prop="recommendTime">
-                                    <el-input v-model="ruleForm.recommendTime"></el-input>
+                                    <el-input v-model="ruleForm.recommendTime" v-popover:recommendTime></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>

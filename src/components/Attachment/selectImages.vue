@@ -34,20 +34,20 @@
                     <ul class="image-list">
                         <li class="image-item" v-for="image in images" @click="handleSelectImage(image)">
                             <img class="image-box" width="120" height="120" :src="image.links"/>
-                            <div class="image-meta">{{ image.width + '*' + image.height }}</div>
+                            <!--<div class="image-meta">{{ image.width + '*' + image.height }}</div>-->
                             <!--<div class="image-title">{{ image.name }}</div>-->
-                            <div class="attachment-selected" v-if="image.checked">
+                            <div v-show="image.checked" class="attachment-selected">
                                 <i class="el-icon-check"></i>
                             </div>
                         </li>
                     </ul>
 
-                    <div class="attachment-pagination">
-                        <el-button type="success" class="addImg" v-show="categoryVisible" @click="uploadImageVisible = true"
+                    <div class="attachment-pagination" v-if="this.images.length == 0">
+                        <el-button type="success" class="addImg"  @click="uploadImageVisible = true"
                                    size="small">
                             <i class="iconfont icon-iconjia"></i>
                         </el-button>
-                        <p v-show="categoryVisible">暂无数据，点击添加</p>
+                        <p>暂无数据，点击添加</p>
                     </div>
                 </div>
             </div>
@@ -109,15 +109,7 @@
                 images: [],
                 categories: [{
                     "name": "未命名",
-                    "count": 1
-                    },
-                    {
-                        "name": "未命名1",
-                        "count": 2
-                    },
-                    {
-                        "name": "未命名2",
-                        "count": 3
+                    "count": 0
                     }
                 ],
                 selected: [],
@@ -130,8 +122,10 @@
             }
         },
         created() {
-            this.loadCategories()
-            this.loadImages()
+            if (this.images.length == 0) {
+                this.loadCategories()
+                this.loadImages()
+            }
         },
         watch: {
             count: function (val, oldVal) {
@@ -149,7 +143,7 @@
                 }
                 getImages(para).then(response => {
                     this.images = response.data.data
-                    this.total = response.data.meta.pagination.total
+                    this.total = response.data.meta.total
                 })
             },
             loadCategories() {
@@ -186,9 +180,11 @@
 
             },
             handleSelectImage(image) {
+
                 if (!image.checked && this.max != 0 && (this.count + 1) > this.max) {
                     return false
                 }
+                console.log(image)
 
                 image.checked = image.checked ? false : true
 
