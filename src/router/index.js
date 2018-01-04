@@ -19,6 +19,7 @@ import ScenicEdit from '@/views/scenicSpot/edit'
 import ScenicOrder from '@/views/scenicOrder'
 import ScenicOrderCreate from '@/views/scenicOrder/create'
 import ScenicOrderEdit from '@/views/scenicOrder/edit'
+import ScenicOrderDetail from '@/views/scenicOrder/detail'
 
 import ScenicTicket from '@/views/scenicTicket'
 import TicketCreate from '@/views/scenicTicket/create'
@@ -46,6 +47,7 @@ import HotelProductEdit from '@/views/hotelProduct/edit'
 import HotelOrder from '@/views/HotelOrder'
 import HotelOrderCreate from '@/views/HotelOrder/create'
 import HotelOrderEdit from '@/views/HotelOrder/edit'
+import HotelOrderDetail from '@/views/HotelOrder/detail'
 
 
 Vue.use(Router)
@@ -121,6 +123,9 @@ const router = new Router({
                 {
                     path: '/scenicOrder/:id/edit', hidden: true, component: ScenicOrderEdit, name: '景区订单编辑'
                 },
+                {
+                    path: '/scenicOrder/:id/detail', hidden: true, component: ScenicOrderDetail, name: '景区订单详情'
+                },
 
                 //门票列表
                 {
@@ -191,6 +196,9 @@ const router = new Router({
                 },
                 {
                     path: '/hotelorder/:id/edit', hidden: true, component: HotelOrderEdit, name: '酒店订单编辑'
+                },
+                {
+                    path: '/hotelorder/:id/detail', hidden: true, component: HotelOrderDetail, name: '酒店订单详情'
                 },
 
                 //酒店退款审核

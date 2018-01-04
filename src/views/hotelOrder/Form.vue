@@ -4,7 +4,7 @@
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <svg-icon icon-class="added"/>
+                    <i class="iconfont icon-comiisjiahao"></i>
                     <span>添加酒店</span>
                 </div>
                 <div class="input">
@@ -125,7 +125,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <svg-icon icon-class="hotel"/>
+                    <i class="iconfont icon-shuxie"></i>
                     <span>基本信息</span>
                 </div>
                 <div class="input">
@@ -158,7 +158,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <svg-icon icon-class="gongju"/>
+                    <i class="iconfont icon-gongju"></i>
                     <span>设备选择</span>
                 </div>
                 <div class="tab">
