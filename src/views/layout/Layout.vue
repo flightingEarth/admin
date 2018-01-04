@@ -54,7 +54,6 @@
         },
         created(){
             this.getBreadcrumb();
-            console.log(this.$route.matched[0].name)
         },
         methods: {
             getBreadcrumb() {
