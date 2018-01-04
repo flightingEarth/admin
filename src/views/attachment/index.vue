@@ -128,16 +128,16 @@
                                     <el-button type="text" size="mini" slot="reference">改名</el-button>
                                 </el-popover>
 
-                                <el-popover
-                                        v-model="image.linkVisible"
-                                        placement="bottom"
-                                        width="400"
-                                        trigger="click">
-                                    <el-input placeholder="请输入内容" v-model="image.path" >
-                                        <el-button slot="append" @click="copyImageLink">复制</el-button>
-                                    </el-input>
-                                    <el-button type="text" size="mini" slot="reference">链接</el-button>
-                                </el-popover>
+                                <!--<el-popover-->
+                                        <!--v-model="image.linkVisible"-->
+                                        <!--placement="bottom"-->
+                                        <!--width="400"-->
+                                        <!--trigger="click">-->
+                                    <!--<el-input placeholder="请输入内容" v-model="image.path" >-->
+                                        <!--<el-button slot="append" @click="copyImageLink">复制</el-button>-->
+                                    <!--</el-input>-->
+                                    <!--<el-button type="text" size="mini" slot="reference">链接</el-button>-->
+                                <!--</el-popover>-->
 
                                 <el-popover
                                         v-model="image.categoryVisible"
@@ -154,7 +154,7 @@
                                         </li>
                                     </ul>
                                     <div class="popover-foot">
-                                        <el-button type="primary" size="small" @click="handleChangeImageCategory(image.id, index)">确定</el-button>
+                                        <el-button type="primary" size="small" @click="handleChangeImageCategory(image, index)">确定</el-button>
                                         <el-button size="small" class="fr" @click="image.categoryVisible = false" >取消</el-button>
                                     </div>
                                     <el-button type="text" size="mini" slot="reference">分组</el-button>
@@ -192,7 +192,7 @@
                     <div  class="no-result" style="border: none;color: rgb(153, 153, 153);text-align: center;padding-top:39px;">暂无数据，可点击右上角“上传图片”按钮添加</div>
                 </template>
             </el-col>
-        <Upload-image :categoryId="currentCategory.id" @submit="loadImages" @close="uploadImageVisible = false" :visible="uploadImageVisible"></Upload-image>
+        <Upload-image :categoryId="currentCategory.id" @submit="loadCategories" @close="uploadImageVisible = false" :visible="uploadImageVisible"></Upload-image>
 
     </div>
 
@@ -232,7 +232,6 @@
             };
         },
         created() {
-            this.loadImages()
             this.loadCategories()
         },
         methods: {
@@ -244,13 +243,14 @@
                 };
                 getImages(para).then(response => {
                     this.images = response.data.data
-                    this.total = response.data.meta.pagination.total
+                    this.total = response.data.meta.total
                 })
             },
             loadCategories() {
                 getCategories().then(response => {
                     this.categories = response.data.data
                     this.currentCategory = this.categories[0]
+                    this.loadImages()
                 })
             },
             handleCurrentChange(val) {
@@ -323,17 +323,24 @@
             },
             //全选
             handleCheckAllChange() {
+                this.checkAll = this.checkAll ? false : true
                 if (this.images.length > 0) {
                     this.images.forEach(function(image){
                         image.checked = this.checkAll
                     }, this);
-                    this.isCheckedImage = this.checkAll ? false :true
                 }
+                this.isCheckedImage = this.checkAll ? false : true
             },
             //更改图片的分组
-            handleChangeImageCategory(id, index) {
+            handleChangeImageCategory(image, index) {
                 let selected = []
-                if (id == 'all') {
+
+                if (image == 'all') {
+                    if (this.defaultCategory == this.currentCategory.id) {
+                        this.selectMultipleImageVisible = false
+                        return false
+                    }
+
                     this.images.forEach(function (image, index) {
                         if (image.checked) {
                             selected.push(image.id)
@@ -343,14 +350,19 @@
                     this.isCheckedImage = true
                     this.selectMultipleImageVisible = false
                 } else {
-                    selected.push(id)
+                    if (this.defaultCategory == this.currentCategory.id) {
+                        image.categoryVisible = false
+                        return false
+                    }
+
+                    selected.push(image.id)
                     this.images.splice(index, 1)
                 }
 
                 let formData = Object.assign({'id': selected, 'category_id': this.defaultCategory, 'original_category_id': this.currentCategory.id})
 
                 updateImagesCategory(formData).then(response => {
-                    if (id == 'all') {
+                    if (image == 'all') {
                         this.loadImages(this.currentCategory.id)
                     }
                 })

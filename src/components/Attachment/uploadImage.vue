@@ -37,7 +37,7 @@
                             :on-change="handlePictureChange"
                             :show-file-list="false">
                             <i slot="trigger"  class="el-icon-plus picture-uploader-icon"></i>
-                            <div slot="tip" class="c-gray el-upload__tip" style="padding-top: 20px;">仅支持jpg、gif、png三种格式, 大小不超过3 MB</div>
+                            <div slot="tip" class="c-gray el-upload__tip" style="padding-top: 20px;">仅支持jpg、gif、png三种格式, 大小不超过1 MB</div>
 
                         </el-upload>
                     </div>
@@ -61,7 +61,7 @@
         props: {
             action: {
                 type: String,
-                default:'http://yxinmt.app/api/image'
+                default:'http://sz.test/admin/image'
             },
             visible: {
                 type: Boolean,
@@ -84,14 +84,14 @@
             return {
                 fileList: [], //本地图片
                 files:[],
-                para:{category_id: 0},
+                para:{categoryId: 0},
                 isDisabled: true,
                 isSuccess: 0
             }
         },
         watch: {
             categoryId: function (val, oldVal) {
-                this.para.category_id = val
+                this.para.categoryId = val
             }
         },
         methods: {
@@ -111,9 +111,9 @@
             //上传本地图片 事件
             handlePictureChange(file, fileList) {
                 console.log(file)
-                let isLt3M = file.size / 1024 /1024 < 3;
+                let isLt3M = file.size / 1024 /1024 < 1;
                 if (!isLt3M) {
-                    this.$message.error('上传图片大小不能超过 3MB!');
+                    this.$message.error('上传图片大小不能超过 1MB!');
                     fileList.pop()
                     return false
                 }
@@ -137,10 +137,8 @@
                 }
             },
             beforeUpload (file) {
-                console.log(file)
-                let fd = new FormData()
                 fd.append('image', file)
-                fd.append('category_id', 1)
+                fd.append('categoryId', this.categoryId)
                 addImages(fd).then(response => {
                     this.$message({
                         message: '更新成功！',
