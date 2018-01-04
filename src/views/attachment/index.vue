@@ -1,213 +1,231 @@
 <template>
     <div class="page-showcase-dashboard">
-            <el-col :span="3">
-                <div class="category-container">
-                        <ul class="category-list">
-                            <li class="ui-tooltip" v-for="(category,index) in categories" @click="handleSelectionCategory(index, category)" :class="{active:isActive == index}">
-                                <span class="category-name">{{category.name}}</span>
-                                <span class="category-num">{{category.count}}</span>
-                            </li>
-                        </ul>
-                        <div class="text-center">
-                            <el-popover
-                                    v-model="addCategoryVisible"
-                                    placement="bottom"
-                                    width="200"
-                                    title="添加分组"
-                                    trigger="click">
-                                <el-input size="small" v-model="newCategoryName"></el-input>
-                                <div class="popover-foot">
-                                    <el-button type="primary" size="small" @click="handleAddGroup">确定</el-button>
-                                    <el-button size="small" class="fr" @click="addCategoryVisible = false">取消</el-button>
-                                </div>
-                                <el-button size="small" :plain="true" type="info" icon="plus" slot="reference">添加分组</el-button>
-                            </el-popover>
+        <el-col :span="21" class="maxBox">
+            <div class="titl">
+                <i class="iconfont icon-tupian"></i>添加图片
+            </div>
+            <div class="media-title mb-15">
+                <template v-if="isActive > 0">
+                    <el-popover
+                        v-model="currentCategory.visible"
+                        placement="bottom"
+                        width="200"
+                        @show="handleShowRenameCategory(currentCategory.name)"
+                        @hide="handleHideRenameCategory"
+                        trigger="click">
+                        <el-input size="small" v-model="changeCategoryName"></el-input>
+                        <div class="popover-foot">
+                            <el-button type="primary" size="small" @click="handleRenameCategory">确定</el-button>
+                            <el-button size="small" class="fr" @click="currentCategory.visible = false">取消</el-button>
                         </div>
-                </div>
-            </el-col>
+                        <el-button type="text" size="mini" slot="reference">重命名</el-button>
+                    </el-popover>
+                    <el-popover
+                        v-model="currentCategory.deleteVisible"
+                        placement="bottom"
+                        title="确定删除图片？"
+                        width="200"
+                        trigger="click">
+                        <div style="font-size: 12px;">仅删除分组，不删除图片，组内图片将自动归入未分组</div>
+                        <div class="popover-foot">
+                            <el-button type="primary" size="small" @click="handleDeleteCategory">确定</el-button>
+                            <el-button size="small" class="fr" @click="currentCategory.deleteVisible = false">取消
+                            </el-button>
+                        </div>
+                        <el-button type="text" size="mini" slot="reference">删除</el-button>
+                    </el-popover>
+                </template>
 
-            <el-col :span="21">
-                <div class="media-title mb-15">
-                        <span class="media-title-wrap">
+                <el-button type="primary" class="fr" @click="uploadImageVisible = true">上传图片</el-button>
+            </div>
+            <div class="action-bar">
+                    <span class="media-title-wrap">
                             <h1>{{currentCategory.name}}</h1>
                         </span>
-                        <template v-if="isActive > 0">
-                        <el-popover
-                                v-model="currentCategory.visible"
-                                placement="bottom"
-                                width="200"
-                                @show="handleShowRenameCategory(currentCategory.name)"
-                                @hide="handleHideRenameCategory"
-                                trigger="click">
-                            <el-input size="small" v-model="changeCategoryName"></el-input>
-                            <div class="popover-foot">
-                                <el-button type="primary" size="small" @click="handleRenameCategory">确定</el-button>
-                                <el-button size="small" class="fr" @click="currentCategory.visible = false">取消</el-button>
-                            </div>
-                            <el-button type="text" size="mini" slot="reference">重命名</el-button>
-                        </el-popover>
-                        <el-popover
-                                v-model="currentCategory.deleteVisible"
-                                placement="bottom"
-                                title="确定删除图片？"
-                                width="200"
-                                trigger="click">
-                            <div style="font-size: 12px;">仅删除分组，不删除图片，组内图片将自动归入未分组</div>
-                            <div class="popover-foot">
-                                <el-button type="primary" size="small" @click="handleDeleteCategory">确定</el-button>
-                                <el-button size="small" class="fr" @click="currentCategory.deleteVisible = false">取消</el-button>
-                            </div>
-                            <el-button type="text" size="mini" slot="reference">删除</el-button>
-                        </el-popover>
-                        </template>
-
-                        <el-button type="primary" class="fr" @click="uploadImageVisible = true">上传图片</el-button>
-                </div>
-                <div class="action-bar">
-                    <label class="mini">
-                        <input type="checkbox" v-model="checkAll" @click="handleCheckAllChange" />全选
-                    </label>
-                    <el-popover
-                            v-model="selectMultipleImageVisible"
-                            @hide="groupingHide"
-                            @show="groupingShow"
-                            placement="bottom"
-                            width="200"
-                            title="选择分组"
-                            trigger="click">
-                        <ul>
-                            <li v-for="category in categories">
-                                <input type="radio" :id="category.id" :value="category.id" v-model="defaultCategory">
-                                <label :for="category.id">{{ category.name }}</label>
-                            </li>
-                        </ul>
-                        <div class="popover-foot">
-                            <el-button type="primary" size="small" @click="handleChangeImageCategory('all')">确定</el-button>
-                            <el-button size="small" class="fr" @click="selectMultipleImageVisible = false" >取消</el-button>
-                        </div>
-                        <el-button type="text" size="mini" slot="reference" :disabled="isCheckedImage">分组</el-button>
-                    </el-popover>
-
-                    <el-popover
-                            v-model="deleteMultipleImageVisible"
-                            placement="bottom"
-                            width="200"
-                            title="确定删除图片？"
-                            trigger="click">
-                        若删除，不会对目前已使用该图片的相关业务造成影响。
-                        <div class="popover-foot">
-                            <el-button type="primary" size="small" @click="handleDeleteImage('all')">确定</el-button>
-                            <el-button size="small" class="fr" @click="deleteMultipleImageVisible = false">取消</el-button>
-                        </div>
-                        <el-button type="text" size="mini" slot="reference" :disabled="isCheckedImage">删除</el-button>
-                    </el-popover>
-                </div>
-                <template v-if="images.length > 0">
-                    <el-row :gutter="10" class="image-list" >
-                        <el-col :span="6" :key="index" class="image-item" v-for="(image, index) in images">
-                            <div class="image-box"> <img :src="image.links" width="160" height="160" /></div>
-                            <div class="image-title">
-                                <label class="mini">
-                                    <input type="checkbox" v-model="image.checked" @click="handleCheckedImagesChange" /> {{ image.name }}
-                            </label>
-                            </div>
-                            <div class="image-opt">
-                                <el-popover
-                                        v-model="image.renameVisible"
-                                        placement="bottom"
-                                        width="200"
-                                        title="修改名称"
-                                        @show="handleChangeImageNameShow(image.name)"
-                                        @hide="handleChangeImageNameHide"
-                                        trigger="click">
-                                    <el-input size="small" v-model="changeImageName"></el-input>
-                                    <div class="popover-foot">
-                                        <el-button type="primary" size="small" @click="handleRenameImage(image)">确定</el-button>
-                                        <el-button size="small" class="fr" @click="image.renameVisible = false">取消</el-button>
-                                    </div>
-                                    <el-button type="text" size="mini" slot="reference">改名</el-button>
-                                </el-popover>
-
-                                <!--<el-popover-->
-                                        <!--v-model="image.linkVisible"-->
-                                        <!--placement="bottom"-->
-                                        <!--width="400"-->
-                                        <!--trigger="click">-->
-                                    <!--<el-input placeholder="请输入内容" v-model="image.path" >-->
-                                        <!--<el-button slot="append" @click="copyImageLink">复制</el-button>-->
-                                    <!--</el-input>-->
-                                    <!--<el-button type="text" size="mini" slot="reference">链接</el-button>-->
-                                <!--</el-popover>-->
-
-                                <el-popover
-                                        v-model="image.categoryVisible"
-                                        @hide="groupingHide"
-                                        @show="groupingShow"
-                                        placement="bottom"
-                                        width="200"
-                                        title="选择分组"
-                                        trigger="click">
-                                    <ul>
-                                        <li v-for="(category, i) in categories">
-                                            <input type="radio" :id="index + '-' + category.id + '-single'" :value="category.id" v-model="defaultCategory">
-                                            <label :for="index + '-' + category.id + '-single'">{{ category.name  }}</label>
-                                        </li>
-                                    </ul>
-                                    <div class="popover-foot">
-                                        <el-button type="primary" size="small" @click="handleChangeImageCategory(image, index)">确定</el-button>
-                                        <el-button size="small" class="fr" @click="image.categoryVisible = false" >取消</el-button>
-                                    </div>
-                                    <el-button type="text" size="mini" slot="reference">分组</el-button>
-                                </el-popover>
-
-                                <el-popover
-                                        v-model="image.deleteVisible"
-                                        placement="bottom"
-                                        width="200"
-                                        title="确定删除该图片？"
-                                        trigger="click">
-                                    若删除，不会对目前已使用该图片的相关业务造成影响。
-                                    <div class="popover-foot">
-                                    <el-button type="primary" size="small" @click="handleDeleteImage(image.id, index)">确定</el-button>
-                                    <el-button size="small" class="fr" @click="image.deleteVisible = false">取消</el-button>
-                                </div>
-                                    <el-button type="text" size="mini" slot="reference">删除</el-button>
-                                </el-popover>
-                            </div>
-                        </el-col>
-
-                    </el-row>
-                    <div class="pagination">
-                        <el-pagination
-                                @current-change="handleCurrentChange"
-                                :page-size="limit"
-                                layout="prev, pager, next"
-                                :total="total">
-                        </el-pagination>
+                <label class="mini">
+                    <input type="checkbox" v-model="checkAll" @click="handleCheckAllChange"/>全选
+                </label>
+                <el-popover
+                    v-model="selectMultipleImageVisible"
+                    @hide="groupingHide"
+                    @show="groupingShow"
+                    placement="bottom"
+                    width="200"
+                    title="选择分组"
+                    trigger="click">
+                    <ul>
+                        <li v-for="category in categories">
+                            <input type="radio" :id="category.id" :value="category.id" v-model="defaultCategory">
+                            <label :for="category.id">{{ category.name }}</label>
+                        </li>
+                    </ul>
+                    <div class="popover-foot">
+                        <el-button type="primary" size="small" @click="handleChangeImageCategory('all')">确定</el-button>
+                        <el-button size="small" class="fr" @click="selectMultipleImageVisible = false">取消</el-button>
                     </div>
+                    <el-button type="text" size="mini" slot="reference" :disabled="isCheckedImage">分组</el-button>
+                </el-popover>
 
-                </template>
+                <el-popover
+                    v-model="deleteMultipleImageVisible"
+                    placement="bottom"
+                    width="200"
+                    title="确定删除图片？"
+                    trigger="click">
+                    若删除，不会对目前已使用该图片的相关业务造成影响。
+                    <div class="popover-foot">
+                        <el-button type="primary" size="small" @click="handleDeleteImage('all')">确定</el-button>
+                        <el-button size="small" class="fr" @click="deleteMultipleImageVisible = false">取消</el-button>
+                    </div>
+                    <el-button type="text" size="mini" slot="reference" :disabled="isCheckedImage">删除</el-button>
+                </el-popover>
+            </div>
+            <template v-if="images.length > 0">
+                <el-row :gutter="10" class="image-list">
+                    <el-col :span="3" :key="index" class="image-item" v-for="(image, index) in images">
+                        <div class="image-box"><img :src="image.links" width="160" height="160"/></div>
+                        <div class="image-title">
+                            <label class="mini">
+                                <input type="checkbox" v-model="image.checked" @click="handleCheckedImagesChange"/>
+                                {{ image.name }}
+                            </label>
+                        </div>
+                        <div class="image-opt">
+                            <el-popover
+                                v-model="image.renameVisible"
+                                placement="bottom"
+                                width="200"
+                                title="修改名称"
+                                @show="handleChangeImageNameShow(image.name)"
+                                @hide="handleChangeImageNameHide"
+                                trigger="click">
+                                <el-input size="small" v-model="changeImageName"></el-input>
+                                <div class="popover-foot">
+                                    <el-button type="primary" size="small" @click="handleRenameImage(image)">确定
+                                    </el-button>
+                                    <el-button size="small" class="fr" @click="image.renameVisible = false">取消
+                                    </el-button>
+                                </div>
+                                <el-button type="text" size="mini" slot="reference">改名</el-button>
+                            </el-popover>
 
-                <template v-else>
-                    <div  class="no-result" style="border: none;color: rgb(153, 153, 153);text-align: center;padding-top:39px;">暂无数据，可点击右上角“上传图片”按钮添加</div>
-                </template>
-            </el-col>
-        <Upload-image :categoryId="currentCategory.id" @submit="loadCategories" @close="uploadImageVisible = false" :visible="uploadImageVisible"></Upload-image>
+                            <!--<el-popover-->
+                            <!--v-model="image.linkVisible"-->
+                            <!--placement="bottom"-->
+                            <!--width="400"-->
+                            <!--trigger="click">-->
+                            <!--<el-input placeholder="请输入内容" v-model="image.path" >-->
+                            <!--<el-button slot="append" @click="copyImageLink">复制</el-button>-->
+                            <!--</el-input>-->
+                            <!--<el-button type="text" size="mini" slot="reference">链接</el-button>-->
+                            <!--</el-popover>-->
+
+                            <el-popover
+                                v-model="image.categoryVisible"
+                                @hide="groupingHide"
+                                @show="groupingShow"
+                                placement="bottom"
+                                width="200"
+                                title="选择分组"
+                                trigger="click">
+                                <ul>
+                                    <li v-for="(category, i) in categories">
+                                        <input type="radio" :id="index + '-' + category.id + '-single'"
+                                               :value="category.id" v-model="defaultCategory">
+                                        <label :for="index + '-' + category.id + '-single'">{{ category.name }}</label>
+                                    </li>
+                                </ul>
+                                <div class="popover-foot">
+                                    <el-button type="primary" size="small"
+                                               @click="handleChangeImageCategory(image, index)">确定
+                                    </el-button>
+                                    <el-button size="small" class="fr" @click="image.categoryVisible = false">取消
+                                    </el-button>
+                                </div>
+                                <el-button type="text" size="mini" slot="reference">分组</el-button>
+                            </el-popover>
+
+                            <el-popover
+                                v-model="image.deleteVisible"
+                                placement="bottom"
+                                width="200"
+                                title="确定删除该图片？"
+                                trigger="click">
+                                若删除，不会对目前已使用该图片的相关业务造成影响。
+                                <div class="popover-foot">
+                                    <el-button type="primary" size="small" @click="handleDeleteImage(image.id, index)">
+                                        确定
+                                    </el-button>
+                                    <el-button size="small" class="fr" @click="image.deleteVisible = false">取消
+                                    </el-button>
+                                </div>
+                                <el-button type="text" size="mini" slot="reference">删除</el-button>
+                            </el-popover>
+                        </div>
+                    </el-col>
+
+                </el-row>
+                <div class="pagination">
+                    <el-pagination
+                        @current-change="handleCurrentChange"
+                        :page-size="limit"
+                        layout="prev, pager, next"
+                        :total="total">
+                    </el-pagination>
+                </div>
+
+            </template>
+
+            <template v-else>
+                <div class="no-result"
+                     style="border: none;color: rgb(153, 153, 153);text-align: center;padding-top:39px;">
+                    暂无数据，可点击右上角“上传图片”按钮添加
+                </div>
+            </template>
+        </el-col>
+        <el-col :span="3" class="addGroup">
+            <div class="category-container">
+                <ul class="category-list">
+                    <li class="ui-tooltip" v-for="(category,index) in categories"
+                        @click="handleSelectionCategory(index, category)" :class="{active:isActive == index}">
+                        <span class="category-name">{{category.name}}</span>
+                        <span class="category-num">{{category.count}}</span>
+                    </li>
+                </ul>
+                <div class="text-center">
+                    <el-popover
+                        v-model="addCategoryVisible"
+                        placement="bottom"
+                        width="200"
+                        title="添加分组"
+                        trigger="click">
+                        <el-input size="small" v-model="newCategoryName"></el-input>
+                        <div class="popover-foot">
+                            <el-button type="primary" size="small" @click="handleAddGroup">确定</el-button>
+                            <el-button size="small" class="fr" @click="addCategoryVisible = false">取消</el-button>
+                        </div>
+                        <el-button size="small" :plain="true" type="info" icon="plus" slot="reference">添加分组</el-button>
+                    </el-popover>
+                </div>
+            </div>
+        </el-col>
+        <Upload-image :categoryId="currentCategory.id" @submit="loadCategories" @close="uploadImageVisible = false"
+                      :visible="uploadImageVisible"></Upload-image>
 
     </div>
 
 </template>
 
 <script>
-    import { getImages, updateImagesCategory, updateImages, destroyImages  } from 'api/image'
+    import {getImages, updateImagesCategory, updateImages, destroyImages} from 'api/image'
 
-    import { getCategories, addCategory, updateCategory, destroyCategory } from 'api/imageCategory'
+    import {getCategories, addCategory, updateCategory, destroyCategory} from 'api/imageCategory'
 
     import UploadImage from '@/components/Attachment/uploadImage';
 
     export default {
-        name:'Attachment',
-        components:{
+        name: 'Attachment',
+        components: {
             UploadImage
         },
         data() {
@@ -223,12 +241,12 @@
                 uploadImageVisible: false,
                 checkAll: false,
                 currentCategory: {},
-                categories:[],
+                categories: [],
                 isCheckedImage: true, //控制分组 是否可以选中
                 images: [],
                 total: 0,
                 limit: 20,
-                page:1
+                page: 1
             };
         },
         created() {
@@ -293,7 +311,7 @@
                     let formData = {'name': categoryName}
                     let id = this.currentCategory.id
                     updateCategory(id, formData).then(response => {
-                        this.categories.find(function(category, index) {
+                        this.categories.find(function (category, index) {
                             if (id == category.id) {
                                 this.categories[index].name = categoryName
                                 this.currentCategory.name = categoryName
@@ -325,7 +343,7 @@
             handleCheckAllChange() {
                 this.checkAll = this.checkAll ? false : true
                 if (this.images.length > 0) {
-                    this.images.forEach(function(image){
+                    this.images.forEach(function (image) {
                         image.checked = this.checkAll
                     }, this);
                 }
@@ -359,7 +377,11 @@
                     this.images.splice(index, 1)
                 }
 
-                let formData = Object.assign({'id': selected, 'category_id': this.defaultCategory, 'original_category_id': this.currentCategory.id})
+                let formData = Object.assign({
+                    'id': selected,
+                    'category_id': this.defaultCategory,
+                    'original_category_id': this.currentCategory.id
+                })
 
                 updateImagesCategory(formData).then(response => {
                     if (image == 'all') {
@@ -368,10 +390,10 @@
                 })
 
                 //分类总数增加
-                this.categories.forEach(function(category, index) {
+                this.categories.forEach(function (category, index) {
                     if (category.id == this.defaultCategory) {
                         this.categories[index].count += selected.length
-                    } else if(category.id == this.currentCategory.id) {
+                    } else if (category.id == this.currentCategory.id) {
                         this.categories[index].count -= selected.length
                     }
                 }, this)
@@ -400,7 +422,7 @@
                 })
 
                 //分类总数减少
-                this.categories.forEach(function(category, index) {
+                this.categories.forEach(function (category, index) {
                     if (category.id == this.currentCategory.id) {
                         this.categories[index].count -= selected.length
                         return null
@@ -410,9 +432,9 @@
             //选择单个
             handleCheckedImagesChange() {
                 let count = 0;
-                this.images.forEach(function(image){
+                this.images.forEach(function (image) {
                     if (image.checked) {
-                        count +=1
+                        count += 1
                     }
                 }, this);
                 this.isCheckedImage = (count == 0) ? true : false //是否选择有图片选中
@@ -447,7 +469,7 @@
             },
             //复制图片链接
             copyImageLink(id) {
-                this.images.forEach(function(image, index){
+                this.images.forEach(function (image, index) {
                     if (id == image.id) {
 //                        this.images[index].name = this.changeImageName
                         this.images[index].renameVisible = false
@@ -459,15 +481,16 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-    .app-main{
+    .app-main {
         display: grid;
     }
-    .media-container{
+
+    .media-container {
         overflow: hidden;
         margin-right: 150px;
     }
+
     .category-container {
-        float: left;
         width: 120px;
         min-height: 350px;
         padding: 10px 0;
@@ -480,7 +503,7 @@
             margin-bottom: 15px;
             max-height: 996px;
             overflow-y: auto;
-            .active{
+            .active {
                 background: #fff;
             }
             li {
@@ -515,6 +538,8 @@
         display: inline;
         line-height: 28px;
         font-size: 16px;
+        font-weight: normal;
+        margin-right: 10px;
     }
 
     .action-bar {
@@ -524,15 +549,16 @@
         min-height: 28px;
         line-height: 28px;
     }
-    .mini input{
+
+    .mini input {
         margin: 0 6px 0 0;
-        vertical-align:baseline;
+        vertical-align: baseline;
         font-size: 12px;
     }
 
-    .popover-foot{
+    .popover-foot {
         margin-top: 6px;
-        button{
+        button {
             padding: 7px 20px;
         }
     }
@@ -545,12 +571,14 @@
         background-size: cover;
         background-position: 50% 50%;
     }
+
     .image-item {
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
-    .image-title{
+
+    .image-title {
         padding: 8px 0px 0px;
-        overflow:hidden;
+        overflow: hidden;
         label {
             display: inline-block;
             width: 160px;
@@ -559,8 +587,35 @@
             overflow: hidden;
         }
     }
-    .pagination{
+
+    .pagination {
         text-align: right;
         margin: 0 20px 30px 0;
+    }
+
+    .maxBox {
+        padding: 20px 160px 20px 20px;
+        width: 96%;
+        margin-left: 20px;
+        margin-top: 20px;
+        box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08), -3px -3px 4px rgba(0, 0, 0, 0.08);
+        .titl{
+            border-bottom: 2px solid #eff0f3;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            .iconfont{
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .addGroup {
+        /*background: blue;*/
+        position: absolute;
+        right: 60px;
+        top: 200px;
+        width: inherit;
     }
 </style>

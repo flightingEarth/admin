@@ -70,13 +70,13 @@
                     <el-row :gutter="20">
                         <el-col :span="8">
                             <span>修改订单退票规则：</span>
-                            <el-radio v-model="radio" label="1">可退</el-radio>
-                            <el-radio v-model="radio" label="2">不可退</el-radio>
+                            <el-radio v-model="list.refundTicket" label="1">可退</el-radio>
+                            <el-radio v-model="list.refundTicket" label="2">不可退</el-radio>
                         </el-col>
                         <el-col :span="8">
                             <span>修改订单改票规则：</span>
-                            <el-radio v-model="radio1" label="1">可改</el-radio>
-                            <el-radio v-model="radio1" label="2">不可改</el-radio>
+                            <el-radio v-model="list.changeTicket" label="1">可改</el-radio>
+                            <el-radio v-model="list.changeTicket" label="2">不可改</el-radio>
                         </el-col>
                     </el-row>
                 </div>
@@ -94,43 +94,43 @@
                     :border="true"
                 >
                     <el-table-column
-                        prop="date"
+                        prop="payId"
                         label="支付编号"
                         align="center"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="orderId"
                         label="订单ID"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="address"
+                        prop="productId"
                         label="产品编号"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="person"
                         label="联系人"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="mobilePhone"
                         label="联系人手机号"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="pay"
                         label="支付金额（元）"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="productName"
                         label="产品名称"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="payTime"
                         label="支付时间"
                         align="center">
                     </el-table-column>
@@ -141,10 +141,6 @@
 </template>
 
 <script>
-    import FormMixin from './FormMixin'
-    import Tinymce from '@/components/Tinymce'
-    import SelectImages from "@/components/Attachment/selectImages";
-
     export default {
         name: 'ScenicCreate',
         props: {
@@ -159,11 +155,7 @@
         },
         data() {
             return {
-                list: {
-                    orderId: 123456,
-                },
-                radio:"",
-                radio1:"",
+                list: {},
                 rules: {},
                 tableData: []
             }
