@@ -188,7 +188,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <i class="iconfont icon-shuxie"></i>
+                    <i class="iconfont icon-xiezuo"></i>
                     <span>基本信息</span>
                 </div>
                 <div class="input">
@@ -263,13 +263,14 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <!--<el-upload-->
-                                    <!--action="https://jsonplaceholder.typicode.com/posts/"-->
-                                    <!--list-type="picture-card"-->
-                                    <!--:on-preview="handlePictureCardPreview"-->
-                                    <!--:on-remove="handleRemove">-->
-                                    <!--<i class="el-icon-plus"></i>-->
-                                <!--</el-upload>-->
+                                <div class="imgBox">
+                                    <i class="iconfont icon-comiisjiahao-copy"></i>
+                                    <img :src="src" alt="">
+                                </div>
+                                <div class="imgBox">
+                                    <i class="iconfont icon-comiisjiahao-copy"></i>
+                                    <img :src="src" alt="">
+                                </div>
                                 <div class="el-upload el-upload--text"  @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
@@ -280,7 +281,7 @@
                 </div>
 
                 <div class="title title1">
-                    <i class="iconfont icon-hotel"></i>
+                    <i class="iconfont icon-zhengce"></i>
                     <span>酒店政策</span>
                 </div>
                 <div class="input">
@@ -429,6 +430,8 @@
     import {getFacilities} from '@/api/hotelFacilities'
     import SelectImages from "@/components/Attachment/selectImages";
 
+    import img from "./img.jpg";
+
     export default {
         components: {SelectImages},
         props: {
@@ -451,6 +454,7 @@
                 dialogVisible: false,
                 activeName: 'first',
                 addLoading: false,
+                src:img,
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
@@ -830,6 +834,33 @@
             background: #5FCAB1;
             border-color: #5FCAB1;
             margin-left: 20px;
+        }
+    }
+    .imgBox{
+        width: 100px;
+        height: 100px;
+        /*background: red;*/
+        float: left;
+        margin-right: 10px;
+        position: relative;
+        cursor: pointer;
+        .iconfont{
+            position: absolute;
+            right: -7px;
+            top: -6px;
+            z-index: 999;
+            display: none;
+            cursor: pointer;
+            color: #999;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+        }
+    }
+    .imgBox:hover{
+        .iconfont{
+            display: block;
         }
     }
 

@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <i class="iconfont icon-sousuo1"></i>
+                <i class="iconfont icon-sousuo"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -61,7 +61,7 @@
 
             <el-form :model="addForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <div class="grid-content bg-purple-light shenhe">
-                    <span><i class="iconfont icon-guize"></i>审&nbsp;&nbsp;&nbsp;&nbsp;核:</span>
+                    <span>审&nbsp;&nbsp;&nbsp;&nbsp;核:</span>
                     <el-form-item label="膳食安排" prop="status">
                         <el-radio-group v-model="addForm.status">
                             <el-radio label="审核通过" value="1"></el-radio>
@@ -70,13 +70,13 @@
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
-                    <span><i class="iconfont icon-qian"></i>手续费:</span>
+                    <span></i>手续费:</span>
                     <el-form-item label="膳食安排" prop="refundFee">
                         <el-input v-model="addForm.refundFee" type="number"></el-input>
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
-                    <span><i class="iconfont icon-shuxie"></i>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
+                    <span></i>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
                     <el-form-item label="活动形式" prop="note">
                         <el-input type="textarea" v-model="addForm.note"></el-input>
                     </el-form-item>
@@ -89,7 +89,7 @@
         </el-dialog>
 
         <div class="list-title">
-            <i class="iconfont icon-cf-c57"></i>
+            <i class="iconfont icon-liebiao"></i>
             <span>列表数据</span>
         </div>
         <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">

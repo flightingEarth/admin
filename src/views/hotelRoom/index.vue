@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <i class="iconfont icon-sousuo1"></i>
+                <i class="iconfont icon-sousuo"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -44,7 +44,7 @@
         </div>
 
         <div class="list-title">
-            <i class="iconfont icon-cf-c57"></i>
+            <i class="iconfont icon-liebiao"></i>
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHouse">添加房型</a></li>

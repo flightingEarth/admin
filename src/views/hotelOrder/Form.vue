@@ -125,7 +125,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <i class="iconfont icon-shuxie"></i>
+                    <i class="iconfont icon-xiezuo"></i>
                     <span>基本信息</span>
                 </div>
                 <div class="input">

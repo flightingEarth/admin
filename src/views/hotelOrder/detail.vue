@@ -62,7 +62,7 @@
 
             <!--酒店产品详情-->
             <div class="search product">
-                <i class="iconfont icon-cf-c57"></i>
+                <i class="iconfont icon-liebiao"></i>
                 <span>订单产品详情</span>
             </div>
             <div class="search product table">
