@@ -83,7 +83,7 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>供&nbsp;应&nbsp; 商:</span>
+                                <span><i></i>供&nbsp;&nbsp;&nbsp;应&nbsp;&nbsp;商:</span>
                                 <el-form-item label="膳食安排" prop="hotelSupplierId">
                                     <el-input v-model="ruleForm.hotelSupplierId" v-popover:popover4  :readonly="true"></el-input>
                                 </el-form-item>
@@ -166,7 +166,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>所在省份:</span>
                                 <el-form-item label="活动区域" prop="activeLocation">
-                                    <area-select :level="2" type="text" v-model="ruleForm.address"></area-select>
+                                    <area-select :level="2" type="all" v-model="ruleForm.activeLocation"></area-select>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -365,7 +365,7 @@
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <span><i>|</i>装修时间:</span>
+                                <span><i></i>装修时间:</span>
                                 <el-form-item label="装修时间" prop="decorationTime">
                                     <el-input v-model="ruleForm.decorationTime"></el-input>
                                 </el-form-item>
@@ -373,7 +373,7 @@
                         </el-col>
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>携带宠物:</span>
+                                <span><i></i>携带宠物:</span>
                                 <el-form-item label="携带宠物" prop="pet">
                                     <el-input v-model="ruleForm.pet"></el-input>
                                 </el-form-item>
@@ -382,7 +382,7 @@
 
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>取消政策:</span>
+                                <span><i></i>取消政策:</span>
                                 <el-form-item label="取消政策" prop="abolitionOfPolicy">
                                     <el-input v-model="ruleForm.abolitionOfPolicy"></el-input>
                                 </el-form-item>
@@ -390,7 +390,7 @@
                         </el-col>
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>入住手续:</span>
+                                <span><i></i>入住手续:</span>
                                 <el-form-item label="入住手续" prop="checkIn">
                                     <el-input v-model="ruleForm.checkIn"></el-input>
                                 </el-form-item>
@@ -398,7 +398,7 @@
                         </el-col>
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
-                                <span><i>|</i>膳食安排:</span>
+                                <span><i></i>膳食安排:</span>
                                 <el-form-item label="膳食安排" prop="buffet">
                                     <el-input v-model="ruleForm.buffet"></el-input>
                                 </el-form-item>
@@ -438,7 +438,8 @@
                     return {
                         network: [],
                         parkingLot: [],
-                        hotelFacilities: []
+                        hotelFacilities: [],
+                        activeLocation:[]
                     }
                 }
             }
@@ -538,8 +539,11 @@
                         {required: true, message: '请填写百度纬度', trigger: 'blur'},
 //                    {type: number, message: '您填写的百度纬度格式错误', trigger: 'blur'}
                     ],
+                    activeLocation: [
+                        {required: true, message: '请选择所在地', trigger: 'change'}
+                    ],
                     hotelAddress: [
-                        {required: true, message: '请填写酒店地址', trigger: 'blur'}
+                    {required: true, message: '请填写酒店地址', trigger: 'blur'}
                     ],
                     hotelStatus: [
                         {required: true, message: '请选择酒店状态', trigger: 'change'}

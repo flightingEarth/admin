@@ -1,6 +1,27 @@
 <template>
     <div class="main">
-        <ul>
+        <div class="search top">
+            <div class="top-title"><i class="iconfont icon-qian"></i>我的资产</div>
+            <div class="top-bottom">
+                <div class="detail">
+                    <span>月结账户</span>
+                    <p><span>¥288.66</span>元</p>
+                </div>
+                <div class="detail second">
+                    <span>金币账户</span>
+                    <p><span>12</span>枚</p>
+                </div>
+                <div class="detail last">
+                    <div>
+                        <span>现金账户</span>
+                        <p><span>¥0.00</span>元</p>
+                    </div>
+                    <a href="javascript:;">充值</a>
+                    <a href="javascript:;">提现</a>
+                </div>
+            </div>
+        </div>
+        <ul class="tab-list">
             <li v-for="(item , index) in liList" @click="handleClickLi(index)" :class="{active:index===number}"><a
                 href="javascript:;">{{item}}</a></li>
         </ul>
@@ -13,29 +34,46 @@
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
-                            <span><i>|</i>订单号码:</span>
+                            <span><i>|</i>订单编号:</span>
                             <el-input v-model="searchList.orderId" placeholder=""></el-input>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>身份证号:</span>
-                            <el-input v-model="searchList.idCard" placeholder=""></el-input>
+                        <div class="grid-content bg-purple-light">
+                            <span><i>|</i>收支类型:</span>
+                            <el-select v-model="searchList.payMethod" placeholder="请选择">
+                                <el-option
+                                    v-for="item in payMethod"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
                         </div>
                     </el-col>
-
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>手机号码:</span>
-                            <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
+                        <div class="grid-content bg-purple-light double">
+                            <span><i>|</i>时间选择:</span>
+                            <el-date-picker
+                                v-model="beginTime"
+                                type="date"
+                                placeholder="选择开始日期">
+                            </el-date-picker>
+                            <span class="zhi">至</span>
+                            <el-date-picker
+                                v-model="endTime"
+                                type="date"
+                                :picker-options="minTime"
+                                placeholder="选择结束日期">
+                            </el-date-picker>
                         </div>
                     </el-col>
                     <el-col :span="12">
                         <div class="grid-content bg-purple-light">
-                            <span><i>|</i>支付方式:</span>
-                            <el-select v-model="searchList.payMethod" placeholder="请选择">
+                            <span><i>|</i>收支状态:</span>
+                            <el-select v-model="searchList.payStatus" placeholder="请选择">
                                 <el-option
-                                    v-for="item in supplierOptions"
+                                    v-for="item in payStatus"
                                     :key="item.value"
                                     :label="item.label"
                                     :value="item.value">
@@ -65,71 +103,53 @@
             v-loading="listLoading" element-loading-text="正在加载中。。。"
         >
             <el-table-column
-                prop="hotelName"
-                label="订单详情"
+                prop="orderId"
+                label="订单编号"
                 align="center"
             >
             </el-table-column>
             <el-table-column
-                prop="inDay"
-                label="入住时间"
+                prop="orderName"
+                label="产品名称"
                 align="center"
             >
             </el-table-column>
             <el-table-column
-                prop="outDay"
-                label="离店时间"
+                prop="payMethod"
+                label="收支类型"
                 align="center"
             >
             </el-table-column>
             <el-table-column
-                prop="guests"
-                label="联系人"
+                prop="payStatus"
+                label="收支状态"
                 align="center"
             >
-            </el-table-column>
-            <el-table-column
-                prop="mobilePhone"
-                label="手机号"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="PayMethod"
-                label="付款方式"
-                align="center">
-            </el-table-column>
-            <el-table-column
-                prop="totalPrice"
-                label="供应商总价"
-                align="center">
-            </el-table-column>
-            <el-table-column
-                prop="orderStatus"
-                label="订单状态"
-                align="center">
                 <template slot-scope="scope">
                     <el-button type="text" size="small" class="stayIn">待入住</el-button>
                     <el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>
                 </template>
             </el-table-column>
             <el-table-column
-                prop="createdAt"
-                label="预订时间"
+                prop="payTime"
+                label="收支时间"
+                align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="payAccount"
+                label="支付账户"
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="orderId"
-                label="订单号"
+                prop="cashPrice"
+                label="收入金额(元)"
                 align="center">
             </el-table-column>
             <el-table-column
-                label="操作"
+                prop="payPrice"
+                label="支出金额(元)"
                 align="center">
-                <template slot-scope="scope" class="">
-                    <el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>
-                    <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
-                </template>
             </el-table-column>
         </el-table>
 
@@ -144,55 +164,63 @@
 </template>
 
 <script>
-    import {hotelOrderList} from '@/api/hotelOrder'
+//    import {hotelOrderList} from '@/api/hotelOrder'
     export default {
         name: 'hotelOrder',
         data() {
             return {
                 searchList: {
-                    orderId: undefined,
-                    cardNum: undefined,
-                    phone: undefined,
-                    payWay: undefined,
-                    status: undefined,
                     limit: 20,
                     page: 1
+                },
+                beginTime: "",
+                endTime: "",
+                minTime: {
+                    disabledDate: (time) => {
+                        return time.getTime() < this.beginTime
+                    }
                 },
                 number: 0,
                 total: 0,
                 visible2: false,
-                liList: ["全部订单", "待支付", "待入住", "待离店", "待评价", "已取消", "已退订", "已完成"],
+                liList: ["全部账单", "账户收支", "提现记录", "充值记录", "月结记录"],
                 listLoading: false,
-                supplierOptions: [{
+                payMethod: [{
                     value: '0',
-                    label: '全部'
+                    label: '充值'
                 }, {
                     value: '1',
-                    label: '在线支付'
+                    label: '提现'
+                }],
+                payStatus: [{
+                    value: '0',
+                    label: '支付'
                 }, {
-                    value: '2',
-                    label: '酒店到付'
+                    value: '1',
+                    label: '退款'
                 }],
                 tableData: []
             }
         },
         created(){
-            this.getList();
+//            this.getList();
         },
         methods: {
             getList() {
                 this.listLoading = true
-                hotelOrderList(this.searchList).then(response => {
-                    this.tableData = response.data.data
-                    this.total = response.data.meta.total
-                    this.listLoading = false
-                })
+//                hotelOrderList(this.searchList).then(response => {
+//                    this.tableData = response.data.data
+//                    this.total = response.data.meta.total
+//                    this.listLoading = false
+//                })
             },
             handleCurrentChange(val) {
                 this.searchList.page = val
                 this.getList()
             },
             handleSearch(){
+                this.searchList.beginTime = beginTime
+                this.searchList.endTime = endTime
                 this.getList();
             },
             handleClickLi(index) {
@@ -217,56 +245,6 @@
                     this.searchList.showStatus = 4;
                     this.getList();
                 }
-                if (index === 5) {
-                    this.searchList.showStatus = 5;
-                    this.getList();
-                }
-                if (index === 6) {
-                    this.searchList.showStatus = 6;
-                    this.getList();
-                }
-                if (index === 7) {
-                    this.searchList.showStatus = 7;
-                    this.getList();
-                }
-            },
-            open2() {
-                this.$confirm('是否拒绝退票?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '拒绝退票成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消拒绝退票'
-                    });
-                });
-            },
-            open3() {
-                this.$confirm('是否同意退票?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '同意退票成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消同意退票'
-                    });
-                });
-            },
-            handleDetail(id){
-                console.log(id);
-                this.$router.push({path: '/hotelorder/' + id + '/detail'});
             }
         }
     }
@@ -285,52 +263,66 @@
             padding: 20px;
             box-sizing: border-box;
             color: #666;
+
             .title {
                 border-bottom: 1px solid #E6E6E6;
                 margin-top: 10px;
                 padding-bottom: 10px;
+
                 i {
                     color: #2C7ADE;
                 }
+
             }
             .input {
+
                 span {
                     float: left;
                     margin-top: 10px;
                     margin-right: 10px;
+
                     i {
                         color: red;
                         margin-right: 5px;
                     }
+
                 }
                 .el-input {
                     float: left;
                     width: 80%;
                 }
+
                 .grid-content {
                     margin-left: 20px;
                     margin-top: 20px;
+
                     .el-input__inner {
                         width: 80%;
                     }
+
                 }
                 .el-select {
                     width: 80%;
                 }
+
                 .double {
+
                     .el-input {
                         width: 36.6%;
                     }
+
                     .zhi {
                         float: left;
                         margin-left: 10px;
                     }
+
                 }
                 .el-col-24 {
                     text-align: center;
                     margin-top: 20px;
                     border-top: 1px solid #E6E6E6;
                     padding-top: 20px;
+
                     button {
                         width: 100px;
                         height: 36px;
@@ -338,13 +330,74 @@
                         text-align: center;
                         padding: 0;
                     }
+
                     .el-button--primary {
                         border-color: #5FCAB1;
                         background: #5FCAB1;
                     }
+
                 }
             }
         }
+
+        .top {
+            margin-bottom: 20px;
+            padding-bottom: 0;
+            .top-title {
+                border-bottom: 1px solid rgba(51, 51, 51, 0.15);
+                padding-bottom: 10px;
+            }
+            .top-bottom {
+                padding: 10px;
+                width: 100%;
+                height: 112px;
+                overflow: hidden;
+                .detail {
+                    width: 20%;
+                    height: 100%;
+                    border-right: 1px solid #F2F2F2;
+                    padding-left: 20px;
+                    padding-top: 20px;
+                    float: left;
+                    span {
+                        font-size: 14px;
+                        color: #666;
+                    }
+                    p {
+                        margin-top: 10px;
+                        span {
+                            font-size: 24px;
+                            color: #FF394B;
+                            margin-right: 5px;
+                        }
+                    }
+                }
+                .second {
+                    padding-left: 5%;
+                }
+                .last {
+                    width: 25%;
+                    padding-left: 5%;
+                    border: 0;
+                    div{
+                        float: left;
+                    }
+                    a {
+                        float: right;
+                        width: 60px;
+                        height: 32px;
+                        line-height: 32px;
+                        text-align: center;
+                        border-radius: 3px;
+                        color: #fff;
+                        background: #307fff;
+                        margin-right: 10px;
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+
         .list-title {
             width: 100%;
             background: #f3f3f3;
@@ -354,24 +407,28 @@
             margin-top: 24px;
             height: 40px;
             line-height: 40px;
+
             .iconfont {
                 color: #333;
                 margin-left: 20px;
                 font-size: 18px;
             }
+
             span {
                 font-size: 14px;
                 font-weight: 600;
                 color: #333;
             }
+
         }
-        ul {
+        .tab-list {
             list-style: none;
             /*margin-top: 10px;*/
             overflow: hidden;
             padding: 0;
             margin-bottom: 0;
             border-bottom: 2px solid rgba(80, 154, 255, 1);
+
             li {
                 float: left;
                 width: 100px;
@@ -381,19 +438,24 @@
                 background: #fff;
                 margin-left: 5px;
                 border-radius: 1px;
+
                 a {
                     color: #333;
                     display: block;
                 }
+
             }
             li:first-child {
                 margin-left: 0;
             }
+
             .active {
                 background: rgba(80, 154, 255, 1);
+
                 a {
                     color: #fff;
                 }
+
             }
         }
         .table {
@@ -403,9 +465,11 @@
             margin-top: 5px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
         }
+
         .stayIn {
             color: #666;
         }
+
         .btn {
             display: inline-block;
             width: 80px;
@@ -413,20 +477,22 @@
             text-align: center;
             border-radius: 3px;
         }
+
         .refuse {
             background: #5fcab1;
             color: #fff;
         }
+
         .agree {
             border: 1px solid #DEDEDE;
             color: #666;
             margin-left: 0;
             margin-top: 5px;
         }
+
         .el-pagination {
             margin-top: 10px;
         }
-
     }
 
 

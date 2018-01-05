@@ -6,6 +6,7 @@ import Dashboard from '@/views/dashboard'
 
 import Financial from '@/views/financial'
 import CashApplication from '@/views/financial/cashApplication'
+import AccountReceipts from '@/views/financial/accountReceipts'
 
 import UserIndex from '@/views/userManagement/index'
 
@@ -77,10 +78,10 @@ const router = new Router({
                     path: '/financial', hidden: true, component: Financial, name: '财务部',
                 },
                 {
-                    path: '/financial/cashApplication',
-                    component: CashApplication,
-                    name: '提现申请',
-                    icon: 'pointmax'
+                    path: '/financial/cashApplication', component: CashApplication, name: '提现申请',
+                },
+                {
+                    path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
                 }
             ]
         },
@@ -129,13 +130,13 @@ const router = new Router({
 
                 //门票列表
                 {
-                    path: '/scenic/:scenicId/ticket', hidden:true, component: ScenicTicket, name: '门票管理',
+                    path: '/scenic/:scenicId/ticket', hidden: true, component: ScenicTicket, name: '门票管理',
                 },
                 {
-                    path: '/scenic/:scenicId/ticket/create', hidden:true, component: TicketCreate, name: '门票添加',
+                    path: '/scenic/:scenicId/ticket/create', hidden: true, component: TicketCreate, name: '门票添加',
                 },
                 {
-                    path: '/scenic/:scenicId/ticket/:id/edit', hidden:true, component: TicketEdit, name: '门票编辑',
+                    path: '/scenic/:scenicId/ticket/:id/edit', hidden: true, component: TicketEdit, name: '门票编辑',
                 },
 
                 //景区退款审核

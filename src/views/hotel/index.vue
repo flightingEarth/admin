@@ -31,7 +31,7 @@
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>选择城市:</span>
-                            <area-select :level="2" type="text" v-model="searchList.hotelAddress"></area-select>
+                            <area-select :level="2" type="all" v-model="searchList.hotelAddress"></area-select>
                         </div>
                     </el-col>
 
@@ -142,6 +142,7 @@
             return {
                 total: 0,
                 searchList: {
+                    hotelAddress:[],
                     hotelName: '',
                     hotelStar: '',
                     hotelStatus: '',

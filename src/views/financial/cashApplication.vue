@@ -208,7 +208,7 @@
                     limit: 20,
                     page: 1
                 },
-                total: 1,
+                total: 0,
                 withdrawId: 0,
                 dialogFormVisible: false,//新增界面是否显示
                 listLoading: false,

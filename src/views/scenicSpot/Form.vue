@@ -132,7 +132,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>所在省份:</span>
                                 <el-form-item label="膳食安排" prop="region">
-                                    <area-cascader :level="1" type="all" v-model="ruleForm.region"></area-cascader>
+                                    <area-select :level="2" type="all" v-model="ruleForm.region"></area-select>
                                 </el-form-item>
                             </div>
                         </el-col>

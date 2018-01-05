@@ -154,7 +154,7 @@
                     ticketName: undefined,
                     currentPage: 1,
                 },
-                total: 1,
+                total: 0,
                 tableData: []
             }
         },

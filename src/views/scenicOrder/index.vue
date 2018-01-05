@@ -166,7 +166,7 @@
                 number: 0,
                 liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
                 listLoading: false,
-                total: 1,
+                total: 0,
                 supplierOptions: [{
                     value: '0',
                     label: '不限'
