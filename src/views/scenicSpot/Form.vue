@@ -53,7 +53,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>最小售价:</span>
                                 <el-form-item label="最小售价" prop="minPrice">
-                                    <el-input v-model="ruleForm.minPrice"></el-input>
+                                    <el-input type="number" v-model="ruleForm.minPrice"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -62,7 +62,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>联&nbsp;&nbsp;系&nbsp;&nbsp;电&nbsp;&nbsp;话:</span>
                                 <el-form-item label="联系电话" prop="contactNumber">
-                                    <el-input type="number" v-model="ruleForm.contactNumber"></el-input>
+                                    <el-input  v-model="ruleForm.contactNumber"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -148,7 +148,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度经度:</span>
                                 <el-form-item label="百度经度" prop="longitude">
-                                    <el-input  v-model="ruleForm.longitude"></el-input>
+                                    <el-input type="number"  v-model="ruleForm.longitude"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -156,7 +156,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度纬度:</span>
                                 <el-form-item label="百度纬度" prop="latitude">
-                                    <el-input v-model="ruleForm.latitude"></el-input>
+                                    <el-input type="number"  v-model="ruleForm.latitude"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -282,10 +282,10 @@
                 isIndeterminate: true,
                 rules: {
                     scenicTypeId: [
-                        {required: true, type:'number', message: '请选择旅游主题', trigger: 'change'}
+                        {required: true, message: '请选择旅游主题', trigger: 'change'}
                     ],
                     scenicStar: [
-                        {required: true, type:'number',message: '请选择景区星级', trigger: 'change'}
+                        {required: true, message: '请选择景区星级', trigger: 'change'}
                     ],
                     scenicName: [
                         {required: true, message: '请输入景区名称', trigger: 'blur'}
