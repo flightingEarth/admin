@@ -3,7 +3,7 @@
         <div class="search">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
-                    <i class="iconfont icon-shuxie"></i>
+                    <i class="iconfont icon-xiezuo"></i>
                     <span>{{title}}</span>
                 </div>
                 <div class="input">
@@ -73,7 +73,7 @@
                     </el-row>
                 </div>
                 <div class="title title1">
-                    <i class="iconfont icon-gouwuche"></i>
+                    <i class="iconfont icon-gouwuche1"></i>
                     <span>门票购买规则</span>
                 </div>
                 <div class="input">
@@ -134,7 +134,7 @@
 
 
                 <div class="title title1">
-                    <i class="iconfont icon-guize"></i>
+                    <i class="iconfont icon-iconfontwenjian"></i>
                     <span>门票使用规则</span>
                 </div>
                 <div class="input">

@@ -200,6 +200,7 @@
                     this.images.forEach(function (image, index) {
                         if (image.checked) {
                             selected.push(image)
+                            console.log(image);
                         }
                     })
                     this.$emit('submit', selected)

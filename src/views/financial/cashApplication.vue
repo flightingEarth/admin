@@ -2,7 +2,7 @@
     <div class="main">
         <div class="search">
             <div class="title">
-                <i class="iconfont icon-sousuo1"></i>
+                <i class="iconfont icon-sousuo"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
@@ -75,7 +75,7 @@
 
             <el-form :model="addForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <div class="grid-content bg-purple-light shenhe">
-                    <span><i class="iconfont icon-guize"></i>审核:</span>
+                    <span><i class="iconfont icon-iconfontwenjian"></i>审核:</span>
                     <el-form-item label="膳食安排" prop="auditStatus">
                         <el-radio-group v-model="addForm.auditStatus">
                             <el-radio label="审核通过" value="1"></el-radio>
@@ -84,7 +84,7 @@
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
-                    <span><i class="iconfont icon-shuxie"></i>备注:</span>
+                    <span><i class="iconfont icon-xiezuo"></i>备注:</span>
                     <el-form-item label="活动形式" prop="describe">
                         <el-input type="textarea" v-model="addForm.describe"></el-input>
                     </el-form-item>
@@ -98,11 +98,10 @@
 
 
         <div class="list-title">
-            <i class="iconfont icon-cf-c57"></i>
+            <i class="iconfont icon-liebiao"></i>
             <span>数据列表</span>
         </div>
 
-        <div class="table">
             <el-table
                 :data="tableData"
                 border
@@ -194,7 +193,6 @@
                 :total="total">
             </el-pagination>
         </div>
-    </div>
 </template>
 
 <script>
@@ -384,15 +382,26 @@
         }
         .list-title {
             width: 100%;
-            height: 60px;
-            padding: 0 20px;
-            background: #fff;
-            margin-top: 20px;
-            line-height: 60px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), -2px -2px 4px rgba(0, 0, 0, 0.08);
-            i {
-                color: #2C7ADE;
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            margin-bottom: 0 !important;
+            margin-top: 24px;
+            height: 40px;
+            line-height: 40px;
+
+            .iconfont {
+                color: #333;
+                margin-left: 20px;
+                font-size: 18px;
             }
+
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
+            }
+
         }
         ul {
             list-style: none;
