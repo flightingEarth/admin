@@ -1,5 +1,5 @@
 <template>
-    <ticket-form :ruleForm="ruleForm"></ticket-form>
+    <ticket-form title="门票编辑" :ruleForm="ruleForm"></ticket-form>
 </template>
 
 <script>

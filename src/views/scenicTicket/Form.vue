@@ -352,13 +352,13 @@
                         status : '上架'
                     }
                 }
-            }
+            },
+            title:"",
         },
         data() {
             return {
                 scenicId: 0,
                 sell_start_time: '',
-                title:"",
                 minInTime: {
                     disabledDate: (time) => {
 //                        console.log(time)
@@ -451,11 +451,7 @@
         },
         created() {
             this.scenicId = this.$route.params.scenicId
-            if(this.$route.params.scenicId){
-                this.title = "编辑门票"
-            }else{
-                this.title = "添加门票"
-            }
+
         },
         methods: {
             handleRemove(file, fileList) {
@@ -488,7 +484,7 @@
                                 this.handleCancel();
                             })
                         } else {
-                            updateTicket(this.scenicId, this.ruleForm.tieketId, this.ruleForm).then(response => {
+                            updateTicket(this.scenicId, this.ruleForm.ticketId, this.ruleForm).then(response => {
                                 this.$message({
                                     message: '更新成功！',
                                     type: 'success'

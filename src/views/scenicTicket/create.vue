@@ -1,5 +1,5 @@
 <template>
-    <scenic-form></scenic-form>
+    <scenic-form title="门票添加"></scenic-form>
 </template>
 
 <script>
