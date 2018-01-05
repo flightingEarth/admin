@@ -263,13 +263,9 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <div class="imgBox">
+                                <div class="imgBox" v-for="item in imgList">
                                     <i class="iconfont icon-comiisjiahao-copy"></i>
-                                    <img :src="src" alt="">
-                                </div>
-                                <div class="imgBox">
-                                    <i class="iconfont icon-comiisjiahao-copy"></i>
-                                    <img :src="src" alt="">
+                                    <img :src="item.links" alt="">
                                 </div>
                                 <div class="el-upload el-upload--text"  @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
@@ -454,7 +450,7 @@
                 dialogVisible: false,
                 activeName: 'first',
                 addLoading: false,
-                src:img,
+                imgList:[],
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
@@ -686,7 +682,8 @@
             },
             //选择图片
             selectImagesSubmit(images) {
-                this.news.page_image = images[0].links
+//                this.ruleForm.images = images[0].links
+                this.imgList = images
             },
             onSubmit(){
 
@@ -695,7 +692,7 @@
                 console.log(val)
                 this.tableShow = false;
                 this.ruleForm.hotelSupplierId = val.name1;
-            }
+            },
         }
     }
 </script>

@@ -13,7 +13,8 @@
                                 <span><i>|</i>旅游主题:</span>
                                 <el-form-item label="膳食安排" prop="scenicTypeId">
                                     <el-select v-model="ruleForm.scenicTypeId" placeholder="请选择旅游主题">
-                                        <el-option v-for="type in scenicTypes" :label="type.name" :value="type.id"></el-option>
+                                        <el-option v-for="type in scenicTypes" :label="type.name"
+                                                   :value="type.id"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -24,10 +25,10 @@
                                 <el-form-item label="景区星级" prop="scenicStar">
                                     <el-select v-model="ruleForm.scenicStar" placeholder="请选择景区星级">
                                         <el-option
-                                                v-for="item in scenicStarList"
-                                                :key="item.id"
-                                                :label="item.name"
-                                                :value="item.id">
+                                            v-for="item in scenicStarList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
@@ -62,17 +63,17 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>联&nbsp;&nbsp;系&nbsp;&nbsp;电&nbsp;&nbsp;话:</span>
                                 <el-form-item label="联系电话" prop="contactNumber">
-                                    <el-input  v-model="ruleForm.contactNumber"></el-input>
+                                    <el-input v-model="ruleForm.contactNumber"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-popover
-                                ref="identification"
-                                placement="bottom"
-                                title="景区标识"
-                                width="100"
-                                trigger="click"
-                                content="例：世界3大奇塔等" style="display: none">
+                            ref="identification"
+                            placement="bottom"
+                            title="景区标识"
+                            width="100"
+                            trigger="click"
+                            content="例：世界3大奇塔等" style="display: none">
                         </el-popover>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
@@ -86,12 +87,12 @@
                         </el-col>
 
                         <el-popover
-                                ref="recommendTime"
-                                placement="bottom"
-                                title="解释说明"
-                                width="250"
-                                trigger="click"
-                                content="推荐旅游时间;例：XX月—-XX月" style="display: none">
+                            ref="recommendTime"
+                            placement="bottom"
+                            title="解释说明"
+                            width="250"
+                            trigger="click"
+                            content="推荐旅游时间;例：XX月—-XX月" style="display: none">
                         </el-popover>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
@@ -148,7 +149,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度经度:</span>
                                 <el-form-item label="百度经度" prop="longitude">
-                                    <el-input type="number"  v-model="ruleForm.longitude"></el-input>
+                                    <el-input type="number" v-model="ruleForm.longitude"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -156,12 +157,15 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度纬度:</span>
                                 <el-form-item label="百度纬度" prop="latitude">
-                                    <el-input type="number"  v-model="ruleForm.latitude"></el-input>
+                                    <el-input type="number" v-model="ruleForm.latitude"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                     </el-row>
                 </div>
+
+                <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
+                               @submit="selectImagesSubmit"></select-images>
 
                 <div class="title title1">
                     <i class="iconfont icon-tupian"></i>
@@ -172,18 +176,13 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <draggable class="dragArea">
-                                    <el-upload
-                                            action="https://jsonplaceholder.typicode.com/posts/"
-                                            list-type="picture-card"
-                                            :on-preview="handlePictureCardPreview"
-                                            :on-remove="handleRemove">
-                                        <i class="el-icon-plus"></i>
-                                    </el-upload>
-                                    <el-dialog :visible.sync="dialogVisible" size="tiny">
-                                        <img width="100%" :src="dialogImageUrl" alt="">
-                                    </el-dialog>
-                                </draggable>
+                                <div class="imgBox" v-for="item in imgList">
+                                    <i class="iconfont icon-comiisjiahao-copy"></i>
+                                    <img :src="item.links" alt="">
+                                </div>
+                                <div class="el-upload el-upload--text" @click="imageVisible = true">
+                                    <i class="el-icon-plus picture-uploader-icon"></i>
+                                </div>
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
                         </el-col>
@@ -200,7 +199,8 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>预订须知:</span>
                                 <el-form-item label="内容" prop="guidelines">
-                                <Tinymce :height="200" id="guidelines" ref="scenicGuidelines" v-model="ruleForm.scenicGuidelines"></Tinymce>
+                                    <Tinymce :height="200" id="guidelines" ref="scenicGuidelines"
+                                             v-model="ruleForm.scenicGuidelines"></Tinymce>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -208,7 +208,8 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>景区详情:</span>
                                 <el-form-item label="内容" prop="scenicInfo">
-                                <Tinymce :height="200" id="scenicInfo" ref="scenicInfo" v-model="ruleForm.scenicInfo"></Tinymce>
+                                    <Tinymce :height="200" id="scenicInfo" ref="scenicInfo"
+                                             v-model="ruleForm.scenicInfo"></Tinymce>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -216,7 +217,8 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>交通路线:</span>
                                 <el-form-item label="内容" prop="scenicTraffic">
-                                <Tinymce :height="200" id="traffic" ref="traffic" v-model="ruleForm.scenicTraffic"></Tinymce>
+                                    <Tinymce :height="200" id="traffic" ref="traffic"
+                                             v-model="ruleForm.scenicTraffic"></Tinymce>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -224,7 +226,8 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>注意事项:</span>
                                 <el-form-item label="内容" prop="scenicNotice">
-                                <Tinymce :height="200" id="notice" ref="notice"  v-model="ruleForm.scenicNotice"></Tinymce>
+                                    <Tinymce :height="200" id="notice" ref="notice"
+                                             v-model="ruleForm.scenicNotice"></Tinymce>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -252,8 +255,8 @@
     import FormMixin from './FormMixin'
     import Tinymce from '@/components/Tinymce'
     import SelectImages from "@/components/Attachment/selectImages";
-    import { getStatusList, getScenicStar } from '@/utils/common'
-    import { updateScenic, addScenic} from '@/api/scenic'
+    import {getStatusList, getScenicStar} from '@/utils/common'
+    import {updateScenic, addScenic} from '@/api/scenic'
 
     export default {
         name: 'ScenicCreate',
@@ -272,12 +275,14 @@
         data() {
             return {
 //                selected:['140000', '140400', '140421'],
-                scenicStarList:  [],
+                imageVisible: false,
+                scenicStarList: [],
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'second',
                 checkAll: false,
-                title:"",
+                title: "",
+                imgList:[],
                 checkedCities: [],
                 isIndeterminate: true,
                 rules: {
@@ -294,13 +299,13 @@
                         {required: true, message: '请输入景区的开发时间', trigger: 'blur'}
                     ],
                     minPrice: [
-                        {required: true, message: '请输入景区的最小售价', trigger:'blur'}
+                        {required: true, message: '请输入景区的最小售价', trigger: 'blur'}
                     ],
                     contactNumber: [
-                        {required: true, message: '请输入景区的联系方式', trigger:'blur'}
+                        {required: true, message: '请输入景区的联系方式', trigger: 'blur'}
                     ],
                     recommendTime: [
-                        {required: true, message: '请输入推荐旅游时间', trigger:'blur'}
+                        {required: true, message: '请输入推荐旅游时间', trigger: 'blur'}
                     ],
                     status: [
                         {required: true, message: '请选择景区状态', trigger: 'change'}
@@ -338,9 +343,9 @@
         created() {
             this.scenicStarList = getScenicStar()
             this.getStatusList = getStatusList()
-            if(this.$route.params.id){
+            if (this.$route.params.id) {
                 this.title = "编辑景区"
-            }else{
+            } else {
                 this.title = "添加景区"
             }
         },
@@ -352,7 +357,17 @@
                 this.dialogImageUrl = file.url
                 this.dialogVisible = true
             },
-
+            getFacilitiesList() {
+                let para = {type: 3}
+                getFacilities(para).then(response => {
+                    this.facilitiesList = response.data.data
+                })
+            },
+            //选择图片
+            selectImagesSubmit(images) {
+//                this.ruleForm.images = images[0].links
+                this.imgList = images
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -375,7 +390,7 @@
                                 this.handleCancel();
                             })
                         }
-                    }else {
+                    } else {
                         console.log('error submit!!')
                         return false
                     }
@@ -474,6 +489,20 @@
                     color: #666;
                 }
             }
+            .imgSuggest {
+                margin-left: 100px;
+                font-size: 12px;
+                color: #666;
+            }
+            .el-upload {
+                width: 100px;
+                height: 100px;
+                border: 5px dashed #E6E6E6;
+                text-align: center;
+                line-height: 100px;
+                font-size: 24px;
+                color: #E6E6E6;
+            }
             .el-tabs {
                 margin-left: 40px;
                 margin-top: 20px;
@@ -508,7 +537,33 @@
             margin-left: 0;
             margin-top: 5px;
         }
-
+        .imgBox {
+            width: 100px;
+            height: 100px;
+            /*background: red;*/
+            float: left;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            .iconfont {
+                position: absolute;
+                right: -7px;
+                top: -6px;
+                z-index: 999;
+                display: none;
+                cursor: pointer;
+                color: #999;
+            }
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        .imgBox:hover {
+            .iconfont {
+                display: block;
+            }
+        }
     }
 
 
