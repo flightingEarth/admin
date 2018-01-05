@@ -166,7 +166,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>所在省份:</span>
                                 <el-form-item label="活动区域" prop="activeLocation">
-
+                                    <area-select :level="2" type="text" v-model="ruleForm.address"></area-select>
                                 </el-form-item>
                             </div>
                         </el-col>

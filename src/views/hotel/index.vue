@@ -31,11 +31,7 @@
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>选择城市:</span>
-                            <el-cascader
-                                :options="options2"
-                                @active-item-change="handleItemChange"
-                                :props="props"
-                            ></el-cascader>
+                            <area-select :level="2" type="text" v-model="searchList.hotelAddress"></area-select>
                         </div>
                     </el-col>
 
@@ -161,7 +157,6 @@
                     }
                 },
                 tableData: [],
-                options2: [],
                 props: {
                     value: 'label',
                     children: 'cities'
@@ -183,9 +178,6 @@
             handleCurrentChange(val) {
                 this.searchList.page = val;
                 this.getList();
-            },
-            handleItemChange(val) {
-                console.log('active item:', val)
             },
             addHotel() {
                 this.$router.push({path: "/hotel/create"})

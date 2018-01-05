@@ -311,3 +311,9 @@ label.el-radio {
 .el-table--border td{
     border-color: #ccc!important;
 }
+
+.area-select{
+    .el-select{
+        margin-left: 0!important;
+    }
+}
