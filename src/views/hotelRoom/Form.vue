@@ -115,6 +115,23 @@
                             </div>
                         </el-col>
 
+                        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
+                                       @submit="selectImagesSubmit"></select-images>
+
+                        <el-col :span="22">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>图片添加:</span>
+                                <div class="imgBox" v-for="item in imgList">
+                                    <i class="iconfont icon-comiisjiahao-copy"></i>
+                                    <img :src="item.links" alt="">
+                                </div>
+                                <div class="el-upload el-upload--text" @click="imageVisible = true">
+                                    <i class="el-icon-plus picture-uploader-icon"></i>
+                                </div>
+                            </div>
+                            <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
+                        </el-col>
+
                     </el-row>
                 </div>
                 <div class="input">
@@ -136,9 +153,10 @@
 
 <script>
     import {updateHotelRoom, addHotelRoom} from '@/api/hotelRoom'
-    //  const cityOptions1 = ['商务中心', '熨衣设备', 'iPad音乐基座', '浴衣', '叫车服务', '电热水壶']
+    import SelectImages from "@/components/Attachment/selectImages";
     export default {
         name: "addHouse",
+        components: {SelectImages},
         props: {
             ruleForm: {
                 type: Object,
@@ -151,12 +169,14 @@
         },
         data() {
             return {
+                imageVisible: false,
                 dialogImageUrl: '',
                 dialogVisible: false,
                 activeName: 'second',
                 addLoading: false,
+                imgList: [],
                 status: 1,
-                title:"",
+                title: "",
                 rules: {
                     roomName: [
                         {required: true, message: '请输入房型名称', trigger: 'blur'}
@@ -196,10 +216,10 @@
         },
         created() {
             console.log(this.$route.params.id)
-            if(this.$route.params.id){
-                this.title="编辑酒店房型"
-            }else{
-                this.title="添加酒店房型"
+            if (this.$route.params.id) {
+                this.title = "编辑酒店房型"
+            } else {
+                this.title = "添加酒店房型"
             }
         },
         methods: {
@@ -233,6 +253,17 @@
             },
             handleCancel(){
                 this.$router.push({path: "/hotel/hotelRoom"})
+            },
+            getFacilitiesList() {
+                let para = {type: 3}
+                getFacilities(para).then(response => {
+                    this.facilitiesList = response.data.data
+                })
+            },
+            //选择图片
+            selectImagesSubmit(images) {
+//                this.ruleForm.images = images[0].links
+                this.imgList = images
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields()
@@ -316,6 +347,15 @@
                     font-size: 12px;
                     color: #666;
                 }
+                .el-upload {
+                    width: 100px;
+                    height: 100px;
+                    border: 5px dashed #E6E6E6;
+                    text-align: center;
+                    line-height: 100px;
+                    font-size: 24px;
+                    color: #E6E6E6;
+                }
             }
             .el-tabs {
                 margin-left: 40px;
@@ -350,6 +390,33 @@
             color: #666;
             margin-left: 0;
             margin-top: 5px;
+        }
+        .imgBox {
+            width: 100px;
+            height: 100px;
+            /*background: red;*/
+            float: left;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            .iconfont {
+                position: absolute;
+                right: -7px;
+                top: -6px;
+                z-index: 999;
+                display: none;
+                cursor: pointer;
+                color: #999;
+            }
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        .imgBox:hover {
+            .iconfont {
+                display: block;
+            }
         }
 
     }
