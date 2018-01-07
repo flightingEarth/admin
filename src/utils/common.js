@@ -1,9 +1,11 @@
 const statusList = [
+    {'id':0,'name':'全部'},
     {'id':1,'name':'正常'},
     {'id':2, 'name': '未营业'}
 ];
 
 const scenicStarList = [
+    {'id':0,'name':'全部'},
     {'id':1,'name':'1A'},
     {'id':2,'name':'2A'},
     {'id':3,'name':'3A'},

@@ -184,8 +184,6 @@
                 if (!image.checked && this.max != 0 && (this.count + 1) > this.max) {
                     return false
                 }
-                console.log(image)
-
                 image.checked = image.checked ? false : true
 
                 if (image.checked) {
@@ -200,7 +198,6 @@
                     this.images.forEach(function (image, index) {
                         if (image.checked) {
                             selected.push(image)
-                            console.log(image);
                         }
                     })
                     this.$emit('submit', selected)

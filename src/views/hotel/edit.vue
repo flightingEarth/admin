@@ -1,5 +1,5 @@
 <template>
-    <hotel-form :ruleForm="ruleForm"></hotel-form>
+    <hotel-form title="酒店编辑" :ruleForm="ruleForm"></hotel-form>
 </template>
 
 <script>

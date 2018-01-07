@@ -18,7 +18,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>上&nbsp;下&nbsp; 架:</span>
-                                <el-select v-model="searchList.upDownValue" placeholder="请选择">
+                                <el-select v-model="searchList.scenicStatus" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusList"
                                         :key="item.id"
@@ -64,9 +64,9 @@
             <el-table-column prop="scenicId" label="编号" align="center"></el-table-column>
             <el-table-column prop="scenicName" label="景区名称" align="center"></el-table-column>
             <!--<el-table-column prop="supplier" label="供应商" align="center"></el-table-column>-->
-            <el-table-column prop="scenicAddress" label="地址" align="center"></el-table-column>
+            <el-table-column prop="scenicFullAddress" label="地址" align="center"></el-table-column>
             <el-table-column prop="scenicStar" label="景区级别" align="center"></el-table-column>
-            <el-table-column prop="scenicStatus" label="上下架" align="center"></el-table-column>
+            <el-table-column prop="status" label="上下架" align="center"></el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button type="text" size="small" @click="edit(scope.row.scenicId)">编辑</el-button>
@@ -76,11 +76,12 @@
         </el-table>
         <el-pagination
             @current-change="handleCurrentChange"
-            :current-page="searchList.currentPage"
+            :current-page="searchList.page"
             :page-size="searchList.limit"
-            layout="prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
+
     </div>
 </template>
 
@@ -97,7 +98,6 @@
                     scenicName: '',
                     scenicStar: '',
                     scenicStatus: '',
-                    currentPage: 1,
                     limit: 20,
                     page: 1
                 },

@@ -1,5 +1,5 @@
 <template>
-    <hotel-form></hotel-form>
+    <hotel-form title="酒店添加"></hotel-form>
 </template>
 
 <script>

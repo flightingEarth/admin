@@ -132,8 +132,16 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>所在省份:</span>
-                                <el-form-item label="膳食安排" prop="region">
-                                    <area-select :level="2" type="all" v-model="ruleForm.region"></area-select>
+                                <el-form-item label="所在省份" prop="areaName">
+                                    <el-select v-model="ruleForm.areaName" placeholder="请选择">
+                                        <el-option
+                                                v-for="item in cities"
+                                                :key="item.code"
+                                                :label="item.name"
+                                                :value="item.code">
+                                        </el-option>
+                                    </el-select>
+                                    <!--<area-select :level="2" type="all" v-model="ruleForm.region"></area-select>-->
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -164,7 +172,7 @@
                     </el-row>
                 </div>
 
-                <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
+                <select-images :visible="imageVisible" @close="imageVisible = false"
                                @submit="selectImagesSubmit"></select-images>
 
                 <div class="title title1">
@@ -176,12 +184,12 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <div class="imgBox" v-for="item in imgList">
-                                    <i class="iconfont icon-comiisjiahao-copy"></i>
-                                    <img :src="item.links" alt="">
+                                <div class="imgBox" v-for="(item, index) in ruleForm.images">
+                                    <i class="iconfont icon-comiisjiahao-copy" @click="handleImageRemove(index)"></i>
+                                    <img :src="item.link" alt="">
                                 </div>
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
-                                    <i class="el-icon-plus picture-uploader-icon"></i>
+                                    <i class="el-icon-plus picture-uploader-icon" ></i>
                                 </div>
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
@@ -239,7 +247,7 @@
                     <el-row>
                         <el-col :span="24">
                             <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                            <el-button>返回</el-button>
+                            <el-button @click="handleCancel">返回</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -257,6 +265,7 @@
     import SelectImages from "@/components/Attachment/selectImages";
     import {getStatusList, getScenicStar} from '@/utils/common'
     import {updateScenic, addScenic} from '@/api/scenic'
+    import { getRegion } from '@/api/region'
 
     export default {
         name: 'ScenicCreate',
@@ -267,23 +276,18 @@
                 type: Object,
                 default() {
                     return {
-                        region: [],
                     }
                 }
             },
+            title:''
         },
         data() {
             return {
-//                selected:['140000', '140400', '140421'],
                 imageVisible: false,
                 scenicStarList: [],
                 dialogImageUrl: '',
                 dialogVisible: false,
-                activeName: 'second',
-                checkAll: false,
-                title: "",
-                imgList:[],
-                checkedCities: [],
+                cities: [],
                 isIndeterminate: true,
                 rules: {
                     scenicTypeId: [
@@ -313,8 +317,8 @@
                     features: [
                         {required: true, message: '请输入景区的特色', trigger: 'change'}
                     ],
-                    region: [
-                        {required: true, type: 'array', message: '请选择景区所在的省市区', trigger: 'blur'}
+                    areaName: [
+                        {required: true, type: 'array', message: '请选择景区所在的区县', trigger: 'blur'}
                     ],
                     longitude: [
                         {required: true, message: '请输入景区的经度', trigger: 'blur'}
@@ -343,32 +347,26 @@
         created() {
             this.scenicStarList = getScenicStar()
             this.getStatusList = getStatusList()
-            if (this.$route.params.id) {
-                this.title = "编辑景区"
-            } else {
-                this.title = "添加景区"
-            }
+
+            getRegion({}).then(response => {
+                this.cities = response.data.data
+            })
         },
         methods: {
-            handleRemove(file, fileList) {
-                console.log(file, fileList)
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url
-                this.dialogVisible = true
-            },
-            getFacilitiesList() {
-                let para = {type: 3}
-                getFacilities(para).then(response => {
-                    this.facilitiesList = response.data.data
-                })
+            handleImageRemove(index) {
+                this.ruleForm.images.splice(index,1)
             },
             //选择图片
             selectImagesSubmit(images) {
-//                this.ruleForm.images = images[0].links
-                this.imgList = images
+                images.forEach(function (image, index) {
+                    this.ruleForm.images.push({'link':image.links})
+                }, this)
             },
             submitForm(formName) {
+                if (this.ruleForm.images.length == 0) {
+                    this.$message.error('请上传景区图片');
+                    return false
+                }
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.addLoading = true

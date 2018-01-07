@@ -26,69 +26,16 @@
                             </div>
                         </el-col>
 
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple">
-                                <span><i>|</i>酒店品牌:</span>
-                                <el-form-item label="活动区域" prop="hotelBrandId">
-                                    <el-select v-model="ruleForm.hotelBrandId" placeholder="其他">
-                                        <el-option label="其他" value="0"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-
-                        <el-popover
-                            ref="popover4"
-                            placement="bottom-end"
-                            title="选择供应商"
-                            trigger="click"
-                            offset="1"
-                            v-model="tableShow"
-                            style="display: none"
-                        >
-                            <el-form ref="form" :model="form" label-width="80px" class="supplierForm">
-                                <el-row>
-                                    <el-col :span="8">
-                                        <el-form-item label="用户名">
-                                            <el-input v-model="form.name" placeholder="用户名或昵称"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <el-form-item label="编号">
-                                            <el-input v-model="form.id" placeholder="用户编号"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <el-form-item>
-                                            <el-button type="primary" @click="onSubmit">搜索</el-button>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-
-                            </el-form>
-                            <el-table
-                                ref="singleTable"
-                                :data="tableData"
-                                highlight-current-row
-                                @current-change="handleCurrentChange"
-                                height="250"
-                                style="width: 100%">
-                                <el-table-column width="90" property="id" label="编号"></el-table-column>
-                                <el-table-column width="200" property="name" label="用户名"></el-table-column>
-                                <el-table-column width="130" property="name1" label="用户昵称"></el-table-column>
-                                <el-table-column width="100" property="type" label="用户类型"></el-table-column>
-                                <el-table-column width="100" property="status" label="状态"></el-table-column>
-                            </el-table>
-                        </el-popover>
-
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
-                                <span><i></i>供&nbsp;&nbsp;&nbsp;应&nbsp;&nbsp;商:</span>
-                                <el-form-item label="膳食安排" prop="hotelSupplierId">
-                                    <el-input v-model="ruleForm.hotelSupplierId" v-popover:popover4  :readonly="true"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
+                        <!--<el-col :span="12">-->
+                            <!--<div class="grid-content bg-purple">-->
+                                <!--<span><i>|</i>酒店品牌:</span>-->
+                                <!--<el-form-item label="活动区域" prop="hotelBrandId">-->
+                                    <!--<el-select v-model="ruleForm.hotelBrandId" placeholder="其他">-->
+                                        <!--<el-option label="其他" value="0"></el-option>-->
+                                    <!--</el-select>-->
+                                <!--</el-form-item>-->
+                            <!--</div>-->
+                        <!--</el-col>-->
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
@@ -140,24 +87,16 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
                                 <el-form-item label="膳食安排" prop="hotelSort">
-                                    <el-input v-model="ruleForm.hotelSort"  v-popover:popoverSort type="number" placeholder="请输入数字"></el-input>
+                                    <el-input v-model="ruleForm.hotelSort"  type="number" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-popover
-                            ref="popoverSale"
-                            placement="bottom"
-                            title="提示信息"
-                            width="200"
-                            trigger="click"
-                            content="填写数字，2代表销售了2间屋子" style="display: none">
-                        </el-popover>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
                                 <el-form-item label="膳食安排" prop="hotelSaleCount">
                                     <el-input type="number" v-model="ruleForm.hotelSaleCount"
-                                              placeholder="请输入数字" v-popover:popoverSale></el-input>
+                                              placeholder="请输入数字" ></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -165,9 +104,20 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>所在省份:</span>
-                                <el-form-item label="活动区域" prop="activeLocation">
-                                    <area-select :level="2" type="all" v-model="ruleForm.activeLocation"></area-select>
+                                <el-form-item label="所在省份" prop="areaName">
+                                    <el-select v-model="ruleForm.areaName" placeholder="请选择">
+                                        <el-option
+                                                v-for="item in cities"
+                                                :key="item.code"
+                                                :label="item.name"
+                                                :value="item.code">
+                                        </el-option>
+                                    </el-select>
+                                    <!--<area-select :level="2" type="all" v-model="ruleForm.region"></area-select>-->
                                 </el-form-item>
+                                <!--<el-form-item label="活动区域" prop="activeLocation">-->
+                                    <!--<area-select :level="2" type="all" v-model="ruleForm.activeLocation"></area-select>-->
+                                <!--</el-form-item>-->
                             </div>
                         </el-col>
                         <el-col :span="12">
@@ -229,7 +179,7 @@
                                  @change="handleCheckAllChange">全选
                     </el-checkbox>
                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>
+                        <!--<el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>-->
                         <el-tab-pane label="网络设备" name="second">
                             <el-checkbox-group v-model="ruleForm.network">
                                 <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}
@@ -251,7 +201,7 @@
                     </el-tabs>
                 </div>
 
-                <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
+                <select-images :visible="imageVisible" @close="imageVisible = false"
                                @submit="selectImagesSubmit"></select-images>
 
                 <div class="title title1">
@@ -263,9 +213,9 @@
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <div class="imgBox" v-for="item in imgList">
-                                    <i class="iconfont icon-comiisjiahao-copy"></i>
-                                    <img :src="item.links" alt="">
+                                <div class="imgBox" v-for="(item, index) in ruleForm.images">
+                                    <i class="iconfont icon-comiisjiahao-copy" @click="handleImageRemove(index)"></i>
+                                    <img :src="item.link" alt="">
                                 </div>
                                 <div class="el-upload el-upload--text"  @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
@@ -352,10 +302,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>开业时间:</span>
                                 <el-form-item label="开业时间" prop="hotelStartBusiness">
-                                    <el-form-item label="开业时间" prop="hotelStartBusiness">
-                                        <el-input v-model="ruleForm.hotelStartBusiness"
-                                                  placeholder="请填写开业时间（如：2014）"></el-input>
-                                    </el-form-item>
+                                    <el-input v-model="ruleForm.hotelStartBusiness"  placeholder="请填写开业时间（如：2014）"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -410,7 +357,7 @@
                     <el-row>
                         <el-col :span="24">
                             <el-button type="primary" @click="submitForm" :loading="addLoading">提交</el-button>
-                            <el-button>返回</el-button>
+                            <el-button @click="handleCancel">返回</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -425,8 +372,9 @@
     import {updateHotel, addHotel} from '@/api/hotel'
     import {getFacilities} from '@/api/hotelFacilities'
     import SelectImages from "@/components/Attachment/selectImages";
+    import { getRegion } from '@/api/region'
 
-    import img from "./img.jpg";
+//    import img from "./img.jpg";
 
     export default {
         components: {SelectImages},
@@ -441,14 +389,15 @@
                         activeLocation:[]
                     }
                 }
-            }
+            },
+            title: ''
         },
         data() {
             return {
                 imageVisible: false,
                 dialogImageUrl: '',
                 dialogVisible: false,
-                activeName: 'first',
+                activeName: 'second',
                 addLoading: false,
                 imgList:[],
                 minTime: {
@@ -456,79 +405,22 @@
                         return time.getTime() < this.beginTime
                     }
                 },
-                form: {},
-                tableShow: false,
-                tableData: [{
-                    id: '3579071',
-                    name: 'fenxiaoshangceshi001',
-                    name1: '分销商测试001',
-                    type: '分销商',
-                    status: '正常'
-                },
-                    {
-                        id: '3579071',
-                        name: 'fenxiaoshangceshi002',
-                        name1: '分销商测试002',
-                        type: '分销商',
-                        status: '正常'
-                    },
-                    {
-                        id: '3579071',
-                        name: 'fenxiaoshangceshi003',
-                        name1: '分销商测试003',
-                        type: '分销商',
-                        status: '正常'
-                    },
-                    {
-                        id: '3579071',
-                        name: 'fenxiaoshangceshi003',
-                        name1: '分销商测试003',
-                        type: '分销商',
-                        status: '正常'
-                    },
-                    {
-                        id: '3579071',
-                        name: 'fenxiaoshangceshi003',
-                        name1: '分销商测试003',
-                        type: '分销商',
-                        status: '正常'
-                    },
-                    {
-                        id: '3579071',
-                        name: 'fenxiaoshangceshi003',
-                        name1: '分销商测试003',
-                        type: '分销商',
-                        status: '正常'
-                    },
-                    {
-                        id: '3579071',
-                        name: 'fenxiaoshangceshi003',
-                        name1: '分销商测试003',
-                        type: '分销商',
-                        status: '正常'
-                    }],
+                cities: [],
                 networkList: [],//网络设施
                 parkingLotList: [], //停车场
                 facilitiesList: [], //设备服务
-                options: [],
-                title: "",
                 checkAll: false,
                 isIndeterminate: true,
-                options2: [],
-                props: {
-                    label: "name",
-                    value: "id"
-                },
                 rules: {
                     hotelName: [
                         {required: true, message: '请填写酒店名称', trigger: 'blur'}
                     ],
                     minimumHotelHousePrice: [
-                        {type: 'number', required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
+                        {required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
                     ],
-                    hotelBrandId: [
-                        {type: 'number', required: true, message: '请选择酒店的品牌', trigger: 'change'}
-                    ],
+//                    hotelBrandId: [
+//                        {type: 'number', required: true, message: '请选择酒店的品牌', trigger: 'change'}
+//                    ],
 //                    hotelSupplierId: [
 //                        {required: true, message: '此处不能为空', trigger: 'blur'}
 //                    ],
@@ -539,11 +431,11 @@
                         {required: true, message: '请填写百度纬度', trigger: 'blur'},
 //                    {type: number, message: '您填写的百度纬度格式错误', trigger: 'blur'}
                     ],
-                    activeLocation: [
-                        {required: true, message: '请选择所在地', trigger: 'change'}
-                    ],
+//                    activeLocation: [
+//                        {required: true, message: '请选择所在地', trigger: 'change'}
+//                    ],
                     hotelAddress: [
-                    {required: true, message: '请填写酒店地址', trigger: 'blur'}
+                        {required: true, message: '请填写酒店地址', trigger: 'blur'}
                     ],
                     hotelStatus: [
                         {required: true, message: '请选择酒店状态', trigger: 'change'}
@@ -579,57 +471,51 @@
             }
         },
         created() {
-            if (this.$route.params.id) {
-                this.title = "编辑酒店"
-            } else {
-                this.title = "添加酒店"
-            }
+            this.getNetworkList() //网络设备
+            getRegion({}).then(response => {
+                this.cities = response.data.data
+            })
         },
         methods: {
             handleCheckAllChange(val) {
                 this.ruleForm.network = val ? this.networkList : []
                 this.isIndeterminate = false
             },
-            handleCheckedCitiesChange(value) {
-                console.log(value)
-                let checkedCount = value.length
-                this.checkAll = checkedCount === this.networkList.length
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.networkList.length
-            },
-
-
-            //添加图片
-            handleRemove(file, fileList) {
-                console.log(file, fileList)
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url
-                this.dialogVisible = true
-            },
-
             submitForm() {
-                console.log(this.ruleForm)
+                if (this.ruleForm.images.length == 0) {
+                    this.$message.error('请上传景区图片');
+                    return false
+                }
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
                         if (this.ruleForm.hotelId == undefined) {
                             addHotel(this.ruleForm).then(response => {
-                                console.log(response.data);
-                                this.$message({
-                                    message: '添加成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if (response.data.status) {
+                                    this.$message({
+                                        message: '添加成功！',
+                                        type: 'success'
+                                    });
+                                  this.handleCancel();
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         } else {
                             updateHotel(this.ruleForm.hotelId, this.ruleForm).then(response => {
-                                this.$message({
-                                    message: '更新成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if (response.data.status) {
+                                    this.$message({
+                                        message: '更新成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel();
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         }
+                        this.addLoading = false
+
                     } else {
                         console.log('error submit!!')
                         return false
@@ -643,7 +529,6 @@
                 this.$refs[formName].resetFields()
             },
             handleClick(tab) {
-                console.log(this.networkList.length)
                 if (this.activeName == 'first') {
 //                    this.$router.push({ path: '/setting/certificate' });
                 } else if (this.activeName == 'second') {
@@ -662,36 +547,29 @@
             },
             //获取酒店网络设施
             getNetworkList() {
-                let para = {type: 1}
-                getFacilities(para).then(response => {
+                getFacilities({type: 1}).then(response => {
                     this.networkList = response.data.data
                 })
             },
             //获取酒店停车场
             getParkingLot() {
-                let para = {type: 2}
-                getFacilities(para).then(response => {
+                getFacilities({type: 2}).then(response => {
                     this.parkingLotList = response.data.data
                 })
             },
             getFacilitiesList() {
-                let para = {type: 3}
-                getFacilities(para).then(response => {
+                getFacilities({type: 3}).then(response => {
                     this.facilitiesList = response.data.data
                 })
             },
+            handleImageRemove(index) {
+                this.ruleForm.images.splice(index,1)
+            },
             //选择图片
             selectImagesSubmit(images) {
-//                this.ruleForm.images = images[0].links
-                this.imgList = images
-            },
-            onSubmit(){
-
-            },
-            handleCurrentChange(val) {
-                console.log(val)
-                this.tableShow = false;
-                this.ruleForm.hotelSupplierId = val.name1;
+                images.forEach(function (image, index) {
+                    this.ruleForm.images.push({'link':image.links})
+                }, this)
             },
         }
     }

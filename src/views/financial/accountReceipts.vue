@@ -5,32 +5,33 @@
             <div class="top-bottom">
                 <div class="detail">
                     <span>月结账户</span>
-                    <p><span>¥288.66</span>元</p>
+                    <p><span>¥{{account.availableAmount}}</span>元</p>
                 </div>
                 <div class="detail second">
                     <span>金币账户</span>
-                    <p><span>12</span>枚</p>
+                    <p><span>{{account.youbi}}</span>枚</p>
                 </div>
                 <div class="detail last">
                     <div>
                         <span>现金账户</span>
-                        <p><span>¥0.00</span>元</p>
+                        <p><span>¥{{account.availableAmount}}</span>元</p>
                     </div>
                     <a href="javascript:;">充值</a>
                     <a href="javascript:;">提现</a>
                 </div>
             </div>
         </div>
-        <ul class="tab-list">
-            <li v-for="(item , index) in liList" @click="handleClickLi(index)" :class="{active:index===number}"><a
-                href="javascript:;">{{item}}</a></li>
-        </ul>
+        <!--<ul class="tab-list">-->
+            <!--<li v-for="(item , index) in liList" @click="handleClickLi(index)" :class="{active:index===number}"><a-->
+                <!--href="javascript:;">{{item}}</a></li>-->
+        <!--</ul>-->
         <div class="search">
             <div class="title">
                 <i class="iconfont icon-sousuo"></i>
                 <span>搜索</span>
             </div>
             <div class="input">
+                <el-form :model="searchList" ref="searchList" label-width="100px" class="demo-ruleForm">
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
@@ -41,9 +42,9 @@
                     <el-col :span="12">
                         <div class="grid-content bg-purple-light">
                             <span><i>|</i>收支类型:</span>
-                            <el-select v-model="searchList.payMethod" placeholder="请选择">
+                            <el-select v-model="searchList.type" placeholder="请选择">
                                 <el-option
-                                    v-for="item in payMethod"
+                                    v-for="item in accountType"
                                     :key="item.value"
                                     :label="item.label"
                                     :value="item.value">
@@ -51,43 +52,42 @@
                             </el-select>
                         </div>
                     </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light double">
-                            <span><i>|</i>时间选择:</span>
-                            <el-date-picker
-                                v-model="beginTime"
-                                type="date"
-                                placeholder="选择开始日期">
-                            </el-date-picker>
-                            <span class="zhi">至</span>
-                            <el-date-picker
-                                v-model="endTime"
-                                type="date"
-                                :picker-options="minTime"
-                                placeholder="选择结束日期">
-                            </el-date-picker>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <span><i>|</i>收支状态:</span>
-                            <el-select v-model="searchList.payStatus" placeholder="请选择">
-                                <el-option
-                                    v-for="item in payStatus"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </el-col>
+                    <!--<el-col :span="12">-->
+                        <!--<div class="grid-content bg-purple-light double">-->
+                            <!--<span><i>|</i>时间选择:</span>-->
+                            <!--<el-date-picker-->
+                                <!--v-model="beginTime"-->
+                                <!--type="date"-->
+                                <!--placeholder="选择开始日期">-->
+                            <!--</el-date-picker>-->
+                            <!--<span class="zhi">至</span>-->
+                            <!--<el-date-picker-->
+                                <!--v-model="endTime"-->
+                                <!--type="date"-->
+                                <!--:picker-options="minTime"-->
+                                <!--placeholder="选择结束日期">-->
+                            <!--</el-date-picker>-->
+                        <!--</div>-->
+                    <!--</el-col>-->
+                    <!--<el-col :span="12">-->
+                        <!--<div class="grid-content bg-purple-light">-->
+                            <!--<span><i>|</i>收支状态:</span>-->
+                            <!--<el-select v-model="searchList.payStatus" placeholder="请选择">-->
+                                <!--<el-option-->
+                                    <!--v-for="item in payStatus"-->
+                                    <!--:key="item.value"-->
+                                    <!--:label="item.label"-->
+                                    <!--:value="item.value">-->
+                                <!--</el-option>-->
+                            <!--</el-select>-->
+                        <!--</div>-->
+                    <!--</el-col>-->
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button>重置条件</el-button>
+                        <el-button @click="resetForm">重置条件</el-button>
                     </el-col>
-
                 </el-row>
-
+                </el-form>
             </div>
         </div>
 
@@ -100,56 +100,40 @@
             border
             stripe
             style="width: 100%"
-            v-loading="listLoading" element-loading-text="正在加载中。。。"
-        >
+            v-loading="listLoading" element-loading-text="正在加载中。。。">
             <el-table-column
                 prop="orderId"
                 label="订单编号"
-                align="center"
-            >
+                align="center">
             </el-table-column>
             <el-table-column
-                prop="orderName"
+                prop="productType"
                 label="产品名称"
-                align="center"
-            >
+                align="center">
             </el-table-column>
             <el-table-column
-                prop="payMethod"
+                prop="accountType"
                 label="收支类型"
-                align="center"
-            >
+                align="center">
             </el-table-column>
+            <!--<el-table-column-->
+                <!--prop="payStatus"-->
+                <!--label="收支状态"-->
+                <!--align="center">-->
+                <!--<template slot-scope="scope">-->
+                    <!--<el-button type="text" size="small" class="stayIn">待入住</el-button>-->
+                    <!--<el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>-->
+                <!--</template>-->
+            <!--</el-table-column>-->
             <el-table-column
-                prop="payStatus"
-                label="收支状态"
-                align="center"
-            >
-                <template slot-scope="scope">
-                    <el-button type="text" size="small" class="stayIn">待入住</el-button>
-                    <el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="payTime"
-                label="收支时间"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="payAccount"
-                label="支付账户"
+                prop="amount"
+                label="收支金额(元)"
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="cashPrice"
-                label="收入金额(元)"
-                align="center">
-            </el-table-column>
-            <el-table-column
-                prop="payPrice"
-                label="支出金额(元)"
-                align="center">
+                    prop="createdAt"
+                    label="收支时间"
+                    align="center">
             </el-table-column>
         </el-table>
 
@@ -157,21 +141,23 @@
             @current-change="handleCurrentChange"
             :current-page="searchList.page"
             :page-size="searchList.limit"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>
 </template>
 
 <script>
-//    import {hotelOrderList} from '@/api/hotelOrder'
+    import { getAccount, accountDetails } from '@/api/account'
     export default {
-        name: 'hotelOrder',
+        name: 'account',
         data() {
             return {
                 searchList: {
                     limit: 20,
-                    page: 1
+                    page: 1,
+                    orderId:'',
+                    type:''
                 },
                 beginTime: "",
                 endTime: "",
@@ -182,46 +168,47 @@
                 },
                 number: 0,
                 total: 0,
-                visible2: false,
                 liList: ["全部账单", "账户收支", "提现记录", "充值记录", "月结记录"],
                 listLoading: false,
-                payMethod: [{
-                    value: '0',
-                    label: '充值'
-                }, {
-                    value: '1',
-                    label: '提现'
-                }],
-                payStatus: [{
-                    value: '0',
-                    label: '支付'
-                }, {
-                    value: '1',
-                    label: '退款'
-                }],
-                tableData: []
+                accountType: [
+                    { value: 0, label: '全部' },
+                    { value: '1', label: '支付' },
+                    { value: '2', label: '退票' },
+                    { value: '3', label: '充值' },
+                    { value: '4', label: '申请提现' },
+                    { value: '5', label: '提现成功' },
+                    { value: '6', label: '提现驳回' },
+                ],
+                tableData: [],
+                account:{availableAmount:0,youbi:0}
             }
         },
         created(){
-//            this.getList();
+            this.getList()
         },
         methods: {
             getList() {
+                getAccount().then(response => {
+                    this.account = response.data
+                })
                 this.listLoading = true
-//                hotelOrderList(this.searchList).then(response => {
-//                    this.tableData = response.data.data
-//                    this.total = response.data.meta.total
-//                    this.listLoading = false
-//                })
+                accountDetails(this.searchList).then(response => {
+                    this.tableData = response.data.data
+                    this.total = response.data.total
+                    this.listLoading = false
+                })
             },
             handleCurrentChange(val) {
                 this.searchList.page = val
                 this.getList()
             },
             handleSearch(){
-                this.searchList.beginTime = beginTime
-                this.searchList.endTime = endTime
+//                this.searchList.beginTime = beginTime
+//                this.searchList.endTime = endTime
                 this.getList();
+            },
+            resetForm(formName) {
+                this.$refs.searchList.resetFields();
             },
             handleClickLi(index) {
                 this.number = index;

@@ -11,7 +11,7 @@
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>门票搜索:</span>
-                            <el-input v-model="searchList.ticketName" placeholder="请输入旅游主题"></el-input>
+                            <el-input v-model="searchList.ticketName" placeholder="请输入门票名称"></el-input>
                         </div>
                     </el-col>
 
@@ -20,29 +20,45 @@
                             <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
                             <el-select v-model="searchList.ticketType" placeholder="请选择">
                                 <el-option
-                                        v-for="item in supplierOptions"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        v-for="item in ticketTypeList"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
                                 </el-option>
                             </el-select>
                         </div>
                     </el-col>
 
-
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <span><i>|</i>上下架:</span>
+                            <el-select v-model="searchList.ticketStatus" placeholder="请选择">
+                                <el-option
+                                        v-for="item in statusList"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
+                        </div>
+                    </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
                             <span><i>|</i>有效起始:</span>
                             <el-date-picker
-                                    v-model="beginTime"
+                                    v-model="searchList.sellStartTime"
                                     type="date"
+                                    format="yyyy-MM-dd"
+                                    value-format="yyyy-MM-dd"
                                     placeholder="选择日期">
                             </el-date-picker>
                             <span class="zhi">至</span>
                             <el-date-picker
-                                    v-model="endTime"
+                                    v-model="searchList.sellEndTime"
                                     type="date"
+                                    format="yyyy-MM-dd"
+                                    value-format="yyyy-MM-dd"
                                     placeholder="选择日期"
                                     :picker-options="minTime">
                             </el-date-picker>
@@ -52,7 +68,6 @@
                     <el-col :span="24">
                         <el-button type="primary" @click="getList">搜索</el-button>
                         <el-button @click="resetForm('ticketForm')">重置条件</el-button>
-                        <!--<el-button type="primary">导出</el-button>-->
                     </el-col>
 
                 </el-row>
@@ -93,7 +108,7 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="storage"
+                        prop="sales_volume"
                         label="售出数量（张）"
                         align="center">
                 </el-table-column>
@@ -109,12 +124,12 @@
                         align="center">
                 </el-table-column>
                 <el-table-column
-                        prop="benginTime"
+                        prop="sell_start_time"
                         label="有效期开始"
                         align="center">
                 </el-table-column>
                 <el-table-column
-                        prop="endTime"
+                        prop="sell_end_time"
                         label="有效期结束"
                         align="center">
                 </el-table-column>
@@ -134,9 +149,9 @@
             </el-table>
             <el-pagination
                     @current-change="handleCurrentChange"
-                    :current-page="searchList.currentPage"
+                    :current-page="searchList.page"
                     :page-size="searchList.limit"
-                    layout="prev, pager, next, jumper"
+                    layout="total, prev, pager, next"
                     :total="total">
             </el-pagination>
         </div>
@@ -145,6 +160,8 @@
 
 <script>
     import { getList } from '@/api/ticket'
+    import { getStatusList } from '@/utils/common'
+
     export default {
         name: 'ticketList',
         data() {
@@ -154,24 +171,29 @@
                     ticketName: '',
                     ticketType: '',
                     ticketStatus: '',
+                    sellStartTime: '',
+                    sellEndTime: '',
                     currentPage: 1,
                     limit: 20,
                     page: 1
                 },
-                beginTime: "",
-                endTime: "",
                 minTime: {
                     disabledDate: (time) => {
-                        return time.getTime() < this.beginTime
+                        return time.getTime() < this.searchList.sellStartTime
                     }
                 },
-                supplierOptions: [],
-                scenicStar: [],
+                ticketTypeList: [
+                    {'id':0, 'name':'全部'},
+                    {'id':1, 'name':'普通票'},
+                    {'id':2, 'name':'年票'},
+                ],
                 tableData: [],
+                statusList: [],
                 scenicId: 0
             }
         },
         created() {
+            this.statusList = getStatusList();
             this.scenicId = this.$route.params.scenicId
             this.getList()
         },

@@ -21,8 +21,8 @@
                                 <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
                                 <el-form-item label="票种" prop="ticketType">
                                     <el-select v-model="ruleForm.ticketType" placeholder="请选择">
-                                        <el-option label="普通票" value="0"></el-option>
-                                        <el-option label="年票" value="1"></el-option>
+                                        <el-option label="普通票" value="1"></el-option>
+                                        <el-option label="年票" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -43,8 +43,8 @@
                                 <span><i>|</i>上&nbsp;&nbsp;&nbsp;&nbsp;下&nbsp;&nbsp;&nbsp;&nbsp;架:</span>
                                 <el-form-item label="上下架" prop="status">
                                     <el-select v-model="ruleForm.status" placeholder="请选择">
-                                        <el-option label="上架" value="0"></el-option>
-                                        <el-option label="下架" value="1"></el-option>
+                                        <el-option label="上架" value="1"></el-option>
+                                        <el-option label="下架" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -327,7 +327,7 @@
                     <el-row>
                         <el-col :span="24">
                             <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
-                            <el-button>返回</el-button>
+                            <el-button @click="handleCancel">返回</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -358,16 +358,9 @@
         data() {
             return {
                 scenicId: 0,
-                sell_start_time: '',
                 minInTime: {
                     disabledDate: (time) => {
-//                        console.log(time)
-                        return time.getTime() < this.sell_start_time
-                    }
-                },
-                minValidTime: {
-                    disabledDate: (time) => {
-                        return time.getTime() < this.validTime
+                        return time.getTime() < this.ruleForm.sell_start_time
                     }
                 },
                 rules: {
@@ -454,16 +447,7 @@
 
         },
         methods: {
-            handleRemove(file, fileList) {
-                console.log(file, fileList)
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url
-                this.dialogVisible = true
-            },
-
             submitForm(formName) {
-                console.log(this.ruleForm)
                 if (!this.ruleForm.sell_start_time || !this.ruleForm.sell_end_time || this.ruleForm.sell_start_time == '0-0-0 0:0:0' || this.ruleForm.sell_end_time == '0-0-0 0:0:0') {
                     this.$message({
                         message: '请选择可售日期！',
@@ -498,6 +482,9 @@
                         return false
                     }
                 })
+            },
+            handleCancel() {
+                this.$router.push({path: "/scenic/" + this.scenicId + '/ticket'})
             },
         }
     }

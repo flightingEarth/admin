@@ -10,14 +10,15 @@
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>产品名称:</span>
-                            <el-input v-model="searchList.hotelName" placeholder=""></el-input>
+                            <el-input v-model="searchList.goodsName" placeholder=""></el-input>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>审核状态:</span>
-                            <el-select v-model="searchList.ticketType" placeholder="请选择">
+                            <el-select v-model="searchList.reviewStatus" placeholder="请选择">
+                                <el-option label="全部" value="0"></el-option>
                                 <el-option label="审核通过" value="1"></el-option>
                                 <el-option label="审核未通过" value="2"></el-option>
                             </el-select>
@@ -27,16 +28,20 @@
                     <el-col :span="12">
                         <div class="grid-content bg-purple double">
                             <span><i>|</i>产品状态:</span>
-                            <el-select v-model="searchList.hotelStatus" placeholder="请选择">
-                                <el-option label="正常营业" value="1"></el-option>
-                                <el-option label="未营业" value="2"></el-option>
+                            <el-select v-model="searchList.status" placeholder="请选择">
+                                <el-option
+                                        v-for="item in statusList"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
                             </el-select>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
-                        <el-button type="primary">搜索</el-button>
-                        <el-button>重置条件</el-button>
+                        <el-button type="primary" @click="handleSearch">搜索</el-button>
+                        <el-button @click="resetForm('ruleForm')">重置条件</el-button>
                     </el-col>
 
                 </el-row>
@@ -59,12 +64,6 @@
             <el-table-column
                 prop="goods_id"
                 label="产品编号"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="hotelId"
-                label="酒店编号"
                 align="center"
             >
             </el-table-column>
@@ -106,10 +105,6 @@
                 prop="reviewStatus"
                 label="审核状态"
                 align="center">
-                <template slot-scope="scope">
-                    <span v-if="scope.row.reviewStatus = 0">审核未通过</span>
-                    <span v-if="scope.row.reviewStatus = 1">审核通过</span>
-                </template>
             </el-table-column>
             <el-table-column
                 prop="status"
@@ -117,25 +112,19 @@
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="arrivalTime"
-                label="创建时间"
-                align="center">
-            </el-table-column>
-            <el-table-column
                 label="操作"
                 align="center">
                 <template slot-scope="scope">
                     <el-button type="text" size="small" @click="edit(scope.row.goods_id)">编辑</el-button>
-                    <el-button type="text" size="small" @click="handlePrice">价格日历</el-button>
+                    <el-button type="text" size="small" @click="handlePrice(scope.row.goods_id)">价格日历</el-button>
                 </template>
             </el-table-column>
-
         </el-table>
         <el-pagination
             @current-change="handleCurrentChange"
-            :current-page="searchList.currentPage"
-            :page-size="searchList.pageSize"
-            layout="total, prev, pager, next, jumper"
+            :current-page="searchList.page"
+            :page-size="searchList.limit"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>
@@ -143,22 +132,28 @@
 
 <script>
     import {ProductList} from '@/api/hotelProduct'
+    import { getStatusList } from '@/utils/common'
     import "../../iconfont/iconfont.css";
     export default {
         name: 'hotelProduct',
         data() {
             return {
                 searchList: {
-                    scenicName: undefined,
-                    ticketType: undefined,
-                    ticketName: undefined,
-                    currentPage: 1,
+                    status: '',
+                    roomId:'',
+                    reviewStatus: '',
+                    goodsName: '',
+                    page: 1,
+                    limit:20
                 },
                 total: 0,
-                tableData: []
+                tableData: [],
+                statusList: []
             }
         },
         created(){
+            this.searchList.roomId = this.$route.query.roomId
+            this.statusList = getStatusList();
             this.getList()
         },
         methods: {
@@ -170,17 +165,23 @@
                     this.listLoading = false
                 })
             },
+            handleSearch(){
+                this.getList();
+            },
+            resetForm(formName) {
+                this.$refs.ruleForm.resetFields();
+            },
             handleCurrentChange(val) {
                 this.searchList.currentPage = val
                 this.tableData()
             },
             addProduct() {
-                this.$router.push({path: "/hotelproduct/create?roomId=" + this.$route.query.roomId});
+                this.$router.push({path: "/hotelproduct/create?roomId=" + this.searchList.roomId });
             },
             edit(index){
                 this.$router.push({path: "/hotelproduct/" + index + "/edit"})
             },
-            handlePrice(){
+            handlePrice(goodsId){
                 this.$router.push({path: "/hotel/priceCalendar"})
             }
         }

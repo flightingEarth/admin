@@ -18,6 +18,18 @@
                         </el-col>
                         <el-col :span="18">
                             <div class="grid-content bg-purple">
+                                <span><i>|</i>房型状态:</span>
+                                <el-form-item label="膳食安排" prop="status">
+                                    <el-select v-model="ruleForm.status" placeholder="请选择上下架">
+                                        <el-option label="正常" value="1"></el-option>
+                                        <el-option label="不营业" value="2"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+
+                        <el-col :span="18">
+                            <div class="grid-content bg-purple">
                                 <span><i>|</i>楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;层:</span>
                                 <el-form-item label="膳食安排" prop="roomFloor">
                                     <el-input v-model="ruleForm.roomFloor"
@@ -103,27 +115,15 @@
                             </div>
                         </el-col>
 
-                        <el-col :span="18">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>房间状态:</span>
-                                <el-form-item label="活动区域" prop="status">
-                                    <el-radio-group v-model="ruleForm.status">
-                                        <el-radio :label="1" :value="1">正常营业</el-radio>
-                                        <el-radio :label="2" :value="2">未营业</el-radio>
-                                    </el-radio-group>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-
-                        <select-images :max="1" :visible="imageVisible" @close="imageVisible = false"
+                        <select-images :visible="imageVisible" @close="imageVisible = false"
                                        @submit="selectImagesSubmit"></select-images>
 
                         <el-col :span="22">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>图片添加:</span>
-                                <div class="imgBox" v-for="item in imgList">
-                                    <i class="iconfont icon-comiisjiahao-copy"></i>
-                                    <img :src="item.links" alt="">
+                                <div class="imgBox" v-for="(item, index) in ruleForm.images">
+                                    <i class="iconfont icon-comiisjiahao-copy" @click="handleImageRemove(index)"></i>
+                                    <img :src="item.link" alt="">
                                 </div>
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
@@ -139,7 +139,7 @@
                         <el-col :span="24">
                             <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading">提交
                             </el-button>
-                            <el-button>返回</el-button>
+                            <el-button @click="handleCancel">返回</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -165,18 +165,13 @@
 //                        status: 1
                     }
                 }
-            }
+            },
+            title:''
         },
         data() {
             return {
                 imageVisible: false,
-                dialogImageUrl: '',
-                dialogVisible: false,
-                activeName: 'second',
                 addLoading: false,
-                imgList: [],
-                status: 1,
-                title: "",
                 rules: {
                     roomName: [
                         {required: true, message: '请输入房型名称', trigger: 'blur'}
@@ -215,36 +210,45 @@
             }
         },
         created() {
-            console.log(this.$route.params.id)
-            if (this.$route.params.id) {
-                this.title = "编辑酒店房型"
-            } else {
-                this.title = "添加酒店房型"
+            if (this.ruleForm.roomId == 'undefined') {
+                this.ruleForm.hotelId = this.$route.query.roomId;
             }
         },
         methods: {
             submitForm(formName) {
+                if (this.ruleForm.images.length == 0) {
+                    this.$message.error('请上传景区图片');
+                    return false
+                }
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
                         if (this.ruleForm.roomId == undefined) {
-                            addHotelRoom(this.ruleForm).then(response => {
-                                console.log(response.data);
-                                this.$message({
-                                    message: '添加成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
-                            })
+                            if (response.data.status) {
+                                addHotelRoom(this.ruleForm).then(response => {
+                                    this.$message({
+                                        message: '添加成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel();
+                                })
+                            } else {
+                                this.$message.error(response.data.msg);
+                            }
                         } else {
                             updateHotelRoom(this.ruleForm.roomId, this.ruleForm).then(response => {
-                                this.$message({
-                                    message: '更新成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if (response.data.status) {
+                                    this.$message({
+                                        message: '更新成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel();
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         }
+                        this.addLoading = false
                     } else {
                         console.log('error submit!!')
                         return false
@@ -252,21 +256,16 @@
                 })
             },
             handleCancel(){
-                this.$router.push({path: "/hotel/hotelRoom"})
+                this.$router.push({path: "/hotel/hotelRoom?hotelId=" + this.ruleForm.hotelId})
             },
-            getFacilitiesList() {
-                let para = {type: 3}
-                getFacilities(para).then(response => {
-                    this.facilitiesList = response.data.data
-                })
+            handleImageRemove(index) {
+                this.ruleForm.images.splice(index,1)
             },
             //选择图片
             selectImagesSubmit(images) {
-//                this.ruleForm.images = images[0].links
-                this.imgList = images
-            },
-            resetForm(formName) {
-                this.$refs[formName].resetFields()
+                images.forEach(function (image, index) {
+                    this.ruleForm.images.push({'link':image.links})
+                }, this)
             }
         }
     }

@@ -20,16 +20,14 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>房间状态:</span>
-                                <el-form-item label="活动区域" prop="status">
-                                    <el-select v-model="ruleForm.status" placeholder="请选择">
-                                        <el-option
-                                            v-for="item in supplierOptions"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
+                                <el-select v-model="ruleForm.status" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in statusList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                    </el-option>
+                                </el-select>
 
                             </div>
                         </el-col>
@@ -63,8 +61,8 @@
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="hotelId"
-                    label="酒店编号"
+                    prop="hotelName"
+                    label="酒店名称"
                     align="center"
                 >
                 </el-table-column>
@@ -103,17 +101,9 @@
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    prop="createdAt.data"
-                    label="创建时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
+                    prop="status"
                     label="房间状态"
                     align="center">
-                    <template slot-scope="scope">
-                        <el-button type="text" v-if="scope.row.status == 1" size="small">正常</el-button>
-                        <el-button type="text" v-if="scope.row.status == 2" size="small">未营业</el-button>
-                    </template>
                 </el-table-column>
                 <el-table-column
                     label="操作"
@@ -127,9 +117,9 @@
             </el-table>
             <el-pagination
                 @current-change="handleCurrentChange"
-                :current-page="ruleForm.currentPage"
+                :current-page="ruleForm.page"
                 :page-size="ruleForm.limit"
-                layout="total, prev, pager, next, jumper"
+                layout="total, prev, pager, next"
                 :total="total">
             </el-pagination>
         </div>
@@ -137,30 +127,27 @@
 
 <script>
     import {roomList} from '@/api/hotelRoom'
+    import { getStatusList } from '@/utils/common'
 
     export default {
         name: 'houseShape',
         data() {
             return {
                 ruleForm: {
-                    currentPage: 1,
                     limit: 20,
-                    page: 1
+                    page: 1,
+                    roomName:'',
+                    hotelId:0
                 },
-                hotelId: "",
                 rules: {},
                 total: 0,
-                supplierOptions: [{
-                    value: '1',
-                    label: '正常'
-                }, {
-                    value: '2',
-                    label: '未营业'
-                }],
-                tableData: []
+                tableData: [],
+                statusList: []
             }
         },
         created(){
+            this.ruleForm.hotelId =  this.$route.query.hotelId
+            this.statusList = getStatusList()
             this.getList()
         },
         methods: {
@@ -180,12 +167,10 @@
                 this.getList();
             },
             resetForm(formName) {
-//                console.log(this.$refs.ruleForm)
                 this.$refs.ruleForm.resetFields();
             },
             addHouse() {
-                let id = this.$route.query.hotelId
-                this.$router.push({path: "/hotel/hotelRoom/create?hotelId=" + id })
+                this.$router.push({path: "/hotel/hotelRoom/create?hotelId=" + this.ruleForm.hotelId  })
             },
             edit(index) {
                 this.$router.push({path: "/hotel/hotelRoom/"+index + '/edit'})

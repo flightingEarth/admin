@@ -32,28 +32,42 @@
                             </div>
                         </el-col>
 
-                        <el-popover
-                            ref="popoverLowestNum"
-                            placement="bottom"
-                            title="提示信息"
-                            width="200"
-                            trigger="click"
-                            content="填写数字，数字越大排序越靠前" style="display: none">
-                        </el-popover>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple">
+                                <span><i>|</i>产&nbsp;&nbsp;品&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
+                                <el-form-item label="膳食安排" prop="status">
+                                    <el-select v-model="ruleForm.status" placeholder="请选择状态">
+                                        <el-option label="正常" value="1"></el-option>
+                                        <el-option label="不营业" value="2"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
 
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple">
+                                <span><i>|</i>审&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
+                                <el-form-item label="膳食安排" prop="status">
+                                    <el-select v-model="ruleForm.reviewStatus" placeholder="请选择">
+                                        <el-option label="审核通过" value="1"></el-option>
+                                        <el-option label="审核未通过" value="2"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>起购&nbsp;房&nbsp;间&nbsp;数:</span>
                                 <el-form-item label="活动区域" prop="lowestNum">
-                                    <el-input v-model="ruleForm.lowestNum" v-popover:popoverLowestNum placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
+                                    <el-input v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>床&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</span>
-                                <el-form-item label="膳食安排" prop="bedType">
+                                <el-form-item label="床型" prop="bedType">
                                     <el-input v-model="ruleForm.bedType"></el-input>
                                 </el-form-item>
                             </div>
@@ -79,8 +93,9 @@
                                 <span><i>|</i>早&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;餐:</span>
                                 <el-form-item label="膳食安排" prop="breakfast">
                                     <el-select v-model="ruleForm.breakfast" placeholder="请选择">
-                                        <el-option label="单早" value="0"></el-option>
-                                        <el-option label="无早" value="1"></el-option>
+                                        <el-option label="无早" value="无早"></el-option>
+                                        <el-option label="单早" value="单早"></el-option>
+                                        <el-option label="双早" value="双早"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -119,7 +134,7 @@
                                               placeholder="例：1天,请输入1"></el-input>
                                     <span class="day">天</span>
                                     <el-time-select
-                                        v-model="refundTime"
+                                        v-model="ruleForm.refundTime"
                                         :picker-options="{
                                             start: '00:00',
                                             step: '00:15',
@@ -175,8 +190,8 @@
                                 <span><i>|</i>付&nbsp;&nbsp;款&nbsp;&nbsp;方&nbsp;&nbsp;&nbsp;式:</span>
                                 <el-form-item label="膳食安排" prop="payMethod">
                                     <el-select v-model="ruleForm.payMethod" placeholder="请选择">
-                                        <el-option label="到店支付" value="0"></el-option>
-                                        <el-option label="网上支付" value="1"></el-option>
+                                        <el-option label="在线支付" value="0"></el-option>
+                                        <el-option label="到店支付" value="1"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -197,40 +212,21 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>立减或返金额:</span>
-                                <el-form-item label="膳食安排" prop="payMoney">
-                                    <el-input v-model="ruleForm.payMoney"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>审&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
-                                <el-form-item label="膳食安排" prop="reviewStatus">
-                                    <el-radio v-model="ruleForm.reviewStatus" label="0">待审核</el-radio>
-                                    <el-radio v-model="ruleForm.reviewStatus" label="1">审核通过</el-radio>
-                                    <el-radio v-model="ruleForm.reviewStatus" label="2">审核未通过</el-radio>
-                                </el-form-item>
-                            </div>
-                        </el-col>
+                        <!--<el-col :span="12">-->
+                            <!--<div class="grid-content bg-purple-light">-->
+                                <!--<span><i>|</i>立减或返金额:</span>-->
+                                <!--<el-form-item label="膳食安排" prop="payMoney">-->
+                                    <!--<el-input v-model="ruleForm.payMoney"></el-input>-->
+                                <!--</el-form-item>-->
+                            <!--</div>-->
+                        <!--</el-col>-->
 
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>产&nbsp;&nbsp;品&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
-                                <el-form-item label="膳食安排" prop="status">
-                                    <el-radio v-model="ruleForm.status" label="1">上架</el-radio>
-                                    <el-radio v-model="ruleForm.status" label="2">下架</el-radio>
-                                </el-form-item>
-                            </div>
-                        </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple double">
                                 <span><i>|</i>到店担保时间:</span>
                                 <el-form-item label="活动区域" prop="inTime">
                                     <el-time-select
-                                        v-model="startTime"
+                                        v-model="ruleForm.startTime"
                                         :picker-options="{
                                             start: '00:00',
                                             step: '00:15',
@@ -245,7 +241,7 @@
                                     </el-select>
                                     </span>
                                     <el-time-select
-                                        v-model="endTime"
+                                        v-model="ruleForm.endTime"
                                         :picker-options="{
                                             start: '00:00',
                                             step: '00:15',
@@ -273,7 +269,7 @@
                     <el-row>
                         <el-col :span="24">
                             <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                            <el-button>返回</el-button>
+                            <el-button @click="handleCancel">返回</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -363,9 +359,9 @@
                     arrivalTime: [
                         {required: true, message: '请选择最早到达时间', trigger: 'change'}
                     ],
-                    payMoney: [
-                        {required: true, message: '请输入立减或减返金额', trigger: 'blur'}
-                    ],
+//                    payMoney: [
+//                        {required: true, message: '请输入立减或减返金额', trigger: 'blur'}
+//                    ],
                     reviewStatus: [
                         {required: true, message: '请选择审核状态', trigger: 'change'}
                     ],
@@ -379,38 +375,38 @@
             }
         },
         created() {
-            this.ruleForm.roomId = this.$route.query.roomId;
-            if (this.$route.params.id) {
-                this.title = "编辑产品"
-            } else {
-                this.title = "添加产品"
+            if (this.ruleForm.goodsId == undefined) {
+                this.ruleForm.roomId = this.$route.query.roomId;
             }
-
         },
         methods: {
             submitForm(formName) {
-                this.ruleForm.refundTime = parseTime(this.refundTime, '{h}:{i}')
-                this.ruleForm.startTime = parseTime(this.startTime, '{h}:{i}')
-                this.ruleForm.endTime = parseTime(this.endTime, '{h}:{i}')
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
-                        if (this.ruleForm.goods_id == undefined) {
+                        if (this.ruleForm.goodsId == undefined) {
                             addProduct(this.ruleForm).then(response => {
-                                console.log(response.data);
-                                this.$message({
-                                    message: '添加成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if (response.data.status) {
+                                    this.$message({
+                                        message: '添加成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel();
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         } else {
-                            updateProduct(this.ruleForm.goods_id, this.ruleForm).then(response => {
-                                this.$message({
-                                    message: '更新成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                            updateProduct(this.ruleForm.goodsId, this.ruleForm).then(response => {
+                                if (response.data.status) {
+                                    this.$message({
+                                        message: '更新成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel();
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         }
                     } else {
@@ -423,7 +419,7 @@
                 this.$refs[formName].resetField()
             },
             handleCancel(){
-                this.$router.push({path: "/hotelproduct"})
+                this.$router.push({path: "/hotelproduct?roomId=" + this.ruleForm.roomId})
             },
         }
     }

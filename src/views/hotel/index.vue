@@ -29,18 +29,15 @@
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>选择城市:</span>
-                            <area-select :level="2" type="all" v-model="searchList.hotelAddress"></area-select>
-                        </div>
-                    </el-col>
-
-                    <el-col :span="12">
                         <div class="grid-content bg-purple double">
                             <span><i>|</i>酒店状态:</span>
                             <el-select v-model="searchList.hotelStatus" placeholder="请选择">
-                                <el-option label="正常" value="1"></el-option>
-                                <el-option label="不营业" value="2"></el-option>
+                                <el-option
+                                        v-for="item in statusList"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
                             </el-select>
                         </div>
                     </el-col>
@@ -61,7 +58,6 @@
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="addHotel">添加酒店</a></li>
-                <li><a href="javascript:;" @click="priceCalendar">价格日历</a></li>
             </ul>
         </div>
         <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
@@ -101,13 +97,9 @@
                 align="center">
             </el-table-column>
             <el-table-column
-
+                prop="hotelStatus"
                 label="酒店状态"
                 align="center">
-                <template slot-scope="scope">
-                    <el-button v-if="scope.row.hotelStatus ==1" type="text" size="small">上架</el-button>
-                    <el-button v-if="scope.row.hotelStatus ==2" type="text" size="small">下架</el-button>
-                </template>
             </el-table-column>
             <el-table-column
                 prop="createdTime"
@@ -122,13 +114,12 @@
                     <el-button type="text" size="small" @click="edit(scope.row.hotelId)">编辑</el-button>
                 </template>
             </el-table-column>
-
         </el-table>
         <el-pagination
             @current-change="handleCurrentChange"
-            :current-page="searchList.currentPage"
+            :current-page="searchList.page"
             :page-size="searchList.limit"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>
@@ -136,35 +127,31 @@
 
 <script>
     import {hotelList} from '@/api/hotel'
+    import { getStatusList } from '@/utils/common'
+
     export default {
         name: 'hotel',
         data() {
             return {
                 total: 0,
                 searchList: {
-                    hotelAddress:[],
                     hotelName: '',
                     hotelStar: '',
                     hotelStatus: '',
-                    currentPage: 1,
                     limit: 20,
                     page: 1
                 },
-                beginTime: "",
-                endTime: "",
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
                     }
                 },
                 tableData: [],
-                props: {
-                    value: 'label',
-                    children: 'cities'
-                }
+                statusList: []
             }
         },
         created() {
+            this.statusList = getStatusList();
             this.getList()
         },
         methods: {
@@ -189,12 +176,9 @@
             edit(index) {
                 this.$router.push({path: "/hotel/" + index + '/edit'})
             },
-            handleHouse(){
-                this.$router.push({path: "/hotel/hotelRoom"})
+            handleHouse(hotelId){
+                this.$router.push({path: "/hotel/hotelRoom?hotelId=" + hotelId})
             },
-            priceCalendar(){
-                this.$router.push({path: "/hotel/priceCalendar"})
-            }
         }
     }
 </script>
