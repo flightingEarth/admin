@@ -104,11 +104,6 @@ const router = new Router({
                     path: '/hotelorder/:id/detail', hidden: true, component: HotelOrderDetail, name: '酒店订单详情'
                 },
 
-                //酒店退款审核
-                {
-                    path: '/hotelRefund', component: HotelRefund, name: '退款审核'
-                },
-
                 {
                     path: '/attachment/index', component: Attachment, name: '我的图片'
                 },

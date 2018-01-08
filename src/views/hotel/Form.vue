@@ -4,7 +4,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <div class="title">
                     <i class="iconfont icon-comiisjiahao"></i>
-                    <span>{{title}}</span>
+                    <span>酒店编辑</span>
                 </div>
                 <div class="input">
                     <el-row>
