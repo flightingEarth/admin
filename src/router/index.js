@@ -1,33 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/views/layout/Layout'
-import Dashboard from '@/views/dashboard'
 
 
 import Financial from '@/views/financial'
-import CashApplication from '@/views/financial/cashApplication'
 import AccountReceipts from '@/views/financial/accountReceipts'
 
-import UserIndex from '@/views/userManagement/index'
-
-
 import Attachment from '@/views/attachment/index'
-
-import ScenicSpot from '@/views/scenicSpot'
-import ScenicCreate from '@/views/scenicSpot/create'
-import ScenicEdit from '@/views/scenicSpot/edit'
-
-import ScenicOrder from '@/views/scenicOrder'
-import ScenicOrderCreate from '@/views/scenicOrder/create'
-import ScenicOrderEdit from '@/views/scenicOrder/edit'
-import ScenicOrderDetail from '@/views/scenicOrder/detail'
-
-import ScenicTicket from '@/views/scenicTicket'
-import TicketCreate from '@/views/scenicTicket/create'
-import TicketEdit from '@/views/scenicTicket/edit'
-
-import ScenicRefund from '@/views/scenicRefund'
-
 
 import Hotel from '@/views/hotel'
 import HotelCreate from '@/views/hotel/create'
@@ -59,92 +38,15 @@ const router = new Router({
         {
             path: '/',
             component: Layout,
-            name: '我的主页',
-            icon: 'quanxian',
-            requiresAuth: true,
-            children: [
-                {
-                    path: '/', icon: "quanxian", component: Dashboard, name: '权限测试页', requiresAuth: true
-                },
-            ]
-        },
-        {
-            path: '/financial',
-            component: Layout,
             name: '财务部',
             icon: 'quanxian',
             children: [
                 {
-                    path: '/financial', hidden: true, component: Financial, name: '财务部',
-                },
-                {
-                    path: '/financial/cashApplication', component: CashApplication, name: '提现申请',
+                    path: '/', hidden: true, component: Financial, name: '财务部',
                 },
                 {
                     path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
                 }
-            ]
-        },
-        {
-            path: '/userManagement',
-            component: Layout,
-            name: '用户管理',
-            icon: 'quanxian',
-            children: [{
-                path: '/userManagement/index',
-                component: UserIndex,
-                name: '用户管理',
-                icon: 'dashboard'
-            }]
-        },
-
-        {
-            path: '/',
-            component: Layout,
-            name: '景区管理',
-            icon: 'quanxian',
-            children: [
-                {
-                    path: '/scenic', component: ScenicSpot, name: '景区管理'
-                },
-                {
-                    path: '/scenic/create', hidden: true, component: ScenicCreate, name: '景区添加'
-                },
-                {
-                    path: '/scenic/:id/edit', hidden: true, component: ScenicEdit, name: '景区编辑'
-                },
-
-                //景区订单
-                {
-                    path: '/scenicOrder', component: ScenicOrder, name: '景区订单'
-                },
-                {
-                    path: '/scenicOrder/create', hidden: true, component: ScenicOrderCreate, name: '景区订单添加'
-                },
-                {
-                    path: '/scenicOrder/:id/edit', hidden: true, component: ScenicOrderEdit, name: '景区订单编辑'
-                },
-                {
-                    path: '/scenicOrder/:id/detail', hidden: true, component: ScenicOrderDetail, name: '景区订单详情'
-                },
-
-                //门票列表
-                {
-                    path: '/scenic/:scenicId/ticket', hidden: true, component: ScenicTicket, name: '门票管理',
-                },
-                {
-                    path: '/scenic/:scenicId/ticket/create', hidden: true, component: TicketCreate, name: '门票添加',
-                },
-                {
-                    path: '/scenic/:scenicId/ticket/:id/edit', hidden: true, component: TicketEdit, name: '门票编辑',
-                },
-
-                //景区退款审核
-                {
-                    path: '/scenicRefund', component: ScenicRefund, name: '退款审核'
-                },
-
-
             ]
         },
         {
@@ -154,10 +56,10 @@ const router = new Router({
             icon: 'quanxian',
             children: [
                 {
-                    path: '/hotel', component: Hotel, name: '酒店管理'
+                    path: '/hotel', hidden: true, component: Hotel, name: '酒店管理'
                 },
                 {
-                    path: '/hotel/create', hidden: true, component: HotelCreate, name: '酒店添加'
+                    path: '/hotel/create', component: HotelCreate, name: '酒店添加'
                 },
                 {
                     path: '/hotel/:id/edit', hidden: true, component: HotelEdit, name: '酒店编辑'
@@ -206,18 +108,12 @@ const router = new Router({
                 {
                     path: '/hotelRefund', component: HotelRefund, name: '退款审核'
                 },
+
+                {
+                    path: '/attachment/index', component: Attachment, name: '我的图片'
+                },
             ]
-        },
-        {
-            path: '/attachment',
-            component: Layout,
-            name: '设置',
-            children: [{
-                path: '/attachment/index',
-                component: Attachment,
-                name: '我的文件'
-            }]
-        },
+        }
     ]
 })
 
