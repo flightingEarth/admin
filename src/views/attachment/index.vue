@@ -1,9 +1,6 @@
 <template>
     <div class="page-showcase-dashboard">
         <el-col :span="21" class="maxBox">
-            <div class="titl">
-                <i class="iconfont icon-tupian"></i>添加图片
-            </div>
             <div class="media-title mb-15">
                 <template v-if="isActive > 0">
                     <el-popover
@@ -532,6 +529,7 @@
 
     .media-title {
         height: 28px;
+        margin-left: 40px;
     }
 
     .media-title-wrap h1 {
@@ -548,6 +546,12 @@
         margin-bottom: 20px;
         min-height: 28px;
         line-height: 28px;
+        position: relative;
+        h1{
+            position: absolute;
+            top: -45px;
+            font-size: 24px;
+        }
     }
 
     .mini input {

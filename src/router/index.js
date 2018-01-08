@@ -70,7 +70,7 @@ const router = new Router({
 
                 //房型管理
                 {
-                    path: '/hotel/hotelRoom', hidden: true, component: HotelRoom, name: '房型管理'
+                    path: '/hotel/hotelRoom', component: HotelRoom, name: '房型管理'
                 },
                 {
                     path: '/hotel/hotelRoom/create', hidden: true, component: RoomCreate, name: '房型添加'

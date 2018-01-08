@@ -160,7 +160,7 @@
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <!--<el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>-->
                         <el-tab-pane label="网络设备" name="second">
-                            <el-checkbox-group v-model="ruleForm.network">
+                            <el-checkbox-group v-model="network">
                                 <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}
                                 </el-checkbox>
                             </el-checkbox-group>
@@ -337,7 +337,6 @@
                     <el-row>
                         <el-col :span="24">
                             <el-button type="primary" @click="submitForm" :loading="addLoading">提交</el-button>
-                            <el-button @click="handleCancel">返回</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -363,7 +362,6 @@
                 type: Object,
                 default() {
                     return {
-                        network: [],
                         parkingLot: [],
                         hotelFacilities: [],
                         activeLocation: []
@@ -380,6 +378,7 @@
                 activeName: 'second',
                 addLoading: false,
                 imgList: [],
+                network: [],
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
@@ -443,13 +442,16 @@
         },
         created() {
             this.getNetworkList() //网络设备
+//            this.network = ['免费宽带']
             getRegion({}).then(response => {
                 this.cities = response.data.data
             })
         },
         methods: {
             handleCheckAllChange(val) {
-                this.ruleForm.network = val ? this.networkList : []
+//                console.log(val);
+                this.network = ["免费宽带"]
+//                this.network = val ? this.networkList : []
                 this.isIndeterminate = false
             },
             submitForm() {
@@ -466,7 +468,7 @@
                                     message: '更新成功！',
                                     type: 'success'
                                 });
-                                this.handleCancel();
+
                             } else {
                                 this.$message.error(response.data.msg);
                             }
