@@ -160,7 +160,7 @@
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <!--<el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>-->
                         <el-tab-pane label="网络设备" name="second">
-                            <el-checkbox-group v-model="network">
+                            <el-checkbox-group v-model="ruleForm.network">
                                 <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}
                                 </el-checkbox>
                             </el-checkbox-group>
@@ -362,6 +362,7 @@
                 type: Object,
                 default() {
                     return {
+                        network: [],
                         parkingLot: [],
                         hotelFacilities: [],
                         activeLocation: []
@@ -449,10 +450,30 @@
         },
         methods: {
             handleCheckAllChange(val) {
-//                console.log(val);
-                this.network = ["免费宽带"]
+//                console.log(this.networkList)
+//                this.ruleForm.network = val ?  [25] : []
+//                console.log(this.ruleForm.network)
 //                this.network = val ? this.networkList : []
-                this.isIndeterminate = false
+                var arr = [];
+                if (this.activeName == 'second') {
+                    for (var i = 0; i < this.networkList.length; i++) {
+                        arr.push(this.networkList[i].id);
+                    }
+                    this.ruleForm.network = val ? arr : [];
+                    this.isIndeterminate = false
+                } else if (this.activeName == 'third') {
+                    for (var i = 0; i < this.parkingLotList.length; i++) {
+                        arr.push(this.parkingLotList[i].id);
+                    }
+                    this.ruleForm.parkingLot = val ? arr : [];
+                    this.isIndeterminate = false
+                }else{
+                    for (var i = 0; i < this.facilitiesList.length; i++) {
+                        arr.push(this.facilitiesList[i].id);
+                    }
+                    this.ruleForm.hotelFacilities = val ? arr : [];
+                    this.isIndeterminate = false
+                }
             },
             submitForm() {
                 if (this.ruleForm.images.length == 0) {
