@@ -36,13 +36,13 @@ const router = new Router({
     routes: [
         // { path: '/login', component: Login, hidden: true, requiresAuth: false },
         {
-            path: '/',
+            path: '/financial',
             component: Layout,
             name: '财务部',
             icon: 'quanxian',
             children: [
                 {
-                    path: '/', hidden: true, component: Financial, name: '财务部',
+                    path: '/financial', hidden: true, component: Financial, name: '财务部',
                 },
                 {
                     path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
@@ -56,10 +56,10 @@ const router = new Router({
             icon: 'quanxian',
             children: [
                 {
-                    path: '/hotel', hidden: true, component: Hotel, name: '酒店管理'
+                    path: '/', component: HotelCreate, name: '酒店管理'
                 },
                 {
-                    path: '/hotel/create', component: HotelCreate, name: '酒店添加'
+                    path: '/hotel', hidden: true, component: Hotel, name: '酒店管理'
                 },
                 {
                     path: '/hotel/:id/edit', hidden: true, component: HotelEdit, name: '酒店编辑'
