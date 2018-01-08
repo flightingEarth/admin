@@ -14,7 +14,7 @@
             }
         },
         created() {
-            getHotel(this.$route.params.id).then(response => {
+            getHotel().then(response => {
                 this.ruleForm = response.data.data
             })
         },

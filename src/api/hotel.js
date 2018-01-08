@@ -1,40 +1,15 @@
 import fetch from 'utils/fetch';
 
-export function hotelList(query) {
+export function getHotel() {
     return fetch({
-        url: 'admin/hotel',
-        method: 'get',
-        params: query
+        url: 'supplier/hotel',
+        method: 'get'
     });
 }
-
-export function getHotel(id) {
-    return fetch({
-        url: 'admin/hotel/' + id +'/edit',
-        method: 'get',
-    });
-}
-
-export function addHotel(data) {
-    return fetch({
-        url: 'admin/hotel',
-        method: 'post',
-        data: data
-    });
-}
-
 export function updateHotel(id, data) {
     return fetch({
-        url: 'admin/hotel/' + id,
+        url: 'supplier/hotel' + id,
         method: 'PUT',
         data: data
     });
 }
-
-export function destroyHotel(id) {
-    return fetch({
-        url: 'admin/hotel/' + id,
-        method: 'DELETE'
-    });
-}
-

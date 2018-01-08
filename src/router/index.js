@@ -56,14 +56,14 @@ const router = new Router({
             icon: 'quanxian',
             children: [
                 {
-                    path: '/', component: HotelCreate, name: '酒店管理'
+                    path: '/', component: HotelEdit, name: '酒店管理'
                 },
-                {
+/*                {
                     path: '/hotel', hidden: true, component: Hotel, name: '酒店管理'
-                },
-                {
+                },*/
+/*                {
                     path: '/hotel/:id/edit', hidden: true, component: HotelEdit, name: '酒店编辑'
-                },
+                },*/
                 {
                     path: '/hotel/priceCalendar', hidden: true, component: PriceCalendar, name: '价格日历'
                 },

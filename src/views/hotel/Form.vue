@@ -27,14 +27,14 @@
                         </el-col>
 
                         <!--<el-col :span="12">-->
-                            <!--<div class="grid-content bg-purple">-->
-                                <!--<span><i>|</i>酒店品牌:</span>-->
-                                <!--<el-form-item label="活动区域" prop="hotelBrandId">-->
-                                    <!--<el-select v-model="ruleForm.hotelBrandId" placeholder="其他">-->
-                                        <!--<el-option label="其他" value="0"></el-option>-->
-                                    <!--</el-select>-->
-                                <!--</el-form-item>-->
-                            <!--</div>-->
+                        <!--<div class="grid-content bg-purple">-->
+                        <!--<span><i>|</i>酒店品牌:</span>-->
+                        <!--<el-form-item label="活动区域" prop="hotelBrandId">-->
+                        <!--<el-select v-model="ruleForm.hotelBrandId" placeholder="其他">-->
+                        <!--<el-option label="其他" value="0"></el-option>-->
+                        <!--</el-select>-->
+                        <!--</el-form-item>-->
+                        <!--</div>-->
                         <!--</el-col>-->
 
                         <el-col :span="12">
@@ -87,7 +87,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
                                 <el-form-item label="膳食安排" prop="hotelSort">
-                                    <el-input v-model="ruleForm.hotelSort"  type="number" placeholder="请输入数字"></el-input>
+                                    <el-input v-model="ruleForm.hotelSort" type="number" placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -96,7 +96,7 @@
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
                                 <el-form-item label="膳食安排" prop="hotelSaleCount">
                                     <el-input type="number" v-model="ruleForm.hotelSaleCount"
-                                              placeholder="请输入数字" ></el-input>
+                                              placeholder="请输入数字"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -107,16 +107,16 @@
                                 <el-form-item label="所在省份" prop="areaName">
                                     <el-select v-model="ruleForm.areaName" placeholder="请选择">
                                         <el-option
-                                                v-for="item in cities"
-                                                :key="item.code"
-                                                :label="item.name"
-                                                :value="item.code">
+                                            v-for="item in cities"
+                                            :key="item.code"
+                                            :label="item.name"
+                                            :value="item.code">
                                         </el-option>
                                     </el-select>
                                     <!--<area-select :level="2" type="all" v-model="ruleForm.region"></area-select>-->
                                 </el-form-item>
                                 <!--<el-form-item label="活动区域" prop="activeLocation">-->
-                                    <!--<area-select :level="2" type="all" v-model="ruleForm.activeLocation"></area-select>-->
+                                <!--<area-select :level="2" type="all" v-model="ruleForm.activeLocation"></area-select>-->
                                 <!--</el-form-item>-->
                             </div>
                         </el-col>
@@ -217,7 +217,7 @@
                                     <i class="iconfont icon-comiisjiahao-copy" @click="handleImageRemove(index)"></i>
                                     <img :src="item.link" alt="">
                                 </div>
-                                <div class="el-upload el-upload--text"  @click="imageVisible = true">
+                                <div class="el-upload el-upload--text" @click="imageVisible = true">
                                     <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
                             </div>
@@ -302,7 +302,8 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>开业时间:</span>
                                 <el-form-item label="开业时间" prop="hotelStartBusiness">
-                                    <el-input v-model="ruleForm.hotelStartBusiness"  placeholder="请填写开业时间（如：2014）"></el-input>
+                                    <el-input v-model="ruleForm.hotelStartBusiness"
+                                              placeholder="请填写开业时间（如：2014）"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -369,12 +370,12 @@
 </template>
 
 <script>
-    import {updateHotel, addHotel} from '@/api/hotel'
+    import {updateHotel} from '@/api/hotel'
     import {getFacilities} from '@/api/hotelFacilities'
     import SelectImages from "@/components/Attachment/selectImages";
-    import { getRegion } from '@/api/region'
+    import {getRegion} from '@/api/region'
 
-//    import img from "./img.jpg";
+    //    import img from "./img.jpg";
 
     export default {
         components: {SelectImages},
@@ -386,7 +387,7 @@
                         network: [],
                         parkingLot: [],
                         hotelFacilities: [],
-                        activeLocation:[]
+                        activeLocation: []
                     }
                 }
             },
@@ -399,7 +400,7 @@
                 dialogVisible: false,
                 activeName: 'second',
                 addLoading: false,
-                imgList:[],
+                imgList: [],
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
@@ -489,31 +490,17 @@
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
-                        if (this.ruleForm.hotelId == undefined) {
-                            addHotel(this.ruleForm).then(response => {
-                                if (response.data.status) {
-                                    this.$message({
-                                        message: '添加成功！',
-                                        type: 'success'
-                                    });
-                                  this.handleCancel();
-                                } else {
-                                    this.$message.error(response.data.msg);
-                                }
-                            })
-                        } else {
-                            updateHotel(this.ruleForm.hotelId, this.ruleForm).then(response => {
-                                if (response.data.status) {
-                                    this.$message({
-                                        message: '更新成功！',
-                                        type: 'success'
-                                    });
-                                    this.handleCancel();
-                                } else {
-                                    this.$message.error(response.data.msg);
-                                }
-                            })
-                        }
+                        updateHotel(this.ruleForm.hotelId, this.ruleForm).then(response => {
+                            if (response.data.status) {
+                                this.$message({
+                                    message: '更新成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            } else {
+                                this.$message.error(response.data.msg);
+                            }
+                        })
                         this.addLoading = false
 
                     } else {
@@ -563,12 +550,12 @@
                 })
             },
             handleImageRemove(index) {
-                this.ruleForm.images.splice(index,1)
+                this.ruleForm.images.splice(index, 1)
             },
             //选择图片
             selectImagesSubmit(images) {
                 images.forEach(function (image, index) {
-                    this.ruleForm.images.push({'link':image.links})
+                    this.ruleForm.images.push({'link': image.links})
                 }, this)
             },
         }
@@ -650,7 +637,7 @@
                     font-size: 12px;
                     color: #666;
                 }
-                .el-upload{
+                .el-upload {
                     width: 100px;
                     height: 100px;
                     border: 5px dashed #E6E6E6;
@@ -711,7 +698,8 @@
             margin-left: 20px;
         }
     }
-    .imgBox{
+
+    .imgBox {
         width: 100px;
         height: 100px;
         /*background: red;*/
@@ -719,7 +707,7 @@
         margin-right: 10px;
         position: relative;
         cursor: pointer;
-        .iconfont{
+        .iconfont {
             position: absolute;
             right: -7px;
             top: -6px;
@@ -728,13 +716,14 @@
             cursor: pointer;
             color: #999;
         }
-        img{
+        img {
             width: 100px;
             height: 100px;
         }
     }
-    .imgBox:hover{
-        .iconfont{
+
+    .imgBox:hover {
+        .iconfont {
             display: block;
         }
     }
