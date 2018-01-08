@@ -25,18 +25,6 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-
-                        <!--<el-col :span="12">-->
-                        <!--<div class="grid-content bg-purple">-->
-                        <!--<span><i>|</i>酒店品牌:</span>-->
-                        <!--<el-form-item label="活动区域" prop="hotelBrandId">-->
-                        <!--<el-select v-model="ruleForm.hotelBrandId" placeholder="其他">-->
-                        <!--<el-option label="其他" value="0"></el-option>-->
-                        <!--</el-select>-->
-                        <!--</el-form-item>-->
-                        <!--</div>-->
-                        <!--</el-col>-->
-
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度经度:</span>
@@ -82,15 +70,6 @@
                             trigger="click"
                             content="填写数字，数字越大排序越靠前" style="display: none">
                         </el-popover>
-
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
-                                <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
-                                <el-form-item label="膳食安排" prop="hotelSort">
-                                    <el-input v-model="ruleForm.hotelSort" type="number" placeholder="请输入数字"></el-input>
-                                </el-form-item>
-                            </div>
-                        </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销&nbsp;售&nbsp; 量:</span>
@@ -419,12 +398,6 @@
                     minimumHotelHousePrice: [
                         {required: true, message: '请填写酒店售卖的最小价格', trigger: 'blur'}
                     ],
-//                    hotelBrandId: [
-//                        {type: 'number', required: true, message: '请选择酒店的品牌', trigger: 'change'}
-//                    ],
-//                    hotelSupplierId: [
-//                        {required: true, message: '此处不能为空', trigger: 'blur'}
-//                    ],
                     hotelLongitude: [
                         {required: true, message: '请填写百度经度', trigger: 'blur'},
                     ],
@@ -440,9 +413,6 @@
                     ],
                     hotelStatus: [
                         {required: true, message: '请选择酒店状态', trigger: 'change'}
-                    ],
-                    hotelSort: [
-                        {required: true, message: '请选择酒店排序顺序', trigger: 'blur'}
                     ],
                     hotelSaleCount: [
                         {required: true, message: '请填写酒店的销量', trigger: 'blur'}

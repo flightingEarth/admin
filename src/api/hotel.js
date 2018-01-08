@@ -8,7 +8,7 @@ export function getHotel() {
 }
 export function updateHotel(id, data) {
     return fetch({
-        url: 'supplier/hotel' + id,
+        url: 'supplier/hotel/' + id,
         method: 'PUT',
         data: data
     });
