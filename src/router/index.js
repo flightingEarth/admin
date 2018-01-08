@@ -51,7 +51,7 @@ const router = new Router({
                     path: '/scenic/create', hidden: true, component: ScenicCreate, name: '景区添加'
                 },
                 {
-                    path: '/scenic/:id/edit', component: ScenicEdit, name: '景区编辑'
+                    path: '/scenic/:id/edit', component: ScenicEdit, name: '景区管理'
                 },
 
                 //景区订单
