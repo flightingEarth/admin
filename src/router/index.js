@@ -45,14 +45,14 @@ const router = new Router({
             icon: 'quanxian',
             children: [
                 {
-                    path: '/', component: ScenicCreate, name: '景区管理'
+                    path: '/', component: ScenicEdit, name: '景区管理'
                 },
-                {
-                    path: '/scenic', hidden: true, component: ScenicSpot, name: '景区管理'
-                },
-                {
-                    path: '/scenic/:id/edit', hidden: true, component: ScenicEdit, name: '景区编辑'
-                },
+                // {
+                //     path: '/scenic', hidden: true, component: ScenicSpot, name: '景区管理'
+                // },
+                // {
+                //     path: '/scenic/:id/edit', hidden: true, component: ScenicEdit, name: '景区编辑'
+                // },
 
                 //景区订单
                 {
