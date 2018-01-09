@@ -84,7 +84,7 @@
                 <span>{{ years }}</span>
                 <i class="iconfont icon-you" @click="handNextMonth"></i>
             </div>
-            <table>
+            <table v-loading="loading">
                 <tr>
                     <th>一</th>
                     <th>二</th>
@@ -132,6 +132,7 @@
                     {id:0, name:'周日'},
                 ],
                 years:'',
+                loading: false,
                 lastMonth:'',
                 nextMonth:'',
                 tableData:[],
@@ -170,13 +171,16 @@
                     this.years = response.data.years
                     this.lastMonth = response.data.lastMonth
                     this.nextMonth = response.data.nextMonth
+                    this.loading = false
                 })
             },
             handLastMonth() {
+                this.loading = true
                 this.years = this.lastMonth
                 this.getList()
             },
             handNextMonth() {
+                this.loading = true
                 this.years = this.nextMonth
                 this.getList()
             },
