@@ -532,6 +532,7 @@
 
     .media-title {
         height: 28px;
+        margin-left: 40px;
     }
 
     .media-title-wrap h1 {
@@ -548,6 +549,12 @@
         margin-bottom: 20px;
         min-height: 28px;
         line-height: 28px;
+        position: relative;
+        h1{
+            position: absolute;
+            top: -45px;
+            font-size: 24px;
+        }
     }
 
     .mini input {
