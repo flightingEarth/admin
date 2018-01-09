@@ -266,7 +266,7 @@
                     display: flex;
                     justify-content: center;
                     li {
-                        /*float: left;*/
+                        float: left;
                         width: 100px;
                         height: 40px;
                         line-height: 40px;
@@ -396,7 +396,7 @@
                 }
             }
             table{
-                width: 80%;
+                width: 90%;
                 table-layout: fixed;
                 margin: 0 auto;
                 border-collapse: collapse;
@@ -420,11 +420,9 @@
                         font-size: 18px;
                     }
                     p{
-                        margin: 5px 0 5px 60px ;
+                        margin: 5px 0 5px 0;
+                        margin-left: 35%;
                     }
-                }
-                .nextDate{
-                    background: #F5F5F5;
                 }
             }
         }
