@@ -21,8 +21,6 @@ import HotelProductCreate from '@/views/hotelProduct/create'
 import HotelProductEdit from '@/views/hotelProduct/edit'
 
 import HotelOrder from '@/views/hotelOrder'
-import HotelOrderCreate from '@/views/hotelOrder/create'
-import HotelOrderEdit from '@/views/hotelOrder/edit'
 import HotelOrderDetail from '@/views/hotelOrder/detail'
 
 
@@ -74,13 +72,7 @@ const router = new Router({
                     path: '/hotelorder', component: HotelOrder, name: '酒店订单'
                 },
                 {
-                    path: '/hotelorder/create', hidden: true, component: HotelOrderCreate, name: '酒店订单添加'
-                },
-                {
-                    path: '/hotelorder/:id/edit', hidden: true, component: HotelOrderEdit, name: '酒店订单编辑'
-                },
-                {
-                    path: '/hotelorder/:id/detail', hidden: true, component: HotelOrderDetail, name: '酒店订单详情'
+                    path: '/hotelorder/:id', hidden: true, component: HotelOrderDetail, name: '酒店订单详情'
                 },
 
                 {
