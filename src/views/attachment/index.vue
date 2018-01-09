@@ -5,43 +5,43 @@
                 <i class="iconfont icon-tupian"></i>添加图片
             </div>
             <div class="media-title mb-15">
-                <template v-if="isActive > 0">
-                    <el-popover
-                        v-model="currentCategory.visible"
-                        placement="bottom"
-                        width="200"
-                        @show="handleShowRenameCategory(currentCategory.name)"
-                        @hide="handleHideRenameCategory"
-                        trigger="click">
-                        <el-input size="small" v-model="changeCategoryName"></el-input>
-                        <div class="popover-foot">
-                            <el-button type="primary" size="small" @click="handleRenameCategory">确定</el-button>
-                            <el-button size="small" class="fr" @click="currentCategory.visible = false">取消</el-button>
-                        </div>
-                        <el-button type="text" size="mini" slot="reference">重命名</el-button>
-                    </el-popover>
-                    <el-popover
-                        v-model="currentCategory.deleteVisible"
-                        placement="bottom"
-                        title="确定删除图片？"
-                        width="200"
-                        trigger="click">
-                        <div style="font-size: 12px;">仅删除分组，不删除图片，组内图片将自动归入未分组</div>
-                        <div class="popover-foot">
-                            <el-button type="primary" size="small" @click="handleDeleteCategory">确定</el-button>
-                            <el-button size="small" class="fr" @click="currentCategory.deleteVisible = false">取消
-                            </el-button>
-                        </div>
-                        <el-button type="text" size="mini" slot="reference">删除</el-button>
-                    </el-popover>
-                </template>
-
+                <h1>{{currentCategory.name}}</h1>
+                <div class="but">
+                    <template v-if="isActive > 0">
+                        <el-popover
+                            v-model="currentCategory.visible"
+                            placement="bottom"
+                            width="200"
+                            @show="handleShowRenameCategory(currentCategory.name)"
+                            @hide="handleHideRenameCategory"
+                            trigger="click">
+                            <el-input size="small" v-model="changeCategoryName"></el-input>
+                            <div class="popover-foot">
+                                <el-button type="primary" size="small" @click="handleRenameCategory">确定</el-button>
+                                <el-button size="small" class="fr" @click="currentCategory.visible = false">取消
+                                </el-button>
+                            </div>
+                            <el-button type="text" size="mini" slot="reference">重命名</el-button>
+                        </el-popover>
+                        <el-popover
+                            v-model="currentCategory.deleteVisible"
+                            placement="bottom"
+                            title="确定删除分组？"
+                            width="200"
+                            trigger="click">
+                            <div style="font-size: 12px;">仅删除分组，不删除图片，组内图片将自动归入未分组</div>
+                            <div class="popover-foot">
+                                <el-button type="primary" size="small" @click="handleDeleteCategory">确定</el-button>
+                                <el-button size="small" class="fr" @click="currentCategory.deleteVisible = false">取消
+                                </el-button>
+                            </div>
+                            <el-button type="text" size="mini" slot="reference">删除</el-button>
+                        </el-popover>
+                    </template>
+                </div>
                 <el-button type="primary" class="fr" @click="uploadImageVisible = true">上传图片</el-button>
             </div>
             <div class="action-bar">
-                    <span class="media-title-wrap">
-                            <h1>{{currentCategory.name}}</h1>
-                        </span>
                 <label class="mini">
                     <input type="checkbox" v-model="checkAll" @click="handleCheckAllChange"/>全选
                 </label>
@@ -532,16 +532,23 @@
 
     .media-title {
         height: 28px;
-        margin-left: 40px;
+        h1 {
+            float: left;
+            font-size: 22px;
+        }
+        .but {
+            float: left;
+            margin-left: 10px;
+        }
     }
 
-    .media-title-wrap h1 {
-        display: inline;
-        line-height: 28px;
-        font-size: 16px;
-        font-weight: normal;
-        margin-right: 10px;
-    }
+    /*.media-title-wrap h1 {*/
+    /*display: inline;*/
+    /*line-height: 28px;*/
+    /*font-size: 16px;*/
+    /*font-weight: normal;*/
+    /*margin-right: 10px;*/
+    /*}*/
 
     .action-bar {
         background: #f8f8f8;
@@ -550,7 +557,7 @@
         min-height: 28px;
         line-height: 28px;
         position: relative;
-        h1{
+        h1 {
             position: absolute;
             top: -45px;
             font-size: 24px;
@@ -606,13 +613,13 @@
         margin-left: 20px;
         margin-top: 20px;
         box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08), -3px -3px 4px rgba(0, 0, 0, 0.08);
-        .titl{
+        .titl {
             border-bottom: 2px solid #eff0f3;
             padding-bottom: 20px;
             margin-bottom: 20px;
             font-size: 14px;
             font-weight: 700;
-            .iconfont{
+            .iconfont {
                 margin-right: 10px;
             }
         }

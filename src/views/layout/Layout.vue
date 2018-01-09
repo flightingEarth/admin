@@ -3,6 +3,7 @@
         <div style="width: 100%; height: 50px; background: rgba(88,94,107,1);">
             <div class="logo">
                 <img src="./logo.png" alt="">
+                <span>旅游数据采集平台系统</span>
             </div>
             <div class="title">
                 {{title}}
@@ -105,7 +106,18 @@
             height: 50px;
             overflow: hidden;
             img {
-                width: 50%;
+                width: 15%;
+                margin-left: 30px;
+                float: left;
+            }
+            span{
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                vertical-align: middle;
+                margin-top: 10px;
+                float: left;
+                margin-left: 20px;
             }
         }
         .title {
