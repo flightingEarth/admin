@@ -8,13 +8,9 @@ import AccountReceipts from '@/views/financial/accountReceipts'
 
 import Attachment from '@/views/attachment/index'
 
-import Hotel from '@/views/hotel'
-import HotelCreate from '@/views/hotel/create'
 import HotelEdit from '@/views/hotel/edit'
 
 import PriceCalendar from '@/views/hotel/priceCalendar'
-
-import HotelRefund from '@/views/hotelRefund'
 
 import HotelRoom from '@/views/hotelRoom'
 import RoomCreate from '@/views/hotelRoom/create'
@@ -36,25 +32,14 @@ const router = new Router({
     routes: [
         // { path: '/login', component: Login, hidden: true, requiresAuth: false },
         {
-            path: '/financial',
-            component: Layout,
-            name: '财务部',
-            icon: 'quanxian',
-            children: [
-                {
-                    path: '/financial', hidden: true, component: Financial, name: '财务部',
-                },
-                {
-                    path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
-                }
-            ]
-        },
-        {
             path: '/',
             component: Layout,
             name: '酒店管理',
             icon: 'quanxian',
             children: [
+                {
+                    path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
+                },
                 {
                     path: '/', component: HotelEdit, name: '酒店管理'
                 },

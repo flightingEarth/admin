@@ -3,10 +3,6 @@
         <div class="search top">
             <div class="top-title"><i class="iconfont icon-qian"></i>我的资产</div>
             <div class="top-bottom">
-                <div class="detail">
-                    <span>月结账户</span>
-                    <p><span>¥{{account.availableAmount}}</span>元</p>
-                </div>
                 <div class="detail second">
                     <span>金币账户</span>
                     <p><span>{{account.youbi}}</span>枚</p>

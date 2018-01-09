@@ -161,7 +161,7 @@
                         <!--<el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>-->
                         <el-tab-pane label="网络设备" name="second">
                             <el-checkbox-group v-model="ruleForm.network">
-                                <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id">{{city.name}}
+                                <el-checkbox v-for="city in networkList" :label="city.id" :key="city.id" @change="handleCheckedNetWorkChange">{{city.name}}
                                 </el-checkbox>
                             </el-checkbox-group>
                         </el-tab-pane>
@@ -379,7 +379,6 @@
                 activeName: 'second',
                 addLoading: false,
                 imgList: [],
-                network: [],
                 minTime: {
                     disabledDate: (time) => {
                         return time.getTime() < this.beginTime
@@ -467,7 +466,7 @@
                     }
                     this.ruleForm.parkingLot = val ? arr : [];
                     this.isIndeterminate = false
-                }else{
+                } else {
                     for (var i = 0; i < this.facilitiesList.length; i++) {
                         arr.push(this.facilitiesList[i].id);
                     }
@@ -505,6 +504,13 @@
             handleCancel(){
                 this.$router.push({path: "/hotel"})
             },
+
+//            监听网络设施单项点击事件
+            handleCheckedNetWorkChange(value){
+                let checkedCount = value.length;
+                this.checkAll = checkedCount === this.networkList.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.networkList.length;
+            },
             resetForm(formName) {
                 this.$refs[formName].resetFields()
             },
@@ -512,16 +518,48 @@
                 if (this.activeName == 'first') {
 //                    this.$router.push({ path: '/setting/certificate' });
                 } else if (this.activeName == 'second') {
+
                     if (this.networkList.length == 0) {
                         this.getNetworkList()
                     }
+
+                    if (this.ruleForm.network.length == this.networkList.length) {
+                        console.log(this.checkAll);
+                        this.isIndeterminate = false;
+                        this.checkAll = true;
+                    } else {
+                        this.isIndeterminate = true;
+                    }
+
                 } else if (this.activeName == 'third') {
+                    this.isIndeterminate = true;
                     if (this.parkingLotList.length == 0) {
                         this.getParkingLot()
                     }
+
+                    if (this.ruleForm.parkingLot.length == this.parkingLotList.length) {
+                        console.log(this.checkAll);
+                        this.isIndeterminate = false;
+                        this.checkAll = true;
+                    } else {
+                        this.isIndeterminate = true;
+                    }
+
                 } else if (this.activeName == 'fourth') {
+
+
+                    this.isIndeterminate = true
                     if (this.facilitiesList.length == 0) {
+
                         this.getFacilitiesList()
+                    }
+
+                    if (this.ruleForm.hotelFacilities.length == this.facilitiesList.length) {
+                        console.log(this.checkAll);
+                        this.isIndeterminate = false;
+                        this.checkAll = true;
+                    } else {
+                        this.isIndeterminate = true;
                     }
                 }
             },
