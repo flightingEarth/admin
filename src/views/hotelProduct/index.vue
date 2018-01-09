@@ -62,7 +62,7 @@
             stripe
             style="width: 100%">
             <el-table-column
-                prop="goods_id"
+                prop="goodsId"
                 label="产品编号"
                 align="center"
             >
@@ -115,8 +115,8 @@
                 label="操作"
                 align="center">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small" @click="edit(scope.row.goods_id)">编辑</el-button>
-                    <el-button type="text" size="small" @click="handlePrice(scope.row.goods_id)">价格日历</el-button>
+                    <el-button type="text" size="small" @click="edit(scope.row.goodsId)">编辑</el-button>
+                    <el-button type="text" size="small" @click="handlePrice(scope.row.goodsId)">价格日历</el-button>
                 </template>
             </el-table-column>
         </el-table>

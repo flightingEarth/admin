@@ -2,7 +2,7 @@ import fetch from 'utils/fetch';
 
 export function getHotelDailyPrice(query) {
     return fetch({
-        url: 'admin/hotelDailyPrice',
+        url: 'supplier/hotelDailyPrice',
         method: 'get',
         params: query
     });
@@ -11,7 +11,7 @@ export function getHotelDailyPrice(query) {
 
 export function addHotelDailyPrice(data) {
     return fetch({
-        url: 'admin/hotelDailyPrice',
+        url: 'supplier/hotelDailyPrice',
         method: 'post',
         data: data
     });

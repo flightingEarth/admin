@@ -210,9 +210,6 @@
             }
         },
         created() {
-            if (this.ruleForm.roomId == 'undefined') {
-                this.ruleForm.hotelId = this.$route.query.roomId;
-            }
         },
         methods: {
             submitForm(formName) {
@@ -256,7 +253,7 @@
                 })
             },
             handleCancel(){
-                this.$router.push({path: "/hotel/hotelRoom?hotelId=" + this.ruleForm.hotelId})
+                this.$router.push({path: "/hotel/hotelRoom"})
             },
             handleImageRemove(index) {
                 this.ruleForm.images.splice(index,1)
