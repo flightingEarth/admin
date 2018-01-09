@@ -4,11 +4,11 @@
       class="card-box login-form">
       <h3 class="title">系统登录</h3>
       <el-form-item prop="name">
-        <span class="svg-container"><icon-svg icon-class="jiedianyoujian"></icon-svg></span>
+        <span class="svg-container"></span>
         <el-input name="name" type="text" v-model="loginForm.name" autoComplete="on" placeholder="用户名"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <span class="svg-container"><icon-svg icon-class="mima"></icon-svg></span>
+        <span class="svg-container"></span>
         <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
           placeholder="密码"></el-input>
       </el-form-item>

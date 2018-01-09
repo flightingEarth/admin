@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/views/layout/Layout'
+import Login from '@/views/login'
+
 import Dashboard from '@/views/dashboard'
 
 
@@ -55,7 +57,7 @@ Vue.use(Router)
 
 const router = new Router({
     routes: [
-        // { path: '/login', component: Login, hidden: true, requiresAuth: false },
+        { path: '/login', component: Login, hidden: true, requiresAuth: false },
         {
             path: '/',
             component: Layout,
