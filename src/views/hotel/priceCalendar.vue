@@ -9,11 +9,11 @@
                 <div class="input">
                     <el-row>
                         <ul>
-                            <li v-for="city in cities">
-                                <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-                                    <el-checkbox  :label="city" :key="city">{{city}}</el-checkbox>
-                                </el-checkbox-group>
-                            </li>
+                            <el-checkbox-group v-model="ruleForm.week">
+                                <li v-for="week in weeks">
+                                    <el-checkbox  :label="week.id" :key="week.id">{{week.name}}</el-checkbox>
+                                </li>
+                            </el-checkbox-group>
                             <li>
                                 <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
                             </li>
@@ -23,9 +23,10 @@
                             <div class="grid-content bg-purple titleTime top">
                                 <span><i>|</i>选择时间:</span>
                                 <el-date-picker
-                                    v-model="ruleForm.time"
+                                    v-model="ruleForm.times"
                                     type="daterange"
                                     range-separator="至"
+                                    value-format="yyyy-MM-dd"
                                     start-placeholder="开始日期"
                                     end-placeholder="结束日期">
                                 </el-date-picker>
@@ -34,32 +35,32 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light top">
                                 <span><i>|</i>库存余量:</span>
-                                <el-form-item label="膳食安排" prop="checkIn">
-                                    <el-input v-model="ruleForm.checkIn"></el-input>
+                                <el-form-item label="库存余量" prop="limitNum">
+                                    <el-input type="number" v-model="ruleForm.limitNum"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <!--<el-col :span="12">-->
-                            <!--<div class="grid-content bg-purple-light">-->
-                                <!--<span><i>|</i>金币抵扣:</span>-->
-                                <!--<el-form-item label="膳食安排" prop="checkIn">-->
-                                    <!--<el-input v-model="ruleForm.checkIn"></el-input>-->
-                                <!--</el-form-item>-->
-                            <!--</div>-->
-                        <!--</el-col>-->
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>市场价格:</span>
-                                <el-form-item label="膳食安排" prop="checkIn">
-                                    <el-input v-model="ruleForm.checkIn"></el-input>
+                                <el-form-item label="市场价格" prop="marketPrice">
+                                    <el-input type="number" v-model="ruleForm.marketPrice"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>销售价格:</span>
-                                <el-form-item label="膳食安排" prop="checkIn">
-                                    <el-input v-model="ruleForm.checkIn"></el-input>
+                                <el-form-item label="销售价格" prop="shopPrice">
+                                    <el-input type="number" v-model="ruleForm.shopPrice"></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple-light">
+                                <span><i>|</i>供应价:</span>
+                                <el-form-item label="供应价" prop="providePrice">
+                                    <el-input type="number" v-model="ruleForm.providePrice"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -69,152 +70,40 @@
                     <el-row>
                         <el-col :span="24" class="button">
                             <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
-                            <el-button>返回</el-button>
+                            <el-button @click="handleCancel">返回</el-button>
                         </el-col>
                     </el-row>
                 </div>
-
             </el-form>
         </div>
 
         <div class="calendar">
-            <p class="prompt">注：修改当日数量：双击选择日期 批量修改抽奖数量：鼠标按住拖选日期 选择修改抽奖数量：ctrl+单击日历</p>
+            <!--<p class="prompt">注：修改当日数量：双击选择日期 批量修改抽奖数量：鼠标按住拖选日期 选择修改抽奖数量：ctrl+单击日历</p>-->
             <div class="title">
-                <i class="iconfont icon-zuo"></i>
-                <span>2017-12</span>
-                <i class="iconfont icon-you"></i>
+                <i class="iconfont icon-zuo" @click="handLastMonth"></i>
+                <span>{{ years }}</span>
+                <i class="iconfont icon-you" @click="handNextMonth"></i>
             </div>
             <table>
                 <tr>
-                    <th>日</th>
                     <th>一</th>
                     <th>二</th>
                     <th>三</th>
                     <th>四</th>
                     <th>五</th>
                     <th>六</th>
+                    <th>日</th>
                 </tr>
-                <tr>
-                    <td>
-                        <span class="date">1</span>
-                        <p>库存量:600.00</p>
-                        <p>市场价:600.00</p>
-                        <p>销售价:529.00</p>
-                        <p>金币抵:0</p>
-                    </td>
-                    <td>
-                        <span class="date">2</span>
-                    </td>
-                    <td>
-                        <span class="date">3</span>
-                    </td>
-                    <td>
-                        <span class="date">4</span>
-                    </td>
-                    <td>
-                        <span class="date">5</span>
-                    </td>
-                    <td>
-                        <span class="date">6</span>
-                    </td>
-                    <td>
-                        <span class="date">7</span>
-                        <p>库存量:600.00</p>
-                        <p>市场价:600.00</p>
-                        <p>销售价:529.00</p>
-                        <p>金币抵:0</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="date">8</span>
-                    </td>
-                    <td>
-                        <span class="date">9</span>
-                    </td>
-                    <td>
-                        <span class="date">10</span>
-                    </td>
-                    <td>
-                        <span class="date">11</span>
-                    </td>
-                    <td>
-                        <span class="date">12</span>
-                    </td>
-                    <td>
-                        <span class="date">13</span>
-                    </td>
-                    <td>
-                        <span class="date">14</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="date">15</span>
-                    </td>
-                    <td>
-                        <span class="date">16</span>
-                    </td>
-                    <td>
-                        <span class="date">17</span>
-                    </td>
-                    <td>
-                        <span class="date">18</span>
-                    </td>
-                    <td>
-                        <span class="date">19</span>
-                    </td>
-                    <td>
-                        <span class="date">20</span>
-                    </td>
-                    <td>
-                        <span class="date">21</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="date">22</span>
-                    </td>
-                    <td>
-                        <span class="date">23</span>
-                    </td>
-                    <td>
-                        <span class="date">24</span>
-                    </td>
-                    <td>
-                        <span class="date">25</span>
-                    </td>
-                    <td>
-                        <span class="date">26</span>
-                    </td>
-                    <td>
-                        <span class="date">27</span>
-                    </td>
-                    <td>
-                        <span class="date">28</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="date">29</span>
-                    </td>
-                    <td>
-                        <span class="date">30</span>
-                    </td>
-                    <td>
-                        <span class="date">31</span>
-                    </td>
-                    <td class="nextDate">
-                        <span class="date">1</span>
-                    </td>
-                    <td class="nextDate">
-                        <span class="date">2</span>
-                    </td>
-                    <td class="nextDate">
-                        <span class="date">3</span>
-                    </td>
-                    <td class="nextDate">
-                        <span class="date">4</span>
+                <tr v-for="(items, index) in tableData">
+                    <td v-for="(item, index) in items" v-bind:class="{ nextDate: item.expire }">
+                        <span class="date">{{ item.day }}</span>
+                        <template v-if="item.display == true" >
+                            <p>库存量:{{ item.limitNum }}</p>
+                            <p>市场价:{{ item.marketPrice }}</p>
+                            <p>销售价:{{ item.shopPrice }}</p>
+                            <p>供应价:{{ item.providePrice }}</p>
+                        </template>
+
                     </td>
                 </tr>
             </table>
@@ -225,48 +114,109 @@
 </template>
 
 <script>
-    import {addHotel, addressList} from '@/api/article'
+    import { getHotelDailyPrice, addHotelDailyPrice } from '@/api/hotelDailyPrice'
     import "../../iconfont/iconfont.css"
-    const cityOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+    //    const cityOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
     export default {
         name: 'priceCalendar',
         data() {
             return {
                 checkAll: false,
-                checkedCities: [],
-                cities: cityOptions,
+                weeks: [
+                    {id:1, name:'周一'},
+                    {id:2, name:'周二'},
+                    {id:3, name:'周三'},
+                    {id:4, name:'周四'},
+                    {id:5, name:'周五'},
+                    {id:6, name:'周六'},
+                    {id:0, name:'周日'},
+                ],
+                years:'',
+                lastMonth:'',
+                nextMonth:'',
+                tableData:[],
                 isIndeterminate: true,
-                dialogImageUrl: '',
-                dialogVisible: false,
-                activeName: 'second',
-                time1:"",
-                time2:"",
-                time3:"",
-                time4:"",
-                ruleForm: {},
-                rules: {}
+                ruleForm: {
+                    week:[],
+                    times:[]
+                },
+                roomId: '',
+                rules: {
+                    marketPrice: [
+                        {required: true, message: '请输入市场价格', trigger: 'blur'}
+                    ],
+                    shopPrice: [
+                        {required: true, message: '请输入销售价格', trigger: 'blur'}
+                    ],
+                    providePrice: [
+                        {required: true, message: '请输入供应价', trigger: 'blur'}
+                    ],
+                    limitNum: [
+                        {required: true, message: '请输入库存', trigger: 'blur'}
+                    ]
+                }
             }
         },
         created() {
-//            this.getList()
+            this.roomId = this.$route.query.roomId
+            this.ruleForm.goodsId = this.$route.query.goodsId
+            this.getList()
         },
         methods: {
+            getList() {
+                let para = {'years': this.years}
+                getHotelDailyPrice(para).then(response => {
+                    this.tableData = response.data.data
+                    this.years = response.data.years
+                    this.lastMonth = response.data.lastMonth
+                    this.nextMonth = response.data.nextMonth
+                })
+            },
+            handLastMonth() {
+                this.years = this.lastMonth
+                this.getList()
+            },
+            handNextMonth() {
+                this.years = this.nextMonth
+                this.getList()
+            },
             handleCheckAllChange(val) {
-                this.checkedCities = val ? cityOptions : [];
+                this.ruleForm.week = val ? [0,1,2,3,4,5,6] : [];
                 this.isIndeterminate = false;
             },
-            handleCheckedCitiesChange(value) {
-                let checkedCount = value.length;
-                this.checkAll = checkedCount === this.cities.length;
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+            submitForm(ruleForm) {
+                if (this.ruleForm.week.length == 0) {
+                    this.$message.error('请选择添加的价格是周几');
+                    return false;
+                }
+
+                if (this.ruleForm.times.length < 2) {
+                    this.$message.error('请选择选择开始日期和结束日期');
+                    return false;
+                }
+
+                this.$refs.ruleForm.validate((valid) => {
+                    if (valid) {
+                        this.addLoading = true
+                        addHotelDailyPrice(this.ruleForm).then(response => {
+                            if (response.data.status) {
+                                this.$message({
+                                    message: '添加成功！',
+                                    type: 'success'
+                                });
+                                this.handleCancel();
+                            } else {
+                                this.$message.error(response.data.msg);
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
             },
-            resetForm(formName) {
-                this.$refs[formName].resetFields()
-            }
-        },
-        watch: {
-            ruleForm (val) {
-                console.log(val)
+            handleCancel() {
+                this.$router.push({path: "/hotelproduct?roomId=" + this.roomId})
             }
         }
     }
@@ -316,7 +266,7 @@
                     display: flex;
                     justify-content: center;
                     li {
-                        /*float: left;*/
+                        float: left;
                         width: 100px;
                         height: 40px;
                         line-height: 40px;
@@ -446,7 +396,7 @@
                 }
             }
             table{
-                width: 80%;
+                width: 90%;
                 table-layout: fixed;
                 margin: 0 auto;
                 border-collapse: collapse;
@@ -470,11 +420,9 @@
                         font-size: 18px;
                     }
                     p{
-                        margin: 5px 0 5px 60px ;
+                        margin: 5px 0 5px 0;
+                        margin-left: 35%;
                     }
-                }
-                .nextDate{
-                    background: #F5F5F5;
                 }
             }
         }
