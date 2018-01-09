@@ -8,33 +8,17 @@ export function hotelOrderList(query) {
     });
 }
 
-export function gethotelOrder(id) {
+export function getHotelOrder(id) {
     return fetch({
-        url: 'admin/hotelOrder/' + id +'/edit',
+        url: 'admin/hotelOrder/' + id ,
         method: 'get',
     });
 }
 
-export function addhotelOrder(data) {
-    return fetch({
-        url: 'admin/hotelOrder',
-        method: 'post',
-        data: data
-    });
-}
-
-export function updatehotelOrder(id, data) {
+export function updateHotelOrder(id, data) {
     return fetch({
         url: 'admin/hotelOrder/' + id,
         method: 'PUT',
         data: data
     });
 }
-
-export function destroyhotelOrder(id) {
-    return fetch({
-        url: 'admin/hotelOrder/' + id,
-        method: 'DELETE'
-    });
-}
-

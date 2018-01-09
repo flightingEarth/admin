@@ -8,9 +8,9 @@
                 <div class="input">
                     <el-row :gutter="20">
                         <el-col :span="6">订单号：<span>{{list.orderId}}</span></el-col>
-                        <el-col :span="6">下单时间：<span>{{list.time}}</span></el-col>
-                        <el-col :span="6">订单状态：<span>{{list.status}}</span></el-col>
-                        <el-col :span="6">支付金额：<span>{{list.pay}}</span></el-col>
+                        <el-col :span="6">下单时间：<span>{{list.createdAt}}</span></el-col>
+                        <el-col :span="6">订单状态：<span>{{list.showStatus}}</span></el-col>
+                        <el-col :span="6">支付金额：<span>{{list.payOff}}</span></el-col>
                     </el-row>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <el-row class="hotelInfo">
                         <el-col :span="24" class="hotelName">{{list.hotelName}}</el-col>
                         <el-col :span="24">酒店地址：<span>{{list.address}}</span></el-col>
-                        <el-col :span="24">前台电话：<span>{{list.phone}}</span></el-col>
+                        <el-col :span="24">前台电话：<span>{{list.telephone}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
@@ -30,12 +30,12 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">房型：<span>{{list.roomType}}</span></el-col>
+                        <el-col :span="8">房型：<span>{{list.roomName}}</span></el-col>
                         <el-col :span="8">床型：<span>{{list.bedType}}</span></el-col>
                         <el-col :span="8">间数：<span>{{list.roomNum}}</span></el-col>
                         <el-col :span="8">早餐：<span>{{list.breakfast}}</span></el-col>
-                        <el-col :span="8">入离日期：<span>{{list.inTime}}</span> 至 <span>{{list.outTime}}</span></el-col>
-                        <el-col :span="8">到店时间：<span>{{list.arriveTime}}</span> 至 <span>{{list.leaveTime}}</span>
+                        <el-col :span="8">入离日期：<span>{{list.inDay}}</span> 至 <span>{{list.outDay}}</span></el-col>
+                        <el-col :span="8">到店时间：<span>{{list.arrivalTime}}</span> 至 <span>{{list.latestTime}}</span>
                         </el-col>
                     </el-row>
                 </div>
@@ -44,8 +44,8 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="24">入住人：<span>{{list.person}}</span></el-col>
-                        <el-col :span="8">联系人手机：<span>{{list.phone}}</span></el-col>
+                        <el-col :span="24">入住人：<span>{{list.guests}}</span></el-col>
+                        <el-col :span="8">联系人手机：<span>{{list.mobilePhone}}</span></el-col>
                         <el-col :span="8">身份证：<span>{{list.idCard}}</span></el-col>
                     </el-row>
                 </div>
@@ -54,8 +54,8 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">支付方式：<span>{{list.payType}}</span></el-col>
-                        <el-col :span="8">支付状态：<span>{{list.payStatus}}</span></el-col>
+                        <el-col :span="8">支付方式：<span>{{list.PayMethod}}</span></el-col>
+                        <el-col :span="8">支付状态：<span>{{list.status}}</span></el-col>
                     </el-row>
                 </div>
             </div>
@@ -74,16 +74,15 @@
                     <el-table-column
                         prop="hotelId"
                         label="酒店ID"
-                        align="center"
-                    >
+                        align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="productId"
+                        prop="goodsId"
                         label="产品ID"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="productName"
+                        prop="goodsName"
                         label="产品名称"
                         align="center">
                     </el-table-column>
@@ -93,22 +92,22 @@
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="area"
+                        prop="building_area"
                         label="面积"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="bedType"
+                        prop="bed"
                         label="床型"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="inNum"
+                        prop="checkin_num"
                         label="可住人数"
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="addBed"
+                        prop="extra_bed"
                         label="加床"
                         align="center">
                     </el-table-column>
@@ -123,7 +122,7 @@
                         align="center">
                     </el-table-column>
                     <el-table-column
-                        prop="roomDescription"
+                        prop="basic"
                         label="房间描述"
                         align="center">
                     </el-table-column>
@@ -137,14 +136,15 @@
 
 <script>
 
+    import { getHotelOrder } from '@/api/hotelOrder'
+
     export default {
-        name: 'ScenicDetail',
+        name: 'HotelDetail',
         props: {
             ruleForm: {
                 type: Object,
                 default() {
                     return {
-                        region: [],
                     }
                 }
             }
@@ -152,16 +152,19 @@
         data() {
             return {
                 list: {
-                    orderId: 123456,
                 },
                 rules: {},
                 tableData: []
             }
         },
         created() {
-//            getHotel(this.$route.params.id).then(response => {
-//                this.list = response.data.data
-//            })
+            getHotelOrder(this.$route.params.id).then(response => {
+                this.list = response.data.data
+                this.tableData = this.list.products
+                this.tableData[0].goodsId = this.list.goodsId
+                this.tableData[0].hotelId = this.list.hotelId
+                this.tableData[0].goodsName = this.list.goodsName
+            })
         },
         methods: {
 //            resetForm(formName) {

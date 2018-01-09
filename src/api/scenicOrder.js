@@ -10,19 +10,10 @@ export function scenicOrderList(query) {
 
 export function getScenicOrder(id) {
     return fetch({
-        url: 'admin/scenicOrder/' + id +'/edit',
+        url: 'admin/scenicOrder/' +id,
         method: 'get',
     });
 }
-
-export function addScenicOrder(data) {
-    return fetch({
-        url: 'admin/scenicOrder',
-        method: 'post',
-        data: data
-    });
-}
-
 export function updateScenicOrder(id, data) {
     return fetch({
         url: 'admin/scenicOrder/' + id,
@@ -30,11 +21,3 @@ export function updateScenicOrder(id, data) {
         data: data
     });
 }
-
-export function destroyScenicOrder(id) {
-    return fetch({
-        url: 'admin/scenicOrder/' + id,
-        method: 'DELETE'
-    });
-}
-
