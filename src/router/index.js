@@ -10,8 +10,6 @@ import Attachment from '@/views/attachment/index'
 import ScenicEdit from '@/views/scenicSpot/edit'
 
 import ScenicOrder from '@/views/scenicOrder'
-import ScenicOrderCreate from '@/views/scenicOrder/create'
-import ScenicOrderEdit from '@/views/scenicOrder/edit'
 import ScenicOrderDetail from '@/views/scenicOrder/detail'
 
 import ScenicTicket from '@/views/scenicTicket'
@@ -40,13 +38,7 @@ const router = new Router({
                     path: '/scenicOrder', component: ScenicOrder, name: '景区订单'
                 },
                 {
-                    path: '/scenicOrder/create', hidden: true, component: ScenicOrderCreate, name: '景区订单添加'
-                },
-                {
-                    path: '/scenicOrder/:id/edit', hidden: true, component: ScenicOrderEdit, name: '景区订单编辑'
-                },
-                {
-                    path: '/scenicOrder/:id/detail', hidden: true, component: ScenicOrderDetail, name: '景区订单详情'
+                    path: '/scenicOrder/:id', hidden: true, component: ScenicOrderDetail, name: '订单详情'
                 },
 
                 //门票列表

@@ -8,9 +8,9 @@
                 <div class="input">
                     <el-row :gutter="20">
                         <el-col :span="6">订单号：<span>{{list.orderId}}</span></el-col>
-                        <el-col :span="6">下单时间：<span>{{list.time}}</span></el-col>
-                        <el-col :span="6">订单状态：<span>{{list.orderStatus}}</span></el-col>
-                        <el-col :span="6">支付金额：<span>{{list.pay}}</span></el-col>
+                        <el-col :span="6">下单时间：<span>{{list.created_at}}</span></el-col>
+                        <el-col :span="6">订单状态：<span>{{list.showStatus}}</span></el-col>
+                        <el-col :span="6">支付金额：<span>{{list.payOff}}</span></el-col>
                     </el-row>
                 </div>
             </div>
@@ -22,125 +22,74 @@
                     <el-row :gutter="20">
                         <el-col :span="8">订单号：<span>{{list.orderId}}</span></el-col>
                         <el-col :span="8">门票名称：<span>{{list.ticketName}}</span></el-col>
-                        <el-col :span="8">老订单：<span>{{list.oldOrder}}</span></el-col>
-                    </el-row>
-                </div>
-                <div class="title title2">
-                </div>
-                <div class="input">
-                    <el-row :gutter="20">
-                        <el-col :span="8">游客姓名：<span>{{list.personName}}</span></el-col>
-                        <el-col :span="8">单价：<span>{{list.price}}</span></el-col>
-                        <el-col :span="8">购买数量：<span>{{list.number}}</span></el-col>
-                    </el-row>
-                </div>
-                <div class="title title2">
-                </div>
-                <div class="input">
-                    <el-row :gutter="20">
-                        <el-col :span="8">下单时间：<span>{{list.orderTime}}</span></el-col>
-                        <el-col :span="8">总价：<span>{{list.totalPrice}}</span></el-col>
-                        <el-col :span="8">手机号码：<span>{{list.mobilePhone}}</span></el-col>
-                    </el-row>
-                </div>
-                <div class="title title2">
-                </div>
-                <div class="input">
-                    <el-row :gutter="20">
-                        <el-col :span="8">支付方式：<span>{{list.paytype}}</span></el-col>
-                        <el-col :span="8">支付状态：<span>{{list.payStatus}}</span></el-col>
-                        <el-col :span="8">计划出游时间：<span>{{list.outTime}}</span></el-col>
-                    </el-row>
-                </div>
-                <div class="title title2">
-                </div>
-                <div class="input">
-                    <el-row :gutter="20">
                         <el-col :span="8">状态：<span>{{list.status}}</span></el-col>
-                        <el-col :span="8">使用时间：<span>{{list.useTime}}</span></el-col>
                     </el-row>
                 </div>
-            </div>
-
-            <div class="search">
-                <div class="title">
-                    <span>订单详情</span>
+                <div class="title title2">
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">
-                            <span>修改订单退票规则：</span>
-                            <el-radio v-model="list.refundTicket" label="1">可退</el-radio>
-                            <el-radio v-model="list.refundTicket" label="2">不可退</el-radio>
-                        </el-col>
-                        <el-col :span="8">
-                            <span>修改订单改票规则：</span>
-                            <el-radio v-model="list.changeTicket" label="1">可改</el-radio>
-                            <el-radio v-model="list.changeTicket" label="2">不可改</el-radio>
-                        </el-col>
+                        <el-col :span="8">单价：<span>{{list.price}}</span></el-col>
+                        <el-col :span="8">购买数量：<span>{{list.currentNum}}</span></el-col>
+                        <el-col :span="8">总价：<span>{{list.orderTime}}</span></el-col>
+                    </el-row>
+                </div>
+                <div class="title title2">
+                </div>
+                <div class="input">
+                    <el-row :gutter="20">
+                        <el-col :span="8">游客姓名：<span>{{list.visitorName}}</span></el-col>
+                        <el-col :span="8">手机号码：<span>{{list.visitorTel}}</span></el-col>
+                        <el-col :span="8">身份证：<span>{{list.visitorSfz}}</span></el-col>
+                    </el-row>
+                </div>
+                <div class="title title2">
+                </div>
+                <div class="input">
+                    <el-row :gutter="20">
+                        <el-col :span="8">支付人：<span>{{list.payerUserName}}</span></el-col>
+                        <el-col :span="8">支付方式：<span>{{list.payMethod}}</span></el-col>
+                        <el-col :span="8">支付状态：<span>{{list.payStatus}}</span></el-col>
+                    </el-row>
+                </div>
+                <div class="title title2">
+                </div>
+                <div class="input">
+                    <el-row :gutter="20">
+                        <el-col :span="8">订单有效期：<span>{{list.startTime}}</span></el-col>
+                        <el-col :span="8">使用时间：<span>{{list.endTime}}</span></el-col>
                     </el-row>
                 </div>
             </div>
 
-            <!--酒店产品详情-->
-            <div class="search product">
-                <i class="iconfont icon-liebiao"></i>
-                <span>支付订单信息</span>
-            </div>
-            <div class="search product table">
-                <el-table
-                    :data="tableData"
-                    style="width: 100%"
-                    :border="true"
-                >
-                    <el-table-column
-                        prop="payId"
-                        label="支付编号"
-                        align="center"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                        prop="orderId"
-                        label="订单ID"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="productId"
-                        label="产品编号"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="person"
-                        label="联系人"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="mobilePhone"
-                        label="联系人手机号"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="pay"
-                        label="支付金额（元）"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="productName"
-                        label="产品名称"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="payTime"
-                        label="支付时间"
-                        align="center">
-                    </el-table-column>
-                </el-table>
-            </div>
+            <!--<div class="search">-->
+                <!--<div class="title">-->
+                    <!--<span>订单详情</span>-->
+                <!--</div>-->
+                <!--<div class="input">-->
+                    <!--<el-row :gutter="20">-->
+                        <!--<el-col :span="8">-->
+                            <!--<span>修改订单退票规则：</span>-->
+                            <!--<el-radio v-model="list.refundTicket" label="1">可退</el-radio>-->
+                            <!--<el-radio v-model="list.refundTicket" label="2">不可退</el-radio>-->
+                        <!--</el-col>-->
+                        <!--<el-col :span="8">-->
+                            <!--<span>修改订单改票规则：</span>-->
+                            <!--<el-radio v-model="list.changeTicket" label="1">可改</el-radio>-->
+                            <!--<el-radio v-model="list.changeTicket" label="2">不可改</el-radio>-->
+                        <!--</el-col>-->
+                    <!--</el-row>-->
+                <!--</div>-->
+            <!--</div>-->
+
         </el-form>
     </div>
 </template>
 
 <script>
+
+    import { getScenicOrder } from '@/api/scenicOrder'
+
     export default {
         name: 'ScenicCreate',
         props: {
@@ -161,9 +110,10 @@
             }
         },
         created() {
-//            getHotel(this.$route.params.id).then(response => {
-//                this.list = response.data.data
-//            })
+            getScenicOrder(this.$route.params.id).then(response => {
+                this.list = response.data.data
+                console.log(this.list)
+            })
         },
         methods: {
 //            resetForm(formName) {
