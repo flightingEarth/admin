@@ -14,7 +14,7 @@
             }
         },
         created() {
-            getScenic(this.$route.params.id).then(response => {
+            getScenic().then(response => {
                 this.ruleForm = response.data.data
             })
         },

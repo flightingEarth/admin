@@ -135,10 +135,10 @@
                                 <el-form-item label="所在省份" prop="areaName">
                                     <el-select v-model="ruleForm.areaName" placeholder="请选择">
                                         <el-option
-                                                v-for="item in cities"
-                                                :key="item.code"
-                                                :label="item.name"
-                                                :value="item.code">
+                                            v-for="item in cities"
+                                            :key="item.code"
+                                            :label="item.name"
+                                            :value="item.code">
                                         </el-option>
                                     </el-select>
                                     <!--<area-select :level="2" type="all" v-model="ruleForm.region"></area-select>-->
@@ -189,7 +189,7 @@
                                     <img :src="item.link" alt="">
                                 </div>
                                 <div class="el-upload el-upload--text" @click="imageVisible = true">
-                                    <i class="el-icon-plus picture-uploader-icon" ></i>
+                                    <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
@@ -264,8 +264,8 @@
     import Tinymce from '@/components/Tinymce'
     import SelectImages from "@/components/Attachment/selectImages";
     import {getStatusList, getScenicStar} from '@/utils/common'
-    import {updateScenic, addScenic} from '@/api/scenic'
-    import { getRegion } from '@/api/region'
+    import {updateScenic} from '@/api/scenic'
+    import {getRegion} from '@/api/region'
 
     export default {
         name: 'ScenicCreate',
@@ -275,11 +275,10 @@
             ruleForm: {
                 type: Object,
                 default() {
-                    return {
-                    }
+                    return {}
                 }
             },
-            title:''
+            title: ''
         },
         data() {
             return {
@@ -318,7 +317,7 @@
                         {required: true, message: '请输入景区的特色', trigger: 'change'}
                     ],
                     areaName: [
-                        {required: true, type: 'array', message: '请选择景区所在的区县', trigger: 'blur'}
+                        {required: true, message: '请选择景区所在的区县', trigger: 'blur'}
                     ],
                     longitude: [
                         {required: true, message: '请输入景区的经度', trigger: 'blur'}
@@ -354,12 +353,12 @@
         },
         methods: {
             handleImageRemove(index) {
-                this.ruleForm.images.splice(index,1)
+                this.ruleForm.images.splice(index, 1)
             },
             //选择图片
             selectImagesSubmit(images) {
                 images.forEach(function (image, index) {
-                    this.ruleForm.images.push({'link':image.links})
+                    this.ruleForm.images.push({'link': image.links})
                 }, this)
             },
             submitForm(formName) {
@@ -370,24 +369,12 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.addLoading = true
-                        if (this.ruleForm.scenicId == undefined) {
-                            addScenic(this.ruleForm).then(response => {
-                                console.log(response.data);
-                                this.$message({
-                                    message: '添加成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
-                            })
-                        } else {
-                            updateScenic(this.ruleForm.scenicId, this.ruleForm).then(response => {
-                                this.$message({
-                                    message: '更新成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
-                            })
-                        }
+                        updateScenic(this.ruleForm.scenicId, this.ruleForm).then(response => {
+                            this.$message({
+                                message: '更新成功！',
+                                type: 'success'
+                            });
+                        })
                     } else {
                         console.log('error submit!!')
                         return false

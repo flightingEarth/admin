@@ -2,13 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/views/layout/Layout'
 
-import Financial from '@/views/financial'
+import Login from '@/views/login'
 import AccountReceipts from '@/views/financial/accountReceipts'
 
 import Attachment from '@/views/attachment/index'
 
-import ScenicSpot from '@/views/scenicSpot'
-import ScenicCreate from '@/views/scenicSpot/create'
 import ScenicEdit from '@/views/scenicSpot/edit'
 
 import ScenicOrder from '@/views/scenicOrder'
@@ -24,20 +22,7 @@ Vue.use(Router)
 
 const router = new Router({
     routes: [
-        {
-            path: '/financial',
-            component: Layout,
-            name: '财务部',
-            icon: 'quanxian',
-            children: [
-                {
-                    path: '/financial', hidden: true, component: Financial, name: '财务部',
-                },
-                {
-                    path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
-                }
-            ]
-        },
+        { path: '/login', component: Login, hidden: true, requiresAuth: false },
         {
             path: '/',
             component: Layout,
@@ -45,15 +30,11 @@ const router = new Router({
             icon: 'quanxian',
             children: [
                 {
+                    path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
+                },
+                {
                     path: '/', component: ScenicEdit, name: '景区管理'
                 },
-                // {
-                //     path: '/scenic', hidden: true, component: ScenicSpot, name: '景区管理'
-                // },
-                // {
-                //     path: '/scenic/:id/edit', hidden: true, component: ScenicEdit, name: '景区编辑'
-                // },
-
                 //景区订单
                 {
                     path: '/scenicOrder', component: ScenicOrder, name: '景区订单'
@@ -78,12 +59,14 @@ const router = new Router({
                 {
                     path: '/scenic/:scenicId/ticket/:id/edit', hidden: true, component: TicketEdit, name: '门票编辑',
                 },
-
+                {
+                    path: '/attachment/index', component: Attachment, name: '我的文件'
+                }
 
 
             ]
         },
-        {
+        /*{
             path: '/attachment',
             component: Layout,
             name: '设置',
@@ -92,7 +75,7 @@ const router = new Router({
                 component: Attachment,
                 name: '我的文件'
             }]
-        },
+        },*/
     ]
 })
 

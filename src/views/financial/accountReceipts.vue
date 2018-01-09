@@ -3,10 +3,6 @@
         <div class="search top">
             <div class="top-title"><i class="iconfont icon-qian"></i>我的资产</div>
             <div class="top-bottom">
-                <div class="detail">
-                    <span>月结账户</span>
-                    <p><span>¥{{account.availableAmount}}</span>元</p>
-                </div>
                 <div class="detail second">
                     <span>金币账户</span>
                     <p><span>{{account.youbi}}</span>枚</p>
@@ -138,10 +134,11 @@
         </el-table>
 
         <el-pagination
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="searchList.page"
-            :page-size="searchList.limit"
-            layout="total, prev, pager, next"
+            :current-page="searchList.currentPage"
+            :page-size="searchList.pageSize"
+            layout="total, prev, pager, next, jumper"
             :total="total">
         </el-pagination>
     </div>
@@ -154,8 +151,8 @@
         data() {
             return {
                 searchList: {
-                    limit: 20,
-                    page: 1,
+                    currentPage: 1,
+                    pageSize: 10,
                     orderId:'',
                     type:''
                 },
@@ -198,8 +195,12 @@
                     this.listLoading = false
                 })
             },
+            handleSizeChange(val) {
+                this.searchList.pageSize = val
+                this.getList()
+            },
             handleCurrentChange(val) {
-                this.searchList.page = val
+                this.searchList.currentPage = val
                 this.getList()
             },
             handleSearch(){
