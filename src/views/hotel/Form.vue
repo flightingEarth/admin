@@ -442,17 +442,13 @@
         },
         created() {
             this.getNetworkList() //网络设备
-//            this.network = ['免费宽带']
-            getRegion({}).then(response => {
+
+            getRegion().then(response => {
                 this.cities = response.data.data
             })
         },
         methods: {
             handleCheckAllChange(val) {
-//                console.log(this.networkList)
-//                this.ruleForm.network = val ?  [25] : []
-//                console.log(this.ruleForm.network)
-//                this.network = val ? this.networkList : []
                 var arr = [];
                 if (this.activeName == 'second') {
                     for (var i = 0; i < this.networkList.length; i++) {
@@ -500,9 +496,6 @@
                         return false
                     }
                 })
-            },
-            handleCancel(){
-                this.$router.push({path: "/hotel"})
             },
 
 //            监听网络设施单项点击事件

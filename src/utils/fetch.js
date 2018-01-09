@@ -6,16 +6,17 @@ import {getToken} from 'utils/auth';
 // 创建axios实例
 const service = axios.create({
     baseURL: "http://sz.test/", // api的base_url
-    timeout: 5000                  // 请求超时时间
+    timeout: 5000,                  // 请求超时时间
+
 });
 
 // request拦截器
 service.interceptors.request.use(config => {
     // Do something before request is sent
-    // if (store.getters.token) {
-    //   config.headers['Accept'] = 'application/json';
-    //   config.headers['Authorization'] = 'Bearer ' + getToken(); // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
-    // }
+    if (store.getters.token) {
+      config.headers['Accept'] = 'application/x-www-form-urlencoded';
+      // config.headers['Authorization'] = 'Bearer ' + getToken(); // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+    }
     config.headers['X-Requested-With'] = 'XMLHttpRequest'
 
     return config;
@@ -27,8 +28,8 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(function (response) {
 // 对响应数据做点什么
-
     return response;
+
 }, function (err) {
 
     if (err && err.response) {
