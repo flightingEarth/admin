@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Layout from '@/views/layout/Layout'
 
 
-import Financial from '@/views/financial'
+import Login from '@/views/login'
 import AccountReceipts from '@/views/financial/accountReceipts'
 
 import Attachment from '@/views/attachment/index'
@@ -30,7 +30,7 @@ Vue.use(Router)
 
 const router = new Router({
     routes: [
-        // { path: '/login', component: Login, hidden: true, requiresAuth: false },
+        { path: '/login', component: Login, hidden: true, requiresAuth: false },
         {
             path: '/',
             component: Layout,
@@ -43,12 +43,6 @@ const router = new Router({
                 {
                     path: '/', component: HotelEdit, name: '酒店管理'
                 },
-/*                {
-                    path: '/hotel', hidden: true, component: Hotel, name: '酒店管理'
-                },*/
-/*                {
-                    path: '/hotel/:id/edit', hidden: true, component: HotelEdit, name: '酒店编辑'
-                },*/
                 {
                     path: '/hotel/priceCalendar', hidden: true, component: PriceCalendar, name: '价格日历'
                 },
