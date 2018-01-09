@@ -126,8 +126,8 @@
 </template>
 
 <script>
-    import {hotelList} from '@/api/hotel'
-    import { getStatusList } from '@/utils/common'
+//    import {hotelList} from '@/api/hotel'
+//    import { getStatusList } from '@/utils/common'
 
     export default {
         name: 'hotel',
@@ -157,11 +157,11 @@
         methods: {
             getList() {
                 this.listLoading = true
-                hotelList(this.searchList).then(response => {
-                    this.tableData = response.data.data
-                    this.total = response.data.meta.total
-                    this.listLoading = false
-                })
+//                hotelList(this.searchList).then(response => {
+//                    this.tableData = response.data.data
+//                    this.total = response.data.meta.total
+//                    this.listLoading = false
+//                })
             },
             handleCurrentChange(val) {
                 this.searchList.page = val;
