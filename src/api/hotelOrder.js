@@ -10,12 +10,12 @@ export function hotelOrderList(query) {
 
 export function getHotelOrder(id) {
     return fetch({
-        url: 'supplier/hotelOrder/' + id +'/edit',
+        url: 'supplier/hotelOrder/' + id,
         method: 'get',
     });
 }
 
-export function updatehotelOrder(id, data) {
+export function updateHotelOrder(id, data) {
     return fetch({
         url: 'supplier/hotelOrder/' + id,
         method: 'PUT',
