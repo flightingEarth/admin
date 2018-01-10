@@ -318,7 +318,7 @@
                         {required: true, message: '请输入景区的特色', trigger: 'change'}
                     ],
                     areaName: [
-                        {required: true, type: 'array', message: '请选择景区所在的区县', trigger: 'blur'}
+                        {required: true, message: '请选择景区所在的区县', trigger: 'blur'}
                     ],
                     longitude: [
                         {required: true, message: '请输入景区的经度', trigger: 'blur'}
