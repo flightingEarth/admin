@@ -105,19 +105,20 @@
             float: left;
             height: 50px;
             overflow: hidden;
+            line-height: 50px;
             img {
                 width: 15%;
-                margin-left: 30px;
                 float: left;
+                margin-left: 2%;
+                margin-top: 10px;
             }
             span{
                 color: #fff;
                 font-size: 18px;
                 font-weight: bold;
                 vertical-align: middle;
-                margin-top: 10px;
                 float: left;
-                margin-left: 20px;
+                margin-left: 2%;
             }
         }
         .title {
