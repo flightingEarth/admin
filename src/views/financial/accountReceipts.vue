@@ -364,7 +364,7 @@
                     padding-left: 5%;
                 }
                 .last {
-                    width: 25%;
+                    width: 50%;
                     padding-left: 5%;
                     border: 0;
                     div{
