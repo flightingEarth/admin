@@ -125,16 +125,13 @@
                     }
                 ],
                 selected: [],
-                currentCategory: {id: 6},
+                currentCategory: {id: 0},
                 count: 0,
                 uploadImageVisible: false
             }
         },
         created() {
-            if (this.images.length == 0) {
-                this.loadCategories()
-                this.loadImages()
-            }
+            this.loadCategories()
         },
         watch: {
             count: function (val, oldVal) {
@@ -160,6 +157,7 @@
                 getCategories().then(response => {
                     this.categories = response.data.data
                     this.currentCategory = this.categories[0]
+                    this.loadImages()
                 })
             },
             handleCurrentChange(val) {

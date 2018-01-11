@@ -430,11 +430,10 @@
                     ],
                     hotelLatitude: [
                         {required: true, message: '请填写百度纬度', trigger: 'blur'},
-//                    {type: number, message: '您填写的百度纬度格式错误', trigger: 'blur'}
                     ],
-//                    activeLocation: [
-//                        {required: true, message: '请选择所在地', trigger: 'change'}
-//                    ],
+                    areaName: [
+                        {required: true, message: '请选择所在地', trigger: 'change'}
+                    ],
                     hotelAddress: [
                         {required: true, message: '请填写酒店地址', trigger: 'blur'}
                     ],
@@ -483,6 +482,18 @@
                 this.isIndeterminate = false
             },
             submitForm() {
+                if (this.ruleForm.images.length == 0) {
+                    this.$message.error('请上传景区图片');
+                    return false
+                }
+                if (this.ruleForm.images.length == 0) {
+                    this.$message.error('请上传景区图片');
+                    return false
+                }
+                if (this.ruleForm.images.length == 0) {
+                    this.$message.error('请上传景区图片');
+                    return false
+                }
                 if (this.ruleForm.images.length == 0) {
                     this.$message.error('请上传景区图片');
                     return false

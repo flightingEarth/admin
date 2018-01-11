@@ -210,7 +210,7 @@
                 </div>
             </div>
         </el-col>
-        <Upload-image :categoryId="currentCategory.id" @submit="loadCategories" @close="uploadImageVisible = false"
+        <Upload-image :categoryId="currentCategory.id" @submit="handUploadImage" @close="uploadImageVisible = false"
                       :visible="uploadImageVisible"></Upload-image>
 
     </div>
@@ -254,6 +254,12 @@
             this.loadCategories()
         },
         methods: {
+            //上传图片 成功
+            handUploadImage() {
+                this.loadCategories()
+                this.page = 1
+                this.loadImages()
+            },
             loadImages() {
                 let para = {
                     page: this.page,
@@ -262,13 +268,15 @@
                 };
                 getImages(para).then(response => {
                     this.images = response.data.data
-                    this.total = response.data.meta.total
+                    this.total = response.data.total
                 })
             },
             loadCategories() {
                 getCategories().then(response => {
                     this.categories = response.data.data
-                    this.currentCategory = this.categories[0]
+                    if (this.currentCategory.id == undefined) {
+                        this.currentCategory = this.categories[0]
+                    }
                     this.loadImages()
                 })
             },
@@ -337,6 +345,7 @@
                     this.currentCategory = this.categories[0]
                     this.currentCategory.deleteVisible = false
                     this.isActive = 0
+                    this.loadCategories()
                 })
 
             },
@@ -456,9 +465,7 @@
                         image.name = this.changeImageName
                         image.renameVisible = false
                     })
-
                 }
-
             },
             //修改图片名称前  弹窗的显示
             handleChangeImageNameShow(name) {
