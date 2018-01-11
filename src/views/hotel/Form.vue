@@ -20,8 +20,8 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>销售起价:</span>
                                 <el-form-item label="膳食安排" prop="minimumHotelHousePrice">
-                                    <el-input v-model="ruleForm.minimumHotelHousePrice" type="number"
-                                              placeholder="请输入数字"></el-input>
+                                    <el-input  v-model="ruleForm.minimumHotelHousePrice" type="number"
+                                              placeholder="请输入数字"></el-input >
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -41,7 +41,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度经度:</span>
                                 <el-form-item label="膳食安排" prop="hotelLongitude">
-                                    <el-input v-model="ruleForm.hotelLongitude"></el-input>
+                                    <el-input type="number" v-model="ruleForm.hotelLongitude"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -49,7 +49,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>百度纬度:</span>
                                 <el-form-item label="膳食安排" prop="hotelLatitude">
-                                    <el-input v-model="ruleForm.hotelLatitude"></el-input>
+                                    <el-input type="number" v-model="ruleForm.hotelLatitude"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>

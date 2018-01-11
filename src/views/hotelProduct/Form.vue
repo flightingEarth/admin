@@ -60,7 +60,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>起购&nbsp;房&nbsp;间&nbsp;数:</span>
                                 <el-form-item label="活动区域" prop="lowestNum">
-                                    <el-input v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
+                                    <el-input type="number" v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>

@@ -51,7 +51,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>入住人数:</span>
                                 <el-form-item label="膳食安排" prop="capacity">
-                                    <el-input v-model="ruleForm.capacity"></el-input>
+                                    <el-input type="number" v-model="ruleForm.capacity"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -162,7 +162,7 @@
                 type: Object,
                 default() {
                     return {
-//                        status: 1
+                        images:[]
                     }
                 }
             },
@@ -210,9 +210,11 @@
             }
         },
         created() {
-            if (this.ruleForm.roomId == 'undefined') {
-                this.ruleForm.hotelId = this.$route.query.roomId;
+            if (this.ruleForm.hotelId == undefined) {
+                this.ruleForm.hotelId = this.$route.query.hotelId;
             }
+
+            console.log(this.ruleForm)
         },
         methods: {
             submitForm(formName) {
@@ -224,17 +226,18 @@
                     if (valid) {
                         this.addLoading = true
                         if (this.ruleForm.roomId == undefined) {
-                            if (response.data.status) {
                                 addHotelRoom(this.ruleForm).then(response => {
-                                    this.$message({
-                                        message: '添加成功！',
-                                        type: 'success'
-                                    });
-                                    this.handleCancel();
+                                    if (response.data.status) {
+                                        this.$message({
+                                            message: '添加成功！',
+                                            type: 'success'
+                                        });
+                                        this.handleCancel();
+                                    } else {
+                                        this.$message.error(response.data.msg);
+                                    }
                                 })
-                            } else {
-                                this.$message.error(response.data.msg);
-                            }
+
                         } else {
                             updateHotelRoom(this.ruleForm.roomId, this.ruleForm).then(response => {
                                 if (response.data.status) {

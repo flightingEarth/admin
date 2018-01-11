@@ -46,7 +46,6 @@
                             <el-button type="primary" @click="handleSearch">搜索</el-button>
                             <el-button @click="resetForm('searchForm')">重置</el-button>
                         </el-col>
-
                     </el-row>
                 </el-form>
             </div>
@@ -57,7 +56,6 @@
             <span>列表数据</span>
             <ul>
                 <li><a href="javascript:;" @click="create">添加景区</a></li>
-                <li><a href="javascript:;">图片管理</a></li>
             </ul>
         </div>
         <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">

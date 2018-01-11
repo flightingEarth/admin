@@ -373,20 +373,27 @@
                         this.addLoading = true
                         if (this.ruleForm.scenicId == undefined) {
                             addScenic(this.ruleForm).then(response => {
-                                console.log(response.data);
-                                this.$message({
-                                    message: '添加成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if(response.data.status) {
+                                    this.$message({
+                                        message: '添加成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel();
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         } else {
                             updateScenic(this.ruleForm.scenicId, this.ruleForm).then(response => {
-                                this.$message({
-                                    message: '更新成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if(response.data.status) {
+                                    this.$message({
+                                        message: '更新成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel();
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         }
                     } else {
