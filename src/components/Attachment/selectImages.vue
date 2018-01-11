@@ -13,8 +13,6 @@
 
                 <span class="title">{{ title }}</span>
                 <a href="javascript:;" class="add" @click="uploadImageVisible = true">添加图片</a>
-
-
                 <!--<div class="ui-search-box">-->
                 <!--<el-input placeholder="搜索" size="small" v-model="keyword" :on-icon-click="searchImage" icon="search">-->
                 <!--</el-input>-->
@@ -51,6 +49,15 @@
                         </el-button>
                         <p>暂无数据，点击添加</p>
                     </div>
+                </div>
+                <div class="page" style="text-align: right">
+                    <el-pagination
+                        @current-change="handleCurrentChange"
+                        :current-page="page"
+                        :page-size="limit"
+                        layout="total, prev, pager, next"
+                        :total="total">
+                    </el-pagination>
                 </div>
             </div>
 
@@ -107,19 +114,19 @@
                 isDisabled: true,
                 titles: [],
                 keyword: '',
+                page: 1,
+                limit: 20,
+                total:0,
                 categoryVisible: true,
                 images: [],
                 categories: [{
                     "name": "未命名",
                     "count": 0
-                    }
+                }
                 ],
                 selected: [],
-                currentCategory: {id: 0},
+                currentCategory: {id: 6},
                 count: 0,
-                total: 0,
-                page: 1,
-                limit: 15,
                 uploadImageVisible: false
             }
         },
@@ -138,7 +145,8 @@
             loadImages() {
                 let para = {
                     page: this.page,
-                    limit: this.limit
+                    limit: this.limit,
+                    category_id: this.currentCategory.id
                 };
                 if (this.currentCategory.id) {
                     para.category_id = this.currentCategory.id
@@ -170,6 +178,10 @@
             },
             dialogSwitch() {
 
+            },
+            handleCurrentChange(val) {
+                this.page = val;
+                this.loadImages()
             },
             //选择图片
             handleSelectionCategory(index, category) {
@@ -214,6 +226,12 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
     .modal-body {
         height: 528px;
+        position: relative;
+        .page{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
     }
 
     //分类
