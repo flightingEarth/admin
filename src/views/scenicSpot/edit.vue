@@ -1,5 +1,5 @@
 <template>
-    <scenic-form :ruleForm="ruleForm"></scenic-form>
+    <scenic-form title="景区编辑" :ruleForm="ruleForm"></scenic-form>
 </template>
 
 <script>
