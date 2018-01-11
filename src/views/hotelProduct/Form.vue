@@ -291,7 +291,7 @@
                 type: Object,
                 default() {
                     return {
-//                        status: 1
+                        images:[]
                     }
                 }
             }

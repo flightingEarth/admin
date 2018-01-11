@@ -1,5 +1,5 @@
 <template>
-    <scenic-form></scenic-form>
+    <scenic-form title="添加景区"></scenic-form>
 </template>
 
 <script>

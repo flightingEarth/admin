@@ -276,6 +276,7 @@
                 type: Object,
                 default() {
                     return {
+                        images:[]
                     }
                 }
             },
