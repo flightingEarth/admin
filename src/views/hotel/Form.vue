@@ -486,16 +486,19 @@
                     this.$message.error('请上传景区图片');
                     return false
                 }
-                if (this.ruleForm.images.length == 0) {
-                    this.$message.error('请上传景区图片');
+
+                if (this.ruleForm.network.length == 0) {
+                    this.$message.error('请选择酒店的网络设施');
                     return false
                 }
-                if (this.ruleForm.images.length == 0) {
-                    this.$message.error('请上传景区图片');
+
+                if (this.ruleForm.parkingLot.length == 0) {
+                    this.$message.error('请选择酒店的停车场');
                     return false
                 }
-                if (this.ruleForm.images.length == 0) {
-                    this.$message.error('请上传景区图片');
+
+                if (this.ruleForm.hotelFacilities.length == 0) {
+                    this.$message.error('请选择酒店的设备服务');
                     return false
                 }
                 this.$refs.ruleForm.validate((valid) => {
