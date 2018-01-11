@@ -317,10 +317,11 @@ label.el-radio {
         margin-left: 0!important;
     }
 }
-
-.image-list{
-    height: inherit!important;
-    overflow-y: auto!important;
+.attachment-list-region{
+    .image-list{
+        height: inherit!important;
+        overflow-y: auto!important;
+    }
 }
 .category-list-region{
     overflow-y: auto!important;
