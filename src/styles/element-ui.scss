@@ -341,8 +341,9 @@ label.el-radio {
 }
 
 .category-container{
+    //width: 150px!important;
     .category-list{
-        max-height: 280px!important;
+        max-height: 500px!important;
     }
 }
 
@@ -353,3 +354,6 @@ label.el-radio {
     }
 }
 
+.app-main{
+    overflow: hidden;
+}
