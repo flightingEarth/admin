@@ -205,7 +205,7 @@ label.el-radio {
     }
     .el-dialog__header {
         height: 40px;
-        background: #5FCAB1 !important;
+        //background: #5FCAB1 !important;
         line-height: 40px;
         padding: 0 0 0 10px;
         .el-dialog {
@@ -319,6 +319,7 @@ label.el-radio {
 }
 
 .image-list{
+    height: inherit!important;
     overflow-y: auto!important;
 }
 .category-list-region{
@@ -330,4 +331,7 @@ label.el-radio {
 }
 .el-checkbox{
     width: 205px;
+}
+.widget-attachment{
+    width: 1140px!important;
 }
