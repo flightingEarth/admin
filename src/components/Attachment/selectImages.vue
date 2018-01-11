@@ -12,7 +12,7 @@
                 </template>
 
                 <span class="title">{{ title }}</span>
-
+                <a href="javascript:;" class="add" @click="uploadImageVisible = true">添加图片</a>
                 <!--<div class="ui-search-box">-->
                 <!--<el-input placeholder="搜索" size="small" v-model="keyword" :on-icon-click="searchImage" icon="search">-->
                 <!--</el-input>-->
@@ -256,6 +256,19 @@
             top: 5px;
             left: 20px;
             /*color: #fff;*/
+        }
+        .add{
+            position: absolute;
+            right: 40px;
+            top: 10px;
+            display: inline-block;
+            width: 60px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            color: #fff;
+            background: #07d;
+            border-radius: 3px;
         }
     }
 
