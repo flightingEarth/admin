@@ -82,7 +82,7 @@
             </div>
             <template v-if="images.length > 0">
                 <el-row :gutter="10" class="image-list">
-                    <el-col :span="3" :key="index" class="image-item" v-for="(image, index) in images">
+                    <el-col :span="4" :key="index" class="image-item" v-for="(image, index) in images"  style="margin-right: 30px">
                         <div class="image-box"><img :src="image.links" width="160" height="160"/></div>
                         <div class="image-title">
                             <label class="mini">

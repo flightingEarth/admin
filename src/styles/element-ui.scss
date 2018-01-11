@@ -318,10 +318,14 @@ label.el-radio {
     }
 }
 
-.image-list{
-    height: inherit!important;
-    overflow-y: auto!important;
+.attachment-list-region{
+    .image-list{
+        height: inherit!important;
+        overflow-y: auto!important;
+    }
 }
+
+
 .category-list-region{
     overflow-y: auto!important;
 }
@@ -333,5 +337,11 @@ label.el-radio {
     width: 205px;
 }
 .widget-attachment{
-    width: 1140px!important;
+    //width: 1140px!important;
+}
+
+.category-container{
+    .category-list{
+        max-height: 280px!important;
+    }
 }
