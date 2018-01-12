@@ -57,7 +57,7 @@
                     <ul>
                         <li v-for="category in categories">
                             <input type="radio" :id="category.id" :value="category.id" v-model="defaultCategory">
-                            <label :for="category.id">{{ category.name }}</label>
+                            <label :for="category.id" title="category.name">{{ category.name }}</label>
                         </li>
                     </ul>
                     <div class="popover-foot">
