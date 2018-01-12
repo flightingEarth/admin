@@ -185,7 +185,7 @@ const router = new Router({
                     path: '/hotelorder', component: HotelOrder, name: '酒店订单'
                 },
                 {
-                    path: '/hotelorder/:id', hidden: true, component: HotelOrderDetail, name: '酒店订单详情'
+                    path: '/hotelorder/:id/detail', hidden: true, component: HotelOrderDetail, name: '酒店订单详情'
                 },
 
                 //酒店退款审核

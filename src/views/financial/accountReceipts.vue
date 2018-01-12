@@ -17,10 +17,6 @@
                 </div>
             </div>
         </div>
-        <!--<ul class="tab-list">-->
-            <!--<li v-for="(item , index) in liList" @click="handleClickLi(index)" :class="{active:index===number}"><a-->
-                <!--href="javascript:;">{{item}}</a></li>-->
-        <!--</ul>-->
         <div class="search">
             <div class="title">
                 <i class="iconfont icon-sousuo"></i>
