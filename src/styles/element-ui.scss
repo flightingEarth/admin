@@ -198,6 +198,13 @@ label.el-radio {
 }
 
 .el-dialog {
+    transform: none;
+    left: 0;
+    position: relative;
+    margin: 0 auto;
+}
+
+.el-dialog {
     width: 360px;
     height: 355px;
     .el-input {
@@ -335,9 +342,6 @@ label.el-radio {
 }
 .el-checkbox{
     width: 205px;
-}
-.widget-attachment{
-    //width: 1140px!important;
 }
 
 .category-container{

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/views/layout/Layout'
 import Login from '@/views/login'
+import { getToken } from 'utils/auth';
+
 
 import Dashboard from '@/views/dashboard'
 
@@ -211,7 +213,8 @@ export default router
 
 router.beforeEach((to, from, next) => {
     // console.log(1)
-    // let token = window.localStorage.getItem('token');
+    let token = getToken()
+    console.log(token)
     // if ((!token || token === null)) {
     //     console.log(11)
     //     next({

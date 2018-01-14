@@ -281,14 +281,6 @@ code {
     }
 }
 
-//暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
-.el-dialog {
-    transform: none;
-    left: 0;
-    position: relative;
-    margin: 0 auto;
-}
-
 //github-corner
 .github-corner:hover .octo-arm {
     animation: octocat-wave 560ms ease-in-out
@@ -315,6 +307,16 @@ code {
     }
     .github-corner .octo-arm {
         animation: octocat-wave 560ms ease-in-out
+    }
+}
+
+
+.widget-attachment {
+    width: 862px;
+    padding: 0;
+    .el-dialog__header, .el-dialog__footer, .el-dialog__body {
+        padding: 0;
+        margin: 0;
     }
 }
 
@@ -448,14 +450,7 @@ code {
 }
 
 //重写
-.widget-attachment {
-    width: 862px;
-    padding: 0;
-    .el-dialog__header, .el-dialog__footer, .el-dialog__body {
-        padding: 0;
-        margin: 0;
-    }
-}
+
 
 //关闭
 .close {
