@@ -15,12 +15,13 @@ import ScenicOrderDetail from '@/views/scenicOrder/detail'
 import ScenicTicket from '@/views/scenicTicket'
 import TicketCreate from '@/views/scenicTicket/create'
 import TicketEdit from '@/views/scenicTicket/edit'
+import Error404 from '@/views/errorPage/404'
 
 Vue.use(Router)
 
 const router = new Router({
     routes: [
-        { path: '/login', component: Login, hidden: true, requiresAuth: false },
+        { path: '/404', component: Error404, hidden: true, requiresAuth: false },
         {
             path: '/',
             component: Layout,
