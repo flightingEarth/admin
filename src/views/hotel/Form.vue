@@ -500,7 +500,7 @@
                                     message: '更新成功！',
                                     type: 'success'
                                 });
-
+                                this.$router.push({ path: '/hotel/hotelRoom' });
                             } else {
                                 this.$message.error(response.data.msg);
                             }

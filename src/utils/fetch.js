@@ -1,7 +1,8 @@
 import axios from 'axios';
-import {message} from 'element-ui';
+import { Message } from 'element-ui';
 import store from '../store';
 import {getToken} from 'utils/auth';
+import Router from 'vue-router'
 
 // 创建axios实例
 const service = axios.create({
@@ -37,7 +38,7 @@ service.interceptors.response.use(function (response) {
             case 400: err.message = '请求错误(400)' ; break;
             case 401: err.message = '未授权，请重新登录(401)'; break;
             case 403: err.message = '拒绝访问(403)'; break;
-            case 404: err.message = '请求出错(404)'; break;
+            case 404:err.message = '访问的页面不存在(404)'; break;
             case 408: err.message = '请求超时(408)'; break;
             case 500: err.message = '服务器错误(500)'; break;
             case 501: err.message = '服务未实现(501)'; break;
@@ -47,11 +48,15 @@ service.interceptors.response.use(function (response) {
             case 505: err.message = 'HTTP版本不受支持(505)'; break;
             default: err.message = `连接出错(${err.response.status})!`;
         }
-    }else{
+    } else {
         err.message = '连接服务器失败!'
     }
 
-    this.message.error(err.message);
+    Message({
+        message: err.message,
+        type: 'error',
+        duration: 3 * 1000
+    })
     return Promise.reject(err);
 });
 
