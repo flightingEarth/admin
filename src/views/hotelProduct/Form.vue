@@ -79,11 +79,11 @@
                                 <el-form-item label="膳食安排" prop="guaranteeType">
                                     <el-select v-model="ruleForm.guaranteeType" placeholder="请选择">
                                         <el-option label="无需担保" value="0"></el-option>
-                                        <el-option label="无条件担保" value="1"></el-option>
+                                        <el-option label="无条件担保(不可取消)" value="1"></el-option>
                                         <el-option label="房量担保" value="2"></el-option>
                                         <el-option label="到店时间担保" value="3"></el-option>
                                         <el-option label="房量和到店时间同时担保" value="4"></el-option>
-                                        <el-option label="无条件担保（限时取消）" value="5"></el-option>
+                                        <el-option label="无条件担保(限时取消)" value="5"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -108,9 +108,10 @@
                                 <el-form-item label="膳食安排" prop="changeRules">
                                     <el-select v-model="ruleForm.changeRules" placeholder="请选择">
                                         <el-option label="免费取消" value="0"></el-option>
-                                        <el-option label="允许变更／取消，需在XX日YY时之前通知" value="1"></el-option>
-                                        <el-option label="允许变更／取消，需在最早到店时间之前几个小时通知" value="2"></el-option>
-                                        <el-option label="允许变更／取消，需在到店日期的24点之前几个小时通知" value="3"></el-option>
+                                        <el-option label="不允许变更取消" value="1"></el-option>
+                                        <el-option label="允许变更/取消,需在XX日YY时之前通知" value="2"></el-option>
+                                        <el-option label="允许变更/取消,需在最早到店时间之前几小时通知" value="3"></el-option>
+                                        <el-option label="允许变更/取消,需在到店日期的24点之前几小时通知" value="4"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
