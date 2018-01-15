@@ -1,6 +1,6 @@
 <template>
     <div class="upload-image-region">
-        <el-dialog custom-class="widget-attachment"  top="0" :before-close="handleClose" :show-close="false"
+        <el-dialog custom-class="widget-attachment" width="862px"  top="0" :before-close="handleClose" :show-close="false"
                    :visible.sync="visible" :close-on-click-modal="false">
 
             <div class="modal-header" slot="title">

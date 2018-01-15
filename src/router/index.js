@@ -4,16 +4,7 @@ import Layout from '@/views/layout/Layout'
 import Login from '@/views/login'
 import { getToken } from 'utils/auth';
 
-
-import Dashboard from '@/views/dashboard'
-
-
-import Financial from '@/views/financial'
 import CashApplication from '@/views/financial/cashApplication'
-import AccountReceipts from '@/views/financial/accountReceipts'
-
-import UserIndex from '@/views/userManagement/index'
-
 
 import Attachment from '@/views/attachment/index'
 
@@ -50,24 +41,15 @@ import HotelProductEdit from '@/views/hotelProduct/edit'
 import HotelOrder from '@/views/hotelOrder'
 import HotelOrderDetail from '@/views/hotelOrder/detail'
 
+import Error404 from '@/views/errorPage/404'
+
 
 Vue.use(Router)
 
 const router = new Router({
     routes: [
-        { path: '/login', component: Login, hidden: true, requiresAuth: false },
-        {
-            path: '/',
-            component: Layout,
-            name: '我的主页',
-            icon: 'quanxian',
-            requiresAuth: true,
-            children: [
-                {
-                    path: '/', icon: "quanxian", component: Dashboard, name: '权限测试页', requiresAuth: true
-                },
-            ]
-        },
+        { path: '/404', component: Error404, hidden: true, requiresAuth: false },
+        // { path: '/login', component: Login, hidden: true, requiresAuth: false },
         {
             path: '/financial',
             component: Layout,
@@ -75,27 +57,9 @@ const router = new Router({
             icon: 'quanxian',
             children: [
                 {
-                    path: '/financial', hidden: true, component: Financial, name: '财务部',
-                },
-                {
                     path: '/financial/cashApplication', component: CashApplication, name: '提现申请',
-                },
-                {
-                    path: '/financial/accountReceipts', component: AccountReceipts, name: '账户收支',
                 }
             ]
-        },
-        {
-            path: '/userManagement',
-            component: Layout,
-            name: '用户管理',
-            icon: 'quanxian',
-            children: [{
-                path: '/userManagement/index',
-                component: UserIndex,
-                name: '用户管理',
-                icon: 'dashboard'
-            }]
         },
 
         {
@@ -137,8 +101,6 @@ const router = new Router({
                 {
                     path: '/scenicRefund', component: ScenicRefund, name: '退款审核'
                 },
-
-
             ]
         },
         {
@@ -212,11 +174,8 @@ const router = new Router({
 export default router
 
 router.beforeEach((to, from, next) => {
-    // console.log(1)
     let token = getToken()
-    console.log(token)
     // if ((!token || token === null)) {
-    //     console.log(11)
     //     next({
     //         path: '/login',
     //         query: { redirect: to.fullPath }
@@ -225,34 +184,3 @@ router.beforeEach((to, from, next) => {
         next()
     // }
 })
-
-const whiteList = ['/login'];// 不重定向白名单
-
-// router.beforeEach((to, from, next) => {
-    //
-    // if (getToken()) { // 判断是否有token
-    //     if (to.path === '/login') {
-    //         next({ path: '/' });
-    //     } else {
-    //         if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
-    //             store.dispatch('GetInfo').then(res => { // 拉取user_info
-    //                 const roles = res.data.role;
-    //                 store.dispatch('GenerateRoutes', { roles }).then(() => { // 生成可访问的路由表
-    //                     router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-    //                     next({ ...to }); // hack方法 确保addRoutes已完成
-    //                 })
-    //             }).catch(() => {
-    //                 store.dispatch('FedLogOut').then(() => {
-    //                     next({ path: '/login' });
-    //                 })
-    //             })
-    //         }
-    //     }
-    // } else {
-    //     if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
-    //         next()
-    //     } else {
-    //         next('/login'); // 否则全部重定向到登录页
-    //     }
-    // }
-// })

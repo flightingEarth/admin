@@ -61,8 +61,8 @@
                                 <span><i>|</i>独立卫浴:</span>
                                 <el-form-item label="膳食安排" prop="privateBathroom">
                                     <el-select v-model="ruleForm.privateBathroom" placeholder="请选择">
-                                        <el-option label="独立卫浴" value="1"></el-option>
-                                        <el-option label="无" value="2"></el-option>
+                                        <el-option label="独立卫浴" value="独立卫浴"></el-option>
+                                        <el-option label="无" value="无"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -72,8 +72,8 @@
                                 <span><i>|</i>无&nbsp;烟&nbsp; 房:</span>
                                 <el-form-item label="膳食安排" prop="smoke">
                                     <el-select v-model="ruleForm.smoke" placeholder="请选择">
-                                        <el-option label="该房型可安排无烟楼层" value="1"></el-option>
-                                        <el-option label="否" value="2"></el-option>
+                                        <el-option label="该房型可安排无烟楼层" value="该房型可安排无烟楼层"></el-option>
+                                        <el-option label="否" value="否"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -91,8 +91,8 @@
                                 <span><i>|</i>有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;窗:</span>
                                 <el-form-item label="膳食安排" prop="withWindows">
                                     <el-select v-model="ruleForm.withWindows" placeholder="请选择">
-                                        <el-option label="有窗" value="1"></el-option>
-                                        <el-option label="无窗" value="2"></el-option>
+                                        <el-option label="有窗" value="有窗"></el-option>
+                                        <el-option label="无窗" value="无窗"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -131,7 +131,6 @@
                             </div>
                             <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
                         </el-col>
-
                     </el-row>
                 </div>
                 <div class="input">
@@ -143,11 +142,8 @@
                         </el-col>
                     </el-row>
                 </div>
-
             </el-form>
         </div>
-
-
     </div>
 </template>
 
