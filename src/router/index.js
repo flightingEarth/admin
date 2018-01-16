@@ -34,6 +34,14 @@ const router = new Router({
                 {
                     path: '/', component: ScenicEdit, name: '景区管理'
                 },
+
+                //门票列表
+                {
+                    path: '/scenic/ticket', component: ScenicTicket, name: '门票列表',
+                },
+                {
+                    path: '/scenic/ticket/edit', hidden: true, component: TicketEdit, name: '门票编辑',
+                },
                 //景区订单
                 {
                     path: '/scenicOrder', component: ScenicOrder, name: '景区订单'
@@ -41,22 +49,9 @@ const router = new Router({
                 {
                     path: '/scenicOrder/:id', hidden: true, component: ScenicOrderDetail, name: '订单详情'
                 },
-
-                //门票列表
-                {
-                    path: '/scenic/:scenicId/ticket', component: ScenicTicket, name: '门票列表',
-                },
-                {
-                    path: '/scenic/:scenicId/ticket/create', hidden: true, component: TicketCreate, name: '门票添加',
-                },
-                {
-                    path: '/scenic/:scenicId/ticket/:id/edit', hidden: true, component: TicketEdit, name: '门票编辑',
-                },
                 {
                     path: '/attachment/index', component: Attachment, name: '我的文件'
                 }
-
-
             ]
         },
         { path: '*', component: Error404, hidden: true, requiresAuth: false }
@@ -66,9 +61,9 @@ const router = new Router({
 export default router
 
 
-router.beforeEach((to, from, next) => {
     router.beforeEach((to, from, next) => {
         let token = getToken()
+        console.log(token)
         // if ((!token || token === null)) {
         //     next({
         //         path: '/login',
@@ -78,4 +73,3 @@ router.beforeEach((to, from, next) => {
             next()
         // }
     })
-});
