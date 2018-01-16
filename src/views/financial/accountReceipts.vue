@@ -185,9 +185,6 @@
         methods: {
             getList() {
                 getAccount().then(response => {
-//                    if (response == 404) {
-//                        this.$router.redirect({ path: '/404' });
-//                    }
                     this.account = response.data
                 })
                 this.listLoading = true

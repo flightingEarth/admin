@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/views/layout/Layout'
 
-
-import Login from '@/views/login'
 import AccountReceipts from '@/views/financial/accountReceipts'
 
 import Attachment from '@/views/attachment/index'
@@ -29,7 +27,6 @@ Vue.use(Router)
 
 const router = new Router({
     routes: [
-        { path: '/404', component: Error404, hidden: true, requiresAuth: false },
         {
             path: '/',
             component: Layout,
@@ -80,7 +77,8 @@ const router = new Router({
                     path: '/attachment/index', component: Attachment, name: '我的图片'
                 },
             ]
-        }
+        },
+        { path: '*', component: Error404, hidden: true, requiresAuth: false },
     ]
 })
 
