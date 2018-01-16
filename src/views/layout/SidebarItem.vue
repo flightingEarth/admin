@@ -12,7 +12,7 @@
                 <!--</el-submenu>-->
             <!--</template>-->
             <template v-for="(item,index) in routes" v-if="!item.hidden">
-                <el-menu-item v-for="(child, index) in item.children" :index="child.path" v-if="!child.hidden" :key="index">
+                <el-menu-item v-for="(child, index) in item.children" :index="child.path" :key="index">
                     <i class="iconfont icon-dian-copy-copy"></i>{{child.name}}
                 </el-menu-item>
             </template>
