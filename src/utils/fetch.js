@@ -49,9 +49,11 @@ service.interceptors.response.use(function (response) {
     }else{
         err.message = '连接服务器失败!'
     }
-
-    
-    // this.message.error(err.message);
+    Message({
+        message: err.message,
+        type: 'error',
+        duration: 3 * 1000
+    })
     return Promise.reject(err);
 });
 
