@@ -182,7 +182,7 @@
                 this.$router.push({path: "/hotelproduct/" + index + "/edit"})
             },
             handlePrice(goodsId){
-                this.$router.push({path: "/hotel/priceCalendar"})
+                this.$router.push({path: "/hotel/priceCalendar?goodsId=" + goodsId})
             }
         }
     }

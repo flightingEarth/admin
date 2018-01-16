@@ -118,7 +118,7 @@
                 font-weight: bold;
                 vertical-align: middle;
                 float: left;
-                margin-left: 2%;
+                /*margin-left: 2%;*/
             }
         }
         .title {

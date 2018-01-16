@@ -190,6 +190,10 @@
                 this.isIndeterminate = false;
             },
             submitForm(ruleForm) {
+                if (this.ruleForm.goodsId.length == 0) {
+                    this.$message.error('产品编号不存在');
+                    return false;
+                }
                 if (this.ruleForm.week.length == 0) {
                     this.$message.error('请选择添加的价格是周几');
                     return false;
