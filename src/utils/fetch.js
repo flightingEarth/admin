@@ -36,7 +36,7 @@ service.interceptors.response.use(function (response) {
             case 400: err.message = '请求错误(400)' ; break;
             case 401: err.message = '未授权，请重新登录(401)'; break;
             case 403: err.message = '拒绝访问(403)'; break;
-            case 404: err.message = '请求出错(404)'; break;
+            case 404: err.message = '访问的页面不存在(404)'; break;
             case 408: err.message = '请求超时(408)'; break;
             case 500: err.message = '服务器错误(500)'; break;
             case 501: err.message = '服务未实现(501)'; break;

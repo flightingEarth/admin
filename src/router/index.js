@@ -21,7 +21,6 @@ Vue.use(Router)
 
 const router = new Router({
     routes: [
-        { path: '/404', component: Error404, hidden: true, requiresAuth: false },
         {
             path: '/',
             component: Layout,
@@ -59,16 +58,7 @@ const router = new Router({
 
             ]
         },
-        /*{
-            path: '/attachment',
-            component: Layout,
-            name: '设置',
-            children: [{
-                path: '/attachment/index',
-                component: Attachment,
-                name: '我的文件'
-            }]
-        },*/
+        { path: '*', component: Error404, hidden: true, requiresAuth: false }
     ]
 })
 
