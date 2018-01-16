@@ -133,7 +133,6 @@
         created() {
             if (this.images.length == 0) {
                 this.loadCategories()
-                this.loadImages()
             }
         },
         watch: {
@@ -160,6 +159,7 @@
                 getCategories().then(response => {
                     this.categories = response.data.data
                     this.currentCategory = this.categories[0]
+                    this.loadImages()
                 })
             },
             handleCurrentChange(val) {

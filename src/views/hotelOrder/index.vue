@@ -197,38 +197,8 @@
             },
             handleClickLi(index) {
                 this.number = index;
-                if (index === 0) {
-                    this.searchList.showStatus = 0;
-                    this.getList();
-                }
-                if (index === 1) {
-                    this.searchList.showStatus = 1;
-                    this.getList();
-                }
-                if (index === 2) {
-                    this.searchList.showStatus = 2;
-                    this.getList();
-                }
-                if (index === 3) {
-                    this.searchList.showStatus = 3;
-                    this.getList();
-                }
-                if (index === 4) {
-                    this.searchList.showStatus = 4;
-                    this.getList();
-                }
-                if (index === 5) {
-                    this.searchList.showStatus = 5;
-                    this.getList();
-                }
-                if (index === 6) {
-                    this.searchList.showStatus = 6;
-                    this.getList();
-                }
-                if (index === 7) {
-                    this.searchList.showStatus = 7;
-                    this.getList();
-                }
+                this.searchList.showStatus = 7;
+                this.getList();
             },
             open2() {
                 this.$confirm('是否拒绝退票?', '提示', {
@@ -265,8 +235,7 @@
                 });
             },
             handleDetail(id){
-                console.log(id);
-                this.$router.push({path: '/hotelorder/' + id + '/detail'});
+                this.$router.push({path: '/hotelorder/' + id});
             }
         }
     }
