@@ -213,26 +213,8 @@
             },
             handleClickLi(index) {
                 this.number = index;
-                if (index === 0) {
-                    this.searchList.showStatus = 0;
-                    this.getList();
-                }
-                if (index === 1) {
-                    this.searchList.showStatus = 1;
-                    this.getList();
-                }
-                if (index === 2) {
-                    this.searchList.showStatus = 2;
-                    this.getList();
-                }
-                if (index === 3) {
-                    this.searchList.showStatus = 3;
-                    this.getList();
-                }
-                if (index === 4) {
-                    this.searchList.showStatus = 4;
-                    this.getList();
-                }
+                this.searchList.showStatus = index;
+                this.getList();
             }
         }
     }
