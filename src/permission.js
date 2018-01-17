@@ -5,7 +5,7 @@ import { Message } from 'element-ui'
 
 // permissiom judge
 function hasPermission(roles, permissionRoles) {
-  if (roles.indexOf('scenic') >= 0) return true // admin permission passed directly
+  if (roles.indexOf('admin') >= 0) return true // admin permission passed directly
   // if (!permissionRoles) return true
   // return roles.some(role => permissionRoles.indexOf(role) >= 0)
   return false
