@@ -11,24 +11,16 @@ function hasPermission(roles, permissionRoles) {
   return false
 }
 
-const whiteList = ['/login', '/authredirect']// no redirect whitelist
-
 router.beforeEach((to, from, next) => {
   let token = getToken()
   if (token) { // 判断是否有token
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
             next()
-          // const roles = res.data.role
-          //   console.log(res,1)
-          // store.dispatch('GenerateRoutes', { roles }).then(() => { // 生成可访问的路由表
-          //   router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-          //   next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-          // })
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
             Message.error('Verification failed, please login again')
-              window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+              // window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
           })
         })
       } else {
@@ -40,6 +32,7 @@ router.beforeEach((to, from, next) => {
         }
       }
   } else {
-    window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+      next()
+    // window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
   }
 })

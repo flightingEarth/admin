@@ -61,7 +61,7 @@
         props: {
             action: {
                 type: String,
-                default:'http://sz.test/admin/image'
+                default:'http://sz.test/supplier/image'
             },
             visible: {
                 type: Boolean,
