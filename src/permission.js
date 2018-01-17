@@ -20,7 +20,7 @@ router.beforeEach((to, from, next) => {
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
             Message.error('Verification failed, please login again')
-              window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+              // window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
           })
         })
       } else {
@@ -33,6 +33,6 @@ router.beforeEach((to, from, next) => {
       }
   } else {
       next()
-    window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+    // window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
   }
 })

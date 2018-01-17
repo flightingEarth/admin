@@ -123,21 +123,13 @@
                 label="订单号"
                 align="center">
             </el-table-column>
-            <el-table-column
-                label="操作"
-                align="center">
-                <template slot-scope="scope" class="">
-                    <el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>
-                    <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
-                </template>
-            </el-table-column>
         </el-table>
 
         <el-pagination
             @current-change="handleCurrentChange"
             :current-page="searchList.page"
             :page-size="searchList.limit"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>
