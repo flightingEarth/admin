@@ -10,8 +10,8 @@
             </div>
             <div class="login">
                 <span class="headImg">登录用户:</span>
-                <span class="name">朔城区测试酒店</span>
-                <a href="javascript:;">退出</a>
+                <span class="name">{{ name }}</span>
+                <a href="javascript:;" @click="logout">退出</a>
             </div>
         </div>
         <sidebar class="sidebar-container"></sidebar>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import {Navbar, Sidebar, AppMain} from '@/views/layout';
     import "./font-title/iconfont.css"
 
@@ -41,6 +42,9 @@
         },
 
         computed: {
+            ...mapGetters([
+                'name'
+            ]),
             sidebar() {
                 return this.$store.state.app.sidebar
             }
@@ -51,6 +55,11 @@
         methods: {
             getBreadcrumb() {
                 this.title = this.$route.matched[0].name
+            },
+            logout() {
+                this.$store.dispatch('LogOut').then(() => {
+                    location.reload()// In order to re-instantiate the vue-router object to avoid bugs
+                })
             }
         },
         watch: {

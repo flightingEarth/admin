@@ -22,11 +22,13 @@ import HotelOrder from '@/views/hotelOrder'
 import HotelOrderDetail from '@/views/hotelOrder/detail'
 
 import Error404 from '@/views/errorPage/404'
+import Error401 from '@/views/errorPage/401'
 
 Vue.use(Router)
 
 const router = new Router({
     routes: [
+        { path: '/401', component: Error401, hidden: true, requiresAuth: false },
         {
             path: '/',
             component: Layout,
