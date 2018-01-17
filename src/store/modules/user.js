@@ -69,7 +69,7 @@ const user = {
                 }
                 const data = response.data
                 commit('SET_ROLES', data.role)
-                commit('SET_NAME', data.name)
+                commit('SET_NAME', data.nickname)
                 commit('SET_AVATAR', data.avatar)
                 commit('SET_STATUS', data.status)
                 resolve(response)

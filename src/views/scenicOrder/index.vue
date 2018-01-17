@@ -118,7 +118,7 @@
                 label="订单状态"
                 align="center">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small" class="stayIn">待入住</el-button>
+                    <el-button type="text" size="small" class="stayIn">{{ scope.row.showStatus }}</el-button>
                     <el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>
                 </template>
             </el-table-column>
@@ -131,8 +131,8 @@
                 label="操作"
                 align="center">
                 <template slot-scope="scope" class="">
-                    <el-button type="text" size="small" class="btn refuse"  @click="handleAction">拒绝退票</el-button>
-                    <el-button type="text" size="small" class="btn agree" @click="handleAction">同意退票</el-button>
+                    <el-button type="text" size="small" class="btn refuse" v-if="scope.row.action1.length > 0" @click="handleAction(scope.row.orderId, scope.row.action1)">{{ scope.row.action1 }}</el-button>
+                    <el-button type="text" size="small" class="btn agree" v-if="scope.row.action2.length > 0" @click="handleAction(scope.row.orderId, scope.row.action2)">{{ scope.row.action2 }}</el-button>
                 </template>
             </el-table-column>
 
@@ -149,7 +149,7 @@
 </template>
 
 <script>
-    import {scenicOrderList} from '@/api/scenicOrder'
+    import {scenicOrderList, updateScenicOrder} from '@/api/scenicOrder'
     export default {
         name: 'scenicOrder',
         data() {
@@ -216,10 +216,10 @@
                     type: 'warning'
                 }).then(() => {
                     let param = { opt:action}
-                    updateHotelOrder(id, param).then(response => {
+                    updateScenicOrder(id, param).then(response => {
                         if (response.data.status) {
                             this.$message({
-                                message: '更新成功！',
+                                message: '操作成功！',
                                 type: 'success'
                             });
                             this.getList()
