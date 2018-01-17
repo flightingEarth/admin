@@ -42,14 +42,13 @@ import HotelOrder from '@/views/hotelOrder'
 import HotelOrderDetail from '@/views/hotelOrder/detail'
 
 import Error404 from '@/views/errorPage/404'
-
+import Error401 from '@/views/errorPage/401'
 
 Vue.use(Router)
 
 const router = new Router({
     routes: [
-        { path: '/404', component: Error404, hidden: true, requiresAuth: false },
-        // { path: '/login', component: Login, hidden: true, requiresAuth: false },
+        { path: '/401', component: Error401, hidden: true, requiresAuth: false },
         {
             path: '/financial',
             component: Layout,
@@ -168,6 +167,7 @@ const router = new Router({
                 name: '我的文件'
             }]
         },
+        { path: '*', component: Error404, hidden: true, requiresAuth: false }
     ]
 })
 

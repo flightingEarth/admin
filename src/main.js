@@ -14,6 +14,8 @@ import './assets/iconfont/iconfont'; // iconfont 具体图标见https://github.c
 
 import VueAreaLinkage from 'vue-area-linkage'; //城市三级联动
 
+import './permission.js'
+
 // Vue.component('icon-svg', IconSvg)
 Vue.use(Element)
 

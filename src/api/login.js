@@ -23,11 +23,10 @@ export function logout() {
   });
 }
 
-export function getInfo(token) {
-  return fetch({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  });
+export function getUserInfo() {
+    return fetch({
+        url: '/profile',
+        method: 'get',
+    })
 }
 
