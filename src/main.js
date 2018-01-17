@@ -6,8 +6,8 @@ import store from './store'
 import router from './router'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import './assets/custom-theme/index.css'; // 换肤版本element-ui css
-import './assets/iconfont/iconfont'; // iconfont 具体图标见https://github.com/PanJiaChen/vue-element-admin/wiki
+import './assets/custom-theme/index.css' // 换肤版本element-ui css
+import './assets/iconfont/iconfont' // iconfont 具体图标见https://github.com/PanJiaChen/vue-element-admin/wiki
 
 // import IconSvg from './components/Icon-svg'// svg 组件
 // import './icons' // icon
