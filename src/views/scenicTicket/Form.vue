@@ -461,19 +461,27 @@
                         this.addLoading = true
                         if (this.ruleForm.ticketId == undefined) {
                             addTicket(this.scenicId, this.ruleForm).then(response => {
-                                this.$message({
-                                    message: '添加成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if (response.data.status) {
+                                    this.$message({
+                                        message: '添加成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel()
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         } else {
                             updateTicket(this.scenicId, this.ruleForm.ticketId, this.ruleForm).then(response => {
-                                this.$message({
-                                    message: '更新成功！',
-                                    type: 'success'
-                                });
-                                this.handleCancel();
+                                if (response.data.status) {
+                                    this.$message({
+                                        message: '更新成功！',
+                                        type: 'success'
+                                    });
+                                    this.handleCancel()
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
                             })
                         }
 

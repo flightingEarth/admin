@@ -4,12 +4,21 @@
             <img src="./404.png" alt="" width="50%">
             <div class="font">
                 <p class="info">非常抱歉，您访问的页面不存在</p>
-                <a href="#">返回首页</a>
+                <a href="javascript:;" @click="handleGoIndex">上一页</a>
             </div>
         </div>
     </div>
 </template>
-
+<script>
+    export default {
+        name: 'Error404',
+        methods: {
+            handleGoIndex() {
+                window.history.go(-1)
+            }
+        }
+    }
+</script>
 <style scoped>
     * {
         margin: 0;

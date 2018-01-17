@@ -370,19 +370,15 @@
                     if (valid) {
                         this.addLoading = true
                         updateScenic(this.ruleForm.scenicId, this.ruleForm).then(response => {
-                            if (response.status) {
+                            if (response.data.status) {
                                 this.$message({
                                     message: '更新成功！',
                                     type: 'success'
                                 });
                                 this.handleCancel()
                             } else {
-                                this.$message({
-                                    message: '更新成功！',
-                                    type: 'success'
-                                });
+                                this.$message.error(response.data.msg);
                             }
-
                         })
 
                     } else {
