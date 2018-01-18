@@ -170,7 +170,7 @@
                     <el-pagination
                         @current-change="handleCurrentChange"
                         :page-size="limit"
-                        layout="prev, pager, next"
+                        layout="total, prev, pager, next"
                         :total="total">
                     </el-pagination>
                 </div>
@@ -268,7 +268,7 @@
                 };
                 getImages(para).then(response => {
                     this.images = response.data.data
-                    this.total = response.data.total
+                    this.total = response.data.meta.total
                 })
             },
             loadCategories() {

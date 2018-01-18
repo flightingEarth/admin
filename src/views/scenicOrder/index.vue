@@ -127,14 +127,14 @@
                 label="有效期"
                 align="center">
             </el-table-column>
-            <el-table-column
-                label="操作"
-                align="center">
-                <template slot-scope="scope" class="">
-                    <el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>
-                    <el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>
-                </template>
-            </el-table-column>
+            <!--<el-table-column-->
+                <!--label="操作"-->
+                <!--align="center">-->
+                <!--<template slot-scope="scope" class="">-->
+                    <!--<el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>-->
+                    <!--<el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>-->
+                <!--</template>-->
+            <!--</el-table-column>-->
 
         </el-table>
         <el-pagination
@@ -142,7 +142,7 @@
             @current-change="handleCurrentChange"
             :current-page="searchList.currentPage"
             :page-size="searchList.pageSize"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>
@@ -206,68 +206,8 @@
             },
             handleClickLi(index) {
                 this.number = index;
-                if (index === 0) {
-                    this.searchList.showStatus = 0;
-                    this.getList();
-                }
-                if (index === 1) {
-                    this.searchList.showStatus = 1;
-                    this.getList();
-                }
-                if (index === 2) {
-                    this.searchList.showStatus = 2;
-                    this.getList();
-                }
-                if (index === 3) {
-                    this.searchList.showStatus = 3;
-                    this.getList();
-                }
-                if (index === 4) {
-                    this.searchList.showStatus = 4;
-                    this.getList();
-                }
-                if (index === 5) {
-                    this.searchList.showStatus = 5;
-                    this.getList();
-                }
-                if (index === 6) {
-                    this.searchList.showStatus = 6;
-                    this.getList();
-                }
-            },
-            open2() {
-                this.$confirm('是否拒绝退票?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '拒绝退票成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消拒绝退票'
-                    });
-                });
-            },
-            open3() {
-                this.$confirm('是否同意退票?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '同意退票成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消同意退票'
-                    });
-                });
+                this.searchList.showStatus = index;
+                this.getList();
             },
             handleDetail(id){
                 this.$router.push({path: '/scenicOrder/' + id + '/detail'})

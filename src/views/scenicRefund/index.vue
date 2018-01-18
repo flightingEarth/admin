@@ -70,13 +70,13 @@
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
-                    <span></i>手续费:</span>
+                    <span>手续费:</span>
                     <el-form-item label="膳食安排" prop="refundFee">
                         <el-input v-model="addForm.refundFee" type="number"></el-input>
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
-                    <span></i>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
+                    <span>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
                     <el-form-item label="活动形式" prop="note">
                         <el-input type="textarea" v-model="addForm.note"></el-input>
                     </el-form-item>
@@ -159,7 +159,7 @@
             @current-change="handleCurrentChange"
             :current-page="searchList.currentPage"
             :page-size="searchList.limit"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>

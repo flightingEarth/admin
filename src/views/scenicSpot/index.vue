@@ -73,11 +73,12 @@
             </el-table-column>
         </el-table>
         <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="searchList.page"
-            :page-size="searchList.limit"
-            layout="total, prev, pager, next"
-            :total="total">
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="searchList.page"
+                :page-size="searchList.limit"
+                layout="total, prev, pager, next"
+                :total="total">
         </el-pagination>
 
     </div>
@@ -115,7 +116,7 @@
                 this.listLoading = true
                 getList(this.searchList).then(response => {
                     this.tableData = response.data.data
-                    this.total = response.data.total
+                    this.total = response.data.meta.total
                     this.listLoading = false
                 })
             },
@@ -137,6 +138,9 @@
             },
             handleTicket(index){
                 this.$router.push({path: "/scenic/" + index + '/ticket'})
+            },
+            handleSizeChange() {
+
             }
         }
     }
