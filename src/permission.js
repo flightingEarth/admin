@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
         }
       }
   } else {
-      // next()
-    window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+      next()
+    // window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
   }
 })
