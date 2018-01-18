@@ -12,12 +12,12 @@ import './assets/iconfont/iconfont'; // iconfont 具体图标见https://github.c
 // import IconSvg from './components/Icon-svg'// svg 组件
 // import './icons' // icon
 import './permission' // permission control
-// import VueAreaLinkage from 'vue-area-linkage'; //城市三级联动
+import VueAreaLinkage from 'vue-area-linkage'; //城市三级联动
 
 // Vue.component('icon-svg', IconSvg)
 Vue.use(Element)
 
-// Vue.use(VueAreaLinkage)
+Vue.use(VueAreaLinkage)
 
 Vue.config.productionTip = false
 
