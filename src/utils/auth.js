@@ -6,6 +6,10 @@ export function getToken() {
   return Cookies.get(TokenKey)
 }
 
+export function getRoles() {
+    return Cookies.get('roles')
+}
+
 export function setToken(token) {
   return Cookies.set(TokenKey, token)
 }

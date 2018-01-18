@@ -1,6 +1,6 @@
 import router from './router'
 import store from './store'
-import { getToken } from '@/utils/auth' // getToken from cookie
+import { getToken, getRoles } from '@/utils/auth' // getToken from cookie
 import { Message } from 'element-ui'
 
 // permissiom judge
@@ -20,19 +20,20 @@ router.beforeEach((to, from, next) => {
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
             Message.error('Verification failed, please login again')
-              // window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+              window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
           })
         })
       } else {
       //   // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
-        if (hasPermission(store.getters.roles, to.meta.role)) {
+          let role = getRoles()
+        if (hasPermission(role, to.meta.role)) {
           next()//
         } else {
           next({ path: '/401', query: { noGoBack: true }})
         }
       }
   } else {
-      next()
-    // window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+      // next()
+    window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
   }
 })

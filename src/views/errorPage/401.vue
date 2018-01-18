@@ -4,7 +4,7 @@
         <div class="font">
             <p class="info">非常抱歉，当前您没有访问权限，请联系管理员</p>
             <!--<a href="#" class="backIndex">返回首页</a>-->
-            <a href="javascript:;" class="backIndex" @cilck="handleGoBack">返回上一页</a>
+            <a href="javascript:window.history.go(-1);" class="backIndex" >返回上一页</a>
         </div>
     </div>
 </template>
