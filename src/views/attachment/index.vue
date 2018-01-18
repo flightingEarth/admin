@@ -169,7 +169,7 @@
                     <el-pagination
                         @current-change="handleCurrentChange"
                         :page-size="limit"
-                        layout="prev, pager, next"
+                        layout="total, prev, pager, next"
                         :total="total">
                     </el-pagination>
                 </div>

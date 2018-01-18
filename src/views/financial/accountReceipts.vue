@@ -138,7 +138,7 @@
             @current-change="handleCurrentChange"
             :current-page="searchList.currentPage"
             :page-size="searchList.pageSize"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>
@@ -191,7 +191,7 @@
                 this.listLoading = true
                 accountDetails(this.searchList).then(response => {
                     this.tableData = response.data.data
-                    this.total = response.data.total
+                    this.total = response.data.meta.total
                     this.listLoading = false
                 })
             },
