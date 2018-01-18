@@ -137,7 +137,7 @@
             @current-change="handleCurrentChange"
             :current-page="searchList.page"
             :page-size="searchList.limit"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>

@@ -190,7 +190,7 @@
                 this.listLoading = true
                 accountDetails(this.searchList).then(response => {
                     this.tableData = response.data.data
-                    this.total = response.data.total
+                    this.total = response.data.meta.total
                     this.listLoading = false
                 })
             },
