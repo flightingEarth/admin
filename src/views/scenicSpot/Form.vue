@@ -24,12 +24,12 @@
                                 <span><i>|</i>景&nbsp;&nbsp;区&nbsp;&nbsp;星&nbsp;&nbsp;级:</span>
                                 <el-form-item label="景区星级" prop="scenicStar">
                                     <el-select v-model="ruleForm.scenicStar" placeholder="请选择景区星级">
-                                        <el-option
-                                            v-for="item in scenicStarList"
-                                            :key="item.id"
-                                            :label="item.name"
-                                            :value="item.id">
-                                        </el-option>
+                                        <el-option label="无" value="0"></el-option>
+                                        <el-option label="A" value="1"></el-option>
+                                        <el-option label="AA" value="2"></el-option>
+                                        <el-option label="AAA" value="3"></el-option>
+                                        <el-option label="AAAA" value="4"></el-option>
+                                        <el-option label="AAAAA" value="5"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
