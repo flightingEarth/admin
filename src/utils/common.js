@@ -6,11 +6,11 @@ const statusList = [
 
 const scenicStarList = [
     {'id':0,'name':'全部'},
-    {'id':1,'name':'1A'},
-    {'id':2,'name':'2A'},
-    {'id':3,'name':'3A'},
-    {'id':4,'name':'4A'},
-    {'id':5,'name':'5A'}
+    {'id':1,'name':'A'},
+    {'id':2,'name':'AA'},
+    {'id':3,'name':'AAA'},
+    {'id':4,'name':'AAAA'},
+    {'id':5,'name':'AAAAA'}
 ]
 
 export function getStatusList() {
