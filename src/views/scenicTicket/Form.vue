@@ -30,7 +30,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;态:</span>
-                                <el-form-item label="活动区域" prop="auditStatus">
+                                <el-form-item label="活动区域" prop="reviewStatus">
                                     <el-select v-model="ruleForm.review_status" placeholder="请选择">
                                         <el-option label="通过"  value="1"></el-option>
                                         <el-option label="未通过"  value="2"></el-option>
@@ -373,7 +373,7 @@
                     status: [
                         {required: true, message: '请选择门票售卖状态', trigger: 'change'}
                     ],
-                    review_status: [
+                    reviewStatus: [
                         {required: true, message: '请选择门票审核状态', trigger: 'change'}
                     ],
                     address: [
