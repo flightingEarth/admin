@@ -30,6 +30,17 @@
 
                         <el-col :span="18">
                             <div class="grid-content bg-purple">
+                                <span><i>|</i>审&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
+                                <el-form-item label="膳食安排" prop="reviewStatus">
+                                    <el-select v-model="ruleForm.reviewStatus" placeholder="请选择">
+                                        <el-option label="审核通过" value="1"></el-option>
+                                        <el-option label="审核未通过" value="2"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="18">
+                            <div class="grid-content bg-purple">
                                 <span><i>|</i>楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;层:</span>
                                 <el-form-item label="膳食安排" prop="roomFloor">
                                     <el-input v-model="ruleForm.roomFloor"
@@ -200,9 +211,12 @@
                     sort: [
                         {required: true, message: '请输入排序', trigger: 'blur'}
                     ],
-//                    status: [
-//                        {required: true, message: '请选择房型状态', trigger: 'blur'}
-//                    ]
+                    status: [
+                        {required: true, message: '请选择房型状态', trigger: 'blur'}
+                    ],
+                    reviewStatus: [
+                        {required: true, message: '请选择审核状态', trigger: 'change'}
+                    ],
                 }
             }
         },

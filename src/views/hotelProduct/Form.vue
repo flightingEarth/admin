@@ -47,7 +47,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>审&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
-                                <el-form-item label="膳食安排" prop="status">
+                                <el-form-item label="膳食安排" prop="reviewStatus">
                                     <el-select v-model="ruleForm.reviewStatus" placeholder="请选择">
                                         <el-option label="审核通过" value="1"></el-option>
                                         <el-option label="审核未通过" value="2"></el-option>
