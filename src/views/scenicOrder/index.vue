@@ -10,59 +10,41 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
+                <el-form :model="searchList" ref="searchForm">
+                <el-row class="grid-content">
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>订单号码:</span>
-                            <el-input v-model="searchList.orderId" placeholder=""></el-input>
+                            <el-form-item label="订单号码" prop="orderId">
+                                <el-input v-model="searchList.orderId" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>景区名称:</span>
-                            <el-input v-model="searchList.cardNum" placeholder=""></el-input>
+                            <el-form-item label="景区名称" prop="scenicName">
+                                <el-input v-model="searchList.scenicName" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="bg-purple">
                             <span><i>|</i>手机号码:</span>
-                            <el-input v-model="searchList.phone" placeholder=""></el-input>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <span><i>|</i>付款方式:</span>
-                            <el-select v-model="searchList.payWay" placeholder="请选择">
-                                <el-option
-                                    v-for="item in supplierOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <span><i>|</i>票种来源:</span>
-                            <el-select v-model="searchList.status" placeholder="请选择">
-                                <el-option
-                                    v-for="item in scenicStar"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <el-form-item label="手机号码" prop="mobilePhone">
+                                <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
-                        <el-button type="primary">搜索</el-button>
-                        <el-button>重置条件</el-button>
+                        <el-button type="primary" @click="getList">搜索</el-button>
+                        <el-button @click="resetForm('searchForm')">重置条件</el-button>
                     </el-col>
 
                 </el-row>
+                </el-form>
 
             </div>
         </div>
@@ -72,70 +54,20 @@
             <span>订单列表</span>
         </div>
 
-        <el-table
-            :data="tableData"
-            border
-            stripe
-            style="width: 100%"
-            v-loading="listLoading" element-loading-text="正在加载中。。。"
-        >
-            <el-table-column
-                prop="scenicName"
-                label="景区名称"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="orderId"
-                label="订单号"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="currentNum"
-                label="数量"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="visitorName"
-                label="联系人"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="payMethod"
-                label="付款方式"
-                align="center">
-            </el-table-column>
-            <el-table-column
-                prop="totalPrice"
-                label="订单总价"
-                align="center">
-            </el-table-column>
-            <el-table-column
-                prop="showStatus"
-                label="订单状态"
-                align="center">
+        <el-table :data="tableData" border stripe style="width: 100%" v-loading="listLoading" element-loading-text="正在加载">
+            <el-table-column prop="scenicName" label="景区名称" align="center"></el-table-column>
+            <el-table-column prop="orderId" label="订单号" align="center"></el-table-column>
+            <el-table-column prop="currentNum" label="数量" align="center"></el-table-column>
+            <el-table-column prop="visitorName" label="联系人" align="center"></el-table-column>
+            <el-table-column prop="payMethod" label="付款方式" align="center"></el-table-column>
+            <el-table-column prop="totalPrice" label="订单总价" align="center"></el-table-column>
+            <el-table-column prop="showStatus" label="订单状态" align="center">
                 <template slot-scope="scope">
                     <el-button type="text" size="small" class="stayIn">待入住</el-button>
                     <el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>
                 </template>
             </el-table-column>
-            <el-table-column
-                prop="endTime"
-                label="有效期"
-                align="center">
-            </el-table-column>
-            <!--<el-table-column-->
-                <!--label="操作"-->
-                <!--align="center">-->
-                <!--<template slot-scope="scope" class="">-->
-                    <!--<el-button type="text" size="small" class="btn refuse" @click="open2">拒绝退票</el-button>-->
-                    <!--<el-button type="text" size="small" class="btn agree" @click="open3">同意退票</el-button>-->
-                <!--</template>-->
-            <!--</el-table-column>-->
-
+            <el-table-column prop="endTime" label="有效期" align="center"> </el-table-column>
         </el-table>
         <el-pagination
             @size-change="handleSizeChange"
@@ -155,32 +87,16 @@
         data() {
             return {
                 searchList: {
-                    orderId: undefined,
-                    cardNum: undefined,
-                    phone: undefined,
-                    payWay: undefined,
-                    status: undefined,
-                    currentPage: 1,
+                    orderId: '',
+                    scenicName: '',
+                    mobilePhone: '',
+                    page: 1,
                     pageSize: 10
                 },
                 number: 0,
                 liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
                 listLoading: false,
                 total: 0,
-                supplierOptions: [{
-                    value: '0',
-                    label: '不限'
-                }, {
-                    value: '1',
-                    label: '在线支付'
-                }, {
-                    value: '2',
-                    label: '景区到付'
-                }],
-                scenicStar: [{
-                    value: '0',
-                    label: '其他'
-                }],
                 tableData: []
             }
         },
@@ -211,7 +127,10 @@
             },
             handleDetail(id){
                 this.$router.push({path: '/scenicOrder/' + id + '/detail'})
-            }
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
         }
     }
 </script>
@@ -253,10 +172,12 @@
                 }
                 .grid-content {
                     margin-left: 20px;
-                    margin-top: 20px;
                     .el-input__inner {
                         width: 80%;
                     }
+                }
+                .mt {
+                    margin-top: 20px;
                 }
                 .el-select {
                     width: 80%;

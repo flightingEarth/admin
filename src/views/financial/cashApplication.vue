@@ -6,75 +6,85 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
+                <el-form :model="searchList" :rules="rules" ref="searchForm">
+                <el-row class="grid-content">
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>提现编号:</span>
-                            <el-input v-model="searchList.withdrawId" placeholder=""></el-input>
+                            <el-form-item label="提现编号" prop="withdrawId">
+                                <el-input v-model="searchList.withdrawId" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>用&nbsp;户&nbsp; 名:</span>
-                            <el-input v-model="searchList.userName" placeholder=""></el-input>
+                            <el-form-item label="用户名" prop="userName">
+                                <el-input v-model="searchList.userName" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="bg-purple">
                             <span><i>|</i>持&nbsp;卡&nbsp; 人:</span>
-                            <el-input v-model="searchList.cardholder" placeholder=""></el-input>
+                            <el-form-item label="持卡人" prop="cardholder">
+                                <el-input v-model="searchList.cardholder" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
+                        <div class="bg-purple-light">
                             <span><i>|</i>手机号码:</span>
-                            <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
+                            <el-form-item label="手机号码" prop="mobilePhone">
+                                <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
+                        <div class="bg-purple-light">
                             <span><i>|</i>支付状态:</span>
-                            <el-select v-model="searchList.status" placeholder="请选择">
-                                <el-option
-                                    v-for="item in payStatus"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <el-form-item label="支付状态" prop="status">
+                                <el-select v-model="searchList.status" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in payStatus"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
+                        <div class="bg-purple-light">
                             <span><i>|</i>审核状态:</span>
-                            <el-select v-model="searchList.auditStatus" placeholder="请选择">
-                                <el-option
-                                    v-for="item in status"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <el-form-item label="审核状态" prop="auditStatus">
+                                <el-select v-model="searchList.auditStatus" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in status"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button>重置条件</el-button>
+                        <el-button @click="resetForm('searchForm')">重置条件</el-button>
                     </el-col>
-
                 </el-row>
-
+            </el-form>
             </div>
         </div>
 
-
-        <!--新增界面-->
+        <!--提现审核-->
         <el-dialog title="提现审核" :visible.sync="dialogFormVisible" class="financial">
-
             <el-form :model="addForm" :rules="rules" ref="ruleForm" label-width="100px">
-                <div class="grid-content bg-purple-light shenhe">
+                <div class="grid-content bg-purple-light mt shenhe">
                     <span><i class="iconfont icon-iconfontwenjian"></i>审核:</span>
                     <el-form-item label="膳食安排" prop="auditStatus">
                         <el-radio-group v-model="addForm.auditStatus">
@@ -101,97 +111,37 @@
             <i class="iconfont icon-liebiao"></i>
             <span>数据列表</span>
         </div>
+        <el-table :data="tableData" border stripe style="width: 100%" v-loading="listLoading" element-loading-text="正在加载">
+            <el-table-column prop="withdrawId" label="提现编号" align="center" > </el-table-column>
+            <el-table-column prop="userName" label="用户名" align="center" > </el-table-column>
+            <el-table-column prop="poundage" label="提现金额" align="center" > </el-table-column>
+            <el-table-column prop="cardholder" label="持卡人" align="center" > </el-table-column>
+            <el-table-column prop="bankCard" label="银行卡号" align="center"> </el-table-column>
+            <el-table-column prop="mobilePhone" label="手机号" align="center"> </el-table-column>
+            <el-table-column prop="idCard" label="证件号" align="center"> </el-table-column>
+            <el-table-column prop="bankName" label="银行名称" align="center"> </el-table-column>
+            <el-table-column prop="createdAt" label="创建时间" align="center"> </el-table-column>
+            <!--<el-table-column prop="updatedAt" label="审核时间" align="center"></el-table-column>-->
+            <el-table-column label="审核" align="center">
+                <template slot-scope="scope">
+                    <span type="text" v-if="scope.row.status == 2" size="small" class="stayIn">已支付</span>
+                    <span type="text" v-if="scope.row.status !== 2" size="small" class="stayIn">未支付</span>
+                    <el-button type="text" size="small" v-if="scope.row.auditStatus == 0 && scope.row.status == 2"
+                               @click="handleAudit(scope.row.withdrawId)">审核
+                    </el-button>
+                    <span type="text" size="small" v-if="scope.row.auditStatus == 1 && scope.row.status == 2">审核成功</span>
+                    <span type="text" size="small" v-if="scope.row.auditStatus == 2 && scope.row.status == 2">驳回</span>
+                </template>
+            </el-table-column>
 
-            <el-table
-                :data="tableData"
-                border
-                stripe
-                style="width: 100%"
-                v-loading="listLoading" element-loading-text="正在加载中。。。"
-            >
-                <el-table-column
-                    prop="withdrawId"
-                    label="提现编号"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="userName"
-                    label="用户名"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="poundage"
-                    label="提现金额"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="cardholder"
-                    label="持卡人"
-                    align="center"
-                >
-                </el-table-column>
-                <el-table-column
-                    prop="bankCard"
-                    label="银行卡号"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="mobilePhone"
-                    label="手机号"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="idCard"
-                    label="证件号"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="bankName"
-                    label="银行名称"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="createdAt"
-                    label="创建时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    prop="updatedAt"
-                    label="审核时间"
-                    align="center">
-                </el-table-column>
-                <el-table-column
-                    label="审核"
-                    align="center">
-                    <template slot-scope="scope">
-                        <span type="text" v-if="scope.row.status == 2" size="small" class="stayIn">已支付</span>
-                        <span type="text" v-if="scope.row.status !== 2" size="small" class="stayIn">未支付</span>
-                        <el-button type="text" size="small" v-if="scope.row.auditStatus == 0 && scope.row.status == 2"
-                                   @click="hadleAudit(scope.row.withdrawId)">审核
-                        </el-button>
-                        <span type="text" size="small" v-if="scope.row.auditStatus == 1 && scope.row.status == 2">审核成功</span>
-                        <span type="text" size="small" v-if="scope.row.auditStatus == 2 && scope.row.status == 2">驳回</span>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    align="center">
-                    <template slot-scope="scope" class="">
-                        <el-button type="text" size="small" class="btn refuse">查看详情</el-button>
-                    </template>
-                </el-table-column>
-
-            </el-table>
-            <el-pagination
-                @current-change="handleCurrentChange"
-                :current-page="searchList.currentPage"
-                :page-size="searchList.limit"
-                layout="total, prev, pager, next, jumper"
-                :total="total">
-            </el-pagination>
+        </el-table>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="searchList.currentPage"
+            :page-size="searchList.limit"
+            layout="total, prev, pager, next"
+            :total="total">
+        </el-pagination>
         </div>
 </template>
 
@@ -204,33 +154,28 @@
                 searchList: {
                     currentPage: 1,
                     limit: 20,
-                    page: 1
+                    page: 1,
+                    status: '',
+                    withdrawId: '',
+                    cardholder: '',
+                    mobilePhone: '',
+                    userName: '',
+                    auditStatus: '',
                 },
                 total: 0,
                 withdrawId: 0,
                 dialogFormVisible: false,//新增界面是否显示
                 listLoading: false,
-                payStatus: [{
-                    value: '1',
-                    label: '未支付'
-                },
-                    {
-                        value: '2',
-                        label: '已支付'
-                    }
+                payStatus: [
+                    { value: '0', label: '全部' },
+                    { value: '1', label: '未支付' },
+                    { value: '2', label: '已支付' }
                 ],
-                status: [{
-                    value: '1',
-                    label: '待审核'
-                },
-                    {
-                        value: '2',
-                        label: '已审核'
-                    },
-                    {
-                        value: '3',
-                        label: '驳回'
-                    }
+                status: [
+                    { value: '0', label: '全部' },
+                    { value: '1', label: '待审核' },
+                    { value: '2', label: '已审核' },
+                    { value: '3', label: '驳回' }
                 ],
                 tableData: [],
                 addForm: {},
@@ -267,7 +212,7 @@
             handleSearch(){
                 this.getList();
             },
-            hadleAudit(id){
+            handleAudit(id){
                 this.dialogFormVisible = true;
                 this.withdrawId = id;
             },
@@ -275,7 +220,6 @@
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.addLoading = true
-
                         if(this.addForm.auditStatus == "审核通过"){
                             this.addForm.auditStatus = 1
                         }else {
@@ -294,7 +238,6 @@
                                     type: 'error'
                                 });
                             }
-
                             this.dialogFormVisible = false;
                         })
                     } else {
@@ -302,6 +245,9 @@
                         return false
                     }
                 })
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             }
         }
 
@@ -347,6 +293,8 @@
                 }
                 .grid-content {
                     margin-left: 20px;
+                }
+                .mt {
                     margin-top: 20px;
                 }
                 .el-select {

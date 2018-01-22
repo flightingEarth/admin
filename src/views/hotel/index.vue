@@ -6,49 +6,55 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
+                <el-form :model="searchList" :rules="rules" ref="searchForm">
+                <el-row class="grid-content">
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>酒店名称:</span>
-                            <el-input v-model="searchList.hotelName" placeholder="请输入酒店名称"></el-input>
+                            <el-form-item label="酒店名称" prop="hotelName">
+                                <el-input v-model="searchList.hotelName" placeholder="请输入酒店名称"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>酒店星级:</span>
-                            <el-select v-model="searchList.hotelStar" placeholder="请选择">
-                                <el-option label="全部" value="0"></el-option>
-                                <el-option label="客栈／公寓" value="1"></el-option>
-                                <el-option label="二星级／经济型" value="2"></el-option>
-                                <el-option label="三星级／舒适型" value="3"></el-option>
-                                <el-option label="四星级／高档型" value="4"></el-option>
-                                <el-option label="五星级／豪华型" value="5"></el-option>
-                            </el-select>
+                            <el-form-item label="酒店星级" prop="hotelStar">
+                                <el-select v-model="searchList.hotelStar" placeholder="请选择">
+                                    <el-option label="全部" value="0"></el-option>
+                                    <el-option label="客栈／公寓" value="1"></el-option>
+                                    <el-option label="二星级／经济型" value="2"></el-option>
+                                    <el-option label="三星级／舒适型" value="3"></el-option>
+                                    <el-option label="四星级／高档型" value="4"></el-option>
+                                    <el-option label="五星级／豪华型" value="5"></el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple double">
+                        <div class="bg-purple double">
                             <span><i>|</i>酒店状态:</span>
-                            <el-select v-model="searchList.hotelStatus" placeholder="请选择">
-                                <el-option
-                                        v-for="item in statusList"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
-                                </el-option>
-                            </el-select>
+                            <el-form-item label="酒店状态" prop="hotelStatus">
+                                <el-select v-model="searchList.hotelStatus" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in statusList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button>重置条件</el-button>
-                        <!--<el-button type="primary">导出</el-button>-->
+                        <el-button @click="resetForm('searchForm')">重置条件</el-button>
                     </el-col>
-
                 </el-row>
+                </el-form>
 
             </div>
         </div>
@@ -179,6 +185,9 @@
             handleHouse(hotelId){
                 this.$router.push({path: "/hotel/hotelRoom?hotelId=" + hotelId})
             },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
         }
     }
 </script>
@@ -217,6 +226,8 @@
                 }
                 .grid-content {
                     margin-left: 20px;
+                }
+                .mt {
                     margin-top: 20px;
                 }
                 .el-select {

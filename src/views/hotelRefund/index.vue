@@ -6,62 +6,65 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
+                <el-form :model="searchList" ref="searchForm">
+                <el-row class="grid-content">
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>订&nbsp;&nbsp;单&nbsp;&nbsp;号:</span>
-                            <el-input v-model="searchList.orderId" placeholder="请输入订单ID"></el-input>
+                            <el-form-item label="订单号" prop="orderId">
+                                <el-input v-model="searchList.orderId" placeholder="请输入订单ID"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>供&nbsp;&nbsp;应&nbsp;&nbsp;商:</span>
-                            <el-input v-model="searchList.supplierName" placeholder="请输入供应商账户名"></el-input>
-                        </div>
-                    </el-col>
-
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>申&nbsp;&nbsp;请&nbsp;&nbsp;人:</span>
-                            <el-input v-model="searchList.mobilePhone" placeholder="请输入申请人手机号"></el-input>
+                            <el-form-item label="手机号码" prop="mobilePhone">
+                                <el-input v-model="searchList.mobilePhone" placeholder="请输入申请人手机号"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
+
                     <el-col :span="12">
-                        <div class="grid-content bg-purple double">
+                        <div class="bg-purple double">
                             <span><i>|</i>是否退款:</span>
-                            <el-select v-model="searchList.reviewStatus" placeholder="请选择">
-                                <el-option label="未退款" value="1"></el-option>
-                                <el-option label="已退款" value="2"></el-option>
-                            </el-select>
+                            <el-form-item label="是否退款" prop="reviewStatus">
+                                <el-select v-model="searchList.reviewStatus" placeholder="请选择">
+                                    <el-option label="全部" value="0"></el-option>
+                                    <el-option label="未退款" value="1"></el-option>
+                                    <el-option label="已退款" value="2"></el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple double">
+                        <div class="bg-purple double">
                             <span><i>|</i>退款状态:</span>
-                            <el-select v-model="searchList.status" placeholder="请选择">
-                                <el-option label="申请退款" value="0"></el-option>
-                                <el-option label="同意退款" value="1"></el-option>
-                                <el-option label="拒绝退款" value="2"></el-option>
-                            </el-select>
+                            <el-form-item label="退款状态" prop="status">
+                                <el-select v-model="searchList.status" placeholder="请选择">
+                                    <el-option label="全部" value="0"></el-option>
+                                    <el-option label="同意退款" value="1"></el-option>
+                                    <el-option label="拒绝退款" value="2"></el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button>重置条件</el-button>
-                        <!--<el-button type="primary">导出</el-button>-->
+                        <el-button @click="resetForm('searchForm')">重置条件</el-button>
                     </el-col>
 
                 </el-row>
+                </el-form>
 
             </div>
         </div>
 
 
         <el-dialog title="退款审核" :visible.sync="dialogFormVisible" class="financial">
-
             <el-form :model="addForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <div class="grid-content bg-purple-light shenhe">
                     <span>审&nbsp;&nbsp;&nbsp;&nbsp;核:</span>
@@ -70,12 +73,6 @@
                             <el-radio label="审核通过" value="1"></el-radio>
                             <el-radio label="驳回" value="2"></el-radio>
                         </el-radio-group>
-                    </el-form-item>
-                </div>
-                <div class="grid-content bg-purple-light shenhe">
-                    <span>手续费:</span>
-                    <el-form-item label="膳食安排" prop="counterFee">
-                        <el-input v-model="addForm.counterFee" type="number"></el-input>
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
@@ -116,12 +113,6 @@
             >
             </el-table-column>
             <el-table-column
-                prop="days"
-                label="退订日期"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
                 prop="num"
                 label="退订数量"
                 align="center"
@@ -152,8 +143,8 @@
                 align="center">
                 <template slot-scope="scope">
                     <span v-if="scope.row.status == 0">用户申请退款</span>
-                    <span v-if="scope.row.status == 1">同意退款</span>
-                    <span v-if="scope.row.status == 2">拒绝退款</span>
+                    <span v-if="scope.row.status == 1">酒店同意退款</span>
+                    <span v-if="scope.row.status == 2">酒店拒绝退款</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -176,9 +167,9 @@
         </el-table>
         <el-pagination
             @current-change="handleCurrentChange"
-            :current-page="searchList.currentPage"
+            :current-page="searchList.page"
             :page-size="searchList.limit"
-            layout="total, prev, pager, next, jumper"
+            layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>
@@ -192,7 +183,6 @@
             return {
                 total: 0,
                 searchList: {
-                    currentPage: 1,
                     limit: 20,
                     page: 1
                 },

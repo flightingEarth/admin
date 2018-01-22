@@ -7,17 +7,20 @@
             </div>
             <div class="input">
                 <el-form :model="searchList" ref="ticketForm">
-                <el-row>
+                <el-row class="grid-content">
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>门票搜索:</span>
-                            <el-input v-model="searchList.ticketName" placeholder="请输入门票名称"></el-input>
+                        <div class="mt bg-purple">
+                            <span><i>|</i>门票名称:</span>
+                            <el-form-item label="门票名称" prop="ticketName">
+                                <el-input v-model="searchList.ticketName" placeholder="请输入门票名称"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</span>
+                            <el-form-item label="票种" prop="ticketType">
                             <el-select v-model="searchList.ticketType" placeholder="请选择">
                                 <el-option
                                         v-for="item in ticketTypeList"
@@ -26,42 +29,47 @@
                                         :value="item.id">
                                 </el-option>
                             </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="bg-purple">
                             <span><i>|</i>上下架:</span>
-                            <el-select v-model="searchList.ticketStatus" placeholder="请选择">
-                                <el-option
-                                        v-for="item in statusList"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
-                                </el-option>
-                            </el-select>
+                            <el-form-item label="票种" prop="ticketStatus">
+                                <el-select v-model="searchList.ticketStatus" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in statusList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple double">
+                        <div class="bg-purple double">
                             <span><i>|</i>有效起始:</span>
-                            <el-date-picker
-                                    v-model="searchList.sellStartTime"
-                                    type="date"
-                                    format="yyyy-MM-dd"
-                                    value-format="yyyy-MM-dd"
-                                    placeholder="选择日期">
-                            </el-date-picker>
-                            <span class="zhi">至</span>
-                            <el-date-picker
-                                    v-model="searchList.sellEndTime"
-                                    type="date"
-                                    format="yyyy-MM-dd"
-                                    value-format="yyyy-MM-dd"
-                                    placeholder="选择日期"
-                                    :picker-options="minTime">
-                            </el-date-picker>
+                            <el-form-item label="票种" prop="sellStartTime">
+                                <el-date-picker
+                                        v-model="searchList.sellStartTime"
+                                        type="date"
+                                        format="yyyy-MM-dd"
+                                        value-format="yyyy-MM-dd"
+                                        placeholder="选择日期">
+                                </el-date-picker>
+                                <span class="zhi">至</span>
+                                <el-date-picker
+                                        v-model="searchList.sellEndTime"
+                                        type="date"
+                                        format="yyyy-MM-dd"
+                                        value-format="yyyy-MM-dd"
+                                        placeholder="选择日期"
+                                        :picker-options="minTime">
+                                </el-date-picker>
+                            </el-form-item>
                         </div>
                     </el-col>
 
@@ -208,6 +216,7 @@
             },
             resetForm(formName){
                 this.$refs[formName].resetFields();
+                this.searchList.sellEndTime = ''
             },
             handleCurrentChange(val) {
                 this.searchList.page = val
@@ -260,6 +269,8 @@
                 }
                 .grid-content {
                     margin-left: 20px;
+                }
+                .mt {
                     margin-top: 20px;
                 }
                 .el-select {

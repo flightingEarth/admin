@@ -6,46 +6,52 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>产品名称:</span>
-                            <el-input v-model="searchList.goodsName" placeholder=""></el-input>
-                        </div>
-                    </el-col>
+                <el-form :model="searchList" ref="searchForm">
+                    <el-row class="grid-content">
+                        <el-col :span="12">
+                            <div class="mt bg-purple">
+                                <span><i>|</i>产品名称:</span>
+                                <el-form-item label="产品名称" prop="goodsName">
+                                    <el-input v-model="searchList.goodsName" placeholder=""></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
 
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>审核状态:</span>
-                            <el-select v-model="searchList.reviewStatus" placeholder="请选择">
-                                <el-option label="全部" value="0"></el-option>
-                                <el-option label="审核通过" value="1"></el-option>
-                                <el-option label="审核未通过" value="2"></el-option>
-                            </el-select>
-                        </div>
-                    </el-col>
+                        <el-col :span="12">
+                            <div class="mt bg-purple">
+                                <span><i>|</i>审核状态:</span>
+                                <el-form-item label="审核状态" prop="reviewStatus">
+                                    <el-select v-model="searchList.reviewStatus" placeholder="请选择">
+                                        <el-option label="全都" value="0"></el-option>
+                                        <el-option label="审核通过" value="1"></el-option>
+                                        <el-option label="审核未通过" value="2"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
 
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple double">
-                            <span><i>|</i>产品状态:</span>
-                            <el-select v-model="searchList.status" placeholder="请选择">
-                                <el-option
-                                        v-for="item in statusList"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </el-col>
+                        <el-col :span="12">
+                            <div class="bg-purple double">
+                                <span><i>|</i>产品状态:</span>
+                                <el-form-item label="产品状态" prop="status">
+                                    <el-select v-model="searchList.status" placeholder="请选择">
+                                        <el-option
+                                                v-for="item in statusList"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
 
-                    <el-col :span="24">
-                        <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button @click="resetForm('ruleForm')">重置条件</el-button>
-                    </el-col>
-
-                </el-row>
-
+                        <el-col :span="24">
+                            <el-button type="primary" @click="handleSearch">搜索</el-button>
+                            <el-button @click="resetForm('searchForm')">重置条件</el-button>
+                        </el-col>
+                    </el-row>
+                </el-form>
             </div>
         </div>
 
@@ -169,7 +175,7 @@
                 this.getList();
             },
             resetForm(formName) {
-                this.$refs.ruleForm.resetFields();
+                this.$refs[formName].resetFields();
             },
             handleCurrentChange(val) {
                 this.searchList.currentPage = val

@@ -7,38 +7,44 @@
             </div>
             <div class="input">
                 <el-form :model="searchList" ref="searchForm">
-                    <el-row>
+                    <el-row class="grid-content">
                         <el-col :span="12">
-                            <div class="grid-content bg-purple">
+                            <div class=" mt bg-purple">
                                 <span><i>|</i>景区名称:</span>
-                                <el-input v-model="searchList.scenicName" placeholder="请输景区名称"></el-input>
+                                <el-form-item label="景区名称" prop="scenicName">
+                                    <el-input v-model="searchList.scenicName" placeholder="请输景区名称"></el-input>
+                                </el-form-item>
                             </div>
                         </el-col>
 
                         <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
+                            <div class="mt bg-purple-light">
                                 <span><i>|</i>上&nbsp;下&nbsp; 架:</span>
-                                <el-select v-model="searchList.scenicStatus" placeholder="请选择">
-                                    <el-option
-                                        v-for="item in statusList"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
-                                    </el-option>
-                                </el-select>
+                                <el-form-item label="上下架" prop="scenicStatus">
+                                    <el-select v-model="searchList.scenicStatus" placeholder="请选择">
+                                        <el-option
+                                            v-for="item in statusList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="12">
-                            <div class="grid-content bg-purple-light">
+                            <div class="bg-purple-light">
                                 <span><i>|</i>景区星级:</span>
-                                <el-select v-model="searchList.scenicStar" placeholder="请选择">
-                                    <el-option
-                                        v-for="item in scenicStarList"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
-                                    </el-option>
-                                </el-select>
+                                <el-form-item label="景区星级" prop="scenicStar">
+                                    <el-select v-model="searchList.scenicStar" placeholder="请选择">
+                                        <el-option
+                                            v-for="item in scenicStarList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
                             </div>
                         </el-col>
 
@@ -183,6 +189,9 @@
                 }
                 .grid-content {
                     margin-left: 20px;
+                    /*margin-top: 20px;*/
+                }
+                .mt {
                     margin-top: 20px;
                 }
                 .el-select {
