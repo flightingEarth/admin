@@ -25,7 +25,6 @@
 <script>
     import {Navbar, Sidebar, AppMain} from '@/views/layout'
     import "./font-title/iconfont.css"
-    import { getNickname } from '@/utils/auth' // getToken from cookie
 
     export default {
         name: 'layout',
@@ -47,7 +46,7 @@
             }
         },
         created(){
-            this.nickname = getNickname()
+            this.nickname = window.User.nickname
             this.getBreadcrumb()
         },
         methods: {
