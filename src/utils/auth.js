@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 
 const TokenKey = 'token'
+const nicknameKey = 'nickname'
 
 export function getToken() {
   return Cookies.get(TokenKey)
@@ -12,6 +13,14 @@ export function getRoles() {
 
 export function setToken(token) {
   return Cookies.set(TokenKey, token)
+}
+
+export function getNickname() {
+    return Cookies.get(nicknameKey)
+}
+
+export function setNickname(name) {
+    return Cookies.get(nicknameKey, name)
 }
 
 export function removeToken() {

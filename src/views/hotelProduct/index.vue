@@ -158,6 +158,12 @@
             }
         },
         created(){
+            let roomId = this.$route.query.roomId
+            if (roomId.length == 0 || isNaN(roomId) || roomId <= 0) {
+//                this.$router.push({ path:"/hotel" })
+                this.$router.back(-1)
+                this.$message.error('酒店房型编号不可为空')
+            }
             this.searchList.roomId = this.$route.query.roomId
             this.statusList = getStatusList();
             this.getList()

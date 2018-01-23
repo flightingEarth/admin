@@ -10,7 +10,7 @@
             </div>
             <div class="login">
                 <span class="headImg">登录用户:</span>
-                <span class="name">{{ name }}</span>
+                <span class="name">{{ nickname }}</span>
                 <a href="javascript:;" @click="logout">退出</a>
             </div>
         </div>
@@ -25,7 +25,7 @@
 <script>
     import {Navbar, Sidebar, AppMain} from '@/views/layout'
     import "./font-title/iconfont.css"
-    import { mapGetters } from 'vuex'
+    import { getNickname } from '@/utils/auth' // getToken from cookie
 
     export default {
         name: 'layout',
@@ -38,19 +38,17 @@
             return {
                 levelList: null,
                 title:"",
+                nickname: ''
             }
         },
-
         computed: {
-            ...mapGetters([
-                'name'
-            ]),
             sidebar() {
                 return this.$store.state.app.sidebar
             }
         },
         created(){
-            this.getBreadcrumb();
+            this.nickname = getNickname()
+            this.getBreadcrumb()
         },
         methods: {
             getBreadcrumb() {

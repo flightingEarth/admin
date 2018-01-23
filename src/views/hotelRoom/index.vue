@@ -145,7 +145,12 @@
                 statusList: []
             }
         },
-        created(){
+        created() {
+            let hotelId = this.$route.query.hotelId
+            if (hotelId.length == 0 || isNaN(hotelId) || hotelId <= 0) {
+                this.$router.push({ path:"/hotel" })
+                this.$message.error('搜索的酒店编号不可为空')
+            }
             this.ruleForm.hotelId =  this.$route.query.hotelId
             this.statusList = getStatusList()
             this.getList()

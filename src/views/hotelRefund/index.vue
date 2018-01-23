@@ -95,12 +95,6 @@
         </div>
         <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
             <el-table-column
-                prop="refundId"
-                label="编号"
-                align="center"
-            >
-            </el-table-column>
-            <el-table-column
                 prop="orderId"
                 label="酒店订单"
                 align="center"
@@ -193,9 +187,6 @@
                     reviewStatus: [
                         {required: true, message: '请选择审核结果', trigger: 'change'}
                     ],
-                    counterFee: [
-                        {required: true, message: '请填写手续费', trigger: 'blur'}
-                    ],
                     note: [
                         {required: true, message: '请填写备注', trigger: 'blur'}
                     ]
@@ -259,6 +250,9 @@
                         return false
                     }
                 })
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             }
         }
     }
@@ -299,6 +293,8 @@
                 }
                 .grid-content {
                     margin-left: 20px;
+                }
+                .mt {
                     margin-top: 20px;
                 }
                 .el-select {

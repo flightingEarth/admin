@@ -6,7 +6,7 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-form :model="searchList" :rules="rules" ref="searchForm">
+                <el-form :model="searchList" ref="searchForm">
                 <el-row class="grid-content">
                     <el-col :span="12">
                         <div class="mt bg-purple">
