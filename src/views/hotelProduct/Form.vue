@@ -131,8 +131,7 @@
                             <div class="grid-content bg-purple-light refundTime">
                                 <span><i>|</i>退&nbsp;&nbsp;房&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;间:</span>
                                 <el-form-item label="膳食安排" prop="refundTime">
-                                    <el-input v-model="ruleForm.refundDay"
-                                              placeholder="例：1天,请输入1"></el-input>
+                                    <el-input v-model="ruleForm.refundDay" placeholder="例：1天,请输入1"></el-input>
                                     <span class="day">天</span>
                                     <el-time-select
                                         v-model="ruleForm.refundTime"
@@ -225,7 +224,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple double">
                                 <span><i>|</i>到店担保时间:</span>
-                                <el-form-item label="活动区域" prop="inTime">
+                                <el-form-item label="活动区域" prop="endTime">
                                     <el-time-select
                                         v-model="ruleForm.startTime"
                                         :picker-options="{
@@ -237,17 +236,13 @@
                                     </el-time-select>
                                     <span class="zhi">
                                         <el-select v-model="ruleForm.isTomorrow" placeholder="请选择">
-                                        <el-option label="当天" value="0"></el-option>
-                                        <el-option label="次日" value="1"></el-option>
-                                    </el-select>
+                                            <el-option label="当天" value="0"></el-option>
+                                            <el-option label="次日" value="1"></el-option>
+                                        </el-select>
                                     </span>
                                     <el-time-select
                                         v-model="ruleForm.endTime"
-                                        :picker-options="{
-                                            start: '00:00',
-                                            step: '00:15',
-                                            end: '23:45'
-                                          }"
+                                        :picker-options="{ start: '00:00', step: '00:15', end: '23:45' }"
                                         placeholder="担保结束时间">
                                     </el-time-select>
                                 </el-form-item>
@@ -301,11 +296,7 @@
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
-                activeName: 'second',
                 title: "",
-                refundTime: "",
-                startTime: "",
-                endTime: "",
                 isGroup: [
                     {
                         value: '0',
@@ -371,6 +362,12 @@
                     ],
                     sort: [
                         {required: true, message: '请输入排序规则', trigger: 'blur'}
+                    ],
+                    refundTime: [
+                        {required: true, message: '请填写退房时间', trigger: 'blur'}
+                    ],
+                    endTime: [
+                        {required: true, message: '请填写到店担保时间', trigger: 'blur'}
                     ]
                 }
             }
@@ -383,6 +380,22 @@
         methods: {
             submitForm(formName) {
                 this.$refs.ruleForm.validate((valid) => {
+
+                    if (isNaN(this.ruleForm.refundDay) || this.ruleForm.refundDay.length == 0) {
+                        this.$message.error('请填写正确的退房天数');
+                        return false
+                    }
+
+                    if (this.ruleForm.isTomorrow.length == 0) {
+                        this.$message.error('请选择到店担保时间是当天还是次日');
+                        return false
+                    }
+                    console.log(this.ruleForm.startTime)
+                    if (this.ruleForm.startTime == null || this.ruleForm.startTime == '') {
+                        this.$message.error('请填写到店担保时间');
+                        return false
+                    }
+
                     if (valid) {
                         this.addLoading = true
                         if (this.ruleForm.goodsId == undefined) {
