@@ -290,13 +290,14 @@
                         images:[]
                     }
                 }
-            }
+            },
+            title: "",
         },
         data() {
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
-                title: "",
+
                 isGroup: [
                     {
                         value: '0',

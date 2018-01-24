@@ -1,13 +1,13 @@
 <template>
-    <hotel-form title="编辑产品" :ruleForm="ruleForm"></hotel-form>
+    <product-form title="编辑产品" :ruleForm="ruleForm"></product-form>
 </template>
 
 <script>
-    import HotelForm from './Form'
+    import ProductForm from './Form'
     import { getProduct } from 'api/hotelProduct'
 
     export default {
-        components: { HotelForm },
+        components: { ProductForm },
         data() {
             return {
                 ruleForm: undefined

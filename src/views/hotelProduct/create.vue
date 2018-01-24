@@ -1,11 +1,11 @@
 <template>
-    <hotel-form title="添加产品"></hotel-form>
+    <product-form title="添加产品"></product-form>
 </template>
 
 <script>
-    import HotelForm from './Form'
+    import ProductForm from './Form'
 
     export default {
-        components: { HotelForm },
+        components: { ProductForm },
     }
 </script>
