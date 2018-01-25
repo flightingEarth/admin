@@ -6,12 +6,12 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                     <el-row>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>房型名称:</span>
-                                <el-form-item label="活动名称" prop="roomName">
+                                <el-form-item label="房型名称" prop="roomName">
                                     <el-input v-model="ruleForm.roomName"></el-input>
                                 </el-form-item>
                             </div>
@@ -20,22 +20,22 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>房间状态:</span>
-                                <el-select v-model="ruleForm.status" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in statusList"
-                                            :key="item.id"
-                                            :label="item.name"
-                                            :value="item.id">
-                                    </el-option>
-                                </el-select>
-
+                                <el-form-item label="房间状态" prop="status">
+                                    <el-select v-model="ruleForm.status" placeholder="请选择">
+                                        <el-option
+                                                v-for="item in statusList"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
                             </div>
                         </el-col>
                         <el-col :span="24">
                             <el-button type="primary" @click="handleSearch">搜索</el-button>
                             <el-button @click="resetForm('ruleForm')">重置条件</el-button>
                         </el-col>
-
                     </el-row>
                 </el-form>
             </div>
@@ -139,14 +139,12 @@
                     roomName:'',
                     hotelId:0
                 },
-                rules: {},
                 total: 0,
                 tableData: [],
                 statusList: []
             }
         },
         created(){
-            this.ruleForm.hotelId =  this.$route.query.hotelId
             this.statusList = getStatusList()
             this.getList()
         },
@@ -167,10 +165,10 @@
                 this.getList();
             },
             resetForm(formName) {
-                this.$refs.ruleForm.resetFields();
+                this.$refs[formName].resetFields();
             },
             addHouse() {
-                this.$router.push({path: "/hotel/hotelRoom/create?hotelId=" + this.ruleForm.hotelId  })
+                this.$router.push({ path: "/hotel/hotelRoom/create" })
             },
             edit(index) {
                 this.$router.push({path: "/hotel/hotelRoom/"+index + '/edit'})

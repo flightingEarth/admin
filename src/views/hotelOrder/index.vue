@@ -10,45 +10,54 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>订单号码:</span>
-                            <el-input v-model="searchList.orderId" placeholder=""></el-input>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>身份证号:</span>
-                            <el-input v-model="searchList.idCard" placeholder=""></el-input>
-                        </div>
-                    </el-col>
+                <el-form :model="searchList" ref="searchForm">
+                    <el-row class="grid-content">
+                        <el-col :span="12">
+                            <div class="mt bg-purple">
+                                <span><i>|</i>订单编号:</span>
+                                <el-form-item label="订单编号" prop="orderId">
+                                    <el-input v-model="searchList.orderId" placeholder=""></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="mt bg-purple">
+                                <span><i>|</i>身份证号:</span>
+                                <el-form-item label="身份证号" prop="idCard">
+                                    <el-input v-model="searchList.idCard" placeholder=""></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
 
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>手机号码:</span>
-                            <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <span><i>|</i>支付方式:</span>
-                            <el-select v-model="searchList.payMethod" placeholder="请选择">
-                                <el-option
-                                    v-for="item in supplierOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </el-col>
-                    <el-col :span="24">
-                        <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button>重置条件</el-button>
-                    </el-col>
-
-                </el-row>
+                        <el-col :span="12">
+                            <div class="bg-purple">
+                                <span><i>|</i>手机号码:</span>
+                                <el-form-item label="手机号码" prop="mobilePhone">
+                                    <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="bg-purple-light">
+                                <span><i>|</i>支付方式:</span>
+                                <el-form-item label="支付方式" prop="payMethod">
+                                    <el-select v-model="searchList.payMethod" placeholder="请选择">
+                                        <el-option
+                                            v-for="item in supplierOptions"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+                        <el-col :span="24">
+                            <el-button type="primary" @click="handleSearch">搜索</el-button>
+                            <el-button @click="resetForm('searchForm')">重置条件</el-button>
+                        </el-col>
+                    </el-row>
+                </el-form>
 
             </div>
         </div>
@@ -227,7 +236,10 @@
             },
             handleDetail(id){
                 this.$router.push({path: '/hotelorder/' + id});
-            }
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
         }
     }
 </script>
@@ -269,10 +281,12 @@
                 }
                 .grid-content {
                     margin-left: 20px;
-                    margin-top: 20px;
                     .el-input__inner {
                         width: 80%;
                     }
+                }
+                .mt {
+                    margin-top: 20px;
                 }
                 .el-select {
                     width: 80%;

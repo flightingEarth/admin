@@ -225,7 +225,7 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple double">
                                 <span><i>|</i>到店担保时间:</span>
-                                <el-form-item label="活动区域" prop="inTime">
+                                <el-form-item label="活动区域" prop="endTime">
                                     <el-time-select
                                         v-model="ruleForm.startTime"
                                         :picker-options="{
@@ -295,17 +295,13 @@
 //                        status: 1
                     }
                 }
-            }
+            },
+            title: "",
         },
         data() {
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
-                activeName: 'second',
-                title: "",
-                refundTime: "",
-                startTime: "",
-                endTime: "",
                 isGroup: [
                     {
                         value: '0',
@@ -371,6 +367,12 @@
                     ],
                     sort: [
                         {required: true, message: '请输入排序规则', trigger: 'blur'}
+                    ],
+                    refundTime: [
+                        {required: true, message: '请填写退房时间', trigger: 'blur'}
+                    ],
+                    endTime: [
+                        {required: true, message: '请填写到店担保时间', trigger: 'blur'}
                     ]
                 }
             }
@@ -383,6 +385,19 @@
         methods: {
             submitForm(formName) {
                 this.$refs.ruleForm.validate((valid) => {
+                    if (isNaN(this.ruleForm.refundDay) || this.ruleForm.refundDay.length == 0) {
+                        this.$message.error('请填写正确的退房天数');
+                        return false
+                    }
+                    if (this.ruleForm.isTomorrow.length == 0) {
+                        this.$message.error('请选择到店担保时间是当天还是次日');
+                        return false
+                    }
+                    if (this.ruleForm.startTime == null || this.ruleForm.startTime == '') {
+                        this.$message.error('请填写到店担保时间');
+                        return false
+                    }
+
                     if (valid) {
                         this.addLoading = true
                         if (this.ruleForm.goodsId == undefined) {

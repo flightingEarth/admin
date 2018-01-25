@@ -520,7 +520,6 @@
                             }
                         })
                         this.addLoading = false
-
                     } else {
                         console.log('error submit!!')
                         return false
@@ -547,13 +546,11 @@
                     }
 
                     if (this.ruleForm.network.length == this.networkList.length) {
-                        console.log(this.checkAll);
                         this.isIndeterminate = false;
                         this.checkAll = true;
                     } else {
                         this.isIndeterminate = true;
                     }
-
                 } else if (this.activeName == 'third') {
                     this.isIndeterminate = true;
                     if (this.parkingLotList.length == 0) {
@@ -561,24 +558,18 @@
                     }
 
                     if (this.ruleForm.parkingLot.length == this.parkingLotList.length) {
-                        console.log(this.checkAll);
                         this.isIndeterminate = false;
                         this.checkAll = true;
                     } else {
                         this.isIndeterminate = true;
                     }
-
                 } else if (this.activeName == 'fourth') {
-
-
                     this.isIndeterminate = true
                     if (this.facilitiesList.length == 0) {
-
                         this.getFacilitiesList()
                     }
 
                     if (this.ruleForm.hotelFacilities.length == this.facilitiesList.length) {
-                        console.log(this.checkAll);
                         this.isIndeterminate = false;
                         this.checkAll = true;
                     } else {
