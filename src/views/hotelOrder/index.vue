@@ -74,6 +74,11 @@
             v-loading="listLoading" element-loading-text="正在加载中。。。"
         >
             <el-table-column
+                    prop="orderId"
+                    label="订单号"
+                    align="center">
+            </el-table-column>
+            <el-table-column
                 prop="hotelName"
                 label="订单详情"
                 align="center"
@@ -125,11 +130,6 @@
             <el-table-column
                 prop="createdAt"
                 label="预订时间"
-                align="center">
-            </el-table-column>
-            <el-table-column
-                prop="orderId"
-                label="订单号"
                 align="center">
             </el-table-column>
             <el-table-column
