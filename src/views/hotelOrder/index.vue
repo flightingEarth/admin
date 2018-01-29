@@ -118,7 +118,7 @@
                 label="订单状态"
                 align="center">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small" class="stayIn">待入住</el-button>
+                    <el-button type="text" size="small" class="stayIn">{{ scope.row.status }}</el-button>
                     <el-button type="text" size="small" @click="handleDetail(scope.row.orderId)">订单详情</el-button>
                 </template>
             </el-table-column>
@@ -159,11 +159,11 @@
         data() {
             return {
                 searchList: {
-                    orderId: undefined,
-                    cardNum: undefined,
-                    phone: undefined,
-                    payWay: undefined,
-                    status: undefined,
+                    orderId: '',
+                    idCard: '',
+                    mobilePhone: '',
+                    payMethod: '',
+                    status: '',
                     limit: 20,
                     page: 1
                 },
