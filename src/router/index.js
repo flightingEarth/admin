@@ -50,13 +50,13 @@ const router = new Router({
     routes: [
         { path: '/401', component: Error401, hidden: true, requiresAuth: false },
         {
-            path: '/financial',
+            path: '/',
             component: Layout,
             name: '财务部',
             icon: 'quanxian',
             children: [
                 {
-                    path: '/financial/cashApplication', component: CashApplication, name: '提现申请',
+                    path: '/', component: CashApplication, name: '提现申请',
                 }
             ]
         },
