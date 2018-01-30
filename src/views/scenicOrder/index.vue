@@ -10,59 +10,40 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
+                <el-form :model="searchList" ref="searchForm">
+                <el-row class="grid-content">
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>订单号码:</span>
-                            <el-input v-model="searchList.orderId" placeholder=""></el-input>
+                        <div class="mt bg-purple">
+                            <span><i>|</i>订单号:</span>
+                            <el-form-item label="订单号" prop="orderId">
+                                <el-input v-model="searchList.orderId" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>景区名称:</span>
-                            <el-input v-model="searchList.cardNum" placeholder=""></el-input>
+                            <el-form-item label="景区名称" prop="scenicName">
+                                <el-input v-model="searchList.scenicName" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="bg-purple">
                             <span><i>|</i>手机号码:</span>
-                            <el-input v-model="searchList.phone" placeholder=""></el-input>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <span><i>|</i>付款方式:</span>
-                            <el-select v-model="searchList.payWay" placeholder="请选择">
-                                <el-option
-                                    v-for="item in supplierOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <span><i>|</i>票种来源:</span>
-                            <el-select v-model="searchList.status" placeholder="请选择">
-                                <el-option
-                                    v-for="item in scenicStar"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <el-form-item label="手机号码" prop="mobilePhone">
+                                <el-input v-model="searchList.mobilePhone" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
-                        <el-button type="primary">搜索</el-button>
-                        <el-button>重置条件</el-button>
+                        <el-button type="primary" @click="getList">搜索</el-button>
+                        <el-button @click="resetForm('searchForm')">重置条件</el-button>
                     </el-col>
-
                 </el-row>
+                </el-form>
 
             </div>
         </div>
@@ -155,32 +136,16 @@
         data() {
             return {
                 searchList: {
-                    orderId: undefined,
-                    cardNum: undefined,
-                    phone: undefined,
-                    payWay: undefined,
-                    status: undefined,
-                    currentPage: 1,
-                    pageSize: 10
+                    orderId: '',
+                    scenicName: '',
+                    mobilePhone: '',
+                    page: 1,
+                    pageSize: 20
                 },
                 number: 0,
                 liList: ["全部订单", "未付订单", "已付未检订单", "已检订单", "已改订单", "已退订单", "已完成"],
                 listLoading: false,
                 total: 0,
-                supplierOptions: [{
-                    value: '0',
-                    label: '不限'
-                }, {
-                    value: '1',
-                    label: '在线支付'
-                }, {
-                    value: '2',
-                    label: '景区到付'
-                }],
-                scenicStar: [{
-                    value: '0',
-                    label: '其他'
-                }],
                 tableData: []
             }
         },
@@ -209,34 +174,12 @@
                 this.searchList.showStatus = index
                 this.getList();
             },
-            handleAction(id, action) {
-                this.$confirm('是否'+ action +'?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    let param = { opt:action}
-                    updateScenicOrder(id, param).then(response => {
-                        if (response.data.status) {
-                            this.$message({
-                                message: '操作成功！',
-                                type: 'success'
-                            });
-                            this.getList()
-                        } else {
-                            this.$message.error(response.data.msg);
-                        }
-                    })
-                }).catch(() => {
-//                    this.$message({
-//                        type: 'info',
-//                        message: '已取消拒绝退票'
-//                    });
-                });
-            },
             handleDetail(id){
                 this.$router.push({path: '/scenicOrder/' + id})
-            }
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
         }
     }
 </script>
@@ -278,10 +221,12 @@
                 }
                 .grid-content {
                     margin-left: 20px;
-                    margin-top: 20px;
                     .el-input__inner {
                         width: 80%;
                     }
+                }
+                .mt {
+                    margin-top: 20px;
                 }
                 .el-select {
                     width: 80%;

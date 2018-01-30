@@ -117,10 +117,10 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>审&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
                                 <el-form-item label="膳食安排" prop="reviewStatus">
-                                    <el-SELECT v-model="ruleForm.reviewStatus" placeholder="请选择">
-                                        <el-OPTION label="审核通过" value="1"></el-OPTION>
-                                        <el-OPTION label="审核未通过" value="2"></el-OPTION>
-                                    </el-SELECT>
+                                    <el-select v-model="ruleForm.reviewStatus" placeholder="请选择">
+                                        <el-option label="审核通过" value="1"></el-option>
+                                        <el-option label="审核未通过" value="2"></el-option>
+                                    </el-select>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -325,7 +325,7 @@
                         {required: true, message: '请选择景区状态', trigger: 'change'}
                     ],
                     reviewStatus: [
-                        {required: TRUE, message: '请选择审核状态', TRIGGER: 'change'}
+                        {required: true, message: '请选择审核状态', TRIGGER: 'change'}
                     ],
                     features: [
                         {required: true, message: '请输入景区的特色', trigger: 'change'}

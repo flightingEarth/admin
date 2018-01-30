@@ -12,8 +12,8 @@
                         <span>现金账户</span>
                         <p><span>¥{{account.availableAmount}}</span>元</p>
                     </div>
-                    <a href="javascript:;">充值</a>
-                    <a href="javascript:;">提现</a>
+                    <a :href="account.depositUrl">充值</a>
+                    <a :href="account.withdrawUrl">提现</a>
                 </div>
             </div>
         </div>
@@ -27,25 +27,29 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-form :model="searchList" ref="searchList" label-width="100px" class="demo-ruleForm">
+                <el-form :model="searchList" ref="searchForm">
                 <el-row>
                     <el-col :span="12">
                         <div class="grid-content bg-purple">
                             <span><i>|</i>订单编号:</span>
-                            <el-input v-model="searchList.orderId" placeholder=""></el-input>
+                            <el-form-item label="订单编号" prop="orderId">
+                                <el-input v-model="searchList.orderId" placeholder=""></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <el-col :span="12">
                         <div class="grid-content bg-purple-light">
                             <span><i>|</i>收支类型:</span>
-                            <el-select v-model="searchList.type" placeholder="请选择">
-                                <el-option
-                                    v-for="item in accountType"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <el-form-item label="收支类型" prop="type">
+                                <el-select v-model="searchList.type" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in accountType"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
                     <!--<el-col :span="12">-->
@@ -80,7 +84,7 @@
                     <!--</el-col>-->
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button @click="resetForm">重置条件</el-button>
+                        <el-button @click="resetForm('searchForm')">重置条件</el-button>
                     </el-col>
                 </el-row>
                 </el-form>
@@ -209,7 +213,7 @@
                 this.getList();
             },
             resetForm(formName) {
-                this.$refs.searchList.resetFields();
+                this.$refs[formName].resetFields();
             },
             handleClickLi(index) {
                 this.number = index;
