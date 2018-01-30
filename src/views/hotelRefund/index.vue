@@ -18,7 +18,7 @@
                     </el-col>
                     <el-col :span="12">
                         <div class="mt bg-purple">
-                            <span><i>|</i>申&nbsp;&nbsp;请&nbsp;&nbsp;人:</span>
+                            <span><i>|</i>手机号码:</span>
                             <el-form-item label="手机号码" prop="mobilePhone">
                                 <el-input v-model="searchList.mobilePhone" placeholder="请输入申请人手机号"></el-input>
                             </el-form-item>
@@ -107,6 +107,12 @@
             >
             </el-table-column>
             <el-table-column
+                    prop="days"
+                    label="退订天数"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
                 prop="num"
                 label="退订数量"
                 align="center"
@@ -170,13 +176,17 @@
 </template>
 
 <script>
-    import {refundlList, auditWithdraw} from '@/api/hotelRefund'
+    import {refundList, auditWithdraw} from '@/api/hotelRefund'
     export default {
         name: 'hotel',
         data() {
             return {
                 total: 0,
                 searchList: {
+                    mobilePhone:'',
+                    reviewStatus: '',
+                    status: '',
+                    orderId: '',
                     limit: 20,
                     page: 1
                 },
@@ -199,7 +209,7 @@
         methods: {
             getList() {
                 this.listLoading = true
-                refundlList(this.searchList).then(response => {
+                refundList(this.searchList).then(response => {
                     this.tableData = response.data.data
                     this.total = response.data.meta.total
                     this.listLoading = false

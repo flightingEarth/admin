@@ -1,6 +1,6 @@
 import fetch from 'utils/fetch';
 
-export function refundlList(query) {
+export function refundList(query) {
     return fetch({
         url: 'admin/hotelOrderRefund',
         method: 'get',

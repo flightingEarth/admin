@@ -151,11 +151,11 @@
         data() {
             return {
                 searchList: {
-                    orderId: undefined,
-                    cardNum: undefined,
-                    phone: undefined,
-                    payWay: undefined,
-                    status: undefined,
+                    orderId: '',
+                    idCard: '',
+                    mobilePhone: '',
+                    payMethod: '',
+                    status: '',
                     limit: 20,
                     page: 1
                 },
