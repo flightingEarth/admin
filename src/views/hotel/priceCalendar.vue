@@ -159,19 +159,30 @@
             }
         },
         created() {
+            let roomId = this.$route.query.roomId
+            let goodsId = this.$route.query.goodsId
+            if (roomId.length == 0 || isNaN(roomId) || roomId <= 0 || goodsId.length == 0 || isNaN(goodsId) || goodsId <= 0) {
+                this.$router.back(-1)
+                this.$message.error('酒店房型和酒店产品编号不可为空')
+            }
             this.roomId = this.$route.query.roomId
             this.ruleForm.goodsId = this.$route.query.goodsId
             this.getList()
         },
         methods: {
             getList() {
-                let para = {'years': this.years}
+                let para = {'years': this.years, 'goodsId': this.ruleForm.goodsId}
                 getHotelDailyPrice(para).then(response => {
-                    this.tableData = response.data.data
-                    this.years = response.data.years
-                    this.lastMonth = response.data.lastMonth
-                    this.nextMonth = response.data.nextMonth
-                    this.loading = false
+                    if (response.data.status == false) {
+                        this.$router.back(-1)
+                        this.$message.error(response.data.msg)
+                    } else {
+                        this.tableData = response.data.data
+                        this.years = response.data.years
+                        this.lastMonth = response.data.lastMonth
+                        this.nextMonth = response.data.nextMonth
+                        this.loading = false
+                    }
                 })
             },
             handLastMonth() {

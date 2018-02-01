@@ -158,6 +158,11 @@
             }
         },
         created(){
+            let roomId = this.$route.query.roomId
+            if (roomId.length == 0 || isNaN(roomId) || roomId <= 0) {
+                this.$router.back(-1)
+                this.$message.error('酒店房型编号不可为空')
+            }
             this.searchList.roomId = this.$route.query.roomId
             this.statusList = getStatusList();
             this.getList()
@@ -166,9 +171,14 @@
             getList() {
                 this.listLoading = true
                 ProductList(this.searchList).then(response => {
-                    this.tableData = response.data.data
-                    this.total = response.data.meta.total
-                    this.listLoading = false
+                    if (response.data.status == false) {
+                        this.$router.back(-1)
+                        this.$message.error(response.data.msg)
+                    } else {
+                        this.tableData = response.data.data
+                        this.total = response.data.meta.total
+                        this.listLoading = false
+                    }
                 })
             },
             handleSearch(){
@@ -188,7 +198,7 @@
                 this.$router.push({path: "/hotelproduct/" + index + "/edit"})
             },
             handlePrice(goodsId){
-                this.$router.push({path: "/hotel/priceCalendar?goodsId=" + goodsId})
+                this.$router.push({path: "/hotel/priceCalendar?goodsId=" + goodsId + '&roomId=' + this.searchList.roomId })
             }
         }
     }

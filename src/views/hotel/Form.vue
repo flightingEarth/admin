@@ -376,7 +376,8 @@
                         network: [],
                         parkingLot: [],
                         hotelFacilities: [],
-                        activeLocation: []
+                        activeLocation: [],
+                        images: []
                     }
                 }
             },

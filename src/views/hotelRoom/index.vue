@@ -152,9 +152,14 @@
             getList() {
                 this.listLoading = true
                 roomList(this.ruleForm).then(response => {
-                    this.tableData = response.data.data
-                    this.total = response.data.meta.total
-                    this.listLoading = false
+                    if (response.data.status == false) {
+                        this.$router.back(-1)
+                        this.$message.error(response.data.msg)
+                    } else {
+                        this.tableData = response.data.data
+                        this.total = response.data.meta.total
+                        this.listLoading = false
+                    }
                 })
             },
             handleCurrentChange(val) {

@@ -60,7 +60,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>起购&nbsp;房&nbsp;间&nbsp;数:</span>
                                 <el-form-item label="活动区域" prop="lowestNum">
-                                    <el-input v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
+                                    <el-input type="number" v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -68,7 +68,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>床&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</span>
                                 <el-form-item label="床型" prop="bedType">
-                                    <el-input v-model="ruleForm.bedType"></el-input>
+                                    <el-input v-model="ruleForm.bedType" placeholder="填写格式，如：1.3米单人床，2张"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -256,8 +256,8 @@
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
-                                <el-form-item label="膳食安排" prop="sort">
-                                    <el-input v-model="ruleForm.sort" type="number" placeholder="请输入数字"></el-input>
+                                <el-form-item label="排序" prop="sort">
+                                    <el-input v-model="ruleForm.sort" type="number" placeholder="酒店产品按从小到大排序"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -292,7 +292,6 @@
                 type: Object,
                 default() {
                     return {
-//                        status: 1
                     }
                 }
             },
@@ -356,9 +355,6 @@
                     arrivalTime: [
                         {required: true, message: '请选择最早到达时间', trigger: 'change'}
                     ],
-//                    payMoney: [
-//                        {required: true, message: '请输入立减或减返金额', trigger: 'blur'}
-//                    ],
                     reviewStatus: [
                         {required: true, message: '请选择审核状态', trigger: 'change'}
                     ],

@@ -60,8 +60,8 @@
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>入住人数:</span>
-                                <el-form-item label="膳食安排" prop="capacity">
-                                    <el-input v-model="ruleForm.capacity"></el-input>
+                                <el-form-item label="入住人数" prop="capacity">
+                                    <el-input type="number" v-model="ruleForm.capacity"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -231,17 +231,17 @@
                     if (valid) {
                         this.addLoading = true
                         if (this.ruleForm.roomId == undefined) {
-                            if (response.data.status) {
-                                addHotelRoom(this.ruleForm).then(response => {
+                            addHotelRoom(this.ruleForm).then(response => {
+                                if (response.data.status) {
                                     this.$message({
                                         message: '添加成功！',
                                         type: 'success'
                                     });
                                     this.handleCancel();
-                                })
-                            } else {
-                                this.$message.error(response.data.msg);
-                            }
+                                } else {
+                                    this.$message.error(response.data.msg);
+                                }
+                            })
                         } else {
                             updateHotelRoom(this.ruleForm.roomId, this.ruleForm).then(response => {
                                 if (response.data.status) {
