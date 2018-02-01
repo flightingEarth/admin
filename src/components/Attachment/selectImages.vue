@@ -366,7 +366,7 @@
 
         .attachment-pagination {
             position: absolute;
-            bottom: 0;
+            bottom: 60%;
             padding: 6px;
             margin-left: 160px;
             height: 40px;
@@ -376,7 +376,7 @@
             -moz-box-sizing: border-box;
             box-sizing: border-box;
             /*background: #f8f8f8;*/
-            .addImg{
+            .addImg {
                 width: 120px;
                 height: 120px;
                 border: 5px dashed #f2f2f2;
