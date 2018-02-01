@@ -68,7 +68,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>床&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</span>
                                 <el-form-item label="床型" prop="bedType">
-                                    <el-input v-model="ruleForm.bedType"></el-input>
+                                    <el-input v-model="ruleForm.bedType" placeholder="填写格式，如：1.3米单人床，2张"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -252,11 +252,10 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
                                 <el-form-item label="膳食安排" prop="sort">
-                                    <el-input v-model="ruleForm.sort" type="number" placeholder="请输入数字"></el-input>
+                                    <el-input v-model="ruleForm.sort" type="number" placeholder="酒店产品按从小到大排序"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
-
                     </el-row>
                 </div>
 
