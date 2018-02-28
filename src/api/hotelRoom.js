@@ -2,7 +2,7 @@ import fetch from 'utils/fetch';
 
 export function roomList(query) {
     return fetch({
-        url: 'admin/hotelRoom',
+        url: 'supplier/hotelRoom',
         method: 'get',
         params: query
     });
@@ -10,14 +10,14 @@ export function roomList(query) {
 
 export function getHotelRoom(id) {
     return fetch({
-        url: 'admin/hotelRoom/' + id +'/edit',
+        url: 'supplier/hotelRoom/' + id +'/edit',
         method: 'get',
     });
 }
 
 export function addHotelRoom(data) {
     return fetch({
-        url: 'admin/hotelRoom',
+        url: 'supplier/hotelRoom',
         method: 'post',
         data: data
     });
@@ -25,7 +25,7 @@ export function addHotelRoom(data) {
 
 export function updateHotelRoom(id, data) {
     return fetch({
-        url: 'admin/hotelRoom/' + id,
+        url: 'supplier/hotelRoom/' + id,
         method: 'PUT',
         data: data
     });

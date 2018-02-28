@@ -2,7 +2,7 @@ import fetch from 'utils/fetch';
 
 export function refundlList(query) {
     return fetch({
-        url: 'admin/scenicOrderRefund',
+        url: 'supplier/scenicOrderRefund',
         method: 'get',
         params: query
     });
@@ -10,7 +10,7 @@ export function refundlList(query) {
 
 export function auditWithdraw(id , query) {
     return fetch({
-        url: 'admin/scenicOrderRefund/' + id,
+        url: 'supplier/scenicOrderRefund/' + id,
         method: 'put',
         params: query
     });

@@ -2,7 +2,7 @@ import fetch from 'utils/fetch';
 
 export function withdrawList(query) {
     return fetch({
-        url: 'admin/withdraw',
+        url: 'supplier/withdraw',
         method: 'get',
         params: query
     });
@@ -10,9 +10,8 @@ export function withdrawList(query) {
 
 export function auditWithdraw(id, query) {
     return fetch({
-        url: 'admin/withdraw/' + id,
+        url: 'supplier/withdraw/' + id,
         method: 'put',
         params: query
     });
 }
-

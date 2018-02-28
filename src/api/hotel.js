@@ -2,7 +2,7 @@ import fetch from 'utils/fetch';
 
 export function hotelList(query) {
     return fetch({
-        url: 'admin/hotel',
+        url: 'supplier/hotel',
         method: 'get',
         params: query
     });
@@ -10,14 +10,14 @@ export function hotelList(query) {
 
 export function getHotel(id) {
     return fetch({
-        url: 'admin/hotel/' + id +'/edit',
+        url: 'supplier/hotel/' + id +'/edit',
         method: 'get',
     });
 }
 
 export function addHotel(data) {
     return fetch({
-        url: 'admin/hotel',
+        url: 'supplier/hotel',
         method: 'post',
         data: data
     });
@@ -25,7 +25,7 @@ export function addHotel(data) {
 
 export function updateHotel(id, data) {
     return fetch({
-        url: 'admin/hotel/' + id,
+        url: 'supplier/hotel/' + id,
         method: 'PUT',
         data: data
     });
@@ -33,8 +33,7 @@ export function updateHotel(id, data) {
 
 export function destroyHotel(id) {
     return fetch({
-        url: 'admin/hotel/' + id,
+        url: 'supplier/hotel/' + id,
         method: 'DELETE'
     });
 }
-

@@ -2,7 +2,7 @@ import fetch from 'utils/fetch';
 
 export function refundlList(query) {
     return fetch({
-        url: 'admin/hotelOrderRefund',
+        url: 'supplier/hotelOrderRefund',
         method: 'get',
         params: query
     });
@@ -10,7 +10,7 @@ export function refundlList(query) {
 
 export function auditWithdraw(id , query) {
     return fetch({
-        url: 'admin/hotelOrderRefund/' + id,
+        url: 'supplier/hotelOrderRefund/' + id,
         method: 'put',
         params: query
     });

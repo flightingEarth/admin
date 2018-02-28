@@ -20,7 +20,7 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">订单号：<span>{{list.orderId}}</span></el-col>
+                        <el-col :span="8">景区名称：<span>{{list.scenicName}}</span></el-col>
                         <el-col :span="8">门票名称：<span>{{list.ticketName}}</span></el-col>
                         <el-col :span="8">状态：<span>{{list.status}}</span></el-col>
                     </el-row>
@@ -31,7 +31,7 @@
                     <el-row :gutter="20">
                         <el-col :span="8">单价：<span>{{list.price}}</span></el-col>
                         <el-col :span="8">购买数量：<span>{{list.currentNum}}</span></el-col>
-                        <el-col :span="8">总价：<span>{{list.orderTime}}</span></el-col>
+                        <el-col :span="8">总价：<span>{{list.totalPrice}}</span></el-col>
                     </el-row>
                 </div>
                 <div class="title title2">
@@ -57,30 +57,10 @@
                 <div class="input">
                     <el-row :gutter="20">
                         <el-col :span="8">订单有效期：<span>{{list.startTime}}</span></el-col>
-                        <el-col :span="8">使用时间：<span>{{list.endTime}}</span></el-col>
+                        <el-col :span="8">订单游玩日期：<span>{{list.endTime}}</span></el-col>
                     </el-row>
                 </div>
             </div>
-
-            <!--<div class="search">-->
-                <!--<div class="title">-->
-                    <!--<span>订单详情</span>-->
-                <!--</div>-->
-                <!--<div class="input">-->
-                    <!--<el-row :gutter="20">-->
-                        <!--<el-col :span="8">-->
-                            <!--<span>修改订单退票规则：</span>-->
-                            <!--<el-radio v-model="list.refundTicket" label="1">可退</el-radio>-->
-                            <!--<el-radio v-model="list.refundTicket" label="2">不可退</el-radio>-->
-                        <!--</el-col>-->
-                        <!--<el-col :span="8">-->
-                            <!--<span>修改订单改票规则：</span>-->
-                            <!--<el-radio v-model="list.changeTicket" label="1">可改</el-radio>-->
-                            <!--<el-radio v-model="list.changeTicket" label="2">不可改</el-radio>-->
-                        <!--</el-col>-->
-                    <!--</el-row>-->
-                <!--</div>-->
-            <!--</div>-->
 
         </el-form>
     </div>

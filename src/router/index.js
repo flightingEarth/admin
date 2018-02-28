@@ -39,6 +39,9 @@ const router = new Router({
                     path: '/scenic/ticket', component: ScenicTicket, name: '门票列表',
                 },
                 {
+                    path: '/scenic/ticket/create', hidden: true, component: TicketCreate, name: '门票添加',
+                },
+                {
                     path: '/scenic/ticket/edit', hidden: true, component: TicketEdit, name: '门票编辑',
                 },
                 //景区订单

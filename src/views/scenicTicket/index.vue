@@ -223,10 +223,10 @@
                 this.getList()
             },
             create() {
-                this.$router.push({path: '/scenic/' + this.scenicId + '/ticket/create'})
+                this.$router.push({path: '/scenic/ticket/create'})
             },
             edit(index) {
-                this.$router.push({path: "/scenic/" + this.scenicId + '/ticket/'+index + '/edit'})
+                this.$router.push({path: "/scenic/ticket/edit"})
             }
         }
     }
