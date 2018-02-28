@@ -12,27 +12,20 @@ function hasPermission(roles, permissionRoles) {
 }
 
 router.beforeEach((to, from, next) => {
-  let token = getToken()
-  if (token) { // 判断是否有token
-      if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
-        store.dispatch('GetUserInfo').then(res => { // 拉取user_info
-            next()
-        }).catch((err) => {
-          store.dispatch('FedLogOut').then(() => {
-            Message.error('Verification failed, please login again')
-              window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
-          })
-        })
+  if (window.User.role) { // 判断是否有token
+      if (window.User.role.length === 0) { // 判断当前用户是否已拉取完user_info信息
+          // location.reload()
+          window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
       } else {
-      //   // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
-        if (hasPermission(store.getters.roles, to.meta.role)) {
-          next()//
-        } else {
-          next({ path: '/401', query: { noGoBack: true }})
-        }
+          //   // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
+          if (hasPermission(window.User.role, to.meta.role)) {
+              next()//
+          } else {
+              next({ path: '/401', query: { noGoBack: true }})
+          }
       }
   } else {
-      next()
-    window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
+      // location.reload()
+      window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
   }
 })
