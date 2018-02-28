@@ -47,20 +47,32 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">支付人：<span>{{list.payerUserName}}</span></el-col>
+                        <el-col :span="8">购买者：<span>{{list.payerUserName}}</span></el-col>
                         <el-col :span="8">支付方式：<span>{{list.payMethod}}</span></el-col>
                         <el-col :span="8">订单有效期：<span>{{list.startTime + '--' + list.endTime}}</span></el-col>
                     </el-row>
                 </div>
-                <!-- <div class="title title2">
-                </div>
-                <div class="input">
-                    <el-row :gutter="20">
-                        <el-col :span="8">订单有效期：<span>{{list.startTime}}</span></el-col>
-                        <el-col :span="8">订单游玩日期：<span>{{list.endTime}}</span></el-col>
-                    </el-row>
-                </div> -->
             </div>
+
+            <!--<div class="search">-->
+            <!--<div class="title">-->
+            <!--<span>订单详情</span>-->
+            <!--</div>-->
+            <!--<div class="input">-->
+            <!--<el-row :gutter="20">-->
+            <!--<el-col :span="8">-->
+            <!--<span>修改订单退票规则：</span>-->
+            <!--<el-radio v-model="list.refundTicket" label="1">可退</el-radio>-->
+            <!--<el-radio v-model="list.refundTicket" label="2">不可退</el-radio>-->
+            <!--</el-col>-->
+            <!--<el-col :span="8">-->
+            <!--<span>修改订单改票规则：</span>-->
+            <!--<el-radio v-model="list.changeTicket" label="1">可改</el-radio>-->
+            <!--<el-radio v-model="list.changeTicket" label="2">不可改</el-radio>-->
+            <!--</el-col>-->
+            <!--</el-row>-->
+            <!--</div>-->
+            <!--</div>-->
 
         </el-form>
     </div>
