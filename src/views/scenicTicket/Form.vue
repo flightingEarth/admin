@@ -182,7 +182,7 @@
                                         <el-option label="手机号限购每张" value="1"></el-option>
                                         <el-option label="手机号限购每笔" value="2"></el-option>
                                         <el-option label="身份证限购每张" value="3"></el-option>
-                                        <el-option label="身份整限购每笔" value="4"></el-option>
+                                        <el-option label="身份证限购每笔" value="4"></el-option>
                                         <el-option label="手机号+身份证每张" value="5"></el-option>
                                         <el-option label="手机号+身份证每笔" value="6"></el-option>
                                     </el-select>
