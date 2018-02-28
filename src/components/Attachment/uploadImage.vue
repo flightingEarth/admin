@@ -61,7 +61,7 @@
         props: {
             action: {
                 type: String,
-                default:'http://sz.test/supplier/image'
+                default:'http://wsub.hsota.com/supplier/image'
             },
             visible: {
                 type: Boolean,
