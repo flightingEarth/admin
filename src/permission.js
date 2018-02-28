@@ -14,7 +14,8 @@ function hasPermission(roles, permissionRoles) {
 router.beforeEach((to, from, next) => {
     if (window.User.role) { // 判断是否有token
         if (window.User.role.length === 0) { // 判断当前用户是否已拉取完user_info信息
-            location.reload()
+            // location.reload()
+            window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
         } else {
             //   // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
             if (hasPermission(window.User.role, to.meta.role)) {
@@ -24,6 +25,7 @@ router.beforeEach((to, from, next) => {
             }
         }
     } else {
-        location.reload()
+        // location.reload()
+        window.location.href= 'http://58.240.82.126:8300/tbdpdas/login'
     }
 })

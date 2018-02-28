@@ -366,7 +366,7 @@
 
         .attachment-pagination {
             position: absolute;
-            bottom: 0;
+            bottom: 60%;
             padding: 6px;
             margin-left: 160px;
             height: 40px;
