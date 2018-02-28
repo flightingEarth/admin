@@ -7,7 +7,7 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="6">订单号：<span>{{list.orderId}}</span></el-col>
+                        <el-col :span="6">景区名称：<span>{{list.scenic_name}}</span></el-col>
                         <el-col :span="6">下单时间：<span>{{list.created_at}}</span></el-col>
                         <el-col :span="6">订单状态：<span>{{list.showStatus}}</span></el-col>
                         <el-col :span="6">支付金额：<span>{{list.payOff}}</span></el-col>
