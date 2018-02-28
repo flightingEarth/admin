@@ -126,7 +126,7 @@
                 this.getList();
             },
             handleDetail(id){
-                this.$router.push({path: '/scenicOrder/' + id + '/detail'})
+                this.$router.push({path: '/scenicOrder/' + id})
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
