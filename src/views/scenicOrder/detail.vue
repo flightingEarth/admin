@@ -49,17 +49,17 @@
                     <el-row :gutter="20">
                         <el-col :span="8">支付人：<span>{{list.payerUserName}}</span></el-col>
                         <el-col :span="8">支付方式：<span>{{list.payMethod}}</span></el-col>
-                        <el-col :span="8">支付状态：<span>{{list.payStatus}}</span></el-col>
+                        <el-col :span="8">订单有效期：<span>{{list.startTime + '--' + list.endTime}}</span></el-col>
                     </el-row>
                 </div>
-                <div class="title title2">
+                <!-- <div class="title title2">
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
                         <el-col :span="8">订单有效期：<span>{{list.startTime}}</span></el-col>
                         <el-col :span="8">订单游玩日期：<span>{{list.endTime}}</span></el-col>
                     </el-row>
-                </div>
+                </div> -->
             </div>
 
         </el-form>
