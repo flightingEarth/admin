@@ -1,6 +1,6 @@
 import fetch from 'utils/fetch';
 
-export function getList(scenicId, query) {
+export function getList(query) {
     return fetch({
         url: 'supplier/scenicTicket',
         method: 'get',
@@ -8,7 +8,7 @@ export function getList(scenicId, query) {
     });
 }
 
-export function getTicket(scenicId, id) {
+export function getTicket(id) {
     return fetch({
         url: 'supplier/scenicTicket/' + id +'/edit',
         method: 'get',

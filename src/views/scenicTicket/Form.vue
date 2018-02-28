@@ -27,29 +27,7 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple">
-                                <span><i>|</i>审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;态:</span>
-                                <el-form-item label="活动区域" prop="review_status">
-                                    <el-select v-model="ruleForm.review_status" placeholder="请选择">
-                                        <el-option label="通过"  value="0"></el-option>
-                                        <el-option label="未通过"  value="1"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple">
-                                <span><i>|</i>上&nbsp;&nbsp;&nbsp;&nbsp;下&nbsp;&nbsp;&nbsp;&nbsp;架:</span>
-                                <el-form-item label="上下架" prop="status">
-                                    <el-select v-model="ruleForm.status" placeholder="请选择">
-                                        <el-option label="上架" value="1"></el-option>
-                                        <el-option label="下架" value="2"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </div>
-                        </el-col>
-
+                        
                         <el-col :span="20">
                             <div class="grid-content bg-purple-light double">
                                 <span><i>|</i>入&nbsp;&nbsp;&nbsp;园&nbsp;&nbsp;时&nbsp;&nbsp;间:</span>
@@ -66,6 +44,18 @@
                                             :picker-options="{start: '12:30',step: '00:15',end: '20:30'}"
                                             placeholder="闭园时间">
                                     </el-time-select>
+                                </el-form-item>
+                            </div>
+                        </el-col>
+
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple">
+                                <span><i>|</i>上&nbsp;&nbsp;&nbsp;&nbsp;下&nbsp;&nbsp;&nbsp;&nbsp;架:</span>
+                                <el-form-item label="上下架" prop="status">
+                                    <el-select v-model="ruleForm.status" placeholder="请选择">
+                                        <el-option label="上架" value="1"></el-option>
+                                        <el-option label="下架" value="2"></el-option>
+                                    </el-select>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -373,9 +363,6 @@
                     status: [
                         {required: true, message: '请选择门票售卖状态', trigger: 'change'}
                     ],
-                    review_status: [
-                        {required: true, message: '请选择门票审核状态', trigger: 'change'}
-                    ],
                     address: [
                         { required: true, message: '请填写取票地址', trigger: 'blur'}
                     ],
@@ -492,7 +479,7 @@
                 })
             },
             handleCancel() {
-                this.$router.push({path: "/scenic/" + this.scenicId + '/ticket'})
+                this.$router.push({path: '/scenic/ticket'})
             },
         }
     }

@@ -177,6 +177,31 @@
             handleDetail(id){
                 this.$router.push({path: '/scenicOrder/' + id})
             },
+            handleAction(id, action) {
+               this.$confirm('是否'+ action +'?', '提示', {
+                   confirmButtonText: '确定',
+                   cancelButtonText: '取消',
+                   type: 'warning'
+               }).then(() => {
+                   let param = {opt:action}
+                   updateScenicOrder(id, param).then(response => {
+                       if (response.data.status) {
+                           this.$message({
+                               message: '更新成功！',
+                               type: 'success'
+                           });
+                           this.getList()
+                       } else {
+                           this.$message.error(response.data.msg);
+                       }
+                   })
+               }).catch(() => {
+//                    this.$message({
+//                        type: 'info',
+//                        message: '已取消拒绝退票'
+//                    });
+               });
+           },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },

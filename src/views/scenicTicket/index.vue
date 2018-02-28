@@ -196,19 +196,17 @@
                     {'id':2, 'name':'年票'},
                 ],
                 tableData: [],
-                statusList: [],
-                scenicId: 0
+                statusList: []
             }
         },
         created() {
             this.statusList = getStatusList()
-            this.scenicId = this.$route.params.scenicId
             this.getList()
         },
         methods: {
             getList() {
                 this.listLoading = true
-                getList(this.scenicId, this.searchList).then(response => {
+                getList(this.searchList).then(response => {
                     this.tableData = response.data.data
                     this.total = response.data.meta.total
                     this.listLoading = false
@@ -226,7 +224,7 @@
                 this.$router.push({path: '/scenic/ticket/create'})
             },
             edit(index) {
-                this.$router.push({path: "/scenic/ticket/edit"})
+                this.$router.push({path: "/scenic/ticket/"+ index +"/edit"})
             }
         }
     }

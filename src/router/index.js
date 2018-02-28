@@ -9,6 +9,7 @@ import Attachment from '@/views/attachment/index'
 import ScenicEdit from '@/views/scenicSpot/edit'
 import ScenicOrder from '@/views/scenicOrder'
 import ScenicOrderDetail from '@/views/scenicOrder/detail'
+import ScenicRefund from '@/views/scenicRefund'
 
 import ScenicTicket from '@/views/scenicTicket'
 import TicketCreate from '@/views/scenicTicket/create'
@@ -42,7 +43,7 @@ const router = new Router({
                     path: '/scenic/ticket/create', hidden: true, component: TicketCreate, name: '门票添加',
                 },
                 {
-                    path: '/scenic/ticket/edit', hidden: true, component: TicketEdit, name: '门票编辑',
+                    path: '/scenic/ticket/:id/edit', hidden: true, component: TicketEdit, name: '门票编辑',
                 },
                 //景区订单
                 {

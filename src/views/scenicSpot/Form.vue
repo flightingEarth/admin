@@ -113,17 +113,6 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
-                            <div class="grid-content bg-purple">
-                                <span><i>|</i>审&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态:</span>
-                                <el-form-item label="膳食安排" prop="reviewStatus">
-                                    <el-select v-model="ruleForm.reviewStatus" placeholder="请选择">
-                                        <el-option label="审核通过" value="1"></el-option>
-                                        <el-option label="审核未通过" value="2"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </div>
-                        </el-col>
                         <el-col :span="18">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>景区特点:</span>
@@ -203,7 +192,7 @@
                                     <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
                             </div>
-                            <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
+                            <!-- <span class="imgSuggest">建议尺寸：640✖️640像素;</span> -->
                         </el-col>
                     </el-row>
                 </div>
@@ -323,9 +312,6 @@
                     ],
                     status: [
                         {required: true, message: '请选择景区状态', trigger: 'change'}
-                    ],
-                    reviewStatus: [
-                        {required: true, message: '请选择审核状态', TRIGGER: 'change'}
                     ],
                     features: [
                         {required: true, message: '请输入景区的特色', trigger: 'change'}

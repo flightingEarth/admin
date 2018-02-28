@@ -14,7 +14,8 @@
             }
         },
         created() {
-            getTicket(this.$route.params.scenicId, this.$route.params.id).then(response => {
+          console.log(this.$route.params.id)
+            getTicket(this.$route.params.id).then(response => {
                 this.ruleForm = response.data.data
             })
         },
