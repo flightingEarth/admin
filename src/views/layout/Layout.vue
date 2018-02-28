@@ -38,18 +38,17 @@
             return {
                 levelList: null,
                 title:"",
+                nickname: ''
             }
         },
 
         computed: {
-            ...mapGetters([
-                'name'
-            ]),
             sidebar() {
                 return this.$store.state.app.sidebar
             }
         },
         created(){
+            this.nickname = window.User.nickname
             this.getBreadcrumb();
         },
         methods: {
