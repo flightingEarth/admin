@@ -20,7 +20,7 @@
                 </div>
                 <div class="input">
                     <el-row :gutter="20">
-                        <el-col :span="8">订单号：<span>{{list.scenicName}}</span></el-col>
+                        <el-col :span="8">景区名称：<span>{{list.scenicName}}</span></el-col>
                         <el-col :span="8">门票名称：<span>{{list.ticketName}}</span></el-col>
                         <el-col :span="8">状态：<span>{{list.status}}</span></el-col>
                     </el-row>
