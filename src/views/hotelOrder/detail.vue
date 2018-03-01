@@ -31,7 +31,7 @@
                 <div class="input">
                     <el-row :gutter="20">
                         <el-col :span="8">房型：<span>{{list.roomName}}</span></el-col>
-                        <el-col :span="8">床型：<span>{{list.products[0].bedType}}</span></el-col>
+                        <el-col :span="8">床型：<span>{{list.products[0].bed}}</span></el-col>
                         <el-col :span="8">间数：<span>{{list.roomNum}}</span></el-col>
                         <el-col :span="8">早餐：<span>{{list.products[0].breakfast}}</span></el-col>
                         <el-col :span="8">入离日期：<span>{{list.inDay}}</span> 至 <span>{{list.outDay}}</span></el-col>
