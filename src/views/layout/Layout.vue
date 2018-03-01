@@ -10,7 +10,7 @@
             </div>
             <div class="login">
                 <span class="headImg">登录用户:</span>
-                <span class="name">{{ name }}</span>
+                <span class="name">{{ nickname }}</span>
                 <a href="javascript:;" @click="logout" >退出</a>
             </div>
         </div>
