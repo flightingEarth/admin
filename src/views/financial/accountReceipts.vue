@@ -175,6 +175,7 @@
                     { value: '4', label: '申请提现' },
                     { value: '5', label: '提现成功' },
                     { value: '6', label: '提现驳回' },
+                    { value: '7', label: '酒店利润' },
                 ],
                 tableData: [],
                 account:{availableAmount:0,youbi:0}

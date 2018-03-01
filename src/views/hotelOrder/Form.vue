@@ -154,7 +154,6 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-
                     </el-row>
                 </div>
                 <div class="title title1">
@@ -164,7 +163,7 @@
                 <div class="tab">
                     <el-checkbox :indeterminate="isIndeterminate" class="checkAll" v-model="checkAll"
                                  @change="handleCheckAllChange">全选
-          </el-checkbox>
+                    </el-checkbox>
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="酒店地标" name="first">用户管理</el-tab-pane>
                         <el-tab-pane label="网络设备" name="second">
@@ -205,7 +204,6 @@
                                     <i class="el-icon-plus picture-uploader-icon"></i>
                                 </div>
                             </div>
-                            <span class="imgSuggest">建议尺寸：640✖️640像素；你可以拖拽图片调整图片顺序;</span>
                         </el-col>
                     </el-row>
                 </div>
@@ -687,4 +685,3 @@
 
 
 </style>
-
