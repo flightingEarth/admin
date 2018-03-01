@@ -165,7 +165,7 @@
                             </div>
                         </el-col>
 
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>退改扣费比例:</span>
                                 <el-form-item label="活动区域" prop="changeRate">
@@ -173,7 +173,7 @@
                                               placeholder="填写格式，如：0-100，100%用户的房费全部作为违约金"></el-input>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>付&nbsp;&nbsp;款&nbsp;&nbsp;方&nbsp;&nbsp;&nbsp;式:</span>
@@ -334,9 +334,9 @@
                     amount: [
                         {required: true, message: '请输入担保房间数量', trigger: 'blur'}
                     ],
-                    changeRate: [
-                        {required: true, message: '请输入改扣费比例', trigger: 'blur'}
-                    ],
+                    // changeRate: [
+                    //     {required: true, message: '请输入改扣费比例', trigger: 'blur'}
+                    // ],
                     payMethod: [
                         {required: true, message: '请选择付款方式', trigger: 'change'}
                     ],
