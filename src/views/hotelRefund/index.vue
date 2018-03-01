@@ -106,17 +106,6 @@
                 align="center"
             >
             </el-table-column>
-            <el-table-column
-                    prop="days"
-                    label="退订天数"
-                    align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                prop="num"
-                label="退订数量"
-                align="center"
-            >
             </el-table-column>
             <el-table-column
                 prop="supplierName"
@@ -134,29 +123,19 @@
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="counterFee"
-                label="手续费"
+                prop="refund_amount"
+                label="退款金额"
                 align="center">
             </el-table-column>
             <el-table-column
+                prop="status"
                 label="退款状态"
                 align="center">
-                <template slot-scope="scope">
-                    <span v-if="scope.row.status == 0">用户申请退款</span>
-                    <span v-if="scope.row.status == 1">酒店同意退款</span>
-                    <span v-if="scope.row.status == 2">酒店拒绝退款</span>
-                </template>
             </el-table-column>
             <el-table-column
+                prop="reviewStatus"
                 label="是否退款"
                 align="center">
-                <template slot-scope="scope">
-                    <span v-if="scope.row.reviewStatus == 1">未退款</span>
-                    <span v-if="scope.row.reviewStatus == 2">已退款</span>
-                    <el-button type="text" size="small" v-if="scope.row.status == 1 && scope.row.reviewStatus == 1"
-                               @click="hadleAudit(scope.row.refundId)">审核
-                    </el-button>
-                </template>
             </el-table-column>
 
             <el-table-column

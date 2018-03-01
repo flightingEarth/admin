@@ -138,8 +138,8 @@
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="refundReason"
-                label="备注"
+                prop="status"
+                label="状态"
                 align="center">
             </el-table-column>
             <el-table-column
@@ -147,7 +147,7 @@
                 label="申请时间"
                 align="center">
             </el-table-column>
-            <el-table-column
+            <!-- <el-table-column
                 label="操作"
                 align="center">
                 <template slot-scope="scope">
@@ -157,7 +157,7 @@
                     <span v-if="scope.row.status == 1">审核成功</span>
                     <span v-if="scope.row.status == 2">审核未通过</span>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
         </el-table>
         <el-pagination
             @current-change="handleCurrentChange"
@@ -177,6 +177,11 @@
             return {
                 total: 0,
                 searchList: {
+                    orderId: '',
+                    ticketName: '',
+                    mobilePhone: '',
+                    userName: '',
+                    status: '',
                     limit: 20,
                     page: 1
                 },

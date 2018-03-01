@@ -31,7 +31,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;状&nbsp;&nbsp;态:</span>
                                 <el-form-item label="活动区域" prop="reviewStatus">
-                                    <el-select v-model="ruleForm.review_status" placeholder="请选择">
+                                    <el-select v-model="ruleForm.reviewStatus" placeholder="请选择">
                                         <el-option label="审核通过"  value="1"></el-option>
                                         <el-option label="审核未通过"  value="2"></el-option>
                                     </el-select>

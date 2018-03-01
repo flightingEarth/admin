@@ -114,7 +114,7 @@
         <el-table :data="tableData" border stripe style="width: 100%" v-loading="listLoading" element-loading-text="正在加载">
             <el-table-column prop="withdrawId" label="提现编号" align="center" > </el-table-column>
             <el-table-column prop="userName" label="用户名" align="center" > </el-table-column>
-            <el-table-column prop="poundage" label="提现金额" align="center" > </el-table-column>
+            <el-table-column prop="amount" label="提现金额" align="center" > </el-table-column>
             <el-table-column prop="cardholder" label="持卡人" align="center" > </el-table-column>
             <el-table-column prop="bankCard" label="银行卡号" align="center"> </el-table-column>
             <el-table-column prop="mobilePhone" label="手机号" align="center"> </el-table-column>
