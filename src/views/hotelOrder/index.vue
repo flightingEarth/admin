@@ -1,8 +1,8 @@
 <template>
     <div class="main">
         <ul>
-            <li v-for="(item , index) in liList" @click="handleClickLi(index)" :class="{active:index===number}"><a
-                href="javascript:;">{{item}}</a></li>
+            <li v-for="(item) in liList" @click="handleClickLi(item.id)" :class="{active:item.id===number}"><a
+                href="javascript:;">{{item.name}}</a></li>
         </ul>
         <div class="search">
             <div class="title">
