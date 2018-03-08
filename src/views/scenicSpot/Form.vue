@@ -289,6 +289,9 @@
                 cities: [],
                 isIndeterminate: true,
                 rules: {
+                    identification: [
+                        {required: true, message: '请输入景区标识', trigger: 'blur'}
+                    ],
                     scenicTypeId: [
                         {required: true, message: '请选择旅游主题', trigger: 'change'}
                     ],

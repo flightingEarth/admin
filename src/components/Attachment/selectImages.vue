@@ -122,8 +122,7 @@
                 categories: [{
                     "name": "未命名",
                     "count": 0
-                }
-                ],
+                }],
                 selected: [],
                 currentCategory: {id: 6},
                 count: 0,
