@@ -70,9 +70,9 @@ const router = new Router({
                 {
                     path: '/scenic', component: ScenicSpot, name: '景区管理'
                 },
-                {
-                    path: '/scenic/create', hidden: true, component: ScenicCreate, name: '景区添加'
-                },
+                // {
+                //     path: '/scenic/create', hidden: true, component: ScenicCreate, name: '景区添加'
+                // },
                 {
                     path: '/scenic/:id/edit', hidden: true, component: ScenicEdit, name: '景区编辑'
                 },

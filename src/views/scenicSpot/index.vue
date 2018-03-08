@@ -60,9 +60,9 @@
         <div class="list-title">
             <i class="iconfont icon-liebiao"></i>
             <span>列表数据</span>
-            <ul>
+            <!-- <ul>
                 <li><a href="javascript:;" @click="create">添加景区</a></li>
-            </ul>
+            </ul> -->
         </div>
         <el-table :data="tableData" border v-loading="listLoading" style="width: 100%">
             <el-table-column prop="scenicId" label="编号" align="center"></el-table-column>

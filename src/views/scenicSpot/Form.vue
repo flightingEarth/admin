@@ -79,9 +79,7 @@
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>景区标识:</span>
                                 <el-form-item label="景区标识" prop="identification">
-
                                     <el-input v-model="ruleForm.identification" v-popover:identification></el-input>
-
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -302,6 +300,9 @@
                 cities: [],
                 isIndeterminate: true,
                 rules: {
+                    identification: [
+                      {required: true, message: '请输入景区标识', trigger: 'blur'}
+                    ],
                     scenicTypeId: [
                         {required: true, message: '请选择旅游主题', trigger: 'change'}
                     ],

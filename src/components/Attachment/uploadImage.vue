@@ -102,7 +102,6 @@
                 this.networkFileList = []
                 this.isDisabled = true
                 this.isSuccess = 0
-//
             },
             dialogSwitch() {
                 this.$emit('switch')
@@ -110,7 +109,6 @@
             //提取网络图片url
             //上传本地图片 事件
             handlePictureChange(file, fileList) {
-                console.log(file)
                 let isLt3M = file.size / 1024 /1024 < 1;
                 if (!isLt3M) {
                     this.$message.error('上传图片大小不能超过 1MB!');

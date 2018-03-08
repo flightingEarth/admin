@@ -1,8 +1,8 @@
 <template>
     <div class="main">
         <ul>
-            <li v-for="(item , index) in liList" @click="handleClickLi(index)" :class="{active:index===number}"><a
-                href="javascript:;">{{item}}</a></li>
+            <li v-for="(item) in liList" @click="handleClickLi(item.id)" :class="{active:item.id===number}"><a
+                href="javascript:;">{{item.name}}</a></li>
         </ul>
         <div class="search">
             <div class="title">
@@ -162,7 +162,16 @@
                 number: 0,
                 total: 0,
                 visible2: false,
-                liList: ["全部订单", "待支付", "待入住", "待离店", "待评价", "已取消", "已退订", "已完成"],
+                liList: [
+                  {id:0, name: '全部订单'},
+                  {id:1, name: '待支付'},
+                  {id:2, name: '待入住'},
+                  {id:3, name: '待离店'},
+                  // {id:4, name: '待评价'},
+                  {id:5, name: '已取消'},
+                  {id:6, name: '已退订'},
+                  {id:7, name: '已完成'},
+                ],
                 listLoading: false,
                 supplierOptions: [{
                     value: '0',
