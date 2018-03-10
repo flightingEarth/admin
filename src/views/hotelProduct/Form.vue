@@ -16,7 +16,7 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>产&nbsp;&nbsp;品&nbsp;&nbsp;类&nbsp;&nbsp;型:</span>
                                 <el-form-item label="膳食安排" prop="isGroup">
@@ -30,7 +30,7 @@
                                     </el-select>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
 
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
@@ -48,7 +48,7 @@
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>起购&nbsp;房&nbsp;间&nbsp;数:</span>
                                 <el-form-item label="活动区域" prop="lowestNum">
-                                    <el-input type="number" v-model="ruleForm.lowestNum" placeholder="填写格式，如：散客房填1，团购房大于1"></el-input>
+                                    <el-input type="number" v-model="ruleForm.lowestNum" placeholder="填写格式，如：1"></el-input>
                                 </el-form-item>
                             </div>
                         </el-col>
@@ -61,7 +61,7 @@
                             </div>
                         </el-col>
 
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>担&nbsp;&nbsp;保&nbsp;&nbsp;规&nbsp;&nbsp;&nbsp;则:</span>
                                 <el-form-item label="膳食安排" prop="guaranteeType">
@@ -75,7 +75,7 @@
                                     </el-select>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>早&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;餐:</span>
@@ -97,9 +97,9 @@
                                     <el-select v-model="ruleForm.changeRules" placeholder="请选择">
                                         <el-option label="免费取消" value="0"></el-option>
                                         <el-option label="不允许变更取消" value="1"></el-option>
-                                        <el-option label="允许变更/取消,需在XX日YY时之前通知" value="2"></el-option>
+                                        <!-- <el-option label="允许变更/取消,需在XX日YY时之前通知" value="2"></el-option>
                                         <el-option label="允许变更/取消,需在最早到店时间之前几小时通知" value="3"></el-option>
-                                        <el-option label="允许变更/取消,需在到店日期的24点之前几小时通知" value="4"></el-option>
+                                        <el-option label="允许变更/取消,需在到店日期的24点之前几小时通知" value="4"></el-option> -->
                                     </el-select>
                                 </el-form-item>
                             </div>
@@ -109,13 +109,13 @@
                                 <span><i>|</i>加&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;床:</span>
                                 <el-form-item label="活动区域" prop="extraBed">
                                     <el-select v-model="ruleForm.extraBed" placeholder="请选择">
-                                        <el-option label="可加床" value="1"></el-option>
-                                        <el-option label="不可加床" value="2"></el-option>
+                                        <el-option label="可加床" value="可加床"></el-option>
+                                        <el-option label="不可加床" value="不可加床"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple-light refundTime">
                                 <span><i>|</i>退&nbsp;&nbsp;房&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;间:</span>
                                 <el-form-item label="膳食安排" prop="refundTime">
@@ -133,28 +133,28 @@
                                     </el-time-select>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;带:</span>
                                 <el-form-item label="膳食安排" prop="broadbandFee">
                                     <el-select v-model="ruleForm.broadbandFee" placeholder="请选择">
-                                        <el-option label="收费" value="1"></el-option>
-                                        <el-option label="免费有线" value="2"></el-option>
-                                        <el-option label="免费无线" value="3"></el-option>
-                                        <el-option label="免费宽带" value="4"></el-option>
+                                        <el-option label="收费" value="收费"></el-option>
+                                        <el-option label="免费有线" value="免费有线"></el-option>
+                                        <el-option label="免费无线" value="免费无线"></el-option>
+                                        <el-option label="免费宽带" value="免费宽带"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple">
                                 <span><i>|</i>担保房间数量:</span>
                                 <el-form-item label="活动区域" prop="amount">
                                     <el-input v-model="ruleForm.amount" type="number"></el-input>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i></i>确&nbsp;&nbsp;认&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;间:</span>
@@ -210,7 +210,7 @@
                             <!--</div>-->
                         <!--</el-col>-->
 
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple double">
                                 <span><i>|</i>到店担保时间:</span>
                                 <el-form-item label="活动区域" prop="endTime">
@@ -240,7 +240,7 @@
                                     </el-time-select>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序:</span>
@@ -289,36 +289,36 @@
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
-                isGroup: [
-                    {
-                        value: '0',
-                        label: '散客房',
-                    },
-                    {
-                        value: '1',
-                        label: '团队房按天',
-                    },
-                    {
-                        value: '2',
-                        label: '团队房按订单',
-                    }
-                ],
+                // isGroup: [
+                //     {
+                //         value: '0',
+                //         label: '散客房',
+                //     },
+                //     {
+                //         value: '1',
+                //         label: '团队房按天',
+                //     },
+                //     {
+                //         value: '2',
+                //         label: '团队房按订单',
+                //     }
+                // ],
                 rules: {
                     goodsName: [
                         {required: true, message: '请输入产品名称', trigger: 'blur'}
                     ],
-                    isGroup: [
-                        {required: true, message: '请选择产品类型', trigger: 'change'}
-                    ],
+                    // isGroup: [
+                    //     {required: true, message: '请选择产品类型', trigger: 'change'}
+                    // ],
                     lowestNum: [
                         {required: true, message: '请输入起购房间数量', trigger: 'blur'}
                     ],
                     bedType: [
                         {required: true, message: '请输入床型', trigger: 'blur'}
                     ],
-                    guaranteeType: [
-                        {required: true, message: '请选择担保规则', trigger: 'change'}
-                    ],
+                    // guaranteeType: [
+                    //     {required: true, message: '请选择担保规则', trigger: 'change'}
+                    // ],
                     breakfast: [
                         {required: true, message: '请选择是否含早', trigger: 'change'}
                     ],
@@ -331,9 +331,9 @@
                     broadbandFee: [
                         {required: true, message: '请选择宽带类型', trigger: 'change'}
                     ],
-                    amount: [
-                        {required: true, message: '请输入担保房间数量', trigger: 'blur'}
-                    ],
+                    // amount: [
+                    //     {required: true, message: '请输入担保房间数量', trigger: 'blur'}
+                    // ],
                     // changeRate: [
                     //     {required: true, message: '请输入改扣费比例', trigger: 'blur'}
                     // ],
@@ -349,12 +349,12 @@
                     sort: [
                         {required: true, message: '请输入排序规则', trigger: 'blur'}
                     ],
-                    refundTime: [
-                        {required: true, message: '请填写退房时间', trigger: 'blur'}
-                    ],
-                    endTime: [
-                        {required: true, message: '请填写到店担保时间', trigger: 'blur'}
-                    ]
+                    // refundTime: [
+                    //     {required: true, message: '请填写退房时间', trigger: 'blur'}
+                    // ],
+                    // endTime: [
+                    //     {required: true, message: '请填写到店担保时间', trigger: 'blur'}
+                    // ]
                 }
             }
         },
@@ -366,18 +366,18 @@
         methods: {
             submitForm(formName) {
                 this.$refs.ruleForm.validate((valid) => {
-                    if (isNaN(this.ruleForm.refundDay) || this.ruleForm.refundDay.length == 0) {
-                        this.$message.error('请填写正确的退房天数');
-                        return false
-                    }
-                    if (this.ruleForm.isTomorrow.length == 0) {
-                        this.$message.error('请选择到店担保时间是当天还是次日');
-                        return false
-                    }
-                    if (this.ruleForm.startTime == null || this.ruleForm.startTime == '') {
-                        this.$message.error('请填写到店担保时间');
-                        return false
-                    }
+                    // if (isNaN(this.ruleForm.refundDay) || this.ruleForm.refundDay.length == 0) {
+                    //     this.$message.error('请填写正确的退房天数');
+                    //     return false
+                    // }
+                    // if (this.ruleForm.isTomorrow.length == 0) {
+                    //     this.$message.error('请选择到店担保时间是当天还是次日');
+                    //     return false
+                    // }
+                    // if (this.ruleForm.startTime == null || this.ruleForm.startTime == '') {
+                    //     this.$message.error('请填写到店担保时间');
+                    //     return false
+                    // }
 
                     if (valid) {
                         this.addLoading = true
