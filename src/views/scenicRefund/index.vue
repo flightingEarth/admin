@@ -127,11 +127,11 @@
                 label="数量（张）"
                 align="center">
             </el-table-column>
-            <el-table-column
+            <!-- <el-table-column
                 prop="refundFee"
                 label="退款手续费"
                 align="center">
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
                 prop="refundAmount"
                 label="退款金额（元）"

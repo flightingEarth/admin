@@ -121,14 +121,14 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>推迟游玩天数:</span>
                                 <el-form-item label="推迟游玩天数" prop="delay_days">
                                     <el-input type="number" v-model="ruleForm.delay_days"></el-input>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
                     </el-row>
                 </div>
 
@@ -156,7 +156,7 @@
                                 </el-form-item>
                             </div>
                         </el-col>
-
+<!--
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>限&nbsp;&nbsp;&nbsp;购&nbsp;&nbsp;方&nbsp;&nbsp;式:</span>
@@ -170,9 +170,9 @@
                                     </el-select>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
 
-
+<!--
                         <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>限&nbsp;&nbsp;&nbsp;购&nbsp;&nbsp;规&nbsp;&nbsp;则:</span>
@@ -188,16 +188,16 @@
                                     </el-select>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
 
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>限&nbsp;&nbsp;&nbsp;购&nbsp;&nbsp;张&nbsp;&nbsp;数:</span>
                                 <el-form-item label="限购张数" prop="orderTime">
                                     <el-input type="number" v-model="ruleForm.buy_limit_num"></el-input>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
 
 
 
@@ -207,14 +207,14 @@
                                 <el-form-item label="退票规则" prop="refund_rule">
                                     <el-select v-model="ruleForm.refund_rule" placeholder="请选择">
                                         <el-option label="随时退" value="0"></el-option>
-                                        <el-option label="可退" value="1"></el-option>
+                                        <!-- <el-option label="可退" value="1"></el-option> -->
                                         <el-option label="不可退" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
                         </el-col>
 
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div class="grid-content bg-purple-light">
                                 <span><i>|</i>可退时分限制:</span>
                                 <el-form-item label="可退时分限制" prop="refund_time">
@@ -234,7 +234,7 @@
                                     <el-input type="number" v-model="ruleForm.refund_day"></el-input>
                                 </el-form-item>
                             </div>
-                        </el-col>
+                        </el-col> -->
                     </el-row>
                 </div>
 
@@ -397,15 +397,15 @@
                     buy_limit_low: [
                         {required: true, message: '请填写一次最少购买的票数', trigger: 'blur'}
                     ],
-                    buy_limit: [
-                        {required: true, message: '请选择限购的规则', trigger: 'change'}
-                    ],
-                    buy_limit_date: [
-                        {required: true, message: '请选择限购的方式', trigger: 'change'}
-                    ],
-                    buy_limit_num: [
-                        {required: true, message: '请选择限购的限购张数', trigger: 'blur'}
-                    ],
+                    // buy_limit: [
+                    //     {required: true, message: '请选择限购的规则', trigger: 'change'}
+                    // ],
+                    // buy_limit_date: [
+                    //     {required: true, message: '请选择限购的方式', trigger: 'change'}
+                    // ],
+                    // buy_limit_num: [
+                    //     {required: true, message: '请选择限购的限购张数', trigger: 'blur'}
+                    // ],
                     market_price: [
                         {required: true, message: '请请输入门票市场价',trigger: 'blur'}
                     ],
@@ -415,18 +415,18 @@
                     provide_price: [
                         {required: true, message: '请填写门票的供应价', trigger: 'blur'}
                     ],
-                    delay_days: [
-                        {required: true, message: '请填写门票可推迟游玩的天数', trigger: 'blur'}
-                    ],
+                    // delay_days: [
+                    //     {required: true, message: '请填写门票可推迟游玩的天数', trigger: 'blur'}
+                    // ],
                     refund_rule: [
                         {required: true, message: '请选择退票规则', trigger: 'change'}
                     ],
-                    refund_day: [
-                        {required: true, message: '请填写门票可退天数限制', trigger: 'blur'}
-                    ],
-                    refund_time: [
-                        {required: true, message: '请选择门票可退时间限制', trigger: 'blur'}
-                    ],
+                    // refund_day: [
+                    //     {required: true, message: '请填写门票可退天数限制', trigger: 'blur'}
+                    // ],
+                    // refund_time: [
+                    //     {required: true, message: '请选择门票可退时间限制', trigger: 'blur'}
+                    // ],
                     park_mode: [
                         {required: true, message: '请填写包含项目', trigger: 'blur'}
                     ],

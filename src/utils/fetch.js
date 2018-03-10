@@ -33,7 +33,10 @@ service.interceptors.response.use(function (response) {
     if (err && err.response) {
         switch (err.response.status) {
             case 400: err.message = '请求错误(400)' ; break;
-            case 401: err.message = '未授权，请重新登录(401)'; break;
+            case 401:
+            window.location.href= 'http://58.240.82.126:8300/tbdpdas/login';
+            // err.message = '未授权，请重新登录(401)';
+            break;
             case 403:
                 err.message = '拒绝访问(403)';
                 this.$router.push({ path: '/401' })
