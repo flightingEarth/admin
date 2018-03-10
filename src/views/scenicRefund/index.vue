@@ -6,53 +6,64 @@
                 <span>搜索</span>
             </div>
             <div class="input">
-                <el-row>
+                <el-form :model="searchList" ref="searchForm">
+                <el-row class="grid-content">
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>订&nbsp;&nbsp;单&nbsp;&nbsp;号:</span>
-                            <el-input v-model="searchList.orderId" placeholder="请输入订单号"></el-input>
+                            <el-form-item label="订单号" prop="orderId">
+                                <el-input v-model="searchList.orderId" placeholder="请输入订单号"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class="mt bg-purple">
                             <span><i>|</i>门票名称:</span>
-                            <el-input v-model="searchList.ticketName" placeholder="请输入门票名称或门票编号"></el-input>
+                            <el-form-item label="门票名称" prop="ticketName">
+                                <el-input v-model="searchList.ticketName" placeholder="请输入门票名称"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <span><i>|</i>游&nbsp;&nbsp;玩&nbsp;&nbsp;人:</span>
-                            <el-input v-model="searchList.mobilePhone" placeholder="请输入游玩人手机号"></el-input>
+                        <div class="bg-purple">
+                            <span><i>|</i>手机号码:</span>
+                            <el-form-item label="手机号码" prop="mobilePhone">
+                                <el-input v-model="searchList.mobilePhone" placeholder="请输入游玩人手机号"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple">
+                        <div class=" bg-purple">
                             <span><i>|</i>购&nbsp;&nbsp;买&nbsp;&nbsp;者:</span>
-                            <el-input v-model="searchList.userName" placeholder="请输入购买者账号"></el-input>
+                            <el-form-item label="购买者" prop="userName">
+                                <el-input v-model="searchList.userName" placeholder="请输入购买者账号"></el-input>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="12">
-                        <div class="grid-content bg-purple double">
+                        <div class=" bg-purple double">
                             <span><i>|</i>审核状态:</span>
-                            <el-select v-model="searchList.status" placeholder="请选择">
-                                <el-option label="待审核" value="0"></el-option>
-                                <el-option label="审核通过" value="1"></el-option>
-                                <el-option label="审核未通过" value="2"></el-option>
-                            </el-select>
+                            <el-form-item label="购买者" prop="status">
+                                <el-select v-model="searchList.status" placeholder="请选择">
+                                    <el-option label="待审核" value="0"></el-option>
+                                    <el-option label="审核通过" value="1"></el-option>
+                                    <el-option label="审核未通过" value="2"></el-option>
+                                </el-select>
+                            </el-form-item>
                         </div>
                     </el-col>
 
                     <el-col :span="24">
                         <el-button type="primary" @click="handleSearch">搜索</el-button>
-                        <el-button>重置条件</el-button>
-                        <!--<el-button type="primary">导出</el-button>-->
+                        <el-button @click="resetForm('searchForm')">重置条件</el-button>
                     </el-col>
 
                 </el-row>
+                </el-form>
 
             </div>
         </div>
@@ -70,13 +81,7 @@
                     </el-form-item>
                 </div>
                 <div class="grid-content bg-purple-light shenhe">
-                    <span></i>手续费:</span>
-                    <el-form-item label="膳食安排" prop="refundFee">
-                        <el-input v-model="addForm.refundFee" type="number"></el-input>
-                    </el-form-item>
-                </div>
-                <div class="grid-content bg-purple-light shenhe">
-                    <span></i>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
+                    <span>备&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
                     <el-form-item label="活动形式" prop="note">
                         <el-input type="textarea" v-model="addForm.note"></el-input>
                     </el-form-item>
@@ -122,42 +127,41 @@
                 label="数量（张）"
                 align="center">
             </el-table-column>
-            <el-table-column
+            <!-- <el-table-column
                 prop="refundFee"
                 label="退款手续费"
                 align="center">
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
                 prop="refundAmount"
                 label="退款金额（元）"
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="refundReason"
-                label="备注"
+                prop="status"
+                label="状态"
                 align="center">
             </el-table-column>
             <el-table-column
                 prop="createdAt"
-                label="创建时间"
+                label="申请时间"
                 align="center">
             </el-table-column>
-            <el-table-column
+            <!-- <el-table-column
                 label="操作"
                 align="center">
                 <template slot-scope="scope">
-                    <el-button v-if="scope.row.status == 0" class="btn refuse" @click="hadleAudit(scope.row.orderId)">
+                    <el-button v-if="scope.row.status == 0" class="btn refuse" @click="handleAudit(scope.row.orderId)">
                         审核
                     </el-button>
                     <span v-if="scope.row.status == 1">审核成功</span>
                     <span v-if="scope.row.status == 2">审核未通过</span>
                 </template>
-            </el-table-column>
-
+            </el-table-column> -->
         </el-table>
         <el-pagination
             @current-change="handleCurrentChange"
-            :current-page="searchList.currentPage"
+            :current-page="searchList.page"
             :page-size="searchList.limit"
             layout="total, prev, pager, next"
             :total="total">
@@ -168,13 +172,16 @@
 <script>
     import {refundlList, auditWithdraw} from '@/api/scenicRefund'
     export default {
-        name: 'hotel',
+        name: 'scenicRefund',
         data() {
-
             return {
                 total: 0,
                 searchList: {
-                    currentPage: 1,
+                    orderId: '',
+                    ticketName: '',
+                    mobilePhone: '',
+                    userName: '',
+                    status: '',
                     limit: 20,
                     page: 1
                 },
@@ -184,9 +191,6 @@
                 rules: {
                     status: [
                         {required: true, message: '请选择审核结果', trigger: 'change'}
-                    ],
-                    refundFee: [
-                        {required: true, message: '请填写手续费', trigger: 'blur'}
                     ],
                     note: [
                         {required: true, message: '请填写备注', trigger: 'blur'}
@@ -216,7 +220,7 @@
             back(){
                 this.dialogFormVisible = false
             },
-            hadleAudit(id){
+            handleAudit(id){
                 this.dialogFormVisible = true;
                 this.orderId = id;
             },
@@ -251,6 +255,9 @@
                         return false
                     }
                 })
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             }
         }
     }
@@ -291,6 +298,9 @@
                 }
                 .grid-content {
                     margin-left: 20px;
+                    margin-top: 20px;
+                }
+                .mt {
                     margin-top: 20px;
                 }
                 .el-select {
