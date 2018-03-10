@@ -403,7 +403,7 @@
                         {required: true, message: '请填写门票的供应价', trigger: 'blur'}
                     ],
                     // delay_days: [
-                        {required: true, message: '请填写门票可推迟游玩的天数', trigger: 'blur'}
+                        // {required: true, message: '请填写门票可推迟游玩的天数', trigger: 'blur'}
                     // ],
                     refund_rule: [
                         {required: true, message: '请选择退票规则', trigger: 'change'}
