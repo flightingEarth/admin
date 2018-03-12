@@ -88,34 +88,7 @@
                             </label>
                         </div>
                         <div class="image-opt">
-                            <el-popover
-                                v-model="image.renameVisible"
-                                placement="bottom"
-                                width="200"
-                                title="修改名称"
-                                @show="handleChangeImageNameShow(image.name)"
-                                @hide="handleChangeImageNameHide"
-                                trigger="click">
-                                <el-input size="small" v-model="changeImageName"></el-input>
-                                <div class="popover-foot">
-                                    <el-button type="primary" size="small" @click="handleRenameImage(image)">确定
-                                    </el-button>
-                                    <el-button size="small" class="fr" @click="image.renameVisible = false">取消
-                                    </el-button>
-                                </div>
-                                <el-button type="text" size="mini" slot="reference">改名</el-button>
-                            </el-popover>
-
-                            <!--<el-popover-->
-                            <!--v-model="image.linkVisible"-->
-                            <!--placement="bottom"-->
-                            <!--width="400"-->
-                            <!--trigger="click">-->
-                            <!--<el-input placeholder="请输入内容" v-model="image.path" >-->
-                            <!--<el-button slot="append" @click="copyImageLink">复制</el-button>-->
-                            <!--</el-input>-->
-                            <!--<el-button type="text" size="mini" slot="reference">链接</el-button>-->
-                            <!--</el-popover>-->
+                          <el-button type="text" size="mini" @click="handleRenameImage(image)">改名</el-button>
 
                             <el-popover
                                 v-model="image.categoryVisible"
@@ -142,22 +115,7 @@
                                 <el-button type="text" size="mini" slot="reference">分组</el-button>
                             </el-popover>
 
-                            <el-popover
-                                v-model="image.deleteVisible"
-                                placement="bottom"
-                                width="200"
-                                title="确定删除该图片？"
-                                trigger="click">
-                                若删除，不会对目前已使用该图片的相关业务造成影响。
-                                <div class="popover-foot">
-                                    <el-button type="primary" size="small" @click="handleDeleteImage(image.id, index)">
-                                        确定
-                                    </el-button>
-                                    <el-button size="small" class="fr" @click="image.deleteVisible = false">取消
-                                    </el-button>
-                                </div>
-                                <el-button type="text" size="mini" slot="reference">删除</el-button>
-                            </el-popover>
+                            <el-button type="text" size="mini" @click="handleDeleteSinglePicture(image.id, index)">删除</el-button>
                         </div>
                     </el-col>
 
@@ -395,6 +353,18 @@
                     }
                 }, this)
             },
+            //删除单张图片
+            handleDeleteSinglePicture(id, index){
+              console.log(id, index);
+              this.$confirm('确定删除该图片？', '提示', {
+                 confirmButtonText: '确定',
+                 cancelButtonText: '取消',
+                 type: 'warning'
+               }).then(() => {
+                  this.handleDeleteImage(id, index)
+               }).catch(() => {
+               });
+            },
             //删除图片
             handleDeleteImage(id, index) {
                 let selected = []
@@ -446,14 +416,28 @@
             },
             //修改图片名称
             handleRenameImage(image) {
-                if (this.changeImageName) {
-                    let formData = Object.assign({'name': this.changeImageName})
+              let name = image.name
+              this.$prompt('请输入图片的新名称', '修改名称', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputValue: name,
+                    inputPattern: /\S/,
+                    inputErrorMessage: '图片名称不可为空'
+                  }).then(({ value }) => {
+                    let formData = Object.assign({'name': value})
                     updateImages(image.id, formData).then(response => {
-                        image.name = this.changeImageName
-                        image.renameVisible = false
+                        if (response.data) {
+                          image.name = value
+                        } else {
+                          this.$message({
+                            type: 'error',
+                            message: '图片名称修改失败'
+                          });
+                        }
                     })
-
-                }
+                  }).catch(() => {
+                  });
+              },
 
             },
             //修改图片名称前  弹窗的显示
