@@ -437,8 +437,6 @@
                     })
                   }).catch(() => {
                   });
-              },
-
             },
             //修改图片名称前  弹窗的显示
             handleChangeImageNameShow(name) {
