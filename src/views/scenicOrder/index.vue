@@ -72,8 +72,8 @@
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="searchList.currentPage"
-            :page-size="searchList.pageSize"
+            :current-page="searchList.page"
+            :page-size="searchList.limit"
             layout="total, prev, pager, next"
             :total="total">
         </el-pagination>
@@ -90,8 +90,8 @@
                     orderId: '',
                     scenicName: '',
                     mobilePhone: '',
-                    page: 1,
-                    pageSize: 10
+                    limit: 20,
+                    page: 1
                 },
                 number: 0,
                 liList: [
@@ -121,11 +121,11 @@
                 })
             },
             handleSizeChange(val) {
-                this.searchList.pageSize = val
+                this.searchList.page = val
                 this.getList()
             },
             handleCurrentChange(val) {
-                this.searchList.currentPage = val
+                this.searchList.page = val
                 this.getList()
             },
             handleClickLi(index) {

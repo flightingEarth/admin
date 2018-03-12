@@ -25,8 +25,7 @@
                         </div>
                     </el-col>
 
-
-                    <el-col :span="12">
+                    <!-- <el-col :span="12">
                         <div class="bg-purple double">
                             <span><i>|</i>是否退款:</span>
                             <el-form-item label="是否退款" prop="reviewStatus">
@@ -37,7 +36,7 @@
                                 </el-select>
                             </el-form-item>
                         </div>
-                    </el-col>
+                    </el-col> -->
 
                     <el-col :span="12">
                         <div class="bg-purple double">
